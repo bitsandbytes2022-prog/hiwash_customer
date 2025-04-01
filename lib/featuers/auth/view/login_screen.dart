@@ -1,0 +1,197 @@
+import 'dart:ui';
+
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/auth/view/auth_controller/auth_controller.dart';
+import 'package:hiwash_customer/widgets/components/app_bg.dart';
+import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
+import 'package:hiwash_customer/widgets/components/image_view.dart';
+import 'package:hiwash_customer/widgets/sized_box_extension.dart';
+
+import '../../../generated/assets.dart';
+import '../../../route/route_strings.dart';
+import '../../../styling/app_color.dart';
+import '../../../styling/app_font_anybody.dart';
+import '../../../widgets/components/bottom_sheet_bg.dart';
+import '../../../widgets/components/hi_wash_button.dart';
+import 'auth_widgets/bg_widget.dart';
+import 'auth_widgets/or_widget.dart';
+import 'auth_widgets/social_media.dart';
+
+class LoginScreen extends StatelessWidget {
+   LoginScreen({super.key});
+AuthController controller = Get.put(AuthController());
+  @override
+  Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+    return Scaffold(
+      body:AppBg(headingText: "kWelcomeBack".tr, subText: "kLogin".tr, child: Form(
+        key: formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            114.heightSizeBox,
+            HiWashTextField(hintText: "kEmail".tr,labelText:  "kEmail".tr,),
+            24.heightSizeBox,
+            HiWashTextField(hintText: "kPassword".tr,labelText: "kPassword".tr,
+
+              validator: (value) {
+                return controller.validateEmail(value);
+              },
+            ),
+            12.heightSizeBox,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed(RouteStrings.forgotPasswordScreen);
+                  },
+                  child: Text(
+                    "kForgotPassword".tr,
+                    style: w500_14a(color: AppColor.red),
+                  ),
+                ),
+              ],
+            ),
+            24.heightSizeBox,
+            HiWashButton(
+              text: "kLogIn".tr,
+              onTap: () {
+                if (formKey.currentState?.validate() ?? false) {
+
+
+                  Get.offNamed(RouteStrings.subscriptionScreen);
+
+                }
+              },
+            ),
+            54.heightSizeBox,
+
+            Center(
+              child: RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "kDontAaveAccount".tr,
+                      style: w400_12a(color: AppColor.c455A64),
+                    ),
+                    TextSpan(
+                      text:  "SIGNUP".tr,
+                      style: w500_14a(color: AppColor.red),
+                      recognizer:
+                      TapGestureRecognizer()
+                        ..onTap = () {
+                          Get.offAllNamed(RouteStrings.signUpScreen);
+                          print("Sign Up tapped");
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            52.heightSizeBox,
+            OrDivider(),
+            25.heightSizeBox,
+            SocialMedia(),
+            60.heightSizeBox,
+          ],
+        ),
+      ),)
+
+
+      /*Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BgWidget(imagePath: Assets.assetsImagesWelcomeBg),
+          Positioned(
+            bottom: 0,
+            child: Container(
+              child: BottomSheetBg(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        114.heightSizeBox,
+                        HiWashTextField(hintText: "kEmail".tr),
+                        24.heightSizeBox,
+                        HiWashTextField(hintText: "kPassword".tr,
+
+                          validator: (value) {
+                            return controller.validateEmail(value);
+                          },
+                        ),
+                        12.heightSizeBox,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: (){
+                                Get.toNamed(RouteStrings.forgotPasswordScreen);
+                              },
+                              child: Text(
+                                "kForgotPassword".tr,
+                                style: w500_14a(color: AppColor.red),
+                              ),
+                            ),
+                          ],
+                        ),
+                        24.heightSizeBox,
+                        HiWashButton(
+                          text: "kLogIn".tr,
+                          onTap: () {
+                            if (formKey.currentState?.validate() ?? false) {}
+                          },
+                        ),
+                        54.heightSizeBox,
+
+                        Center(
+                          child: RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: "kDontAaveAccount".tr,
+                                  style: w400_12a(color: AppColor.c455A64),
+                                ),
+                                TextSpan(
+                                  text:  "SIGNUP".tr,
+                                  style: w500_14a(color: AppColor.red),
+                                  recognizer:
+                                      TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Get.offAllNamed(RouteStrings.signUpScreen);
+                                          print("Sign Up tapped");
+                                        },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        52.heightSizeBox,
+                        OrDivider(),
+                        25.heightSizeBox,
+                        SocialMedia(),
+                        60.heightSizeBox,
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          //  Text("Skip"),
+        ],
+      ),*/
+    );
+  }
+}
