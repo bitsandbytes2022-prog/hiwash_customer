@@ -2,7 +2,7 @@
 class Assets {
   Assets._();
 
-  static const String assetsImagesWelcomeBg = 'assets/images/welcome_bg.svg';
+  static const String assetsImagesWelcomeBg = 'assets/images/welcome_bg.png';
   static const String iconsIcApple = 'assets/icons/ic_apple.png';
   static const String iconsIcArrow = 'assets/icons/ic_arrow.png';
   static const String iconsIcCheck = 'assets/icons/ic_check.png';
