@@ -12,6 +12,7 @@ class GetStartButton extends StatelessWidget {
   final String text;
   final double? width;
   final double? height;
+
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final double radius;
