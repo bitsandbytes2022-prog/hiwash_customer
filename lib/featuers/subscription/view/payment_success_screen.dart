@@ -20,7 +20,7 @@ class PaymentSuccessScreen extends StatelessWidget {
               Container(
                 height: 140,
                 decoration: const BoxDecoration(
-                  color: Color(0xFF002D9C), // Dark Blue Color
+                  color: Color(0xFF002D9C),
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(25),
                     bottomRight: Radius.circular(25),

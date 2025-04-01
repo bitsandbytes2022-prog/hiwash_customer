@@ -9,7 +9,7 @@ class LightTheme {
     scaffoldBackgroundColor: Colors.white,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColor.cEAE8E8),
     useMaterial3: true,
-    fontFamily: GoogleFonts.poppins().fontFamily,
+    fontFamily: GoogleFonts.anybody().fontFamily,
     inputDecorationTheme: InputDecorationTheme(
       fillColor: AppColor.white,
       filled: true,
