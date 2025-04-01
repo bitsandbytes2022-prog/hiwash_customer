@@ -183,6 +183,7 @@ class SubscriptionScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
+
                             );
                           } else if (controller.selectedIndex.value == 2) {
                             return Padding(
