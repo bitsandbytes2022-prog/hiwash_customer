@@ -4,7 +4,6 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/route/routes.dart';
 import 'package:hiwash_customer/styling/app_theam.dart';
-import 'package:hiwash_customer/test_screen.dart';
 
 import 'featuers/dashboard/view/dashbord_screen.dart';
 import 'language/languages.dart';

@@ -14,7 +14,7 @@ class LightTheme {
       fillColor: AppColor.white,
       filled: true,
       labelStyle: w400_13a(color: AppColor.c455A64),
-      hintStyle: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.4)),
+      hintStyle: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.40)),
       contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: AppColor.cEAE8E8.withOpacity(0.5)),
