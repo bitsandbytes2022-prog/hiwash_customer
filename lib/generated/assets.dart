@@ -27,6 +27,7 @@ class Assets {
   static const String imagesMapImage = 'assets/images/map_image.png';
   static const String imagesPaymet1 = 'assets/images/paymet_1.png';
   static const String imagesProfileBg = 'assets/images/profile_bg.png';
+  static const String authBg = 'assets/images/auth_bg.png';
   static const String imagesSplashBg = 'assets/images/splash_bg.png';
   static const String imagesSubscriptionBg = 'assets/images/subscription_bg.png';
   static const String imagesWelcomeBg = 'assets/images/welcome_bg.png';
