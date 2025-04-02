@@ -50,6 +50,7 @@ class OtpScreen extends StatelessWidget {
       body: AppBg(
         headingText: "kAuthentication".tr,
         subText:  "kOTP".tr,
+
         child: Column(
           children: [
             110.heightSizeBox,

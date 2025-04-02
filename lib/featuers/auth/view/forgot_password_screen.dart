@@ -17,44 +17,47 @@ class ForgotPasswordScreen extends StatelessWidget {
   ForgotPasswordScreen({super.key});
 
   AuthController controller =
-  Get.isRegistered<AuthController>()
-      ? Get.find<AuthController>()
-      : Get.put(AuthController());
+      Get.isRegistered<AuthController>()
+          ? Get.find<AuthController>()
+          : Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AppBg(
-          headingText: "kForgot".tr,
-          subText: 'kPassword'.tr,
-          child: Column(
-            children: [
-              110.heightSizeBox,
-              Text(
-                "kEnterRegisteredPhone".tr,
-                style: w700_22a(color: AppColor.c2C2A2A),
-              ),
-              14.heightSizeBox,
-              Text(
-                "kEnterThePhoneNumber".tr,
-                textAlign: TextAlign.center,
-                style: w400_12p(color: AppColor.c455A64),
-              ),
-              21.heightSizeBox,
-              HiWashTextField(
-                  hintText: "kEnterYourPhoneNumber".tr, labelText: "kPhone".tr),
-              184.heightSizeBox,
-              HiWashButton(
-                text:  "kRecoverPassword".tr,
-                onTap: () {
-                  Get.toNamed(RouteStrings.otpScreen);
-                },
-              ),
+      body: AppBg(
+        headingText: "kForgot".tr,
+        subText: 'kPassword'.tr,
 
-              60.heightSizeBox,
-            ],
-          ),
-        )
+        child: Column(
+          children: [
+            110.heightSizeBox,
+            Text(
+              "kEnterRegisteredPhone".tr,
+              style: w700_22a(color: AppColor.c2C2A2A),
+            ),
+            14.heightSizeBox,
+            Text(
+              "kEnterThePhoneNumber".tr,
+              textAlign: TextAlign.center,
+              style: w400_12p(color: AppColor.c455A64),
+            ),
+            21.heightSizeBox,
+            HiWashTextField(
+              hintText: "kEnterYourPhoneNumber".tr,
+              labelText: "kPhone".tr,
+            ),
+            184.heightSizeBox,
+            HiWashButton(
+              text: "kRecoverPassword".tr,
+              onTap: () {
+                Get.toNamed(RouteStrings.otpScreen);
+              },
+            ),
+
+            60.heightSizeBox,
+          ],
+        ),
+      ),
     );
   }
 }

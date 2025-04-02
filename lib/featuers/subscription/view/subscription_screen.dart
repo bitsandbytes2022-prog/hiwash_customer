@@ -16,6 +16,7 @@ import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import '../../../route/route_strings.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/app_dialog.dart';
+import '../../../widgets/components/offers_grid_container.dart';
 import '../widgets/offer_card.dart';
 import '../widgets/plan_container.dart';
 
@@ -58,10 +59,15 @@ class SubscriptionScreen extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                          size: 24,
+                        InkWell(
+                          onTap: (){
+                            Get.back();
+                          },
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 24,
+                          ),
                         ),
                         const SizedBox(width: 111),
                         Text(
@@ -88,9 +94,7 @@ class SubscriptionScreen extends StatelessWidget {
                         backgroundColor: Colors.white,
                         child: CircleAvatar(
                           radius: 28,
-                          backgroundImage: AssetImage(
-                           Assets.imagesDemoProfile
-                          ),
+                          backgroundImage: AssetImage(Assets.imagesDemoProfile),
                         ),
                       ),
                     ),
@@ -109,21 +113,7 @@ class SubscriptionScreen extends StatelessWidget {
                           "kChooseAPlan".tr,
                           style: w700_22a(color: AppColor.c2C2A2A),
                         ),
-                        8.heightSizeBox,
-                        GestureDetector(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AppDialog();
-                              },
-                            );
-                          },
-                          child: Text(
-                            "Choose ",
-                            style: w700_22a(color: AppColor.c2C2A2A),
-                          ),
-                        ),
+
                         8.heightSizeBox,
                         Text(
                           "kGetBenefitsAcrossAll".tr,
@@ -183,7 +173,6 @@ class SubscriptionScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-
                             );
                           } else if (controller.selectedIndex.value == 2) {
                             return Padding(
@@ -202,7 +191,9 @@ class SubscriptionScreen extends StatelessWidget {
                                     style: w500_12p(color: AppColor.c2C2A2A),
                                   ),
                                   10.heightSizeBox,
-                                  HiWashTextField(hintText:"kEnterCarNumber".tr),
+                                  HiWashTextField(
+                                    hintText: "kEnterCarNumber".tr,
+                                  ),
                                 ],
                               ),
                             );
@@ -212,10 +203,8 @@ class SubscriptionScreen extends StatelessWidget {
                         }),
                         30.heightSizeBox,
                         HiWashButton(
-                          onTap: (){
+                          onTap: () {
                             Get.toNamed(RouteStrings.enterCardDetailScreen);
-
-
                           },
                           text: "kSubscribe".tr,
                           margin: EdgeInsets.symmetric(horizontal: 30),
@@ -288,7 +277,7 @@ class SubscriptionScreen extends StatelessWidget {
                     height: 5,
                     width: 9,
                     color: AppColor.c2C2A2A,
-                  )
+                  ),
                   //Icon(Icons.arrow_drop_down, size: 20),
                 ],
               ),
@@ -308,50 +297,7 @@ class SubscriptionScreen extends StatelessWidget {
                 ),
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: AppColor.c5C6B72.withOpacity(0.5),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: Container(
-                            //margin: EdgeInsets.only(top: 10, right: 10),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColor.cF6DBE2,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              '0:1 HRS - 15 MINS',
-                              style: w500_7a(color: AppColor.cC31848),
-                            ),
-                          ),
-                        ),
-                        10.heightSizeBox,
-                        Image.asset(
-                          Assets.imagesDemo2,
-                          height: 87,
-                          fit: BoxFit.cover,
-                        ),
-                        10.heightSizeBox,
-                        Text(
-                          "Flat 30% off",
-                          style: w900_14a(color: AppColor.c2C2A2A),
-                        ),
-                      ],
-                    ),
-                  );
+                  return OffersGridContainer();
                 },
               ),
             ),

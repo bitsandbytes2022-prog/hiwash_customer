@@ -23,7 +23,7 @@ class WelcomeScreen extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
 
-          BgWidget(imagePath: Assets.assetsImagesWelcomeBg),
+          BgWidget(imagePath: Assets.imagesWelcomeBg),
 
           Positioned(
             bottom: 0,

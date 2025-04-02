@@ -40,10 +40,15 @@ class EnterCardDetailScreen extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: 24,
+                    InkWell(
+                      onTap: (){
+                        Get.back();
+                      },
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 24,
+                      ),
                     ),
                     const SizedBox(width: 111),
                     Text(

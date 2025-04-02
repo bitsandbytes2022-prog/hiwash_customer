@@ -11,12 +11,14 @@ class AppBg extends StatelessWidget {
   final String headingText;
   final String subText;
   final Widget child;
-
+  final bool showBackButton;
   const AppBg({
     super.key,
     required this.headingText,
     required this.subText,
     required this.child,
+
+   this.showBackButton = true,
   });
 
   @override
@@ -33,7 +35,7 @@ class AppBg extends StatelessWidget {
               left: 0,
               child: Column(
                 children: [
-                  ImageView(path: Assets.authBg,fit: BoxFit.contain,),
+                  ImageView(path: Assets.imagesAuthBg,fit: BoxFit.contain,),
                   Container(
                     width: Get.width,
                     height: double.maxFinite,
@@ -41,35 +43,35 @@ class AppBg extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 11, top: 50),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10),
+           GestureDetector(
+              onTap: (){
+                Get.back();
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: 11, top: 50),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    if (showBackButton)Padding(
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
                       child: Icon(
                         Icons.arrow_back_ios,
                         color: Colors.white,
                         size: 13,
                       ),
                     ),
-                  ),
-                  12.widthSizeBox,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      // Text(headingText, style: w400_22a(color: AppColor.white)),
-                      Text(subText, style: w800_24a(color: AppColor.white)),
-                    ],
-                  ),
-                ],
+                    12.widthSizeBox,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        // Text(headingText, style: w400_22a(color: AppColor.white)),
+                        Text(subText, style: w800_24a(color: AppColor.white)),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             SingleChildScrollView(

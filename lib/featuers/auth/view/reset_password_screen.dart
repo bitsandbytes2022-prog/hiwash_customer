@@ -26,6 +26,7 @@ class ResetPasswordScreen extends StatelessWidget {
       body: AppBg(
         headingText: "kReset".tr,
         subText: 'kPassword'.tr,
+
         child: Column(
           children: [
             110.heightSizeBox,

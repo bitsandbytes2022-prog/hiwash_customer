@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
-
 import '../../styling/app_font_anybody.dart';
 
 class HiWashButton extends StatelessWidget {
   final Color? color;
   final void Function()? onTap;
   final String text;
-  final double? width;
+  final double? width; // Keep this as nullable
   final double? height;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
@@ -31,7 +30,7 @@ class HiWashButton extends StatelessWidget {
     this.height = 50,
     this.isLoading = false,
     required this.text,
-    this.width,
+    this.width, // Keep this as nullable
     this.prefix,
   });
 
@@ -41,12 +40,12 @@ class HiWashButton extends StatelessWidget {
       onTap: isLoading ? null : onTap,
       borderRadius: BorderRadius.circular(radius),
       child: Container(
+        width: width ?? double.infinity, // Default to full width
         margin: margin ?? EdgeInsets.zero,
         padding: padding ?? EdgeInsets.symmetric(vertical: 13),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
           color: color ?? AppColor.blue,
-
           boxShadow: [
             BoxShadow(
               color: AppColor.blue.withOpacity(0.35),
@@ -56,10 +55,7 @@ class HiWashButton extends StatelessWidget {
             ),
           ],
         ),
-        width: width,
-        // height: height,
-        child:
-        isLoading
+        child: isLoading
             ? Center(
           child: SizedBox(
             width: width,
@@ -74,10 +70,9 @@ class HiWashButton extends StatelessWidget {
           ),
         )
             : Center(
-          child:   Text(
-              text,
-              style: textStyle ??
-                  w600_16a(color: AppColor.white)
+          child: Text(
+            text,
+            style: textStyle ?? w600_16a(color: AppColor.white),
           ),
         ),
       ),

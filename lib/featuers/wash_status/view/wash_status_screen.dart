@@ -255,7 +255,7 @@ class WashStatusScreen extends StatelessWidget {
                           : Stack(
                             children: [
                               ImageView(
-                                path: Assets.imagesMapImage,
+                                path: Assets.imagesImMap,
                                 width: Get.width,
                                 fit: BoxFit.cover,
                               ),
@@ -327,7 +327,7 @@ class WashStatusScreen extends StatelessWidget {
                                     ),
                                     Spacer(),
                                     servicesContainer(),
-                                    82.heightSizeBox
+                                    45.heightSizeBox
                                   ],
                                 ),
                               ),
@@ -358,50 +358,65 @@ class WashStatusScreen extends StatelessWidget {
         ],
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             clipBehavior: Clip.hardEdge,
             borderRadius: BorderRadius.circular(15),
             child: ImageView(
               path: Assets.imagesDemoProfile,
-              height: 70,
+              fit: BoxFit.fill,
+
               width: 70,
             ),
           ),
           15.widthSizeBox,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Elite car wash service",
-                style: w600_14a(color: AppColor.c2C2A2A),
-              ),
-              Text("09-May-2024", style: w400_12a(color: AppColor.c455A64)),
-              13.heightSizeBox,
-              Row(
-                children: [
-                  Icon(Icons.location_on),
-                  Text(
-                    "2847 Poling Farm Road",
-                    style: w400_10p(color: AppColor.c455A64),
-                  ),
-                ],
-              ),
-            ],
+          Expanded(
+            child: Column(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Elite car wash service",
+                      style: w600_14a(color: AppColor.c2C2A2A),
+                    ),
+                    Text("09-May-2024", style: w400_12a(color: AppColor.c455A64)),
+                    13.heightSizeBox,
+
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+
+                    ImageView(
+                        path: Assets.iconsIcPlaceMarker, height: 18, width: 18),
+
+                    Text(
+                      "2847 Poling Farm Road",
+                      style: w400_10p(color: AppColor.c455A64),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          Spacer(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              ImageView(path: Assets.iconsIcStar, height: 14, width: 14),
-              Text("4.5", style: w400_10a(color: AppColor.c455A64)),
-              25.heightSizeBox,
-              Text(
-                " Buy 1 Get 1 Free",
-                style: w500_10a(color: AppColor.cC31848),
-              ),
-            ],
+          Container(
+            width: 50,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                ImageView(path: Assets.iconsIcStar, height: 14, width: 14),
+                Text("4.5", style: w400_10a(color: AppColor.c455A64)),
+                Text(
+                  " Buy 1 Get 1 Free",
+                  style: w500_10a(color: AppColor.cC31848),
+                ),
+              ],
+            ),
           ),
         ],
       ),

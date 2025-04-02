@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../generated/assets.dart';
@@ -10,7 +10,9 @@ import '../../styling/app_font_anybody.dart';
 import '../../styling/app_font_poppins.dart';
 
 class AppDialog extends StatelessWidget {
-  const AppDialog({super.key});
+  Widget? child;
+  String? remainingText;
+   AppDialog({super.key, this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -21,58 +23,33 @@ class AppDialog extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Container(
-              margin: EdgeInsets.only(left: 16, right: 16, top: 30,bottom: 11),
-              width: Get.width,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20)
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 27),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
-                  Image.asset(Assets.iconsIcCrown, height: 25, width: 27),
-                  7.heightSizeBox,
-                  Text("Success!", style: w700_22a(color: AppColor.c2C2A2A)),
-
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Your payment is complete, and your ",
-                          style: w400_12p(color: AppColor.c455A64),
-                        ),
-                        TextSpan(
-                          text: "Unlimited Washes",
-                          style: w500_12p(color: AppColor.c2C2A2A),
-                        ),
-                        TextSpan(
-                          text: " plan is now activated.",
-                          style: w400_12p(color: AppColor.c455A64),
-                        ),
-                      ],
+            Stack(
+              alignment: Alignment.topRight,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 16, right: 16,bottom: 11),
+                  width: Get.width,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 27),
+                  child: child
+                ),
+                GestureDetector(
+                  onTap: (){
+                    Get.back();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(right: 18,top: 10),
+                    child: ImageView(
+                      path: Assets.iconsIcClose,
+                      height: 28,
+                      width: 32,
                     ),
                   ),
-                  15.heightSizeBox,
-                  Image.asset(Assets.imagesDemo, height: 215, width: 215),
-                  31.heightSizeBox,
-                  Text(
-                    "Congratulations!",
-                    style: w600_14a(color: AppColor.c2C2A2A),
-                  ),
-                  9.heightSizeBox,
-                  Text(
-                    "Scan to unlock weekly washes,\nexclusive offers, and amazing deals!",
-                    textAlign: TextAlign.center,
-                    style: w400_12p(color: AppColor.c455A64),
-                  ),
-                  46.heightSizeBox,
-                ],
-              ),
+                )
+              ],
             ),
 
             Container(
@@ -86,7 +63,7 @@ class AppDialog extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     Image.asset(Assets.imagesDialogBottom),
-                    Text("jmshfjgfuyweg jefghujyx")
+                    Text(remainingText??''.tr,style:w500_14p(color: AppColor.c2C2A2A) ,)
                   ],
                 )
 

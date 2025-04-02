@@ -29,6 +29,7 @@ class SignUpScreen extends StatelessWidget {
       body: AppBg(
         headingText: "kHello".tr,
         subText: "SignUp".tr,
+      showBackButton: false,
         child: Column(
           mainAxisSize: MainAxisSize.min,
 
@@ -71,7 +72,7 @@ class SignUpScreen extends StatelessWidget {
                 Get.toNamed(RouteStrings.subscriptionScreen);
               },
             ),
-            25.heightSizeBox,
+            45.heightSizeBox,
             Center(
               child: RichText(
                 text: TextSpan(
@@ -94,7 +95,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
             ),
-            40.heightSizeBox,
+            18.heightSizeBox,
             OrDivider(),
             18.heightSizeBox,
             SocialMedia(),

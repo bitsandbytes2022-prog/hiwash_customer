@@ -21,99 +21,107 @@ import 'auth_widgets/or_widget.dart';
 import 'auth_widgets/social_media.dart';
 
 class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
-AuthController controller = Get.put(AuthController());
+  LoginScreen({super.key});
+
+  AuthController controller = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     return Scaffold(
-      body:AppBg(headingText: "kWelcomeBack".tr, subText: "kLogin".tr, child: Form(
-        key: formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            114.heightSizeBox,
-            HiWashTextField(
-              keyboardType: TextInputType.emailAddress,
+      body: AppBg(
+        headingText: "kWelcomeBack".tr,
+        subText: "kLogin".tr,
+      showBackButton: false,
+        child: Form(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              114.heightSizeBox,
+              HiWashTextField(
+                keyboardType: TextInputType.emailAddress,
 
-              hintText: "kEmail".tr,labelText:  "kEmail".tr,
+                hintText: "kEmail".tr,
+                labelText: "kEmail".tr,
 
-              validator: (value) {
-                return controller.validateEmail(value);
-              },
-            ),
-            24.heightSizeBox,
-            HiWashTextField(
-              keyboardType: TextInputType.visiblePassword,
-              hintText: "kPassword".tr,labelText: "kPassword".tr,
+                validator: (value) {
+                  return controller.validateEmail(value);
+                },
+              ),
+              24.heightSizeBox,
+              HiWashTextField(
+                keyboardType: TextInputType.visiblePassword,
+                hintText: "kPassword".tr,
+                labelText: "kPassword".tr,
 
-              validator: (value) {
-                return controller.validatePassword(value);
-              },
-            ),
-            12.heightSizeBox,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: (){
-                    Get.toNamed(RouteStrings.forgotPasswordScreen);
-                  },
-                  child: Text(
-                    "kForgotPassword".tr,
-                    style: w500_14a(color: AppColor.red),
+                validator: (value) {
+                  return controller.validatePassword(value);
+                },
+              ),
+              12.heightSizeBox,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed(RouteStrings.forgotPasswordScreen);
+                    },
+                    child: Text(
+                      "kForgotPassword".tr,
+                      style: w500_14a(color: AppColor.red),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            24.heightSizeBox,
-            HiWashButton(
-              text: "kLogIn".tr,
-              onTap: () {
-                Get.offNamed(RouteStrings.dashboardScreen);
-              /*  if (formKey.currentState?.validate() ?? false) {
+                ],
+              ),
+              24.heightSizeBox,
+              HiWashButton(
+                text: "kLogIn".tr,
+                onTap: () {
+                  Get.offNamed(RouteStrings.dashboardScreen);
+                  /*  if (formKey.currentState?.validate() ?? false) {
 
 
                   Get.offNamed(RouteStrings.dashboardScreen);
 */
-               // }
-              },
-            ),
-            54.heightSizeBox,
+                  // }
+                },
+              ),
+              54.heightSizeBox,
 
-            Center(
-              child: RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: "kDontAaveAccount".tr,
-                      style: w400_12a(color: AppColor.c455A64),
-                    ),
-                    TextSpan(
-                      text:  "SIGNUP".tr,
-                      style: w500_14a(color: AppColor.red),
-                      recognizer:
-                      TapGestureRecognizer()
-                        ..onTap = () {
-                          Get.offAllNamed(RouteStrings.signUpScreen);
-                          print("Sign Up tapped");
-                        },
-                    ),
-                  ],
+              Center(
+                child: RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: "kDontAaveAccount".tr,
+                        style: w400_12a(color: AppColor.c455A64),
+                      ),
+                      TextSpan(
+                        text: "SIGNUP".tr,
+                        style: w500_14a(color: AppColor.red),
+                        recognizer:
+                            TapGestureRecognizer()
+                              ..onTap = () {
+                                Get.offAllNamed(RouteStrings.signUpScreen);
+                                print("Sign Up tapped");
+                              },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            52.heightSizeBox,
-            OrDivider(),
-            25.heightSizeBox,
-            SocialMedia(),
-            60.heightSizeBox,
-          ],
+              18.heightSizeBox,
+              OrDivider(),
+              18.heightSizeBox,
+              SocialMedia(),
+              60.heightSizeBox,
+            ],
+          ),
         ),
-      ),)
-
+      ),
 
       /*Stack(
         alignment: Alignment.bottomCenter,
