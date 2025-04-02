@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../../generated/assets.dart';
@@ -100,7 +101,6 @@ class DrawerScreen extends StatelessWidget {
           onTap: () => Get.to(TermsAndConditionScreen()),
           title: 'Terms and Condition',
         ),
-
         Spacer(),
         GestureDetector(
           onTap: () {
@@ -129,90 +129,130 @@ class DrawerScreen extends StatelessWidget {
 
   /// **Dynamic Section UI**
   Widget sectionDrawerUI(String section) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        50.heightSizeBox,
-
-        Align(
-          alignment: Alignment.topLeft,
-          child: GestureDetector
-            (
-
-              onTap: (){
-                drawerController.toggleDrawer('');
-                print("object");
-              },
-              child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ImageView(
-                                      path: Assets.iconsIcArrow,
-                                      height: 15,
-                                      width: 15,
-                                      color: AppColor.blue,
-                                    ),
-                      10.widthSizeBox,
-                      Text(section, style: w500_14a(color: AppColor.c2C2A2A)),
-                    ],
-                  ))),
-        ),
-       // Text(section, style: w600_18p(color: AppColor.c142293)),
-        20.heightSizeBox,
-
-        /// **Content According to Section**
-        if (section == 'My Account') myAccountUI(),
-        if (section == 'Subscription Plan') subscriptionPlanUI(),
-        if (section == 'Theme') themeUI(),
-        if (section == 'Language') languageUI(),
-        if (section == 'Privacy Settings') privacySettingsUI(),
-
-        20.heightSizeBox,
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          40.heightSizeBox,
+      
+          Align(
+            alignment: Alignment.topLeft,
+            child: GestureDetector
+              (
+      
+                onTap: (){
+                  drawerController.toggleDrawer('');
+                  print("object");
+                },
+                child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ImageView(
+                                        path: Assets.iconsIcArrow,
+                                        height: 15,
+                                        width: 15,
+                                        color: AppColor.blue,
+                                      ),
+                        10.widthSizeBox,
+                        Text(section, style: w500_14a(color: AppColor.c2C2A2A)),
+                      ],
+                    ))),
+          ),
+         // Text(section, style: w600_18p(color: AppColor.c142293)),
+         // 20.heightSizeBox,
+      
+          /// **Content According to Section**
+          if (section == 'My Account') myAccountUI(),
+          if (section == 'Subscription Plan') subscriptionPlanUI(),
+          if (section == 'Theme') themeUI(),
+          if (section == 'Language') languageUI(),
+          if (section == 'Privacy Settings') privacySettingsUI(),
+      
+          20.heightSizeBox,
+        ],
+      ),
     );
   }
 
   /// **Individual Section UIs**
   Widget myAccountUI() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        50.heightSizeBox,
-        CircleAvatar(
-          radius: 50,
-          backgroundImage: AssetImage(Assets.imagesDemoProfile),
-        ),
-        Text("Ibrahim Bafqia"),
-        4.heightSizeBox,
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            children: [
-              TextSpan(text: 'Your ', style: w400_12p(color: AppColor.c455A64)),
-              TextSpan(
-                text: 'Unlimited Washes',
-                style: w600_14p(color: AppColor.cC31848),
-              ),
-              TextSpan(
-                text: ' pack\nexpiring in ',
-                style: w400_12p(color: AppColor.c455A64),
-              ),
-              TextSpan(
-                text: '15-oct-2025',
-                style: w600_12p(color: AppColor.c455A64),
-              ),
-            ],
+    return Padding(
+      padding:  EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage(Assets.imagesDemoProfile),
           ),
-        ),
-        39.heightSizeBox,
-      ],
+          Text("Ibrahim Bafqia"),
+          4.heightSizeBox,
+          RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              children: [
+                TextSpan(text: 'Your ', style: w400_12p(color: AppColor.c455A64)),
+                TextSpan(
+                  text: 'Unlimited Washes',
+                  style: w600_14p(color: AppColor.cC31848),
+                ),
+                TextSpan(
+                  text: ' pack\nexpiring in ',
+                  style: w400_12p(color: AppColor.c455A64),
+                ),
+                TextSpan(
+                  text: '15-oct-2025',
+                  style: w600_12p(color: AppColor.c455A64),
+                ),
+              ],
+            ),
+          ),
+          31.heightSizeBox,
+          HiWashTextField(hintText: "Name",labelText: "Name",),
+          20.heightSizeBox,
+          HiWashTextField(hintText: "Email",labelText: "Email",),
+          20.heightSizeBox,
+          HiWashTextField(hintText: "Phone",labelText: "Phone",),
+          20.heightSizeBox,
+          HiWashTextField(hintText: "Address",labelText: "Address",maxLines: 4,),
+          20.heightSizeBox,
+          HiWashTextField(hintText: "Car Number",labelText: "Car Number",),
+          20.heightSizeBox,
+
+        ],
+      ),
     );
   }
 
   Widget subscriptionPlanUI() {
-    return Text("Your current plan: Premium\nExpires on: 15-Oct-2025");
+    return Padding(
+      padding:  EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage(Assets.imagesDemoProfile),
+          ),
+          10.heightSizeBox,
+          Text("Ibrahim Bafqia"),
+         10.heightSizeBox,
+          HiWashTextField(hintText: "Name",labelText: "Name",),
+          20.heightSizeBox,
+          HiWashTextField(hintText: "Email",labelText: "Email",),
+          20.heightSizeBox,
+          HiWashTextField(hintText: "Phone",labelText: "Phone",),
+          20.heightSizeBox,
+          HiWashTextField(hintText: "Address",labelText: "Address",maxLines:20,),
+          20.heightSizeBox,
+          HiWashTextField(hintText: "Car Number",labelText: "Car Number",),
+          20.heightSizeBox,
+
+        ],
+      ),
+    );
   }
 
   Widget themeUI() {
