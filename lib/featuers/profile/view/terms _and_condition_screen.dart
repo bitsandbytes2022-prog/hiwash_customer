@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
-import '../../generated/assets.dart';
-import '../../styling/app_color.dart';
-import '../../styling/app_font_anybody.dart';
-import '../../widgets/components/image_view.dart';
+import '../../../generated/assets.dart';
+import '../../../styling/app_color.dart';
+import '../../../styling/app_font_anybody.dart';
+import '../../../widgets/components/image_view.dart';
 
 class TermsAndConditionScreen extends StatelessWidget {
   const TermsAndConditionScreen({super.key});

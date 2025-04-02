@@ -20,6 +20,7 @@ class Assets {
   static const String iconsIcClose = 'assets/icons/ic_close.png';
   static const String iconsIcCrown = 'assets/icons/ic_crown.png';
   static const String iconsIcDropDown = 'assets/icons/ic_drop_down.png';
+  static const String iconsIcEdit = 'assets/icons/ic_edit.png';
   static const String iconsIcForward = 'assets/icons/ic_forward.png';
   static const String iconsIcGoogle = 'assets/icons/ic_google.png';
   static const String iconsIcLogout = 'assets/icons/ic_logout.png';
