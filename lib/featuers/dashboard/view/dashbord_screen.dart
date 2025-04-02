@@ -25,6 +25,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     Center(child: Text('Profile', style: TextStyle(fontSize: 30))),
   ];
 
+
   void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;
