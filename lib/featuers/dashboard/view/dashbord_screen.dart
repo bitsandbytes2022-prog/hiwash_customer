@@ -1,8 +1,11 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/route/route_strings.dart';
+import 'package:hiwash_customer/styling/app_color.dart';
 
-import '../../../styling/app_color.dart';
+import '../../wash_status/view/wash_status_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   DashboardScreen({super.key});
@@ -17,87 +20,68 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> _pages = [
     Center(child: Text('Home', style: TextStyle(fontSize: 30))),
     Center(child: Text('Reward', style: TextStyle(fontSize: 30))),
-    Center(child: Text('Main', style: TextStyle(fontSize: 30))),
+    WashStatusScreen(),
     Center(child: Text('Notification', style: TextStyle(fontSize: 30))),
     Center(child: Text('Profile', style: TextStyle(fontSize: 30))),
   ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomRight,
-            colors: [
-              AppColor.c001B51,
-              AppColor.c0D100C,
-            ],
-          ),
+          color: Colors.white,
         ),
         child: _pages[_currentIndex],
       ),
-      bottomNavigationBar: CurvedNavigationBar(
-        index: _currentIndex,
-        height: 60.0,
-        items: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.home, size: 30, color: AppColor.c001B51),
-              if (_currentIndex != 0)
-                Text('Home', style: TextStyle(color: AppColor.c001B51)),
-            ],
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: _currentIndex == 0 ? Icon(Icons.home, color: Colors.white) : Icon(Icons.home_outlined, color: Colors.white),
+            label: '',
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.search, size: 30, color: AppColor.c001B51),
-              if (_currentIndex != 1)
-                Text('Search', style: TextStyle(color: AppColor.c001B51)),
-            ],
+          BottomNavigationBarItem(
+            icon: _currentIndex == 1 ? Icon(Icons.star, color: Colors.white) : Icon(Icons.star_border, color: Colors.white),
+            label: '',
           ),
-          // Center Icon
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: IconButton(
-              icon: Icon(Icons.add, size: 40, color: AppColor.white),
-              onPressed: () {
-                // Handle center button press
-                // You can navigate to a new screen or perform an action
-              },
-            ),
+          BottomNavigationBarItem(
+            icon: _currentIndex == 2 ? Icon(Icons.add, color: Colors.white) : Icon(Icons.add_outlined, color: Colors.white),
+            label: '',
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.notifications, size: 30, color: AppColor.c001B51),
-              if (_currentIndex != 3)
-                Text('Notification', style: TextStyle(color: AppColor.c001B51)),
-            ],
+          BottomNavigationBarItem(
+            icon: _currentIndex == 3 ? Icon(Icons.notifications, color: Colors.white) : Icon(Icons.notifications_outlined, color: Colors.white),
+            label: '',
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.person, size: 30, color: AppColor.c001B51),
-              if (_currentIndex != 4)
-                Text('Profile', style: TextStyle(color: AppColor.c001B51)),
-            ],
+          BottomNavigationBarItem(
+            icon: _currentIndex == 4 ? Icon(Icons.person, color: Colors.white) : Icon(Icons.person_outline, color: Colors.white),
+            label: '', // Empty label
           ),
         ],
-        color: AppColor.cF6F7FF,
-        buttonBackgroundColor: AppColor.c001B51, // Change this to your desired color
-        backgroundColor: AppColor.c0D100C,
-        animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 300),
-        onTap: (index) {
-          if (index != 2) { // Prevent changing index when center button is tapped
-            setState(() {
-              _currentIndex = index;
-            });
-          }
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+        backgroundColor: AppColor.blue,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColor.red,
+        elevation: 6,
+        shape: RoundedRectangleBorder(
+
+          borderRadius: BorderRadius.all(Radius.circular(100)),
+        ),
+        onPressed: () {
+Get.toNamed(RouteStrings.washStatusScreen);
         },
+        child: Icon(Icons.add, color: Colors.white),
       ),
     );
   }

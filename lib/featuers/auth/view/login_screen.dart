@@ -35,12 +35,22 @@ AuthController controller = Get.put(AuthController());
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             114.heightSizeBox,
-            HiWashTextField(hintText: "kEmail".tr,labelText:  "kEmail".tr,),
-            24.heightSizeBox,
-            HiWashTextField(hintText: "kPassword".tr,labelText: "kPassword".tr,
+            HiWashTextField(
+              keyboardType: TextInputType.emailAddress,
+
+              hintText: "kEmail".tr,labelText:  "kEmail".tr,
 
               validator: (value) {
                 return controller.validateEmail(value);
+              },
+            ),
+            24.heightSizeBox,
+            HiWashTextField(
+              keyboardType: TextInputType.visiblePassword,
+              hintText: "kPassword".tr,labelText: "kPassword".tr,
+
+              validator: (value) {
+                return controller.validatePassword(value);
               },
             ),
             12.heightSizeBox,
@@ -62,12 +72,13 @@ AuthController controller = Get.put(AuthController());
             HiWashButton(
               text: "kLogIn".tr,
               onTap: () {
-                if (formKey.currentState?.validate() ?? false) {
+                Get.offNamed(RouteStrings.dashboardScreen);
+              /*  if (formKey.currentState?.validate() ?? false) {
 
 
                   Get.offNamed(RouteStrings.dashboardScreen);
-
-                }
+*/
+               // }
               },
             ),
             54.heightSizeBox,
