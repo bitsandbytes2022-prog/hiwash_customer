@@ -2,6 +2,15 @@
 class Assets {
   Assets._();
 
+  static const String anybodyW100 = 'assets/fonts/anybody/w100.ttf';
+  static const String anybodyW200 = 'assets/fonts/anybody/w200.ttf';
+  static const String anybodyW300 = 'assets/fonts/anybody/w300.ttf';
+  static const String anybodyW400 = 'assets/fonts/anybody/w400.ttf';
+  static const String anybodyW500 = 'assets/fonts/anybody/w500.ttf';
+  static const String anybodyW600 = 'assets/fonts/anybody/w600.ttf';
+  static const String anybodyW700 = 'assets/fonts/anybody/w700.ttf';
+  static const String anybodyW800 = 'assets/fonts/anybody/w800.ttf';
+  static const String anybodyW900 = 'assets/fonts/anybody/w900.ttf';
   static const String assetsImagesWelcomeBg = 'assets/images/welcome_bg.png';
   static const String iconsIcApple = 'assets/icons/ic_apple.png';
   static const String iconsIcArrow = 'assets/icons/ic_arrow.png';

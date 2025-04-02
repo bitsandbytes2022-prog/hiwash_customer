@@ -65,7 +65,7 @@ AuthController controller = Get.put(AuthController());
                 if (formKey.currentState?.validate() ?? false) {
 
 
-                  Get.offNamed(RouteStrings.subscriptionScreen);
+                  Get.offNamed(RouteStrings.dashboardScreen);
 
                 }
               },

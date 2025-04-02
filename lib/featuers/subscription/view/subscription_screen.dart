@@ -183,6 +183,7 @@ class SubscriptionScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
+
                             );
                           } else if (controller.selectedIndex.value == 2) {
                             return Padding(
@@ -201,7 +202,7 @@ class SubscriptionScreen extends StatelessWidget {
                                     style: w500_12p(color: AppColor.c2C2A2A),
                                   ),
                                   10.heightSizeBox,
-                                  HiWashTextField(hintText:  "kEnterCarNumber".tr),
+                                  HiWashTextField(hintText:"kEnterCarNumber".tr),
                                 ],
                               ),
                             );

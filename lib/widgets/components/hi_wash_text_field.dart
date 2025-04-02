@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_poppins.dart';
-import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 class HiWashTextField extends StatelessWidget {
   final String? labelText;
@@ -85,8 +85,8 @@ class HiWashTextField extends StatelessWidget {
 
         errorMaxLines: 3,
         errorStyle: w400_14p(color: AppColor.c455A64),
-        hintText: hintText,
-        labelText: labelText,
+        hintText: hintText.tr,
+        labelText: labelText?.tr,
 
         labelStyle: w400_14p(color: AppColor.c455A64),
         hintMaxLines: 2,

@@ -12,7 +12,7 @@ import '../featuers/auth/view/login_screen.dart';
 import '../featuers/auth/view/otp_screen.dart';
 import '../featuers/auth/view/sign_up_screen.dart';
 import '../featuers/auth/view/welcome_screen.dart';
-import '../featuers/subscription/view/curve.dart';
+import '../featuers/dashboard/view/dashbord_screen.dart';
 import 'route_strings.dart';
 
 class Routes {
@@ -67,6 +67,11 @@ class Routes {
   GetPage(
   name: RouteStrings.washStatusScreen,
   page: () => WashStatusScreen(),
+ ),
+
+    GetPage(
+  name: RouteStrings.dashboardScreen,
+  page: () => DashboardScreen(),
  ),
 
 
