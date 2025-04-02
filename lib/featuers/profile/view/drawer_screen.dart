@@ -21,22 +21,24 @@ class DrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Drawer(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.horizontal(right: Radius.circular(15)),
+    return Scaffold(
+      body: Obx(() {
+        return Drawer(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.horizontal(right: Radius.circular(15)),
+            ),
+            child:
+                drawerController.currentDrawerSection.value == ''
+                    ? mainDrawerUI()
+                    : sectionDrawerUI(
+                      drawerController.currentDrawerSection.value,
+                    ),
           ),
-          child:
-              drawerController.currentDrawerSection.value == ''
-                  ? mainDrawerUI()
-                  : sectionDrawerUI(
-                    drawerController.currentDrawerSection.value,
-                  ),
-        ),
-      );
-    });
+        );
+      }),
+    );
   }
 
   /// **Main Drawer**
@@ -75,11 +77,11 @@ class DrawerScreen extends StatelessWidget {
 
         /// **Drawer Options**
         rowWidget(
-          onTap: () => drawerController.toggleDrawer(''),
+          onTap: () => drawerController.toggleDrawer('My Account'),
           title: 'My Account',
         ),
         rowWidget(
-          onTap: () => drawerController.toggleDrawer(''),
+          onTap: () => drawerController.toggleDrawer('Subscription Plan'),
           title: 'Subscription Plan',
         ),
         rowWidget(
