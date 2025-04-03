@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../../generated/assets.dart';
@@ -57,19 +58,52 @@ class ChatScreen extends StatelessWidget {
           ),
           30.heightSizeBox,
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Text("data"),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView(
+                    reverse: true,
+                    children: [
+                      rightChatBox(),
+                      20.heightSizeBox,
+                      leftChatBox(),
 
-                  leftChatBox(),
-                  20.heightSizeBox,
-                  rightChatBox(),
 
-                ],
-              ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 16,right: 16),
+                  decoration: BoxDecoration(
+                    color: AppColor.white
+                        ,
+                    borderRadius: BorderRadius.circular(35),
+                    border: Border.all(color: AppColor.c142293.withOpacity(0.20)),
+                    boxShadow: [BoxShadow(
+                      color: AppColor.c142293.withOpacity(0.10),
+                      spreadRadius: 0,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    )]
+                  ),
+                  child: HiWashTextField(
+                    
+                    fillColor: AppColor.white,
+                    
+
+                    hintText: "Type a message...",
+                    suffixIcon: ImageView(
+                      path: Assets.iconsIcSent,
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                ),
+                60.heightSizeBox
+              ],
             ),
           ),
+
         ],
       ),
     );
@@ -93,7 +127,7 @@ class ChatScreen extends StatelessWidget {
               ),
 
               padding: EdgeInsets.only(top: 6, bottom: 3, left: 15, right: 13),
-              height: 200,
+
               width: Get.width,
               child: Text("kDemoText".tr),
             ),
@@ -114,7 +148,7 @@ class ChatScreen extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(bottom: 10, left: 10),
                     child: Text(
-                      "data",
+                      "2m ago",
                       style: w400_10p(color: AppColor.c455A64),
                     ),
                   ),
@@ -145,7 +179,7 @@ class ChatScreen extends StatelessWidget {
               ),
 
               padding: EdgeInsets.only(top: 6, bottom: 14, left: 15, right: 13),
-              height: 200,
+
               width: Get.width,
               child: Text("kDemoText".tr),
             ),
@@ -157,7 +191,7 @@ class ChatScreen extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(right: 10, top: 10),
                     child: Text(
-                      "data",
+                      "1m ago ",
                       style: w400_10p(color: AppColor.c455A64),
                     ),
                   ),
@@ -165,6 +199,7 @@ class ChatScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(35),
                       border: Border.all(color: AppColor.c101D8D),
+                      
                     ),
                     child: CircleAvatar(
                       radius: 15,

@@ -29,6 +29,7 @@ class HiWashTextField extends StatelessWidget {
   final EdgeInsets? padding;
   final bool? isVisible;
   final String obscuringCharacter;
+  final Color? fillColor;
 
   const HiWashTextField({
     super.key,
@@ -55,7 +56,7 @@ class HiWashTextField extends StatelessWidget {
     this.maxLength,
     this.textCapitalization,
     this.isVisible = true,
-    this.obscuringCharacter = '*'  });
+    this.obscuringCharacter = '*', this.fillColor  });
 
   @override
   Widget build(BuildContext context) {
@@ -84,12 +85,13 @@ class HiWashTextField extends StatelessWidget {
       decoration: InputDecoration(
 
         errorMaxLines: 3,
-        errorStyle: w400_14p(color: AppColor.c455A64),
+        errorStyle: w400_11p(color: AppColor.cC41948),
         hintText: hintText.tr,
         labelText: labelText?.tr,
 
         labelStyle: w400_14p(color: AppColor.c455A64),
         hintMaxLines: 2,
+        fillColor: fillColor??AppColor.cF6F7FF,
         hintStyle: w400_14p(color: AppColor.c455A64),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,

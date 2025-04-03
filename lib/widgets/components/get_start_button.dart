@@ -19,6 +19,7 @@ class GetStartButton extends StatelessWidget {
   final bool isLoading;
   final TextStyle? textStyle;
   final Color? borderColor;
+  final Color? boxShadowColor;
   final Color? textColor;
   final bool? isIconSuffix;
 
@@ -36,7 +37,7 @@ class GetStartButton extends StatelessWidget {
     this.isLoading = false,
     required this.text,
     this.width,
-    this.isIconSuffix = false,
+    this.isIconSuffix = false, this.boxShadowColor,
   });
 
   @override
@@ -52,7 +53,7 @@ class GetStartButton extends StatelessWidget {
           color: color ?? AppColor.blue,
           boxShadow: [
             BoxShadow(
-              color: AppColor.blue.withOpacity(0.35),
+              color: boxShadowColor??AppColor.blue.withOpacity(0.35),
               blurRadius: 15,
               spreadRadius: 10,
               offset: Offset(0, 3),

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
+import 'package:hiwash_customer/widgets/components/doted_line.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
@@ -92,9 +93,9 @@ class RewardScreen extends StatelessWidget {
       ),
     );
   }
+
   Widget exclusiveOffer() {
     return Stack(
-
       children: [
         Container(
           margin: EdgeInsets.only(bottom: 10),
@@ -132,9 +133,9 @@ class RewardScreen extends StatelessWidget {
               ),
               13.heightSizeBox,
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   showModalBottomSheet(
-                  context: Get.context!,
+                    context: Get.context!,
                     isScrollControlled: true,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -143,7 +144,9 @@ class RewardScreen extends StatelessWidget {
                       ),
                     ),
                     builder: (BuildContext context) {
-                      return CustomBottomSheet(child: viewOfferDetailBottomSheet());
+                      return CustomBottomSheet(
+                        child: bottomSheet(),
+                      );
                     },
                   );
                 },
@@ -169,23 +172,14 @@ class RewardScreen extends StatelessWidget {
         ),
 
         Positioned(
-
           bottom: 0,
           left: 0,
-          child: ImageView(
-            height: 68,
-            width: 100,
-            path: Assets.imagesCar,
-          ),
+          child: ImageView(height: 68, width: 100, path: Assets.imagesCar),
         ),
         Positioned(
           bottom: 15,
           right: 0,
-          child: ImageView(
-            height: 71,
-            width: 87,
-            path: Assets.imagesJackpot,
-          ),
+          child: ImageView(height: 71, width: 87, path: Assets.imagesJackpot),
         ),
       ],
     );
@@ -203,7 +197,7 @@ class RewardScreen extends StatelessWidget {
             ),
 
             17.heightSizeBox,
-           OfferCardWidget(),
+            OfferCardWidget(),
             Container(
               width: 158,
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
@@ -245,8 +239,8 @@ class RewardScreen extends StatelessWidget {
                 itemCount: 10,
                 itemBuilder: (context, index) {
                   return InkWell(
-                      onTap: (){
-                   /*     showModalBottomSheet(
+                    onTap: () {
+                           showModalBottomSheet(
                           context: Get.context!,
                           isScrollControlled: true,
                           shape: RoundedRectangleBorder(
@@ -256,13 +250,13 @@ class RewardScreen extends StatelessWidget {
                             ),
                           ),
                           builder: (BuildContext context) {
-                            return CustomBottomSheet(child: viewOfferDetail());
+                            return CustomBottomSheet(child: viewOfferDetailBottomSheet());
                           },
-                        );*/
-                      },
+                        );
+                    },
 
-
-                      child: OffersGridContainer());
+                    child: OffersGridContainer(),
+                  );
                 },
               ),
             ),
@@ -272,125 +266,222 @@ class RewardScreen extends StatelessWidget {
     );
   }
 
+  Widget viewOfferDetailBottomSheet() {
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            13.heightSizeBox,
+            Container(
+              margin: EdgeInsets.only(left: 16, right: 16),
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: ImageView(path: Assets.imagesImOffer),
+                  ),
+                  Positioned(
+                    top: 35,
+                    left: 14,
+        
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DateTimeWidget(
+                          title: "0:3 HRS - 34 MINS",
+                          textColor: AppColor.c000000,
+                          color: AppColor.white.withOpacity(0.5),
+                        ),
+                        13.heightSizeBox,
+                        Text(
+                          "Special Offers\nFREE Accessories",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.rumRaisin(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 24,
+                            color: AppColor.white,
+                          ),
+                        ),
+                        /* Text("FREE Accessories",
+                           textAlign: TextAlign.center,
+                           style: GoogleFonts.rumRaisin(
+                             fontWeight: FontWeight.w400,
+                             fontSize: 24,
+                             color: AppColor.white,
+                           ),
+                         ),*/
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    right: 16,
+                    top: 17,
+        
+                    child: Container(
+                      padding: EdgeInsets.only(top: 0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(2),
+                        child: ImageView(
+                          path: Assets.imagesDemo,
+                          height: 40,
+                          width: 40,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            profileView(),
+            DashedLineWidget(),
+            15.heightSizeBox,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Exclusive Products.",
+                    style: w700_16a(color: AppColor.c2C2A2A),
+                  ),
+        
+                  Text(
+                    "Special Offers & FREE Coupons – Grab Yours Today!",
+                    style: w400_12p(),
+                  ),
+                  29.heightSizeBox,
+                  Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 60),
+                        child: ImageView(
+                          path: Assets.imagesCloudBg,
+                          height: 96,
+                          width: Get.width,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        // left: Get.width/2,
+                        child: ImageView(
+                          path: Assets.imagesImQr,
+                          height: 157,
+                          width: 157,
+                        ),
+                      ),
+                    ],
+                  ),
+        
+                  13.heightSizeBox,
+                  Align(
+                      alignment: Alignment.center
+                      ,
+                      child: ImageView(path: Assets.imagesTimeView,height: 37,)),
+                  28.heightSizeBox,
+                  Container(
+                    decoration: BoxDecoration(
+        
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: AppColor.c142293.withOpacity(0.20)
+                      )
+                    ),
+                                    child:Column(
+                                      children: [
+                                        5.heightSizeBox,
+                                        dropDownRow( "Offer Details",(){}),
+                                        Divider(
+                                          color: AppColor.c142293.withOpacity(0.20),
+                                        ),
+                                        dropDownRow( "How to redeem",(){}),
+                                        Divider(
+                                          color: AppColor.c142293.withOpacity(0.20),
+                                        ),
+                                        dropDownRow( "Terms & conditions",(){
 
-  Widget  viewOfferDetailBottomSheet(){
-    return Column(
-      children: [
-        13.heightSizeBox,
-     Container(
-     margin: EdgeInsets.only(left: 16,right: 16),
-       child: Stack(
-         children: [
-           ClipRRect(
-             borderRadius: BorderRadius.circular(15),
-             child: ImageView(
-               path: Assets.imagesImOffer,
-             ),
-           ),
-           Positioned(
-             top: 35,
-             left: 14,
 
-             child: Column(
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 DateTimeWidget(title: "0:3 HRS - 34 MINS",textColor: AppColor.c000000,
-                   color:AppColor.white.withOpacity(0.5),),
-                 13.heightSizeBox,
-                 Text("Special Offers\nFREE Accessories",
-                   textAlign: TextAlign.center,
-                   style: GoogleFonts.rumRaisin(
-                     fontWeight: FontWeight.w400,
-                     fontSize: 24,
-                     color: AppColor.white,
-                   ),
-                 ),
-                 /* Text("FREE Accessories",
-                       textAlign: TextAlign.center,
-                       style: GoogleFonts.rumRaisin(
-                         fontWeight: FontWeight.w400,
-                         fontSize: 24,
-                         color: AppColor.white,
-                       ),
-                     ),*/
-               ],
-             ),
-           ),
-           Positioned(
-             right: 16,
-             top: 17,
 
-             child: Container(
-               padding:  EdgeInsets.only(top: 0),
-               child: ClipRRect(
-                 borderRadius: BorderRadius.circular(2),
-                 child: ImageView(
-                   path: Assets.imagesDemo,
-                   height: 40,
-                   width: 40,
-                 ),
-               ),
-             ),
-           )
+                                          
+                                        }),
+                                       5.heightSizeBox
 
-         ],
-       ),
-     ),
-        servicesContainer()
-      ],
+                                      ],
+                                    )
+                  ),
+                  21.heightSizeBox,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ImageView(
+                        height: 18,
+                        width: 18,
+                        path:  Assets.imagesIcInfo,
+                      ),
+                      3.widthSizeBox,
+                      Text("Report an issue",style: w600_12a(color: AppColor.c142293),),
+                    ],
+                  ),
+                  60.heightSizeBox
+        
+        
+        
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
-  Widget servicesContainer() {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColor.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.c142293.withOpacity(0.15),
-            spreadRadius: 0,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
+
+  Widget profileView() {
+    return Padding(
+      padding: EdgeInsets.only(left: 16, top: 14, right: 16, bottom: 15),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            clipBehavior: Clip.hardEdge,
-            borderRadius: BorderRadius.circular(15),
-            child: ImageView(
-              path: Assets.imagesDemoProfile,
-              fit: BoxFit.fill,
+          Container(
+            padding: EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              border: Border.all(color: AppColor.c142293.withOpacity(0.2)),
+            ),
+            child: ClipRRect(
+              clipBehavior: Clip.hardEdge,
+              borderRadius: BorderRadius.circular(100),
+              child: ImageView(
+                path: Assets.imagesDemoProfile,
+                fit: BoxFit.fill,
 
-              width: 70,
+                width: 40,
+                height: 40,
+              ),
             ),
           ),
-          15.widthSizeBox,
-          Expanded(
+          5.widthSizeBox,
+          Container(
+            width: 200,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Elite car wash service",
-                      style: w600_14a(color: AppColor.c2C2A2A),
-                    ),
-                    Text("09-May-2024", style: w400_12a(color: AppColor.c455A64)),
-                    13.heightSizeBox,
-
-                  ],
+                Text(
+                  "Elite car wash service Elite car wash service Elite car wash service",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: w600_14a(color: AppColor.c2C2A2A),
                 ),
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-
                     ImageView(
-                        path: Assets.iconsIcPlaceMarker, height: 18, width: 18),
+                      path: Assets.iconsIcPlaceMarker,
+                      height: 18,
+                      width: 18,
+                    ),
 
                     Text(
                       "2847 Poling Farm Road",
@@ -401,6 +492,7 @@ class RewardScreen extends StatelessWidget {
               ],
             ),
           ),
+          Spacer(),
           Container(
             width: 50,
             child: Column(
@@ -408,13 +500,37 @@ class RewardScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 ImageView(path: Assets.iconsIcStar, height: 14, width: 14),
-                Text("4.5", style: w400_10a(color: AppColor.c455A64)),
-                Text("Buy 1 Get 1 Free",
-                  style: w500_10a(color: AppColor.cC31848),
-                ),
+                Text("4.5(200)", style: w400_10a(color: AppColor.c455A64)),
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+  Widget dropDownRow(String?title,VoidCallback onTap){
+    return  GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          10.heightSizeBox,
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(title??"".tr,style: w600_12a(color: AppColor.c2C2A2A),),
+                ImageView(
+                  path: Assets.iconsIcDropDown,
+                  height: 6,
+                  width: 10,
+                ),
+
+
+              ],
+            ),
+          ),
+          10.heightSizeBox,
         ],
       ),
     );

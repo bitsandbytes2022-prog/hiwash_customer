@@ -5,7 +5,7 @@ class Languages extends Translations {
   // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
     'en_US': {
-"kDemoText":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+"kDemoText":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       "kWelcomeToThe": "Welcome to the",
       "kHiWASH":"HI WASH",
       "kWeComeToYouTo":"We come to you to\nwash your car...!!",

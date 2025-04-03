@@ -4,10 +4,15 @@ import 'package:hiwash_customer/styling/app_color.dart';
 
 
 class DashedLineWidget extends StatelessWidget {
+  final double? width;
+  final double? height;
+
+  const DashedLineWidget({Key? key, this.width, this.height}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      size: Size(double.infinity, 0),
+      size: Size(width ?? double.infinity, height ?? 0),
       painter: DashedLinePainter(),
     );
   }

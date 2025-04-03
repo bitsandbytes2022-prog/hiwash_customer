@@ -33,7 +33,7 @@ class PlansContainer extends StatelessWidget {
           ],
           borderRadius: BorderRadius.circular(15),
           border: Border.all(
-            color:controller.selectedIndex.value==index?AppColor.cC31848.withOpacity(0.25): AppColor.c5C6B72.withOpacity(0.6),
+            color:controller.selectedIndex.value==index?AppColor.cC31848: AppColor.c5C6B72.withOpacity(0.6),
           ),
         ),
         child: Row(
@@ -87,14 +87,14 @@ class PlansContainer extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 border: Border.all(
-                  color:controller.selectedIndex.value == index ? Colors.green : AppColor.c5C6B72.withOpacity(0.4),
+                  color:controller.selectedIndex.value == index ? AppColor.c1F9D70 : AppColor.c5C6B72.withOpacity(0.4),
                 ),
               ),
               child: Container(
                 padding: EdgeInsets.all(5),
                 margin: EdgeInsets.all(2),
                 decoration: BoxDecoration(
-                  color: controller.selectedIndex.value == index ? Colors.green : AppColor.c5C6B72.withOpacity(0.4),
+                  color: controller.selectedIndex.value == index ? AppColor.c1F9D70 : AppColor.c5C6B72.withOpacity(0.4),
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Image.asset(
