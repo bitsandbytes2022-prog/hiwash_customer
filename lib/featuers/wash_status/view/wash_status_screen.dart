@@ -411,8 +411,7 @@ class WashStatusScreen extends StatelessWidget {
               children: [
                 ImageView(path: Assets.iconsIcStar, height: 14, width: 14),
                 Text("4.5", style: w400_10a(color: AppColor.c455A64)),
-                Text(
-                  " Buy 1 Get 1 Free",
+                Text("Buy 1 Get 1 Free",
                   style: w500_10a(color: AppColor.cC31848),
                 ),
               ],

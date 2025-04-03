@@ -84,7 +84,7 @@ class AppBg extends StatelessWidget {
                       width: Get.width,
                       padding: EdgeInsets.symmetric(horizontal: 30),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: AppColor.cF6F7FF,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(30),
                           topLeft: Radius.circular(30),
