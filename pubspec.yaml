@@ -42,8 +42,6 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   pinput: ^5.0.1
   lottie: ^3.3.1
-  stylish_bottom_bar: ^0.1.5
-  curved_navigation_bar: ^1.0.6
 
 
 dev_dependencies:
