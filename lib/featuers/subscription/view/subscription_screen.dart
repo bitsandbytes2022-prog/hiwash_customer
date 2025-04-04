@@ -286,14 +286,16 @@ class SubscriptionScreen extends StatelessWidget {
             SizedBox(
               height: Get.height,
               child: GridView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                shrinkWrap: true,
+
+                padding: EdgeInsets.only(left: 10,right: 10,bottom: 200),
                 clipBehavior: Clip.hardEdge,
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
-                  mainAxisExtent: Get.height * 0.22,
+                 // mainAxisExtent: Get.height * 0.22,
                 ),
                 itemCount: 10,
                 itemBuilder: (context, index) {
@@ -301,7 +303,9 @@ class SubscriptionScreen extends StatelessWidget {
                 },
               ),
             ),
+            60.heightSizeBox
           ],
+
         ),
       ),
     );

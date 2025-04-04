@@ -4,12 +4,58 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
 
-
-
+@override
+  void onInit() {
+  pageController.addListener(() {
+    onPageChanged(pageController.page!.round());
+  });
+    super.onInit();
+  }
+/// login controller
   TextEditingController emailPhoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  ///signup controller
+  TextEditingController nameController = TextEditingController(text: 'Abcd');
+  TextEditingController emailSignUpController = TextEditingController(text: 'abcd@gmail.com');
+  TextEditingController phoneController = TextEditingController(text: "9087654321");
+  TextEditingController passwordSignupController = TextEditingController(text: "Abcd@123");
+  TextEditingController cpasswordSignupController = TextEditingController(text: "Abcd@123");
+
+/// forgot password controller
+  TextEditingController phoneForgotController = TextEditingController();
+
+/// rest password controller
+TextEditingController passwordRestController = TextEditingController();
+TextEditingController cPasswordRestController = TextEditingController();
+
+
   bool obscurePassword = true;
   bool obscureConfirmPassword = true;
+
+  /// Welcome screen
+  final PageController pageController = PageController();
+
+
+var currentPage = 0.obs;
+
+
+void onPageChanged(int index) {
+  currentPage.value = index;
+}
+  final List<String> headingText = [
+    "kEcoCleanWalletGreen","Wash & Win!","kEcoCleanWalletGreen",
+
+
+  ]; final List<String> subText = [
+    "kExclusiveDealsWithEvery",
+    "Get your car washed weekly at 100+ locations with exclusive offers.Missed washes still deducted.",
+    "kExclusiveDealsWithEvery",
+
+  ];
+
+
+
+
 
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {

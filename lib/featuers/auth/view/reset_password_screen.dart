@@ -15,55 +15,69 @@ import 'auth_controller/auth_controller.dart';
 class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({super.key});
 
-  AuthController controller =
+  AuthController authController =
       Get.isRegistered<AuthController>()
           ? Get.find<AuthController>()
           : Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       body: AppBg(
         headingText: "kReset".tr,
         subText: 'kPassword'.tr,
 
-        child: Column(
-          children: [
-            110.heightSizeBox,
-            Text(
-              "kCreateNewPassword".tr,
-              style: w700_22a(color: AppColor.c2C2A2A),
-            ),
-            14.heightSizeBox,
-            Text(
-              "kYourNewPasswordMust".tr,
-              textAlign: TextAlign.center,
-              style: w400_12p(color: AppColor.c455A64),
-            ),
-            23.heightSizeBox,
-            HiWashTextField(
-              hintText: "kPassword".tr,
-              labelText: "kPassword".tr,
-              obscure: true,
-              obscuringCharacter: '*',
-            ),
-            12.heightSizeBox,
-            HiWashTextField(
-              hintText: "kConfirmPassword".tr,
-              labelText: "kConfirmPassword".tr,
-              obscure: true,
-              obscuringCharacter: '*',
-            ),
-            105.heightSizeBox,
-            HiWashButton(
-              text: 'kSave'.tr,
-              onTap: () {
-                Get.offNamedUntil(RouteStrings.loginScreen, (route) => false);
-              },
-            ),
-
-            60.heightSizeBox,
-          ],
+        child: Form(
+          child: Column(
+            children: [
+              110.heightSizeBox,
+              Text(
+                "kCreateNewPassword".tr,
+                style: w700_22a(color: AppColor.c2C2A2A),
+              ),
+              14.heightSizeBox,
+              Text(
+                "kYourNewPasswordMust".tr,
+                textAlign: TextAlign.center,
+                style: w400_12p(color: AppColor.c455A64),
+              ),
+              23.heightSizeBox,
+              HiWashTextField(
+                controller: authController.passwordRestController,
+                hintText: "kPassword".tr,
+                labelText: "kPassword".tr,
+                obscure: true,
+                obscuringCharacter: '*',
+                validator: (value){
+                  return authController.validatePassword(value);
+                },
+              ),
+              20.heightSizeBox,
+              HiWashTextField(
+                controller: authController.cPasswordRestController,
+                hintText: "kConfirmPassword".tr,
+                labelText: "kConfirmPassword".tr,
+                obscure: true,
+                obscuringCharacter: '*',
+                validator: (value){
+                  return authController.validate(value);
+                },
+              ),
+              105.heightSizeBox,
+              HiWashButton(
+                text: 'kSave'.tr,
+                onTap: () {
+                  if (_formKey.currentState?.validate() ?? false){
+                    Get.offNamedUntil(RouteStrings.loginScreen, (route) => false);
+          
+                  }
+                },
+              ),
+          
+              60.heightSizeBox,
+            ],
+          ),
         ),
       ),
     );

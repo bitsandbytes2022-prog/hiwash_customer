@@ -11,6 +11,7 @@ import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/doted_line.dart';
 import '../../../widgets/components/doted_vertical_line.dart';
 import '../../../widgets/components/image_view.dart';
+import '../../../widgets/components/profile_image_container.dart';
 import '../../profile/view/chat_screen.dart';
 import '../controller/notification_controller.dart';
 
@@ -289,7 +290,8 @@ class NotificationScreen extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            ProfileImageContainer(),
+           /* Container(
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
                 color: AppColor.white.withOpacity(0.1),
@@ -310,7 +312,7 @@ class NotificationScreen extends StatelessWidget {
                   radius: 20,
                 ),
               ),
-            ),
+            ),*/
             9.widthSizeBox,
             Expanded(
               child: Column(

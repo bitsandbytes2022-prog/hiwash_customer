@@ -10,11 +10,12 @@ import '../../../route/route_strings.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
 import '../../../widgets/components/bottom_sheet_bg.dart';
+import 'auth_controller/auth_controller.dart';
 
 class WelcomeScreen extends StatelessWidget {
   WelcomeScreen({super.key});
 
-  final PageController _pageController = PageController();
+  final AuthController authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,60 +23,85 @@ class WelcomeScreen extends StatelessWidget {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-
           BgWidget(imagePath: Assets.imagesWelcomeBg),
 
           Positioned(
             bottom: 0,
-            child: Container(
-              child: BottomSheetBg(
-                child:
-                Column(
-                mainAxisSize: MainAxisSize.min,
+            child:
+            GetBuilder<AuthController>(
+            builder: (controller) {
+              return
+              Container(
+                child: BottomSheetBg(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      80.heightSizeBox,
 
-                children: [
-                  110.heightSizeBox,
-                  Text(
-                    "kEcoCleanWalletGreen".tr,
-                    style: w700_22a(color: AppColor.c2C2A2A),
-                  ),
-                  15.heightSizeBox,
-                  Text(
-                    "kExclusiveDealsWithEvery".tr,
-                    textAlign: TextAlign.center,
-                    style: w400_16a(color: AppColor.c455A64),
-                  ),
-                  33.heightSizeBox,
-                  SmoothPageIndicator(
-                    controller: _pageController, // PageController
-                    count: 3, // Number of dots
-                    effect: ExpandingDotsEffect(
-                      activeDotColor: AppColor.red,
-                      dotColor: Colors.grey,
-                      dotHeight: 8,
-                      dotWidth: 8,
-                      spacing: 4,
-                    ),
-                  ),
-                  30.heightSizeBox,
-                  GetStartButton(width: 193, text: "kGetStarted".tr, onTap: () {
-                    Get.toNamed(RouteStrings.signUpScreen);
 
-                  }),
-                  15.heightSizeBox,
-                  Text(
-                    "kTermsAndConditions".tr,
-                    style: w500_14a(color: AppColor.red),
+                      Container(
+                        height: 200,
+                        child: PageView.builder(
+                          controller: authController.pageController,
+                          onPageChanged: (index) {
+                            authController.onPageChanged(index);
+                          },
+                          itemCount: authController.headingText.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  authController.headingText[index].tr,
+                                  style: w700_22a(color: AppColor.c2C2A2A),
+                                ),
+                                15.heightSizeBox,
+                                Text(
+                                  authController.subText[index].tr,
+                                  textAlign: TextAlign.center,
+                                  style: w400_16a(color: AppColor.c455A64),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+
+                      // Smooth Page Indicator
+                      SmoothPageIndicator(
+                        controller: authController.pageController,
+                        count: authController.headingText.length,
+                        effect: ExpandingDotsEffect(
+                          activeDotColor: AppColor.red,
+                          dotColor: Colors.grey,
+                          dotHeight: 8,
+                          dotWidth: 8,
+                          spacing: 4,
+                        ),
+                      ),
+                      30.heightSizeBox,
+
+                      GetStartButton(
+                        width: 193,
+                        text: "kGetStarted".tr,
+                        onTap: () {
+                          Get.toNamed(RouteStrings.signUpScreen);
+                        },
+                      ),
+                      15.heightSizeBox,
+                      Text(
+                        "kTermsAndConditions".tr,
+                        style: w500_14a(color: AppColor.red),
+                      ),
+                      60.heightSizeBox,
+                    ],
                   ),
-                  60.heightSizeBox,
-                ],
-              ),
-
-              ),
-            ),
-          )
-
-          //  Text("Skip"),
+                ),
+              );
+            },
+         )
+          ),
         ],
       ),
     );

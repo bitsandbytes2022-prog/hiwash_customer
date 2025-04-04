@@ -74,7 +74,7 @@ class Languages extends Translations {
       "kSubscribe": "subscribe",
       "kCarRegistrationNumber": "Car Registration Number Required for",
       "kUnlimitedWashesPlan": "Unlimited Washes Plan",
-      "EnterCarNumber": "Enter car number",
+      "kEnterCarNumber": "Enter car number",
       "WashYourCarOnce":
           "Wash your car once a week. If the car is not washed within the week, it will not be compensated and will still be deducted.",
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:lottie/lottie.dart';
@@ -14,7 +15,7 @@ class PaymentSuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Column(
+      body: Column(
         children: [
           Stack(
             clipBehavior: Clip.none,
@@ -28,16 +29,12 @@ class PaymentSuccessScreen extends StatelessWidget {
                     bottomRight: Radius.circular(25),
                   ),
                 ),
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 40,
-                ),
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 40),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Get.back();
                       },
                       child: const Icon(
@@ -71,9 +68,7 @@ class PaymentSuccessScreen extends StatelessWidget {
                     backgroundColor: Colors.white,
                     child: CircleAvatar(
                       radius: 28,
-                      backgroundImage: AssetImage(
-                          Assets.imagesDemoProfile
-                      ),
+                      backgroundImage: AssetImage(Assets.imagesDemoProfile),
                     ),
                   ),
                 ),
@@ -101,17 +96,20 @@ class PaymentSuccessScreen extends StatelessWidget {
                     children: [
                       19.heightSizeBox,
                       QrDialog(),
-                  20.heightSizeBox,
-                      GetStartButton(text: "kGetStarted"),
+                      20.heightSizeBox,
+                      GetStartButton(text: "kGetStarted",
+
+                      onTap: (){
+                        Get.toNamed(RouteStrings.dashboardScreen);
+                      },
+                      ),
                     ],
                   ),
-
-
                 ],
               ),
             ),
-          )
-        /*  Expanded(
+          ),
+          /*  Expanded(
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),

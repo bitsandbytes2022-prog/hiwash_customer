@@ -25,19 +25,27 @@ class WashStatusScreen extends StatelessWidget {
             children: [
               Container(
                 height: 140,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF002D9C),
+                decoration: BoxDecoration(
+                  color: AppColor.blue,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(25),
                     bottomRight: Radius.circular(25),
                   ),
                 ),
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 40),
+                padding:  EdgeInsets.only(left: 16, right: 16, top: 40),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(Icons.arrow_back, color: Colors.white, size: 24),
-                    const SizedBox(width: 111),
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: ImageView(
+                        path: Assets.iconsIcArrow,
+                        height: 15,
+                        width: 15,
+                      )
+                    ),
                     Text(
                       "Hello, Ibrahim",
                       style: TextStyle(
@@ -46,6 +54,7 @@ class WashStatusScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    Text("")
                   ],
                 ),
               ),
@@ -260,7 +269,7 @@ class WashStatusScreen extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                               Padding(
-                                padding:  EdgeInsets.symmetric(horizontal: 15),
+                                padding: EdgeInsets.symmetric(horizontal: 15),
                                 child: Column(
                                   children: [
                                     15.heightSizeBox,
@@ -290,12 +299,10 @@ class WashStatusScreen extends StatelessWidget {
                                             padding: EdgeInsets.all(10),
 
                                             decoration: BoxDecoration(
-                                              color: AppColor.cC41948.withOpacity(
-                                                0.1,
-                                              ),
-                                              borderRadius: BorderRadius.circular(
-                                                15,
-                                              ),
+                                              color: AppColor.cC41948
+                                                  .withOpacity(0.1),
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
                                             ),
                                             child: ImageView(
                                               path: Assets.iconsMyLocation,
@@ -305,7 +312,8 @@ class WashStatusScreen extends StatelessWidget {
                                           ),
                                           10.widthSizeBox,
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 "kYourCurrentLocation".tr,
@@ -321,13 +329,12 @@ class WashStatusScreen extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-
                                         ],
                                       ),
                                     ),
                                     Spacer(),
                                     servicesContainer(),
-                                    45.heightSizeBox
+                                    45.heightSizeBox,
                                   ],
                                 ),
                               ),
@@ -381,18 +388,22 @@ class WashStatusScreen extends StatelessWidget {
                       "Elite car wash service",
                       style: w600_14a(color: AppColor.c2C2A2A),
                     ),
-                    Text("09-May-2024", style: w400_12a(color: AppColor.c455A64)),
+                    Text(
+                      "09-May-2024",
+                      style: w400_12a(color: AppColor.c455A64),
+                    ),
                     13.heightSizeBox,
-
                   ],
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-
                     ImageView(
-                        path: Assets.iconsIcPlaceMarker, height: 18, width: 18),
+                      path: Assets.iconsIcPlaceMarker,
+                      height: 18,
+                      width: 18,
+                    ),
 
                     Text(
                       "2847 Poling Farm Road",
@@ -411,7 +422,8 @@ class WashStatusScreen extends StatelessWidget {
               children: [
                 ImageView(path: Assets.iconsIcStar, height: 14, width: 14),
                 Text("4.5", style: w400_10a(color: AppColor.c455A64)),
-                Text("Buy 1 Get 1 Free",
+                Text(
+                  "Buy 1 Get 1 Free",
                   style: w500_10a(color: AppColor.cC31848),
                 ),
               ],

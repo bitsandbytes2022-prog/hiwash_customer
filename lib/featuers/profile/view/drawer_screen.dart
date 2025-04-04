@@ -140,7 +140,7 @@ class DrawerScreen extends StatelessWidget {
             title: 'Subscription Plan', image: Assets.iconsIcSubscriptionPlan,
           ),
           drawerRowWidget(
-             onTap: () => Get.to(ChatScreen()),
+             onTap: () => drawerController.toggleDrawer('Theme'),
             title: 'Theme', image: Assets.iconsIcTheme,
           ),
           drawerRowWidget(

@@ -6,7 +6,7 @@ class HiWashButton extends StatelessWidget {
   final Color? color;
   final void Function()? onTap;
   final String text;
-  final double? width; // Keep this as nullable
+  final double? width;
   final double? height;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
@@ -16,6 +16,7 @@ class HiWashButton extends StatelessWidget {
   final Color? borderColor;
   final Color? textColor;
   final Widget? prefix;
+  final Color? boxShadowColor;
 
   const HiWashButton({
     super.key,
@@ -30,8 +31,9 @@ class HiWashButton extends StatelessWidget {
     this.height = 50,
     this.isLoading = false,
     required this.text,
-    this.width, // Keep this as nullable
+    this.width,
     this.prefix,
+    this.boxShadowColor,
   });
 
   @override
@@ -40,7 +42,7 @@ class HiWashButton extends StatelessWidget {
       onTap: isLoading ? null : onTap,
       borderRadius: BorderRadius.circular(radius),
       child: Container(
-        width: width ?? double.infinity, // Default to full width
+        width: width ?? double.infinity,
         margin: margin ?? EdgeInsets.zero,
         padding: padding ?? EdgeInsets.symmetric(vertical: 13),
         decoration: BoxDecoration(
@@ -48,7 +50,7 @@ class HiWashButton extends StatelessWidget {
           color: color ?? AppColor.blue,
           boxShadow: [
             BoxShadow(
-              color: AppColor.blue.withOpacity(0.35),
+              color:  boxShadowColor??AppColor.blue.withOpacity(0.35),
               blurRadius: 15,
               spreadRadius: 10,
               offset: Offset(0, 3),
