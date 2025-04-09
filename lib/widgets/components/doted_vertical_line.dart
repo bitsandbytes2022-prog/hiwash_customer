@@ -2,34 +2,35 @@ import 'package:flutter/material.dart';
 
 import '../../styling/app_color.dart';
 
-class DottedLine extends StatelessWidget {
+class DotedVerticalLine extends StatelessWidget {
+  final double? width;
+  final double? height;
+
+  const DotedVerticalLine({Key? key, this.width, this.height}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      size: Size(0, double.infinity),
-      painter: DottedLinePainter(),
+      size: Size(width ?? 1, height ??100),
+      painter: DashedLineVerticalPainter(),
     );
   }
 }
 
-class DottedLinePainter extends CustomPainter {
+class DashedLineVerticalPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
+    double dashHeight = 5, dashSpace = 3, startY = 0;
     final paint = Paint()
-      ..color = AppColor.c142293.withOpacity(0.10)
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.fill;
+      ..color = Colors.grey[300]!
+      ..strokeWidth = size.width;
 
-    double dotSpacing = 4.0;
-    double dotSize = 1.0;
-
-    for (double y = 0; y < size.height; y += dotSpacing + dotSize) {
-      canvas.drawCircle(Offset(0, y), dotSize, paint);
+    while (startY < size.height) {
+      canvas.drawLine(Offset(0, startY), Offset(0, startY + dashHeight), paint);
+      startY += dashHeight + dashSpace;
     }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

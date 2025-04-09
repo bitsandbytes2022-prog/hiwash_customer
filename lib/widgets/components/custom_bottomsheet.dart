@@ -4,6 +4,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
+import '../../generated/assets.dart';
+import 'image_view.dart';
+
 class CustomBottomSheet extends StatelessWidget {
   final Widget child;
 
@@ -22,19 +25,37 @@ class CustomBottomSheet extends StatelessWidget {
           topRight: Radius.circular(30),
         ),
       ),
-      child: Column(
-        //  mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
+        alignment: Alignment.topRight,
         children: [
-          13.heightSizeBox,
-          Container(
-            height: 4,
-            width: 45,
-            decoration: BoxDecoration(
-              color: AppColor.c455A64,
-              borderRadius: BorderRadius.circular(2),
+          Column(
+            //  mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              20.heightSizeBox,
+              Container(
+                height: 4,
+                width: 45,
+                decoration: BoxDecoration(
+                  color: AppColor.c455A64,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              child,
+            ],
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: Container(
+              padding: EdgeInsets.only(right: 10, top: 6),
+              child: ImageView(
+                path: Assets.iconsIcClose,
+                height: 28,
+                width: 32,
+              ),
             ),
           ),
-          child,
         ],
       ),
     );

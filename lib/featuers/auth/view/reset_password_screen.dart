@@ -29,6 +29,7 @@ class ResetPasswordScreen extends StatelessWidget {
         subText: 'kPassword'.tr,
 
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               110.heightSizeBox,
@@ -49,7 +50,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 labelText: "kPassword".tr,
                 obscure: true,
                 obscuringCharacter: '*',
-                validator: (value){
+                validator: (value) {
                   return authController.validatePassword(value);
                 },
               ),
@@ -60,21 +61,31 @@ class ResetPasswordScreen extends StatelessWidget {
                 labelText: "kConfirmPassword".tr,
                 obscure: true,
                 obscuringCharacter: '*',
-                validator: (value){
-                  return authController.validate(value);
+                validator: (value) {
+                  String? errorMessage = authController.validateConfirmPassword(
+                    value,
+                  );
+                  if (value != null &&
+                      value.isNotEmpty &&
+                      value != authController.passwordRestController.text) {
+                    errorMessage = "Passwords do not match";
+                  }
+                  return errorMessage;
                 },
               ),
               105.heightSizeBox,
               HiWashButton(
                 text: 'kSave'.tr,
                 onTap: () {
-                  if (_formKey.currentState?.validate() ?? false){
-                    Get.offNamedUntil(RouteStrings.loginScreen, (route) => false);
-          
+                  if (_formKey.currentState?.validate() ?? false) {
+                    Get.offNamedUntil(
+                      RouteStrings.loginScreen,
+                      (route) => false,
+                    );
                   }
                 },
               ),
-          
+
               60.heightSizeBox,
             ],
           ),

@@ -44,6 +44,8 @@ dependencies:
   lottie: ^3.3.1
   stylish_bottom_bar: ^0.1.5
   curved_navigation_bar: ^1.0.6
+  animated_bottom_navigation_bar: ^1.4.0
+  flutter_rating_stars: ^1.1.0
 
 
 dev_dependencies:

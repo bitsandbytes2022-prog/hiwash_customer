@@ -12,8 +12,8 @@ class AuthController extends GetxController {
     super.onInit();
   }
 /// login controller
-  TextEditingController emailPhoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController(text: "abcd@gmail.com");
+  TextEditingController passwordController = TextEditingController(text: "Abcd@123");
   ///signup controller
   TextEditingController nameController = TextEditingController(text: 'Abcd');
   TextEditingController emailSignUpController = TextEditingController(text: 'abcd@gmail.com');
@@ -113,7 +113,12 @@ void onPageChanged(int index) {
     }
     return null;
   }
-
+String? validateConfirmPassword(String? value) {
+  if (value == null || value.isEmpty) {
+    return "Confirm password is required";
+  }
+  return null;
+}
   String? validate(String? value) {
     if (value == null || value.isEmpty) {
       return "Required";

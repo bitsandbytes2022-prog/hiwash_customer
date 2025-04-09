@@ -12,9 +12,12 @@ import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../../styling/app_font_poppins.dart';
+import '../../../widgets/components/app_dialog.dart';
 import '../../../widgets/components/custom_bottomsheet.dart';
 import '../../../widgets/components/date_time_widget.dart';
+import '../../../widgets/components/doted_horizontal_line.dart';
 import '../../../widgets/components/offers_grid_container.dart';
+import '../../../widgets/components/profile_image_container.dart';
 import '../../subscription/widgets/offer_card.dart';
 
 class RewardScreen extends StatelessWidget {
@@ -22,75 +25,29 @@ class RewardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Stack(
-            alignment: Alignment.bottomCenter,
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  color: AppColor.c142293,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(25),
-                    bottomRight: Radius.circular(25),
-                  ),
-                ),
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 40),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(""),
-                    Text(
-                      "Offers For You",
-                      style: w700_16a(color: AppColor.white),
-                    ),
-                    ImageView(
-                      height: 23,
-                      width: 23,
-                      path: Assets.iconsIcMessage,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          30.heightSizeBox,
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  children: [
-                    exclusiveOffer(),
-                    SizedBox(
-                      height: Get.height,
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        // padding: EdgeInsets.symmetric(horizontal: 10),
-                        clipBehavior: Clip.hardEdge,
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 15,
-                          mainAxisSpacing: 15,
-                          //  mainAxisExtent: Get.height * 0.22,
-                        ),
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return OffersGridContainer();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+    return Column(
+      children: [
+        exclusiveOffer(),
+        SizedBox(
+          height: Get.height,
+          child: GridView.builder(
+            shrinkWrap: true,
+            // padding: EdgeInsets.symmetric(horizontal: 10),
+            clipBehavior: Clip.hardEdge,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
+              //  mainAxisExtent: Get.height * 0.22,
             ),
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return OffersGridContainer();
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -134,6 +91,7 @@ class RewardScreen extends StatelessWidget {
               13.heightSizeBox,
               GestureDetector(
                 onTap: () {
+
                   showModalBottomSheet(
                     context: Get.context!,
                     isScrollControlled: true,
@@ -240,7 +198,9 @@ class RewardScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
+                      Get.back();
                            showModalBottomSheet(
+
                           context: Get.context!,
                           isScrollControlled: true,
                           shape: RoundedRectangleBorder(
@@ -365,10 +325,27 @@ class RewardScreen extends StatelessWidget {
                       Positioned(
                         bottom: 10,
                         // left: Get.width/2,
-                        child: ImageView(
-                          path: Assets.imagesImQr,
-                          height: 157,
-                          width: 157,
+                        child: GestureDetector(
+                          onTap: (){
+                            Get.back();
+                            showDialog(
+                              barrierDismissible: false,
+                              context: Get.context!,
+                              builder: (BuildContext context) {
+                                return AppDialog(
+
+                                    padding: EdgeInsets.zero,
+
+
+                                 child: scanDialog());
+                              },
+                            );
+                          },
+                          child: ImageView(
+                            path: Assets.imagesImQr,
+                            height: 157,
+                            width: 157,
+                          ),
                         ),
                       ),
                     ],
@@ -533,6 +510,87 @@ class RewardScreen extends StatelessWidget {
           10.heightSizeBox,
         ],
       ),
+    );
+  }
+
+  Widget scanDialog() {
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        37.heightSizeBox,
+
+        Text("Redeem Wash!", style: w700_22a(color: AppColor.c2C2A2A)),
+        Text(
+          "Scan Your QR Code to\nEnjoy Your Wash.",
+          style: w400_16p(color: AppColor.c455A64),
+          textAlign: TextAlign.center,
+        ),
+
+        15.heightSizeBox,
+        GestureDetector(
+            onTap: (){
+              Get.back();
+              showDialog(
+                barrierDismissible: false,
+                context: Get.context!,
+                builder: (BuildContext context) {
+                  return AppDialog(
+
+                      padding: EdgeInsets.zero,
+
+
+                child: successDialog());
+                },
+              );
+            },
+            child: Image.asset(Assets.imagesImQr, height: 261, width: 261)),
+
+        46.heightSizeBox,
+      ],
+    );
+  }
+  Widget successDialog() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              30.heightSizeBox,
+              Container(
+                width: Get.width,
+
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: ImageView(
+                        path: Assets.imagesImSussess,
+                        width: Get.width,
+                        fit: BoxFit.cover,
+                        height: 180,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              21.heightSizeBox,
+              Text("Congratulations!", style: w700_22a(color: AppColor.c2C2A2A)),
+              Text(
+                "Your Reward Has Been\nSuccessfully Redeemed!",
+                textAlign: TextAlign.center,
+                style: w400_16p(),
+              ),
+              30.heightSizeBox
+
+            ],
+          ),
+        ),
+
+      ],
     );
   }
 }

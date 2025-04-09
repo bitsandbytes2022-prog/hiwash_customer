@@ -1,18 +1,147 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:hiwash_customer/widgets/components/image_view.dart';
-import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../generated/assets.dart';
 import '../../styling/app_color.dart';
-import '../../styling/app_font_anybody.dart';
 import '../../styling/app_font_poppins.dart';
+import 'image_view.dart';
 
 class AppDialog extends StatelessWidget {
   Widget? child;
+  String? remainingTextBottom;
+  String? remainingTextTop;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  bool? topVisible = false;
+  bool? bottomVisible = false;
+
+  AppDialog({super.key, this.child, this.margin, this.padding,this.topVisible,
+
+    this.bottomVisible,this.remainingTextBottom,this.remainingTextTop
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+
+                Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Container(
+                      margin:
+                      margin ??
+                          EdgeInsets.only(left: 16, right: 16, bottom: 11,top: 11),
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: padding ?? EdgeInsets.symmetric(horizontal: 27),
+                      child: child,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(right: 22, top: 20),
+                        child: ImageView(
+                          path: Assets.iconsIcClose,
+                          height: 28,
+                          width: 32,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                if(bottomVisible==true) Container(
+                  padding: EdgeInsets.only(bottom: 0),
+                  margin: EdgeInsets.only(left: 50, right: 50, top: 40),
+
+                  /*  decoration: BoxDecoration(
+                      image: DecorationImage(image: AssetImage(Assets.imagesDialogBottom),
+                    ),*/
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image.asset(Assets.imagesDialogBottom),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Remaining Washes: ',
+                          style: w500_14p(color: AppColor.c2C2A2A),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: '35',
+                                style: w400_16p(color: AppColor.cC31848)
+                            ),
+                          ],
+                        ),
+                      ),
+                      /* Text(
+                        remainingTextTop ?? ''.tr,
+                        style: w500_14p(color: AppColor.c2C2A2A),
+                      ),*/
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            if(topVisible==true)  Container(
+
+              padding: EdgeInsets.only(top: 0),
+              margin: EdgeInsets.only(left: 50, right: 50,),
+
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Image.asset(Assets.imagesDiloagBgTop),
+
+
+                  RichText(
+                    text: TextSpan(
+                      text: 'Remaining Washes: ',
+                      style: w500_14p(color: AppColor.c2C2A2A),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: '19',
+                            style: w400_16p(color: AppColor.cC31848)
+                        ),
+                      ],
+                    ),
+                  ),
+                  /* Text(
+                    remainingTextBottom ?? ''.tr,
+                    style: w500_14p(color: AppColor.c2C2A2A),
+                  ),*/
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/*class AppDialog extends StatelessWidget {
+  Widget? child;
   String? remainingText;
-   AppDialog({super.key, this.child});
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+
+  AppDialog({super.key, this.child, this.margin, this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -23,41 +152,61 @@ class AppDialog extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Stack(
-              alignment: Alignment.topRight,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 16, right: 16,bottom: 11),
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 27),
-                  child: child
-                ),
-                GestureDetector(
-                  onTap: (){
-                    Get.back();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.only(right: 18,top: 10),
-                    child: ImageView(
-                      path: Assets.iconsIcClose,
-                      height: 28,
-                      width: 32,
-                    ),
-                  ),
+          */ /*  Container(
+                padding: EdgeInsets.only(bottom: 0),
+                margin: EdgeInsets.only(left: 50,right: 50,top: 40),
+                */ /**/ /*  decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage(Assets.imagesDialogBottom),
+                ),*/ /**/ /*
+
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(Assets.imagesDiloagBgTop),
+                    Text(remainingText??''.tr,style:w500_14p(color: AppColor.c2C2A2A) ,)
+                  ],
                 )
+
+            ),*/ /*
+            Stack(
+              children: [
+                Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Container(
+                      margin:margin?? EdgeInsets.only(left: 16, right: 16,bottom: 11),
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20)
+                      ),
+                      padding: padding??EdgeInsets.symmetric(horizontal: 27),
+                      child: child
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        Get.back();
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(right: 18,top: 10),
+                        child: ImageView(
+                          path: Assets.iconsIcClose,
+                          height: 28,
+                          width: 32,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
 
-            Container(
+          */ /*  Container(
                 padding: EdgeInsets.only(bottom: 0),
                 margin: EdgeInsets.only(left: 50,right: 50,top: 40),
-                /*  decoration: BoxDecoration(
+                */ /**/ /*  decoration: BoxDecoration(
                   image: DecorationImage(image: AssetImage(Assets.imagesDialogBottom),
-                ),*/
+                ),*/ /**/ /*
 
                 child: Stack(
                   alignment: Alignment.center,
@@ -67,15 +216,13 @@ class AppDialog extends StatelessWidget {
                   ],
                 )
 
-            )
+            )*/ /*
           ],
         ),
       ),
     );
   }
-}
-
-
+}*/
 
 /*
 import 'package:flutter/material.dart';
@@ -184,7 +331,7 @@ class AppDialog extends StatelessWidget {
               */
 /*  decoration: BoxDecoration(
                   image: DecorationImage(image: AssetImage(Assets.imagesDialogBottom),
-                ),*//*
+                ),*/ /*
 
 
                 child: Stack(

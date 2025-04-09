@@ -6,6 +6,7 @@ import 'package:hiwash_customer/featuers/subscription/controller/subscription_co
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
+import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
 import 'package:hiwash_customer/widgets/components/custom_bottomsheet.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
@@ -27,7 +28,152 @@ class SubscriptionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppHomeBg(
+
+    centerHeading: Container(
+      margin: EdgeInsets.only(left: 60),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Hello, Ibrahim",
+            style: w400_16a(color: AppColor.white)
+          ),
+          Text(
+              "Full access subscription",
+              style:  w400_12a(color: AppColor.white)
+
+          )
+        ],
+      ),
+    ),
+      childAppBar:  Positioned(
+        left: 46,
+        bottom: -10,
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.symmetric(horizontal: BorderSide.none),
+          ),
+          child: CircleAvatar(
+            radius: 38,
+            backgroundColor: Colors.white,
+            child: CircleAvatar(
+              radius: 28,
+              backgroundImage: AssetImage(Assets.imagesDemoProfile),
+            ),
+          ),
+        ),
+      ) ,
+      child: Column(
+        children: [
+          17.heightSizeBox,
+          Text(
+            "kChooseAPlan".tr,
+            style: w700_22a(color: AppColor.c2C2A2A),
+          ),
+
+          8.heightSizeBox,
+          Text(
+            "kGetBenefitsAcrossAll".tr,
+            textAlign: TextAlign.center,
+            style: w400_12p(color: AppColor.c455A64),
+          ),
+          12.heightSizeBox,
+          OfferCardWidget(),
+          viewOfferButton(() {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
+              ),
+              builder: (BuildContext context) {
+                return CustomBottomSheet(child: bottomSheet());
+              },
+            );
+          }),
+
+          29.heightSizeBox,
+
+          PlansContainer(index: 1),
+          15.heightSizeBox,
+          PlansContainer(index: 2),
+          18.heightSizeBox,
+          Obx(() {
+            if (controller.selectedIndex.value == 1) {
+              return Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: AppColor.cFF973B.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
+                    color: AppColor.cFF973B.withOpacity(0.4),
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      Assets.iconsIcTAndC,
+                      height: 35,
+                      width: 35,
+                    ),
+                    10.widthSizeBox,
+
+                    Expanded(
+                      child: Text(
+                        "WashYourCarOnce".tr,
+                        style: w400_12p(color: AppColor.c455A64),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else if (controller.selectedIndex.value == 2) {
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 0,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "kCarRegistrationNumber".tr,
+                      style: w500_12p(color: AppColor.c455A64),
+                    ),
+                    Text(
+                      "kUnlimitedWashesPlan".tr,
+                      style: w500_12p(color: AppColor.c2C2A2A),
+                    ),
+                    10.heightSizeBox,
+                    HiWashTextField(
+                      hintText: "kEnterCarNumber".tr,
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return SizedBox.shrink();
+            }
+          }),
+          30.heightSizeBox,
+          HiWashButton(
+            onTap: () {
+              Get.toNamed(RouteStrings.enterCardDetailScreen);
+            },
+            text: "kSubscribe".tr,
+            margin: EdgeInsets.symmetric(horizontal: 30),
+          ),
+          60.heightSizeBox,
+        ],
+      ),
+    );
+
+    /*Scaffold(
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -219,7 +365,7 @@ class SubscriptionScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
+    );*/
   }
 
   Widget viewOfferButton(VoidCallback onTap) {

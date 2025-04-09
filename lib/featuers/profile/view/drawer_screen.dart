@@ -36,6 +36,7 @@ class DrawerScreen extends StatelessWidget {
       body: Obx(() {
         return Drawer(
           child: Container(
+            margin: EdgeInsets.only(bottom: 40),
             decoration: BoxDecoration(
               color: AppColor.white,
               borderRadius: BorderRadius.horizontal(right: Radius.circular(15)),
@@ -58,7 +59,7 @@ class DrawerScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          48.heightSizeBox,
+          40.heightSizeBox,
           GestureDetector(
             onTap: () {
               Get.back();
@@ -155,7 +156,7 @@ class DrawerScreen extends StatelessWidget {
             onTap: () => Get.to(TermsAndConditionScreen()),
             title: 'Terms and Condition', image: Assets.iconsIcTermscondition,
           ),
-         /// Spacer(),
+        60.heightSizeBox,
           GestureDetector(
             onTap: () {
               Get.offAllNamed(RouteStrings.loginScreen);

@@ -41,6 +41,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               114.heightSizeBox,
               HiWashTextField(
+                controller: controller.emailController,
                 keyboardType: TextInputType.emailAddress,
 
                 hintText: "kEmail".tr,
@@ -52,6 +53,7 @@ class LoginScreen extends StatelessWidget {
               ),
               24.heightSizeBox,
               HiWashTextField(
+                controller: controller.passwordController,
                 keyboardType: TextInputType.visiblePassword,
                 hintText: "kPassword".tr,
                 labelText: "kPassword".tr,
