@@ -116,7 +116,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               decoration: BoxDecoration(
                                 color:
                                     controller.isWashSelected.value
-                                        ? Colors.white
+                                        ? AppColor.cF6F7FF
                                         : Colors.transparent,
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10),
@@ -147,7 +147,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               decoration: BoxDecoration(
                                 color:
                                     !controller.isWashSelected.value
-                                        ? Colors.white
+                                        ? AppColor.cF6F7FF
                                         : Colors.transparent,
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10),

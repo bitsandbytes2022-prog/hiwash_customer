@@ -6,9 +6,10 @@ import 'package:hiwash_customer/generated/assets.dart';
 class SubscriptionController extends GetxController{
 
   final List<String> images = [
-    Assets.imagesCard1,
-    Assets.imagesCard1,
-    Assets.imagesCard1,
+    Assets.demoOffer1,
+    Assets.demoOffer2,
+    Assets.demoOffer3,
+
   ];
 
   var selectedIndex = (2).obs;

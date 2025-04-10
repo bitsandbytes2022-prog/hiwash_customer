@@ -19,52 +19,48 @@ class EnterCardDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppHomeBg(
-
       centerHeading: Container(
         margin: EdgeInsets.only(left: 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("Hello, Ibrahim", style: w400_16a(color: AppColor.white)),
             Text(
-                "Hello, Ibrahim",
-                style: w400_16a(color: AppColor.white)
+              "Full access subscription",
+              style: w400_12a(color: AppColor.white),
             ),
-            Text(
-                "Full access subscription",
-                style:  w400_12a(color: AppColor.white)
-
-            )
           ],
         ),
       ),
-      childAppBar:  Positioned(
+      childAppBar: Positioned(
         left: 46,
         bottom: -10,
         child: Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.symmetric(horizontal: BorderSide.none),
+            color: AppColor.cF6F7FF,
+            // border: Border.symmetric(horizontal: BorderSide.none),
+            border: Border.all(color: AppColor.cF6F7FF, width: 10),
           ),
           child: CircleAvatar(
-            radius: 38,
-            backgroundColor: Colors.white,
-            child: CircleAvatar(
-              radius: 28,
-              backgroundImage: AssetImage(Assets.imagesDemoProfile),
-            ),
+            radius: 28,
+            backgroundImage: AssetImage(Assets.imagesDemoProfile),
           ),
         ),
-      ) ,
+      ),
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
+          16.heightSizeBox,
           Text(
-            "kEnterYourPaymentDetails".tr,textAlign: TextAlign.center,
+            "kEnterYourPaymentDetails".tr,
+            textAlign: TextAlign.center,
             style: w700_22a(color: AppColor.c2C2A2A),
           ),
-          4.heightSizeBox,
+          10.heightSizeBox,
           RichText(
             text: TextSpan(
               children: <TextSpan>[
@@ -83,7 +79,17 @@ class EnterCardDetailScreen extends StatelessWidget {
             ),
           ),
           32.heightSizeBox,
-          PaymentMethods(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              PaymentMethods(),
+              PaymentMethods(),
+
+              PaymentMethods(checkBoxShow: true,height: 70,width: 70,borderColor: AppColor.cC31848,),
+              PaymentMethods(),
+              PaymentMethods(),
+            ],
+          ),
           39.heightSizeBox,
           HiWashTextField(
             hintText: "kEnterCardholderName".tr,
@@ -116,10 +122,7 @@ class EnterCardDetailScreen extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: HiWashTextField(
-                  hintText: "kCVC".tr,
-                  labelText: "123",
-                ),
+                child: HiWashTextField(hintText: "kCVC".tr, labelText: "123"),
               ),
               40.widthSizeBox,
               Expanded(
@@ -151,7 +154,7 @@ class EnterCardDetailScreen extends StatelessWidget {
                 elevationThumb: 2,
                 elevationTrack: 2,
                 child: Text(
-                  "Swipe to Complete Wash ".toUpperCase(),
+                  "Swipe to confirm".toUpperCase(),
                   style: TextStyle(
                     color: AppColor.white,
                     fontSize: 12,
@@ -198,6 +201,7 @@ class EnterCardDetailScreen extends StatelessWidget {
     );
   }
 }
+
 /* Column(
                   children: [
                     18.heightSizeBox,

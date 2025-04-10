@@ -13,7 +13,7 @@ class Languages extends Translations {
       ///  welcome screen
       "kEcoCleanWalletGreen": "Eco Clean, Wallet Green!",
       "kExclusiveDealsWithEvery":
-          "Exclusive Deals with Every Shine Free\nCoupons, BOGO Offers, Discounts & Special Perks!",
+          "Exclusive Deals with Every Shine Free\nCoupons, BOGO Offers, Discounts &\nSpecial Perks!",
       "kGetStarted": "Get Started",
       "kSkip": "Skip",
       "kTermsAndConditions": "Terms & Conditions",
@@ -47,7 +47,7 @@ class Languages extends Translations {
       "kForgot": "Forgot",
       "kEnterRegisteredPhone": "Enter Registered Phone",
       "kEnterThePhoneNumber":
-          "Enter the phone number\nassociated with your account",
+          "Enter the phone number associated\nwith your account",
       "kEnterYourPhoneNumber": "Enter your phone number",
       "kRecoverPassword": "Recover password",
 
@@ -79,7 +79,7 @@ class Languages extends Translations {
           "Wash your car once a week. If the car is not washed within the week, it will not be compensated and will still be deducted.",
 
       /// Enter Card Detail Screen
-      "kEnterYourPaymentDetails": "Enter your payment details",
+      "kEnterYourPaymentDetails": "Enter your\npayment details",
       "kByContinuingYouAgree": "By continuing you agree to our ",
       'kTerms': 'Terms',
       "kEnterCardholderName": "Enter cardholder name",

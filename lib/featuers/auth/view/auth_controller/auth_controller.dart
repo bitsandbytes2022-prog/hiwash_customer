@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:hiwash_customer/generated/assets.dart';
 
 class AuthController extends GetxController {
 
@@ -43,16 +44,23 @@ void onPageChanged(int index) {
   currentPage.value = index;
 }
   final List<String> headingText = [
-    "kEcoCleanWalletGreen","Wash & Win!","kEcoCleanWalletGreen",
+    "kEcoCleanWalletGreen","Wash & Win!",
+    //"kEcoCleanWalletGreen",
 
 
   ]; final List<String> subText = [
     "kExclusiveDealsWithEvery",
-    "Get your car washed weekly at 100+ locations with exclusive offers.Missed washes still deducted.",
-    "kExclusiveDealsWithEvery",
+    "Get your car washed weekly at 100+\nlocations with exclusive offers.\nMissed washes still deducted.",
+   // "kExclusiveDealsWithEvery",
 
   ];
 
+final List<String> backgroundImages = [
+  Assets.imagesWelcomeBg,
+  Assets.imagesWelcomMapBg,
+ // Assets.imagesWelcomMapBg,
+
+];
 
 
 

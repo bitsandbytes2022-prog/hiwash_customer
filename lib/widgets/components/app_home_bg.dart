@@ -12,26 +12,39 @@ import 'doted_horizontal_line.dart';
 import 'doted_vertical_line.dart';
 
 class AppHomeBg extends StatelessWidget {
-  final String?headingText;
-  final Widget?child;
-  final Widget?childAppBar;
-  final Widget?iconRight;
-  final Widget?iconLeft;
-  final Widget?centerHeading;
-  final EdgeInsets?padding;
+  final String? headingText;
+  final Widget? child;
+  final Widget? childAppBar;
+  final Widget? iconRight;
+  final Widget? iconLeft;
+  final Widget? centerHeading;
+  final EdgeInsets? padding;
   final double? height;
 
-   AppHomeBg({super.key,  this.headingText, this.child, this.iconRight, this.iconLeft, this.padding, this.childAppBar, this.centerHeading, this.height, });
+  AppHomeBg({
+    super.key,
+    this.headingText,
+    this.child,
+    this.iconRight,
+    this.iconLeft,
+    this.padding,
+    this.childAppBar,
+    this.centerHeading,
+    this.height,
+  });
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.cF6F7FF,
-      key: _scaffoldKey,
-      drawer: Container(
-        margin: EdgeInsets.only(bottom: 40),
-        child: Drawer(
+    return SafeArea(
+
+      top: false,
+      bottom: true,
+      child: Scaffold(
+        backgroundColor: AppColor.cF6F7FF,
+        key: _scaffoldKey,
+        drawer: Drawer(
           backgroundColor: AppColor.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,22 +69,30 @@ class AppHomeBg extends StatelessWidget {
               ImageView(path: Assets.imagesHelpSupport, height: 180),
               31.heightSizeBox,
               Text("Get Help?", style: w700_22a()),
-
               40.heightSizeBox,
 
               /// **Drawer Options**
-              drawerRowWidget(onTap: () => {
-
-                Get.to(ChatScreen())
-              }, title: 'Chat with Support', image: Assets.iconsIcChat),
-              drawerRowWidget(onTap: () => {}, title: 'Help Desk Ticket', image: Assets.iconsIcTicket),
-              drawerRowWidget(onTap: () => {}, title: 'FAQ’s', image: Assets.iconsIcFaq),
+              drawerRowWidget(
+                onTap: () => {Get.to(ChatScreen())},
+                title: 'Chat with Support',
+                image: Assets.iconsIcChat,
+              ),
+              drawerRowWidget(
+                onTap: () => {},
+                title: 'Help Desk Ticket',
+                image: Assets.iconsIcTicket,
+              ),
+              drawerRowWidget(
+                onTap: () => {},
+                title: 'FAQ’s',
+                image: Assets.iconsIcFaq,
+              ),
               drawerRowWidget(
                 onTap: () => {},
                 title: 'Step-by-Step Guide',
-                dashedLineWidget: false, image: Assets.iconsIcGuideBook,
+                dashedLineWidget: false,
+                image: Assets.iconsIcGuideBook,
               ),
-
               Spacer(),
               DotedHorizontalLine(),
               Container(
@@ -80,26 +101,32 @@ class AppHomeBg extends StatelessWidget {
                 alignment: Alignment.center,
                 height: 86,
                 child: Row(
-
                   children: [
                     Expanded(
                       child: Column(
-
-                        mainAxisAlignment:MainAxisAlignment.center ,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ImageView(height: 23, width: 23, path: Assets.iconsPhone),
+                          ImageView(
+                            height: 23,
+                            width: 23,
+                            path: Assets.iconsPhone,
+                          ),
                           Text("+974 7048 7070", style: w500_12a()),
                         ],
                       ),
                     ),
                     DotedVerticalLine(),
-                    // Container(height: Get.height, width: 1, color: AppColor.c142293.withOpacity(0.10)),
 
+                    // Container(height: Get.height, width: 1, color: AppColor.c142293.withOpacity(0.10)),
                     Expanded(
                       child: Column(
-                        mainAxisAlignment:MainAxisAlignment.center ,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ImageView(height: 23, width: 23, path: Assets.iconsIcAtSign),
+                          ImageView(
+                            height: 23,
+                            width: 23,
+                            path: Assets.iconsIcAtSign,
+                          ),
                           Text("info@hiwash.com", style: w500_12a()),
                         ],
                       ),
@@ -107,112 +134,90 @@ class AppHomeBg extends StatelessWidget {
                   ],
                 ),
               ),
-
             ],
           ),
         ),
-      ),
-      body: Column(
-        children: [
+        body: Column(
+          children: [
+            Stack(
+              alignment: Alignment.bottomCenter,
+              clipBehavior: Clip.none,
+              children: [
+                Container(
 
-
-
-
-
-           Stack(
-            alignment: Alignment.bottomCenter,
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                height: height??100,
-                decoration: BoxDecoration(
-                  color: AppColor.blue,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(25),
-                    bottomRight: Radius.circular(25),
+                  height: height ?? 110,
+                  decoration: BoxDecoration(
+                    color: AppColor.blue,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25),
+                      bottomRight: Radius.circular(25),
+                    ),
                   ),
-                ),
-                padding: EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 40,
-                  bottom: 20,
-                ),
-                child:Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    iconLeft??  GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: ImageView(
-                        path: Assets.iconsIcArrow,
+                  padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 40,
 
-                        height: 15,
-                        width: 15,
-                      ),
-                    ),
-                    centerHeading?? Text(
-                      headingText??'',
-                      style: w700_16a(color: AppColor.white),
-                    ),
-                    iconRight?? GestureDetector(
-                      onTap: () {
-                        _scaffoldKey.currentState?.openDrawer();
-                      },
-                      child: ImageView(
-                        height: 23,
-                        width: 23,
-                        path: Assets.iconsIcMessage,
-                      ),
-                    ),
-                  ],
-                ), /*Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(""),
-                    Text(
-                      "Hello, Ibrahim",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: ImageView(
-                        path: Assets.iconsIcMessage,
-                        height: 23,
-                        width: 23,
-                      ),
-                    ),
-                  ],
-                ),*/
-              ), childAppBar??SizedBox()
-            ],
-          ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      iconLeft ??
+                          GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: ImageView(
+                              path: Assets.iconsIcArrow,
 
-          15.heightSizeBox,
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: padding??EdgeInsets.symmetric(horizontal: 16),
-                child: child
+                              height: 15,
+                              width: 15,
+                            ),
+                          ),
+                      centerHeading ??
+                          Text(
+                            headingText ?? '',
+                            style: w700_16a(color: AppColor.white),
+                          ),
+                      iconRight ??
+                          GestureDetector(
+                            onTap: () {
+                              _scaffoldKey.currentState?.openDrawer();
+                            },
+                            child: ImageView(
+                              height: 23,
+                              width: 23,
+                              path: Assets.iconsIcMessage,
+                            ),
+                          ),
+                    ],
+                  )
+
+                ),
+                childAppBar ?? SizedBox(),
+              ],
+            ),
+
+            5.heightSizeBox,
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: padding ?? EdgeInsets.symmetric(horizontal: 16),
+                  child: child,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+
   Widget drawerRowWidget({
     required VoidCallback onTap,
     required String title,
     bool dashedLineWidget = true,
-    required String image
+    required String image,
   }) {
     return GestureDetector(
       onTap: onTap,

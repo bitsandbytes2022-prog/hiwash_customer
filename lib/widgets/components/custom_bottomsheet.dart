@@ -9,17 +9,18 @@ import 'image_view.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   final Widget child;
+ final EdgeInsets?padding;
 
-  const CustomBottomSheet({super.key, required this.child});
+  const CustomBottomSheet({super.key, required this.child,this.padding});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      //padding: EdgeInsets.all(16),
+      padding:padding,
       height: Get.height / 1.2,
       width: Get.width,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color:AppColor.cF6F7FF,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),

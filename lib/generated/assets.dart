@@ -11,6 +11,9 @@ class Assets {
   static const String anybodyW700 = 'assets/fonts/anybody/w700.ttf';
   static const String anybodyW800 = 'assets/fonts/anybody/w800.ttf';
   static const String anybodyW900 = 'assets/fonts/anybody/w900.ttf';
+  static const String demoOffer1 = 'assets/demo/offer_1.png';
+  static const String demoOffer2 = 'assets/demo/offer_2.png';
+  static const String demoOffer3 = 'assets/demo/offer_3.jpeg';
   static const String iconsBlackForwardArrow = 'assets/icons/black_forward_arrow.png';
   static const String iconsIcAccount = 'assets/icons/ic_account.png';
   static const String iconsIcApple = 'assets/icons/ic_apple.png';
@@ -78,6 +81,16 @@ class Assets {
   static const String imagesSubscriptionBg = 'assets/images/subscription_bg.png';
   static const String imagesSuccessBg = 'assets/images/success_bg.png';
   static const String imagesTimeView = 'assets/images/time_view.png';
+  static const String imagesWelcomMapBg = 'assets/images/welcom_map_bg.png';
   static const String imagesWelcomeBg = 'assets/images/welcome_bg.png';
+  static const String poppinsW100 = 'assets/fonts/poppins/w100.ttf';
+  static const String poppinsW200 = 'assets/fonts/poppins/w200.ttf';
+  static const String poppinsW300 = 'assets/fonts/poppins/w300.ttf';
+  static const String poppinsW400 = 'assets/fonts/poppins/w400.ttf';
+  static const String poppinsW500 = 'assets/fonts/poppins/w500.ttf';
+  static const String poppinsW600 = 'assets/fonts/poppins/w600.ttf';
+  static const String poppinsW700 = 'assets/fonts/poppins/w700.ttf';
+  static const String poppinsW800 = 'assets/fonts/poppins/w800.ttf';
+  static const String poppinsW900 = 'assets/fonts/poppins/w900.ttf';
 
 }

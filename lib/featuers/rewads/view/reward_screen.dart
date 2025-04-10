@@ -27,6 +27,7 @@ class RewardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        15.heightSizeBox,
         exclusiveOffer(),
         SizedBox(
           height: Get.height,
@@ -41,7 +42,7 @@ class RewardScreen extends StatelessWidget {
               mainAxisSpacing: 15,
               //  mainAxisExtent: Get.height * 0.22,
             ),
-            itemCount: 10,
+            itemCount: 8,
             itemBuilder: (context, index) {
               return OffersGridContainer();
             },
@@ -142,8 +143,116 @@ class RewardScreen extends StatelessWidget {
       ],
     );
   }
-
   Widget bottomSheet() {
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            21.heightSizeBox,
+            Text(
+              "See All Exclusive Offers.",
+              style: w700_16a(color: AppColor.c2C2A2A),
+            ),
+
+            27.heightSizeBox,
+            OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 20)),
+            25.heightSizeBox,
+            Container(
+              width: 158,
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+              decoration: BoxDecoration(
+                //color: AppColor.c5C6B72.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(28),
+                border: Border.all(color: AppColor.c5C6B72.withOpacity(0.3)),
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    "Sort by Expiry",
+                    style: w400_12p(color: AppColor.c2C2A2A),
+                  ),
+                  Spacer(),
+                  ImageView(
+                    path: Assets.iconsIcDropDown,
+                    height: 5,
+                    width: 9,
+                    color: AppColor.c2C2A2A,
+                  ),
+                  //Icon(Icons.arrow_drop_down, size: 20),
+                ],
+              ),
+            ),
+            25.heightSizeBox,
+            SizedBox(
+              height: Get.height,
+              child: GridView.builder(
+                padding: EdgeInsets.only(left: 16, right: 15, bottom: 150),
+                clipBehavior: Clip.hardEdge,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                  mainAxisExtent: Get.height * 0.22,
+                ),
+                itemCount: 8,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      Get.back();
+                      showModalBottomSheet(
+
+                        context: Get.context!,
+                        isScrollControlled: true,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                          ),
+                        ),
+                        builder: (BuildContext context) {
+                          return CustomBottomSheet(child: viewOfferDetailBottomSheet());
+                        },
+                      );
+                    },
+
+                    child: OffersGridContainer(),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+         /*   SizedBox(
+              height: Get.height,
+              child: GridView.builder(
+                shrinkWrap: true,
+
+                padding: EdgeInsets.only(left: 16, right: 15, bottom: 200),
+                clipBehavior: Clip.hardEdge,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                  // mainAxisExtent: Get.height * 0.22,
+                ),
+                itemCount: 7,
+                itemBuilder: (context, index) {
+                  return OffersGridContainer();
+                },
+              ),
+            ),
+            60.heightSizeBox,
+          ],
+        ),
+      ),
+    );
+  }*/
+/*  Widget bottomSheet() {
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
@@ -224,7 +333,7 @@ class RewardScreen extends StatelessWidget {
         ),
       ),
     );
-  }
+  }*/
 
   Widget viewOfferDetailBottomSheet() {
     return Expanded(
@@ -315,7 +424,7 @@ class RewardScreen extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 60),
+                        margin: EdgeInsets.only(top: 80),
                         child: ImageView(
                           path: Assets.imagesCloudBg,
                           height: 96,
@@ -359,11 +468,20 @@ class RewardScreen extends StatelessWidget {
                   28.heightSizeBox,
                   Container(
                     decoration: BoxDecoration(
+                      color: AppColor.white,
         
                       borderRadius: BorderRadius.circular(10),
+
                       border: Border.all(
                         color: AppColor.c142293.withOpacity(0.20)
-                      )
+                      ),
+                 /*     boxShadow: [
+                        BoxShadow(
+                          color: AppColor.c142293.withOpacity(0.20),
+                          spreadRadius: 0,
+                          blurRadius: 15,
+                          offset: Offset(0, 10),)
+                      ]*/
                     ),
                                     child:Column(
                                       children: [
@@ -387,7 +505,7 @@ class RewardScreen extends StatelessWidget {
                                       ],
                                     )
                   ),
-                  21.heightSizeBox,
+                  25.heightSizeBox,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -400,7 +518,7 @@ class RewardScreen extends StatelessWidget {
                       Text("Report an issue",style: w600_12a(color: AppColor.c142293),),
                     ],
                   ),
-                  60.heightSizeBox
+                  30.heightSizeBox
         
         
         

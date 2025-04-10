@@ -46,7 +46,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
                 ),
 
                 10.heightSizeBox,
-                Text("Ibrahim Bafqia"),
+                Text("Ibrahim Bafqia",style:w700_16a(color: AppColor.c2C2A2A) ,),
                 42.heightSizeBox,
                 subscriptionRowWidget(
                   title: 'Pack Name',
@@ -85,9 +85,24 @@ class SubscriptionPlanScreen extends StatelessWidget {
                 ),
                 16.heightSizeBox,
 
-                PlansContainer(index: 1),
+                PlansContainer(index: 1, heading: "One wash per week",
+
+
+                  subHeading: "Any of the 100 locations.",
+                  qarText: "QAR",
+                  numberText: "900",
+                  yearText: "/ Year",
+                ),
                 15.heightSizeBox,
-                PlansContainer(index: 2),
+                PlansContainer(index: 2, heading: "Unlimited washes",
+                  imageShow: true,
+
+
+                  subHeading: "Any of the 100 locations.",
+                  qarText: "QAR",
+                  numberText: "1200",
+                  yearText: "/ Year",
+                ),
                 20.heightSizeBox,
                 GetStartButton(text: "Renew Now",
                   color: AppColor.c1F9D70,

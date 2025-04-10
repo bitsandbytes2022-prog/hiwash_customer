@@ -14,7 +14,7 @@
 
         fillColor: AppColor.cF6F7FF,
         filled: true,
-        labelStyle: w400_13a(color: AppColor.c455A64),
+       // labelStyle: w400_13a(color: AppColor.c455A64),
         hintStyle: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.40)),
         contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
 

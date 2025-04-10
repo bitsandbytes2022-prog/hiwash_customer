@@ -27,7 +27,7 @@ class WashStatusScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  14.heightSizeBox,
+                  18.heightSizeBox,
                   Container(
                     height: 95,
                     decoration: BoxDecoration(
@@ -122,12 +122,12 @@ class WashStatusScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  21.heightSizeBox,
+                  24.heightSizeBox,
                   Text(
                     "kCompleteWash".tr,
                     style: w500_14a(color: AppColor.c2C2A2A),
                   ),
-                  12.heightSizeBox,
+                  18.heightSizeBox,
                   ListView.separated(
                     padding: EdgeInsets.only(
                       top: 0,
@@ -135,7 +135,7 @@ class WashStatusScreen extends StatelessWidget {
                     ),
                     physics: NeverScrollableScrollPhysics(),
                     separatorBuilder:
-                        (context, index) => 10.heightSizeBox,
+                        (context, index) => 14.heightSizeBox,
                     shrinkWrap: true,
                     itemCount: 10,
                     itemBuilder: (context, index) {
@@ -151,14 +151,14 @@ class WashStatusScreen extends StatelessWidget {
               ImageView(
                 path: Assets.imagesImMap,
                 width: Get.width,
-                height: Get.height/1.38,
+                height: Get.height/1.28,
                 fit: BoxFit.cover,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Container(
 
-                  height: Get.height/1.47,
+                  height: Get.height/1.38,
                  // color: Colors.red,
                   child: Column(
                     children: [

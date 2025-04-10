@@ -23,6 +23,7 @@ class MyAccountScreen extends StatelessWidget {
       child:  Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          15.heightSizeBox,
           Stack(
             alignment: Alignment.bottomRight,
             children: [
@@ -61,16 +62,13 @@ class MyAccountScreen extends StatelessWidget {
             ],
           ),
           11.heightSizeBox,
-          Text("Ibrahim Bafqia"),
+          Text("Ibrahim Bafqia",style:w700_16a(color: AppColor.c2C2A2A) ,),
           4.heightSizeBox,
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
               children: [
-                TextSpan(
-                  text: 'Your ',
-                  style: w400_12p(color: AppColor.c455A64),
-                ),
+                TextSpan(text: 'Your ', style: w400_12p(color: AppColor.c455A64)),
                 TextSpan(
                   text: 'Unlimited Washes',
                   style: w600_14p(color: AppColor.cC31848),
@@ -86,6 +84,7 @@ class MyAccountScreen extends StatelessWidget {
               ],
             ),
           ),
+          39.heightSizeBox,
           31.heightSizeBox,
           HiWashTextField(hintText: "Name", labelText: "Name"),
           20.heightSizeBox,
@@ -167,14 +166,13 @@ class MyAccountScreen extends StatelessWidget {
             ],
           ),
 
-          20.heightSizeBox
-          ,
+
           20.heightSizeBox,
           HiWashTextField(hintText: "Car Number", labelText: "Car Number"),
 
-          20.heightSizeBox,
-          HiWashButton(text: 'Save',),
           60.heightSizeBox,
+          HiWashButton(text: 'Save',),
+          30.heightSizeBox,
         ],
       ),
     );

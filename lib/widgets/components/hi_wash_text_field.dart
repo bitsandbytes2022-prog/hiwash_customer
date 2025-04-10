@@ -61,7 +61,7 @@ class HiWashTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.9)),
+      style: w400_14p(color: AppColor.c2C2A2A),
       focusNode: focusNode,
       textInputAction: TextInputAction.next,
       readOnly: readOnly,
@@ -92,7 +92,7 @@ class HiWashTextField extends StatelessWidget {
         labelStyle: w400_14p(color: AppColor.c455A64),
         hintMaxLines: 2,
         fillColor: fillColor??AppColor.cF6F7FF,
-        hintStyle: w400_14p(color: AppColor.c455A64),
+       // hintStyle: w400_14p(color: AppColor.c455A64),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         floatingLabelBehavior: FloatingLabelBehavior.always,

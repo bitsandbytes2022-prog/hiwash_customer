@@ -19,11 +19,12 @@ class PaymentSuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppHomeBg(
-
+padding: EdgeInsets.zero,
       centerHeading: Container(
-        margin: EdgeInsets.only(left: 60),
+        margin: EdgeInsets.only(left: 60,),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
                 "Hello, Ibrahim",
@@ -42,16 +43,14 @@ class PaymentSuccessScreen extends StatelessWidget {
         bottom: -10,
         child: Container(
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.symmetric(horizontal: BorderSide.none),
+              shape: BoxShape.circle,
+              color: AppColor.cF6F7FF,
+              // border: Border.symmetric(horizontal: BorderSide.none),
+              border: Border.all(color: AppColor.cF6F7FF,width: 10)
           ),
           child: CircleAvatar(
-            radius: 38,
-            backgroundColor: Colors.white,
-            child: CircleAvatar(
-              radius: 28,
-              backgroundImage: AssetImage(Assets.imagesDemoProfile),
-            ),
+            radius: 28,
+            backgroundImage: AssetImage(Assets.imagesDemoProfile),
           ),
         ),
       ) ,
@@ -68,7 +67,7 @@ class PaymentSuccessScreen extends StatelessWidget {
             children: [
               19.heightSizeBox,
               QrDialog(),
-              20.heightSizeBox,
+              30.heightSizeBox,
               GetStartButton(text: "kGetStarted",
 
                 onTap: (){

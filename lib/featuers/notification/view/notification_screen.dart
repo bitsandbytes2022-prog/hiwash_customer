@@ -26,6 +26,7 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        15.heightSizeBox,
         Container(
           margin: EdgeInsets.symmetric(horizontal: 15),
           padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
@@ -48,9 +49,7 @@ class NotificationScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColor.white.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(40),
-                  border: Border.all(
-                    color: AppColor.c000000.withOpacity(0.1),
-                  ),
+                  border: Border.all(color: AppColor.c000000.withOpacity(0.1)),
                 ),
                 child: ImageView(
                   path: Assets.iconsIcBook,
@@ -60,23 +59,41 @@ class NotificationScreen extends StatelessWidget {
                 ),
               ),
               10.widthSizeBox,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "kYourCurrentLocation".tr,
-                    style: w400_12a(color: AppColor.c455A64),
-                  ),
-                  Text(
-                    "2847 Poling Farm Road",
-                    style: w500_14p(color: AppColor.c000000),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Your ',
+                            style: w500_12p(
+                              color: AppColor.white.withOpacity(0.70),
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Unlimited Washes',
+                            style: w600_12p(color: AppColor.white),
+                          ),
+                          TextSpan(
+                            text:
+                                ' Pack Has\n Been Overdue Since October 15, 2025!',
+                            style: w500_12p(
+                              color: AppColor.white.withOpacity(0.70),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Spacer(),
+
               Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.only(right: 8),
+                padding: const EdgeInsets.only(right: 16),
                 child: ImageView(
                   path: Assets.iconsIcForward,
                   height: 10,
@@ -94,7 +111,7 @@ class NotificationScreen extends StatelessWidget {
           shrinkWrap: true,
           itemCount: 20,
           separatorBuilder: (context, index) {
-            return  DotedHorizontalLine();
+            return DotedHorizontalLine();
           },
           itemBuilder: (context, index) {
             return Obx(() {
@@ -110,7 +127,7 @@ class NotificationScreen extends StatelessWidget {
     required VoidCallback onTap,
     required String title,
     bool dashedLineWidget = true,
-    required String image
+    required String image,
   }) {
     return GestureDetector(
       onTap: onTap,
@@ -153,10 +170,8 @@ class NotificationScreen extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ProfileImageView(radiusStack: 5,isVisibleStack: false,
-            radius: 20,
-            ),
-           /* Container(
+            ProfileImageView(radiusStack: 5, isVisibleStack: false, radius: 20),
+            /* Container(
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
                 color: AppColor.white.withOpacity(0.1),
@@ -201,4 +216,3 @@ class NotificationScreen extends StatelessWidget {
     );
   }
 }
-

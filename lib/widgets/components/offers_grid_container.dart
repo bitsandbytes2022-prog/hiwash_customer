@@ -17,7 +17,7 @@ class OffersGridContainer extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: AppColor.c5C6B72.withOpacity(0.5),
+          color: AppColor.c5C6B72.withOpacity(0.4),
         ),
       ),
       child: Column(

@@ -32,6 +32,8 @@ class SignUpScreen extends StatelessWidget {
         headingText: "kHello".tr,
         subText: "SignUp".tr,
         showBackButton: false,
+        heading: false,
+
         child: Form(
           key: formKey,
           child: Column(
@@ -112,7 +114,7 @@ class SignUpScreen extends StatelessWidget {
                   text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                        text: "Have an account?? ",
+                        text: "Have an account? ",
                         style: w400_12a(color: AppColor.c455A64),
                       ),
                       TextSpan(
@@ -121,7 +123,7 @@ class SignUpScreen extends StatelessWidget {
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
-                                Get.offAllNamed(RouteStrings.loginScreen);
+                                Get.toNamed(RouteStrings.loginScreen);
                                 print("Sign Up tapped");
                               },
                       ),
@@ -133,105 +135,13 @@ class SignUpScreen extends StatelessWidget {
               OrDivider(),
               18.heightSizeBox,
               SocialMedia(),
-              60.heightSizeBox,
+              30.heightSizeBox,
             ],
           ),
         ),
       ),
 
-      /*Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(Assets.imagesWelcomeBg),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          BottomSheetBg(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
 
-                children: [
-                  130.heightSizeBox,
-                  HiWashTextField(
-                    hintText: "kName".tr,
-                    labelText: "kEnterYourFullName".tr,
-                  ),
-                  20.heightSizeBox,
-                  HiWashTextField(
-                    hintText: "kEmail".tr,
-                    labelText: "kEnterYourEmail".tr,
-                  ),
-                  20.heightSizeBox,
-                  HiWashTextField(
-                    hintText: "kPhone".tr,
-                    labelText: "kEnterPhoneNumber".tr,
-                  ),
-                  20.heightSizeBox,
-                  HiWashTextField(
-                    hintText: "kPassword".tr,
-                    labelText: "kPassword".tr,
-                    obscure: true,
-                    obscuringCharacter: "*",
-                  ),
-                  20.heightSizeBox,
-                  HiWashTextField(
-                    hintText: "kConfirmPassword".tr,
-                    labelText: "kConfirmPassword".tr,
-                    obscure: true,
-                    obscuringCharacter: '*',
-                  ),
-
-                  35.heightSizeBox,
-
-                  HiWashButton(text: "signUp".tr, onTap: () {
-
-                    Get.toNamed(RouteStrings.subscriptionScreen);
-
-
-                  }),
-                  25.heightSizeBox,
-                  Center(
-                    child: RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: "I have an account ",
-                            style: w400_12a(color: AppColor.c455A64),
-                          ),
-                          TextSpan(
-                            text: 'LOGIN',
-                            style: w500_14a(color: AppColor.red),
-                            recognizer:
-                            TapGestureRecognizer()
-                              ..onTap = () {
-
-                              Get.offAllNamed(RouteStrings.loginScreen);
-                                print("Sign Up tapped");
-                              },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  40.heightSizeBox,
-                  OrDivider(),
-                  18.heightSizeBox,
-                  SocialMedia(),
-                  60.heightSizeBox,
-                ],
-              ),
-            ),
-          ),
-
-          //  Text("Skip"),
-        ],
-      ),*/
     );
   }
 }

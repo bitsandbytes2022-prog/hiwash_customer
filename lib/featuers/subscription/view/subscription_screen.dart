@@ -29,25 +29,21 @@ class SubscriptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppHomeBg(
-
-    centerHeading: Container(
-      margin: EdgeInsets.only(left: 60),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Hello, Ibrahim",
-            style: w400_16a(color: AppColor.white)
-          ),
-          Text(
+      centerHeading: Container(
+        margin: EdgeInsets.only(left: 60),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Hello, Ibrahim", style: w400_16a(color: AppColor.white)),
+            Text(
               "Full access subscription",
-              style:  w400_12a(color: AppColor.white)
-
-          )
-        ],
+              style: w400_12a(color: AppColor.white),
+            ),
+          ],
+        ),
       ),
-    ),
-      childAppBar:  Positioned(
+      childAppBar: Positioned(
         left: 46,
         bottom: -10,
         child: Container(
@@ -64,308 +60,131 @@ class SubscriptionScreen extends StatelessWidget {
             ),
           ),
         ),
-      ) ,
-      child: Column(
-        children: [
-          17.heightSizeBox,
-          Text(
-            "kChooseAPlan".tr,
-            style: w700_22a(color: AppColor.c2C2A2A),
-          ),
-
-          8.heightSizeBox,
-          Text(
-            "kGetBenefitsAcrossAll".tr,
-            textAlign: TextAlign.center,
-            style: w400_12p(color: AppColor.c455A64),
-          ),
-          12.heightSizeBox,
-          OfferCardWidget(),
-          viewOfferButton(() {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                ),
-              ),
-              builder: (BuildContext context) {
-                return CustomBottomSheet(child: bottomSheet());
-              },
-            );
-          }),
-
-          29.heightSizeBox,
-
-          PlansContainer(index: 1),
-          15.heightSizeBox,
-          PlansContainer(index: 2),
-          18.heightSizeBox,
-          Obx(() {
-            if (controller.selectedIndex.value == 1) {
-              return Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: AppColor.cFF973B.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    color: AppColor.cFF973B.withOpacity(0.4),
-                  ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      Assets.iconsIcTAndC,
-                      height: 35,
-                      width: 35,
-                    ),
-                    10.widthSizeBox,
-
-                    Expanded(
-                      child: Text(
-                        "WashYourCarOnce".tr,
-                        style: w400_12p(color: AppColor.c455A64),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            } else if (controller.selectedIndex.value == 2) {
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 30,
-                  vertical: 0,
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      "kCarRegistrationNumber".tr,
-                      style: w500_12p(color: AppColor.c455A64),
-                    ),
-                    Text(
-                      "kUnlimitedWashesPlan".tr,
-                      style: w500_12p(color: AppColor.c2C2A2A),
-                    ),
-                    10.heightSizeBox,
-                    HiWashTextField(
-                      hintText: "kEnterCarNumber".tr,
-                    ),
-                  ],
-                ),
-              );
-            } else {
-              return SizedBox.shrink();
-            }
-          }),
-          30.heightSizeBox,
-          HiWashButton(
-            onTap: () {
-              Get.toNamed(RouteStrings.enterCardDetailScreen);
-            },
-            text: "kSubscribe".tr,
-            margin: EdgeInsets.symmetric(horizontal: 30),
-          ),
-          60.heightSizeBox,
-        ],
       ),
-    );
-
-    /*Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
+      child: Stack(
         children: [
-          Image.asset(
-            Assets.imagesSubscriptionBg,
-            height: 260,
+          ImageView(
+            path: Assets.imagesSubscriptionBg,
             width: Get.width,
-            fit: BoxFit.cover,
+            height:Get.height/1.4,
           ),
           Column(
             children: [
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Container(
-                    height: 140,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF002D9C), // Dark Blue Color
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(25),
-                        bottomRight: Radius.circular(25),
-                      ),
+              17.heightSizeBox,
+              Text("kChooseAPlan".tr, style: w700_22a(color: AppColor.c2C2A2A)),
+
+              8.heightSizeBox,
+              Text(
+                "kGetBenefitsAcrossAll".tr,
+                textAlign: TextAlign.center,
+                style: w400_12p(color: AppColor.c455A64),
+              ),
+              30.heightSizeBox,
+              OfferCardWidget(
+                 padding: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              25.heightSizeBox,
+              viewOfferButton(() {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
                     ),
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                      top: 40,
+                  ),
+                  builder: (BuildContext context) {
+                    return CustomBottomSheet(
+                      // padding: EdgeInsets.only(left: 16,right: 16),
+                      child: bottomSheet(),
+                    );
+                  },
+                );
+              }),
+
+              32.heightSizeBox,
+
+              PlansContainer(index: 1, heading: "One wash per week",
+
+
+              subHeading: "Any of the 100 locations.",
+                qarText: "QAR",
+                numberText: "900",
+                yearText: "/ Year",
+              ),
+              15.heightSizeBox,
+              PlansContainer(index: 2, heading: "Unlimited washes",
+                imageShow: true,
+
+
+                subHeading: "Any of the 100 locations.",
+                qarText: "QAR",
+                numberText: "1200",
+                yearText: "/ Year",
+              ),
+              18.heightSizeBox,
+              Obx(() {
+                if (controller.selectedIndex.value == 1) {
+                  return Container(
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: AppColor.cFF973B.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: AppColor.cFF973B.withOpacity(0.4)),
                     ),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        InkWell(
-                          onTap: (){
-                            Get.back();
-                          },
-                          child: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                            size: 24,
-                          ),
-                        ),
-                        const SizedBox(width: 111),
-                        Text(
-                          "Hello, Ibrahim",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        Image.asset(Assets.iconsIcTAndC, height: 35, width: 35),
+                        10.widthSizeBox,
+
+                        Expanded(
+                          child: Text(
+                            "WashYourCarOnce".tr,
+                            style: w400_12p(color: AppColor.c455A64).copyWith(height: 2),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  Positioned(
-                    left: 46,
-                    bottom: -17,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.symmetric(horizontal: BorderSide.none),
-                      ),
-                      child: CircleAvatar(
-                        radius: 38,
-                        backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          radius: 28,
-                          backgroundImage: AssetImage(Assets.imagesDemoProfile),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                  );
+                } else if (controller.selectedIndex.value == 2) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                     child: Column(
                       children: [
-                        17.heightSizeBox,
                         Text(
-                          "kChooseAPlan".tr,
-                          style: w700_22a(color: AppColor.c2C2A2A),
+                          "kCarRegistrationNumber".tr,
+                          style: w500_12p(color: AppColor.c455A64),
                         ),
-
-                        8.heightSizeBox,
+                        4.heightSizeBox,
                         Text(
-                          "kGetBenefitsAcrossAll".tr,
-                          textAlign: TextAlign.center,
-                          style: w400_12p(color: AppColor.c455A64),
+                          "kUnlimitedWashesPlan".tr,
+                          style: w500_12p(color: AppColor.c2C2A2A),
                         ),
-                        12.heightSizeBox,
-                        OfferCardWidget(),
-                        viewOfferButton(() {
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                              ),
-                            ),
-                            builder: (BuildContext context) {
-                              return CustomBottomSheet(child: bottomSheet());
-                            },
-                          );
-                        }),
-
-                        29.heightSizeBox,
-
-                        PlansContainer(index: 1),
                         15.heightSizeBox,
-                        PlansContainer(index: 2),
-                        18.heightSizeBox,
-                        Obx(() {
-                          if (controller.selectedIndex.value == 1) {
-                            return Container(
-                              padding: EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: AppColor.cFF973B.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(
-                                  color: AppColor.cFF973B.withOpacity(0.4),
-                                ),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                    Assets.iconsIcTAndC,
-                                    height: 35,
-                                    width: 35,
-                                  ),
-                                  10.widthSizeBox,
-
-                                  Expanded(
-                                    child: Text(
-                                      "WashYourCarOnce".tr,
-                                      style: w400_12p(color: AppColor.c455A64),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else if (controller.selectedIndex.value == 2) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 30,
-                                vertical: 0,
-                              ),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "kCarRegistrationNumber".tr,
-                                    style: w500_12p(color: AppColor.c455A64),
-                                  ),
-                                  Text(
-                                    "kUnlimitedWashesPlan".tr,
-                                    style: w500_12p(color: AppColor.c2C2A2A),
-                                  ),
-                                  10.heightSizeBox,
-                                  HiWashTextField(
-                                    hintText: "kEnterCarNumber".tr,
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else {
-                            return SizedBox.shrink();
-                          }
-                        }),
-                        30.heightSizeBox,
-                        HiWashButton(
-                          onTap: () {
-                            Get.toNamed(RouteStrings.enterCardDetailScreen);
-                          },
-                          text: "kSubscribe".tr,
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                        ),
-                        60.heightSizeBox,
+                        HiWashTextField(hintText: "kEnterCarNumber".tr),
                       ],
                     ),
-                  ),
-                ),
+                  );
+                } else {
+                  return SizedBox.shrink();
+                }
+              }),
+              40.heightSizeBox,
+              HiWashButton(
+                onTap: () {
+                  Get.toNamed(RouteStrings.enterCardDetailScreen);
+                },
+                text: "kSubscribe".tr,
+                margin: EdgeInsets.symmetric(horizontal: 30),
               ),
+              30.heightSizeBox,
             ],
           ),
         ],
       ),
-    );*/
+    );
   }
 
   Widget viewOfferButton(VoidCallback onTap) {
@@ -401,8 +220,9 @@ class SubscriptionScreen extends StatelessWidget {
               style: w700_16a(color: AppColor.c2C2A2A),
             ),
 
-            17.heightSizeBox,
-            OfferCardWidget(),
+            27.heightSizeBox,
+            OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 20)),
+            25.heightSizeBox,
             Container(
               width: 158,
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
@@ -428,30 +248,29 @@ class SubscriptionScreen extends StatelessWidget {
                 ],
               ),
             ),
-            20.heightSizeBox,
+            25.heightSizeBox,
             SizedBox(
               height: Get.height,
               child: GridView.builder(
                 shrinkWrap: true,
 
-                padding: EdgeInsets.only(left: 10,right: 10,bottom: 200),
+                padding: EdgeInsets.only(left: 16, right: 16, bottom: 200),
                 clipBehavior: Clip.hardEdge,
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
-                 // mainAxisExtent: Get.height * 0.22,
+                  // mainAxisExtent: Get.height * 0.22,
                 ),
-                itemCount: 10,
+                itemCount: 7,
                 itemBuilder: (context, index) {
                   return OffersGridContainer();
                 },
               ),
             ),
-            60.heightSizeBox
+            60.heightSizeBox,
           ],
-
         ),
       ),
     );

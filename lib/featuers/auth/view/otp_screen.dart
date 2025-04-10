@@ -33,17 +33,22 @@ class OtpScreen extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: AppColor.c5C6B72.withOpacity(0.49)),
         borderRadius: BorderRadius.circular(100),
+
       ),
+
+
     );
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
       border: Border.all(color: AppColor.c5C6B72.withOpacity(0.49)),
       borderRadius: BorderRadius.circular(100),
+
     );
 
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration?.copyWith(
-          color: AppColor.c5C6B72.withOpacity(0.1)
+          color: AppColor.c5C6B72.withOpacity(0.1),
+
       ),
     );
     return Scaffold(
@@ -68,7 +73,7 @@ class OtpScreen extends StatelessWidget {
                 ),
                 TextSpan(
                   text: '+6281375112234',
-                  style: w500_14p(color: AppColor.blue),
+                  style: w500_14p(color: AppColor.blue).copyWith(decoration: TextDecoration.underline,decorationColor: AppColor.c455A64),
                 ),
               ],
             ),
@@ -79,7 +84,7 @@ class OtpScreen extends StatelessWidget {
             Pinput(
               defaultPinTheme: defaultPinTheme.copyDecorationWith(
 
-                color: AppColor.c5C6B72.withOpacity(0.1), // Set the background color
+                color: AppColor.c5C6B72.withOpacity(0.1),
               ),
               focusedPinTheme: focusedPinTheme,
               submittedPinTheme: submittedPinTheme,
@@ -90,6 +95,7 @@ class OtpScreen extends StatelessWidget {
               showCursor: true,
               onCompleted: (pin) => print(pin),
 
+
             ),
             24.heightSizeBox,
             Text("00:23",style: w400_12p(color: AppColor.red),),
@@ -97,7 +103,7 @@ class OtpScreen extends StatelessWidget {
             52.heightSizeBox,
 
             Text("kDidGetOTPCode".tr,style: w400_12p(color: AppColor.c455A64),),
-           1.heightSizeBox,
+           5.heightSizeBox,
             Text("resendCode".tr,style: w400_12p(color: AppColor.red),),
             26.heightSizeBox,
             HiWashButton(
@@ -107,7 +113,7 @@ class OtpScreen extends StatelessWidget {
               },
             ),
 
-            60.heightSizeBox,
+            30.heightSizeBox,
           ],
         ),
       ),

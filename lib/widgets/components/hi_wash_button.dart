@@ -72,6 +72,7 @@ class HiWashButton extends StatelessWidget {
           ),
         )
             : Center(
+
           child: Text(
             text,
             style: textStyle ?? w600_16a(color: AppColor.white),

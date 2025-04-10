@@ -31,7 +31,8 @@ class LoginScreen extends StatelessWidget {
       body: AppBg(
         headingText: "kWelcomeBack".tr,
         subText: "kLogin".tr,
-      showBackButton: false,
+
+      showBackButton: true,
         child: Form(
           key: formKey,
           child: Column(
@@ -105,7 +106,8 @@ class LoginScreen extends StatelessWidget {
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
-                                Get.offAllNamed(RouteStrings.signUpScreen);
+                         // Get.back();
+                                Get.toNamed(RouteStrings.signUpScreen);
                                 print("Sign Up tapped");
                               },
                       ),
@@ -117,7 +119,7 @@ class LoginScreen extends StatelessWidget {
               OrDivider(),
               18.heightSizeBox,
               SocialMedia(),
-              60.heightSizeBox,
+              30.heightSizeBox,
             ],
           ),
         ),

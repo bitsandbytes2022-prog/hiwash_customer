@@ -27,7 +27,7 @@ class ForgotPasswordScreen extends StatelessWidget {
     return Scaffold(
       body: AppBg(
         headingText: "kForgot".tr,
-        subText: 'kPassword'.tr,
+        subText: "kPassword".tr,
 
         child: Form(
           key: _formKey,
@@ -44,7 +44,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: w400_12p(color: AppColor.c455A64),
               ),
-              21.heightSizeBox,
+              25.heightSizeBox,
               HiWashTextField(
                 controller: authController.phoneForgotController,
                 keyboardType: TextInputType.phone,
@@ -63,7 +63,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 },
               ),
 
-              60.heightSizeBox,
+              30.heightSizeBox,
             ],
           ),
         ),
