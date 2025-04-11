@@ -86,150 +86,154 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ProfileImageView(isVisibleStack: false),
     ];
 
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: _currentDrawer == 'first' ? DrawerScreen() : SecondDrawer(),
-      drawerEnableOpenDragGesture: false,
+    return SafeArea(
+      top: false,
+      bottom: true,
+      child: Scaffold(
+        key: _scaffoldKey,
+        drawer: _currentDrawer == 'first' ? DrawerScreen() : SecondDrawer(),
+        drawerEnableOpenDragGesture: false,
 
-      body: AppHomeBg(
-        iconLeft: SizedBox(),
-        headingText: _headings[_currentIndex],
-        padding:
-            _currentIndex == 0 || _currentIndex == 2
-                ? EdgeInsets.zero
-                : EdgeInsets.symmetric(horizontal: 16),
-        childAppBar:
-            _currentIndex == 0
-                ? Obx(
-                  () => Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.isWashSelected.value = true;
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color:
-                                    controller.isWashSelected.value
-                                        ? AppColor.cF6F7FF
-                                        : Colors.transparent,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: Text(
-                                "kWash".tr,
-                                style: w700_16a(
+        body: AppHomeBg(
+          iconLeft: SizedBox(),
+          headingText: _headings[_currentIndex],
+          padding:
+              _currentIndex == 0 || _currentIndex == 2
+                  ? EdgeInsets.zero
+                  : EdgeInsets.symmetric(horizontal: 16),
+          childAppBar:
+              _currentIndex == 0
+                  ? Obx(
+                    () => Container(
+                      margin: EdgeInsets.only(left: 20, right: 20),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                controller.isWashSelected.value = true;
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 30,
+                                decoration: BoxDecoration(
                                   color:
                                       controller.isWashSelected.value
-                                          ? AppColor.c2C2A2A
-                                          : AppColor.white,
+                                          ? AppColor.cF6F7FF
+                                          : Colors.transparent,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                ),
+                                child: Text(
+                                  "kWash".tr,
+                                  style: w700_16a(
+                                    color:
+                                        controller.isWashSelected.value
+                                            ? AppColor.c2C2A2A
+                                            : AppColor.white,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        30.widthSizeBox,
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.isWashSelected.value = false;
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color:
-                                    !controller.isWashSelected.value
-                                        ? AppColor.cF6F7FF
-                                        : Colors.transparent,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: Text(
-                                "kLocations".tr,
-                                style: w700_16a(
+                          30.widthSizeBox,
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                controller.isWashSelected.value = false;
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 30,
+                                decoration: BoxDecoration(
                                   color:
                                       !controller.isWashSelected.value
-                                          ? AppColor.c2C2A2A
-                                          : AppColor.white,
+                                          ? AppColor.cF6F7FF
+                                          : Colors.transparent,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                ),
+                                child: Text(
+                                  "kLocations".tr,
+                                  style: w700_16a(
+                                    color:
+                                        !controller.isWashSelected.value
+                                            ? AppColor.c2C2A2A
+                                            : AppColor.white,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                )
-                : SizedBox(),
+                  )
+                  : SizedBox(),
 
-        iconRight: GestureDetector(
-          onTap: () {
-            setState(() {
-              _currentDrawer = 'second';
-            });
-            _openDrawer('second');
-          },
-          child: ImageView(height: 23, width: 23, path: Assets.iconsIcMessage),
-        ),
-        child: _pages[_currentIndex],
-      ),
-      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-        itemCount: filledImages.length,
-        tabBuilder: (int index, bool isActive) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [isActive ? filledImages[index] : outlineImages[index]],
-          );
-        },
-        activeIndex: _currentIndex,
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.softEdge,
-        onTap: _onItemTapped,
-        backgroundColor: AppColor.blue,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: GestureDetector(
-        onTap: () {
-          showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (BuildContext context) {
-              return AppDialog(bottomVisible: true, child: scanDialog());
+          iconRight: GestureDetector(
+            onTap: () {
+              setState(() {
+                _currentDrawer = 'second';
+              });
+              _openDrawer('second');
             },
-          );
-        },
-        child: Container(
-          width: 56,
-          height: 56,
-          decoration: BoxDecoration(
-            color: AppColor.cC31848,
-            borderRadius: BorderRadius.circular(100),
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.cC31848.withOpacity(0.60),
-                spreadRadius: 0,
-                blurRadius: 30,
-                offset: Offset(0, 15),
-              ),
-            ],
+            child: ImageView(height: 23, width: 23, path: Assets.iconsIcMessage),
           ),
-          child: Center(
-            child: ImageView(
-              path: Assets.iconsIcQr,
-              height: 40,
-              width: 40,
-              color: AppColor.white,
+          child: _pages[_currentIndex],
+        ),
+        bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+          itemCount: filledImages.length,
+          tabBuilder: (int index, bool isActive) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [isActive ? filledImages[index] : outlineImages[index]],
+            );
+          },
+          activeIndex: _currentIndex,
+          gapLocation: GapLocation.center,
+          notchSmoothness: NotchSmoothness.softEdge,
+          onTap: _onItemTapped,
+          backgroundColor: AppColor.blue,
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: GestureDetector(
+          onTap: () {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) {
+                return AppDialog(bottomVisible: true, child: scanDialog());
+              },
+            );
+          },
+          child: Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              color: AppColor.cC31848,
+              borderRadius: BorderRadius.circular(100),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColor.cC31848.withOpacity(0.60),
+                  spreadRadius: 0,
+                  blurRadius: 30,
+                  offset: Offset(0, 15),
+                ),
+              ],
+            ),
+            child: Center(
+              child: ImageView(
+                path: Assets.iconsIcQr,
+                height: 40,
+                width: 40,
+                color: AppColor.white,
+              ),
             ),
           ),
         ),

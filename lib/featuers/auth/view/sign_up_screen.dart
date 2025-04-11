@@ -31,7 +31,7 @@ class SignUpScreen extends StatelessWidget {
       body: AppBg(
         headingText: "kHello".tr,
         subText: "SignUp".tr,
-        showBackButton: false,
+       showBackButton: false,
         heading: false,
 
         child: Form(
@@ -98,14 +98,15 @@ class SignUpScreen extends StatelessWidget {
               HiWashButton(
                 text: "signUp".tr,
                 onTap: () {
-                  if (formKey.currentState?.validate() ?? false) {
+                  Get.toNamed(RouteStrings.subscriptionScreen);
+                 /* if (formKey.currentState?.validate() ?? false) {
                     if (authController.passwordSignupController.text.trim() ==
                         authController.cpasswordSignupController.text.trim()) {
                       Get.toNamed(RouteStrings.subscriptionScreen);
                     } else {
                       Get.snackbar("Error", "Passwords do not match");
                     }
-                  }
+                  }*/
                 },
               ),
               45.heightSizeBox,

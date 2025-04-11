@@ -82,12 +82,12 @@ class LoginScreen extends StatelessWidget {
               HiWashButton(
                 text: "kLogIn".tr,
                 onTap: () {
-                  //Get.offNamed(RouteStrings.dashboardScreen);
-                    if (formKey.currentState?.validate() ?? false) {
+                  Get.offNamed(RouteStrings.dashboardScreen);
+                    /*if (formKey.currentState?.validate() ?? false) {
 
 
                   Get.offNamed(RouteStrings.dashboardScreen);
-                  }
+                  }*/
                 },
               ),
               54.heightSizeBox,

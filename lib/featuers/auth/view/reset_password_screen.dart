@@ -41,7 +41,7 @@ class ResetPasswordScreen extends StatelessWidget {
               Text(
                 "kYourNewPasswordMust".tr,
                 textAlign: TextAlign.center,
-                style: w400_12p(color: AppColor.c455A64),
+                style: w400_12p(color: AppColor.c455A64).copyWith(height: 1.8),
               ),
               23.heightSizeBox,
               HiWashTextField(
@@ -77,12 +77,16 @@ class ResetPasswordScreen extends StatelessWidget {
               HiWashButton(
                 text: 'kSave'.tr,
                 onTap: () {
-                  if (_formKey.currentState?.validate() ?? false) {
+                  Get.offNamedUntil(
+                    RouteStrings.loginScreen,
+                        (route) => false,
+                  );
+               /*   if (_formKey.currentState?.validate() ?? false) {
                     Get.offNamedUntil(
                       RouteStrings.loginScreen,
                       (route) => false,
                     );
-                  }
+                  }*/
                 },
               ),
 

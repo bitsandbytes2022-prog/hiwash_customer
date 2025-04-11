@@ -32,24 +32,28 @@ class DrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Obx(() {
-        return Drawer(
-          child: Container(
-            //margin: EdgeInsets.only(bottom: ),
-            decoration: BoxDecoration(
-              color: AppColor.white,
-              borderRadius: BorderRadius.horizontal(right: Radius.circular(15)),
+    return SafeArea(
+      bottom: true,
+      top: false,
+      child: Scaffold(
+        body: Obx(() {
+          return Drawer(
+            child: Container(
+              //margin: EdgeInsets.only(bottom: ),
+              decoration: BoxDecoration(
+                color: AppColor.white,
+                borderRadius: BorderRadius.horizontal(right: Radius.circular(15)),
+              ),
+              child:
+                  drawerController.currentDrawerSection.value == ''
+                      ? mainDrawerUI()
+                      : sectionDrawerUI(
+                        drawerController.currentDrawerSection.value,
+                      ),
             ),
-            child:
-                drawerController.currentDrawerSection.value == ''
-                    ? mainDrawerUI()
-                    : sectionDrawerUI(
-                      drawerController.currentDrawerSection.value,
-                    ),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 
@@ -98,7 +102,7 @@ class DrawerScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                   border: Border.all(color: AppColor.cE8E9F4),
                 ),
-      
+
                 child: ImageView(
                   path: Assets.iconsIcCrown,
                   height: 17,
@@ -131,7 +135,7 @@ class DrawerScreen extends StatelessWidget {
             ),
           ),
           39.heightSizeBox,
-      
+
           /// **Drawer Options**
           drawerRowWidget(
             onTap: () => Get.to(MyAccountScreen()),
@@ -157,7 +161,7 @@ class DrawerScreen extends StatelessWidget {
             onTap: () => Get.to(TermsAndConditionScreen()),
             title: 'Terms and Condition', image: Assets.iconsIcTermscondition,
           ),
-        100.heightSizeBox,
+        80.heightSizeBox,
           GestureDetector(
             onTap: () {
               Get.offAllNamed(RouteStrings.loginScreen);
@@ -179,7 +183,7 @@ class DrawerScreen extends StatelessWidget {
               ),
             ),
           ),
-
+          40.heightSizeBox,
         ],
       ),
     );

@@ -58,8 +58,9 @@ class ForgotPasswordScreen extends StatelessWidget {
               HiWashButton(
                 text: "kRecoverPassword".tr,
                 onTap: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                  Get.toNamed(RouteStrings.otpScreen);}
+                  Get.toNamed(RouteStrings.otpScreen);
+         /*         if (_formKey.currentState?.validate() ?? false) {
+                  Get.toNamed(RouteStrings.otpScreen);}*/
                 },
               ),
 
