@@ -38,7 +38,7 @@ class SubscriptionScreen extends StatelessWidget {
             Text("Hello, Ibrahim", style: w400_16a(color: AppColor.white)),
             Text(
               "Full access subscription",
-              style: w400_12a(color: AppColor.white),
+              style: w400_12a(color: AppColor.white.withOpacity(0.5)),
             ),
           ],
         ),

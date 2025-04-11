@@ -14,6 +14,7 @@ import 'doted_vertical_line.dart';
 class AppHomeBg extends StatelessWidget {
   final String? headingText;
   final Widget? child;
+  final Widget? child1;
   final Widget? childAppBar;
   final Widget? iconRight;
   final Widget? iconLeft;
@@ -30,7 +31,7 @@ class AppHomeBg extends StatelessWidget {
     this.padding,
     this.childAppBar,
     this.centerHeading,
-    this.height,
+    this.height, this.child1,
   });
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -199,7 +200,7 @@ class AppHomeBg extends StatelessWidget {
             ),
 
             5.heightSizeBox,
-            Expanded(
+         child1??   Expanded(
               child: SingleChildScrollView(
                 child: Padding(
                   padding: padding ?? EdgeInsets.symmetric(horizontal: 16),

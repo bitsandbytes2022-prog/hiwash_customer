@@ -78,6 +78,7 @@ class Assets {
   static const String imagesPaymet1 = 'assets/images/paymet_1.png';
   static const String imagesProfileBg = 'assets/images/profile_bg.png';
   static const String imagesSplashBg = 'assets/images/splash_bg.png';
+  static const String imagesSubscribeBottome = 'assets/images/subscribe_bottome.png';
   static const String imagesSubscriptionBg = 'assets/images/subscription_bg.png';
   static const String imagesSuccessBg = 'assets/images/success_bg.png';
   static const String imagesTimeView = 'assets/images/time_view.png';

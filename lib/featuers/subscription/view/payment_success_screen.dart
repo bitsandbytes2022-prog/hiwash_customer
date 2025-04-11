@@ -32,7 +32,7 @@ padding: EdgeInsets.zero,
             ),
             Text(
                 "Full access subscription",
-                style:  w400_12a(color: AppColor.white)
+                style:  w400_12a(color: AppColor.white.withOpacity(0.5))
 
             )
           ],

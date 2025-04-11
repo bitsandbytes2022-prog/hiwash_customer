@@ -5,6 +5,7 @@ import 'package:hiwash_customer/featuers/auth/view/reset_password_screen.dart';
 import 'package:hiwash_customer/featuers/auth/view/splash_screen.dart';
 import 'package:hiwash_customer/featuers/subscription/view/enter_card_detail_screen.dart';
 import 'package:hiwash_customer/featuers/subscription/view/payment_success_screen.dart';
+import 'package:hiwash_customer/featuers/subscription/view/subscribe_main_screen.dart';
 import 'package:hiwash_customer/featuers/subscription/view/subscription_screen.dart';
 import 'package:hiwash_customer/featuers/wash_status/view/wash_status_screen.dart';
 
@@ -74,6 +75,10 @@ class Routes {
   page: () => DashboardScreen(),
  ),
 
+    GetPage(
+      name: RouteStrings.subscribeMainScreen,
+      page: () => SubscribeMainScreen(),
+    ),
 
 
 

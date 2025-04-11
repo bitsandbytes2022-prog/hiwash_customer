@@ -98,7 +98,7 @@ class SignUpScreen extends StatelessWidget {
               HiWashButton(
                 text: "signUp".tr,
                 onTap: () {
-                  Get.toNamed(RouteStrings.subscriptionScreen);
+                  Get.toNamed(RouteStrings.subscribeMainScreen);
                  /* if (formKey.currentState?.validate() ?? false) {
                     if (authController.passwordSignupController.text.trim() ==
                         authController.cpasswordSignupController.text.trim()) {
