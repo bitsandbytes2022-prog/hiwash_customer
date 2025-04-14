@@ -12,6 +12,15 @@ class RouteStrings {
   static const String washStatusScreen = '/washStatusScreen';
   static const String dashboardScreen = '/dashboardScreen';
   static const String subscribeMainScreen = '/subscribeMainScreen';
+  static const String myAccountScreen = '/myAccountScreen';
+  static const String subscriptionPlanScreen = '/subscriptionPlanScreen';
+  static const String languageScreen = '/languageScreen';
+  static const String faqScreen = '/faqScreen';
+  static const String chatScreen = '/chatScreen';
+  static const String stepByStepGuideScreen = '/stepByStepGuideScreen';
+  static const String stepByStepGuideDetailScreen = '/stepByStepGuideDetailScreen';
+  static const String helpDeskTicketScreen = '/helpDeskTicketScreen';
+
 
 
 

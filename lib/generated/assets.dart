@@ -44,6 +44,7 @@ class Assets {
   static const String iconsIcQrScanner = 'assets/icons/ic_qr_scanner.png';
   static const String iconsIcReward = 'assets/icons/ic_reward.png';
   static const String iconsIcRewardFill = 'assets/icons/ic_reward_fill.png';
+  static const String iconsIcSearch = 'assets/icons/ic_search.png';
   static const String iconsIcSent = 'assets/icons/ic_sent.png';
   static const String iconsIcStar = 'assets/icons/ic_star.png';
   static const String iconsIcSubscriptionPlan = 'assets/icons/ic_subscription_plan.png';
@@ -51,6 +52,7 @@ class Assets {
   static const String iconsIcTermscondition = 'assets/icons/ic_termscondition.png';
   static const String iconsIcTheme = 'assets/icons/ic_theme.png';
   static const String iconsIcTicket = 'assets/icons/ic_ticket.png';
+  static const String iconsIcUpWardArrow = 'assets/icons/ic_up_ward_arrow.png';
   static const String iconsIcVerify = 'assets/icons/ic_verify.png';
   static const String iconsMyLocation = 'assets/icons/my_location.png';
   static const String iconsPhone = 'assets/icons/Phone.png';
@@ -58,6 +60,7 @@ class Assets {
   static const String images1 = 'assets/images/1.svg';
   static const String imagesAppLogo = 'assets/images/app_logo.png';
   static const String imagesAuthBg = 'assets/images/auth_bg.png';
+  static const String imagesCameraImage = 'assets/images/camera_image.png';
   static const String imagesCar = 'assets/images/car.png';
   static const String imagesCarWash = 'assets/images/car_wash.png';
   static const String imagesCard1 = 'assets/images/card_1.png';

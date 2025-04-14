@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import '../../../../generated/assets.dart';
 import '../../../../styling/app_color.dart';
@@ -43,22 +44,22 @@ class SecondDrawer extends StatelessWidget {
 
           /// **Drawer Options**
           drawerRowWidget(
-            onTap: () => {Get.to(ChatScreen())},
+            onTap: () => Get.toNamed(RouteStrings.chatScreen),
             title: 'Chat with Support',
             image: Assets.iconsIcChat,
           ),
           drawerRowWidget(
-            onTap: () => {},
+            onTap: () => Get.toNamed(RouteStrings.helpDeskTicketScreen),
             title: 'Help Desk Ticket',
             image: Assets.iconsIcTicket,
           ),
           drawerRowWidget(
-            onTap: () => {},
+            onTap: () => Get.toNamed(RouteStrings.faqScreen),
             title: 'FAQ’s',
             image: Assets.iconsIcFaq,
           ),
           drawerRowWidget(
-            onTap: () => {},
+            onTap: () => Get.toNamed(RouteStrings.stepByStepGuideScreen),
             title: 'Step-by-Step Guide',
             dashedLineWidget: false,
             image: Assets.iconsIcGuideBook,

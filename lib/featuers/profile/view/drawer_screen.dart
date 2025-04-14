@@ -138,11 +138,11 @@ class DrawerScreen extends StatelessWidget {
 
           /// **Drawer Options**
           drawerRowWidget(
-            onTap: () => Get.to(MyAccountScreen()),
+            onTap: () =>Get.toNamed(RouteStrings.myAccountScreen),
             title: 'My Account', image:  Assets.iconsIcAccount,
           ),
           drawerRowWidget(
-            onTap: () =>  Get.to(SubscriptionPlanScreen()),
+            onTap: () =>  Get.toNamed(RouteStrings.subscriptionPlanScreen),
             title: 'Subscription Plan', image: Assets.iconsIcSubscriptionPlan,
           ),
           drawerRowWidget(
@@ -150,7 +150,7 @@ class DrawerScreen extends StatelessWidget {
             title: 'Theme', image: Assets.iconsIcTheme,
           ),
           drawerRowWidget(
-            onTap: () => drawerController.toggleDrawer('Language'),
+            onTap: () =>Get.toNamed(RouteStrings.languageScreen),
             title: 'Language', image: Assets.iconsIcLanguage,
           ),
           drawerRowWidget(

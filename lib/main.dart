@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           title: 'Hiwash customer',
           theme: LightTheme.theme(),
     // home: HomeScreen(),
-        initialRoute: RouteStrings.subscribeMainScreen,
+        initialRoute: RouteStrings.splashScreen,
           getPages: Routes.pages,
         );
       },
