@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:hiwash_customer/featuers/auth/view/forgot_password_screen.dart';
+import 'package:hiwash_customer/featuers/auth/view/login_otp_screen.dart';
 import 'package:hiwash_customer/featuers/auth/view/reset_password_screen.dart';
 import 'package:hiwash_customer/featuers/auth/view/splash_screen.dart';
 import 'package:hiwash_customer/featuers/profile/view/language_screen.dart';
@@ -45,6 +46,10 @@ class Routes {
     GetPage(
   name: RouteStrings.loginScreen,
   page: () => LoginScreen(),
+ ),
+    GetPage(
+  name: RouteStrings.loginOtpScreen,
+  page: () => LoginOtpScreen(),
  ),
     GetPage(
   name: RouteStrings.signUpScreen,

@@ -42,17 +42,17 @@ class LoginScreen extends StatelessWidget {
             children: [
               114.heightSizeBox,
               HiWashTextField(
-                controller: controller.emailController,
-                keyboardType: TextInputType.emailAddress,
+                controller: controller.loginPhoneController,
+                keyboardType: TextInputType.phone,
 
-                hintText: "kEmail".tr,
-                labelText: "kEmail".tr,
+                hintText: "Phone".tr,
+                labelText: "Phone".tr,
 
                 validator: (value) {
                   return controller.validateEmail(value);
                 },
               ),
-              24.heightSizeBox,
+           /*   24.heightSizeBox,
               HiWashTextField(
                 controller: controller.passwordController,
                 keyboardType: TextInputType.visiblePassword,
@@ -62,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                 validator: (value) {
                   return controller.validatePassword(value);
                 },
-              ),
+              ),*/
               12.heightSizeBox,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -78,11 +78,11 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              24.heightSizeBox,
+            54.heightSizeBox,
               HiWashButton(
                 text: "kLogIn".tr,
                 onTap: () {
-                  Get.offNamed(RouteStrings.dashboardScreen);
+                  Get.offNamed(RouteStrings.loginOtpScreen);
                     /*if (formKey.currentState?.validate() ?? false) {
 
 

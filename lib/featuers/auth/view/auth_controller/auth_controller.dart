@@ -13,7 +13,7 @@ class AuthController extends GetxController {
     super.onInit();
   }
 /// login controller
-  TextEditingController emailController = TextEditingController(text: "abcd@gmail.com");
+  TextEditingController loginPhoneController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "Abcd@123");
   ///signup controller
   TextEditingController nameController = TextEditingController(text: 'Abcd');

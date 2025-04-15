@@ -3,6 +3,7 @@ class RouteStrings {
   static const String welcomeScreen = '/welcomeScreen';
   static const String subscriptionScreen = '/subscriptionScreen';
   static const String loginScreen = '/loginScreen';
+  static const String loginOtpScreen = '/loginOtpScreen';
   static const String signUpScreen = '/signUpScreen';
   static const String forgotPasswordScreen = '/forgotPasswordScreen';
   static const String otpScreen = '/otpScreen';
