@@ -188,13 +188,13 @@ class AuthController extends GetxController {
     isLoading.value = true;
 
     try {
-      final value = await Repository().getTokens(requestBody).then((value){
+      final value = await Repository().getTokens(requestBody);
 
         print(" Value received in controller: $value");
         getTokenModel = value;
         LocalStorage token=LocalStorage();
          token.saveToken(value.data?.token??'');
-      });
+
     return value;
     } catch (error) {
       print(" Error in controller: $error");

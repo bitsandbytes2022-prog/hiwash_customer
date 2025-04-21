@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
@@ -8,18 +7,17 @@ import 'package:hiwash_customer/styling/app_font_poppins.dart';
 import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
-
 import 'second_drawer_controller/second_drawer_controller.dart';
 
 class FaqScreen extends StatelessWidget {
   FaqScreen({super.key});
 
-  final SecondDrawerController secondDrawerController = Get.put(
-    SecondDrawerController(),
-  );
+  final SecondDrawerController secondDrawerController = Get.put(SecondDrawerController());
+  final RxInt selectedFaqIndex = (-1).obs;
 
   @override
   Widget build(BuildContext context) {
+    secondDrawerController.getFaq();
 
     return AppHomeBg(
       headingText: "FAQ’s",
@@ -28,6 +26,7 @@ class FaqScreen extends StatelessWidget {
         children: [
           15.heightSizeBox,
 
+          // 🔍 Search bar
           Container(
             decoration: BoxDecoration(
               color: AppColor.white,
@@ -42,7 +41,9 @@ class FaqScreen extends StatelessWidget {
               ],
             ),
             child: TextFormField(
-              maxLines: 1,
+              onChanged: (value) {
+                secondDrawerController.searchQuery.value = value.toLowerCase();
+              },
               style: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.9)),
               decoration: InputDecoration(
                 prefixIcon: Padding(
@@ -53,10 +54,11 @@ class FaqScreen extends StatelessWidget {
                     width: 20,
                   ),
                 ),
-                hintText: "Search.....",
+                hintText: "Search...",
                 filled: true,
                 fillColor: AppColor.white,
                 floatingLabelBehavior: FloatingLabelBehavior.never,
+
                 hintStyle: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.40)),
                 contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 border: OutlineInputBorder(
@@ -67,19 +69,33 @@ class FaqScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide.none,
                 ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide.none,
+                )
               ),
             ),
           ),
 
           20.heightSizeBox,
+
+          // 📋 FAQ List
           Obx(() {
             if (secondDrawerController.isLoading.value) {
               return const Center(child: CircularProgressIndicator());
             }
 
-            final faqList = secondDrawerController.faqResponse?.data ?? [];
+            final allFaqs = secondDrawerController.faqResponse.value?.data ?? [];
 
-            if (faqList.isEmpty) {
+            // 🔍 Filter logic
+            final filteredFaqs = allFaqs.where((faqItem) {
+              final query = secondDrawerController.searchQuery.value;
+              final question = faqItem.question?.toLowerCase() ?? '';
+              final answer = faqItem.answer?.toLowerCase() ?? '';
+              return question.contains(query) || answer.contains(query);
+            }).toList();
+
+            if (filteredFaqs.isEmpty) {
               return const Center(child: Text("No FAQs found"));
             }
 
@@ -100,7 +116,7 @@ class FaqScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 20, bottom: 20),
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: faqList.length,
+                itemCount: filteredFaqs.length,
                 separatorBuilder: (context, index) => Column(
                   children: [
                     10.heightSizeBox,
@@ -109,54 +125,54 @@ class FaqScreen extends StatelessWidget {
                   ],
                 ),
                 itemBuilder: (context, index) {
-                  final isOpen = secondDrawerController.isExpanded[index];
-                  final faqItem = faqList[index];
+                  final faqItem = filteredFaqs[index];
 
-                  return GestureDetector(
-                    onTap: ()  {secondDrawerController.toggleExpand(index);
+                  return Obx(() {
+                    final isSelected = selectedFaqIndex.value == index;
 
-
+                    return GestureDetector(
+                      onTap: () {
+                        selectedFaqIndex.value = isSelected ? -1 : index;
                       },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  faqItem.question ?? '',
-                                  style: w600_12a(color: AppColor.c2C2A2A),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Question Row
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    faqItem.question ?? '',
+                                    style: w600_12a(color: AppColor.c2C2A2A),
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: ImageView(
-                                  path: isOpen
-                                      ? Assets.iconsIcUpWardArrow
-                                      : Assets.iconsIcDropDown,
+                                ImageView(
+                                  path: isSelected ? Assets.iconsIcUpWardArrow : Assets.iconsIcDropDown,
                                   height: 10,
                                   width: 12,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        if (isOpen) ...[
-                          8.heightSizeBox,
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              faqItem.answer ?? '',
-                              style: w400_12p(),
+                              ],
                             ),
                           ),
+
+                          // Answer if selected
+                          if (isSelected) ...[
+                            8.heightSizeBox,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: Text(
+                                faqItem.answer ?? '',
+                                style: w400_12p(),
+                              ),
+                            ),
+                          ],
                         ],
-                      ],
-                    ),
-                  );
+                      ),
+                    );
+                  });
                 },
               ),
             );
@@ -166,5 +182,3 @@ class FaqScreen extends StatelessWidget {
     );
   }
 }
-
-

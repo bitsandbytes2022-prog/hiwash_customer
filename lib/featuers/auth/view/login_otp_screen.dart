@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:pinput/pinput.dart';
-import '../../../network_manager/repository.dart';
+
 import '../../../route/route_strings.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/app_bg.dart';
-
 import '../../../widgets/components/hi_wash_button.dart';
 import '../auth_controller/auth_controller.dart';
-
 
 class LoginOtpScreen extends StatelessWidget {
   LoginOtpScreen({super.key});
 
   final AuthController controller =
-  Get.isRegistered<AuthController>() ? Get.find<AuthController>() : Get.put(
-      AuthController());
+      Get.isRegistered<AuthController>()
+          ? Get.find<AuthController>()
+          : Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -60,15 +58,14 @@ class LoginOtpScreen extends StatelessWidget {
                   ),
                   TextSpan(
                     text: phoneNumber,
-                    style: w500_14p(color: AppColor.blue).copyWith(
-                      decoration: TextDecoration.underline,
-                    ),
+                    style: w500_14p(
+                      color: AppColor.blue,
+                    ).copyWith(decoration: TextDecoration.underline),
                   ),
                 ],
               ),
             ),
             28.heightSizeBox,
-
 
             Pinput(
               length: 4,
@@ -91,17 +88,21 @@ class LoginOtpScreen extends StatelessWidget {
             5.heightSizeBox,
             Text("resendCode".tr, style: w400_12p(color: AppColor.red)),
             26.heightSizeBox,
-            Obx(() => HiWashButton(
-              isLoading: controller.isLoading.value,
-              text: "kVerify".tr,
-              onTap: () {
-                controller.getToken(phoneNumber).then((value){
-                  Get.offNamed(RouteStrings.dashboardScreen, arguments: controller.getTokenModel?.data?.id);
-                });
-              },
-            )
-
-
+            Obx(
+              () => HiWashButton(
+                isLoading: controller.isLoading.value,
+                text: "kVerify".tr,
+                onTap: () {
+                  controller.getToken(phoneNumber).then((value) {
+                    if (value != null) {
+                      Get.offNamed(
+                        RouteStrings.dashboardScreen,
+                        arguments: controller.getTokenModel?.data?.id,
+                      );
+                    }
+                  });
+                },
+              ),
             ),
 
             30.heightSizeBox,
@@ -111,5 +112,3 @@ class LoginOtpScreen extends StatelessWidget {
     );
   }
 }
-
-

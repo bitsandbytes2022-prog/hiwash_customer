@@ -1,11 +1,13 @@
-class GuidesResponseModel {
+import '../../../network_manager/api_constant.dart';
+
+class GetOfferCategoriesModel {
   bool? success;
   String? message;
   List<Data>? data;
 
-  GuidesResponseModel({this.success, this.message, this.data});
+  GetOfferCategoriesModel({this.success, this.message, this.data});
 
-  GuidesResponseModel.fromJson(Map<String, dynamic> json) {
+  GetOfferCategoriesModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
     if (json['data'] != null) {
@@ -29,34 +31,27 @@ class GuidesResponseModel {
 
 class Data {
   int? id;
-  String? category;
+  String? name;
   String? description;
-  String? createdAt;
-  String? modifyAt;
+  String? image;
 
-  Data({
-    this.id,
-    this.category,
-    this.description,
-    this.createdAt,
-    this.modifyAt,
-  });
+  Data({this.id, this.name, this.description, this.image});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    category = json['category'];
+    name = json['name'];
     description = json['description'];
-    createdAt = json['createdAt'];
-    modifyAt = json['modifyAt'] ?? '';
+    image = json['image'] != null
+        ? "${ApiConstant.baseImageUrl}${json['image']}"
+        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['category'] = this.category;
+    data['name'] = this.name;
     data['description'] = this.description;
-    data['createdAt'] = this.createdAt;
-    data['modifyAt'] = this.modifyAt;
+    data['image'] = this.image;
     return data;
   }
 }

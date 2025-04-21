@@ -1,3 +1,5 @@
+import 'package:hiwash_customer/network_manager/api_constant.dart';
+
 class GetOfferResponseModel {
   bool? success;
   String? message;
@@ -36,9 +38,9 @@ class Data {
   String? offerDetails;
   String? howToRedeem;
   String? termsAndConditions;
-  int? discountValue;
+  String? discountValue;
   String? expiryDate;
-  Null? image;
+  String? image;
 
   Data(
       {this.id,
@@ -62,9 +64,11 @@ class Data {
     offerDetails = json['offerDetails'];
     howToRedeem = json['howToRedeem'];
     termsAndConditions = json['termsAndConditions'];
-    discountValue = json['discountValue'];
+    discountValue = json['discountValue'].toString();
     expiryDate = json['expiryDate'];
-    image = json['image'];
+    image = json['image'] != null
+        ? "${ApiConstant.baseImageUrl}${json['image']}"
+        : null;
   }
 
   Map<String, dynamic> toJson() {

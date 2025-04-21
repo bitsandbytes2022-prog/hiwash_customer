@@ -23,6 +23,7 @@ import '../../rewads/view/reward_screen.dart';
 import '../../../widgets/components/app_home_bg.dart';
 import '../../wash_status/controller/wash_status_controller.dart';
 import '../../wash_status/view/wash_status_screen.dart';
+import '../controller/dashboard_controller.dart';
 
 class DashboardScreen extends StatefulWidget {
   DashboardScreen({super.key});
@@ -70,6 +71,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
+  DashboardController dashboardController =Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -390,7 +392,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               15.heightSizeBox,
               GestureDetector(
                 onTap: () {
-                  Get.back();
+                dashboardController.giveRating("4", "1", "1", "excellent");
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 28, vertical: 12),

@@ -19,6 +19,7 @@ class StepByStepGuideScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    secondDrawerController.getGuides();
 
     return AppHomeBg(
         padding: EdgeInsets.zero,
@@ -32,16 +33,16 @@ class StepByStepGuideScreen extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
 
               shrinkWrap: true,
-              itemCount: secondDrawerController.guidesResponseModel?.data
+              itemCount: secondDrawerController.guidesResponseModel.value?.data
                   ?.length ?? 0,
 
               separatorBuilder: (context, index) {
-                print("hjgjh=====>${secondDrawerController.guidesResponseModel?.data
+                print("hjgjh=====>${secondDrawerController.guidesResponseModel.value?.data
                     ?.length ?? 0}");
                 return  DotedHorizontalLine();
               },
               itemBuilder: (context, index) {
-                final item = secondDrawerController.guidesResponseModel?.data?[index];
+                final item = secondDrawerController.guidesResponseModel.value?.data?[index];
                 return countryRow(
                   title: item?.category ?? "",
                   description: item?.description ?? "",

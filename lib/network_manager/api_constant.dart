@@ -1,16 +1,20 @@
 class ApiConstant{
 
-static const baseUrl="https://loyaltyapistaging.pipelinedns.com";
+static const baseUrl="https://loyaltyapistaging.pipelinedns.com/api";
 
+static const String baseImageUrl = "https://loyaltyapistaging.pipelinedns.com";
 
-static const getToken="$baseUrl/api/authentication/token";
-static  getCustomerId(int id)=>"$baseUrl/api/customer/$id";
-static const getSubscription="$baseUrl/api/subscription";
-static const getSubscriptionMembership="/api/subscription/membership";
-static  getFaq(int entityType)=>"/api/content/faqs?entityType=$entityType";
-static  getGuides(int entityType)=>"/api/content/guides?entityType=$entityType";
-static  getTermsAndConditions(int entityType)=>"/api/content/termsandconditions?entityType=$entityType";
-static const getOffers="$baseUrl/api/offer";
+static const getToken="$baseUrl/authentication/token";
+static  getCustomerId(int id)=>"$baseUrl/customer/$id";
+static const getSubscription="$baseUrl/subscription";
+static const getSubscriptionMembership="/subscription/membership";
+static  getFaq(int entityType)=>"/content/faqs?entityType=$entityType";
+static  getGuides(int entityType)=>"/content/guides?entityType=$entityType";
+static  getTermsAndConditions(int entityType)=>"/content/termsandconditions?entityType=$entityType";
+static const getOffers="$baseUrl/offer";
+static  getOffersById(int id)=>"$baseUrl/offer/$id";
+static  const offerCategories="$baseUrl/offer/categories";
+static const rating="$baseUrl/customer/rating";
 
 
 

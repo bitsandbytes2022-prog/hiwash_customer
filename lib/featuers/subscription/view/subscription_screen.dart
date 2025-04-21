@@ -2,6 +2,7 @@
   import 'package:flutter/material.dart';
   import 'package:get/get.dart';
   import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/rewads/controller.dart';
   import 'package:hiwash_customer/featuers/subscription/controller/subscription_controller.dart';
   import 'package:hiwash_customer/generated/assets.dart';
   import 'package:hiwash_customer/styling/app_color.dart';
@@ -25,7 +26,7 @@
     SubscriptionScreen({super.key});
 
     SubscriptionController controller = Get.put(SubscriptionController());
-
+RewardController rewardController =Get.find();
     @override
     Widget build(BuildContext context) {
       return AppHomeBg(
@@ -277,7 +278,40 @@
                 ),
               ),
               25.heightSizeBox,
-              SizedBox(
+              Obx(() {
+                final data = rewardController.offerResponseModel.value?.data;
+
+                if (data == null) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                return SizedBox(
+                  height: Get.height,
+                  child: data.isNotEmpty
+                      ? GridView.builder(
+                    shrinkWrap: true,
+                    clipBehavior: Clip.hardEdge,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                    ),
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      return OffersGridContainer( offer: data[index],);
+                    },
+                  )
+                      : Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Text(
+                      'Data is not found',
+                      style: TextStyle(fontSize: 18, color: Colors.black),
+                    ),
+                  ),
+                );
+              }),
+            /*  SizedBox(
                 height: Get.height,
                 child: GridView.builder(
                   shrinkWrap: true,
@@ -296,7 +330,7 @@
                     return OffersGridContainer();
                   },
                 ),
-              ),
+              ),*/
               60.heightSizeBox,
             ],
           ),

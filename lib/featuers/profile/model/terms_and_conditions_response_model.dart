@@ -34,16 +34,17 @@ class Data {
   String? versionNumber;
   String? publishedDate;
   String? createdAt;
-  Null? modifyAt;
+  String? modifyAt;
 
-  Data(
-      {this.id,
-        this.title,
-        this.content,
-        this.versionNumber,
-        this.publishedDate,
-        this.createdAt,
-        this.modifyAt});
+  Data({
+    this.id,
+    this.title,
+    this.content,
+    this.versionNumber,
+    this.publishedDate,
+    this.createdAt,
+    this.modifyAt,
+  });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -52,7 +53,7 @@ class Data {
     versionNumber = json['versionNumber'];
     publishedDate = json['publishedDate'];
     createdAt = json['createdAt'];
-    modifyAt = json['modifyAt'];
+    modifyAt = (json['modifyAt'] ?? "").toString();
   }
 
   Map<String, dynamic> toJson() {

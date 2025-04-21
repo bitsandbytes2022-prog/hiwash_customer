@@ -11,7 +11,7 @@ class DrawerProfileController extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController carNumberController = TextEditingController();
-  TermsAndConditionsResponseModel? termsAndConditionsResponseModel;
+  Rxn<TermsAndConditionsResponseModel> termsAndConditionsResponseModel=Rxn();
   void toggleDrawer(String section) {
     if (currentDrawerSection.value == section) {
       currentDrawerSection.value = '';
@@ -23,7 +23,6 @@ class DrawerProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getTermsAndConditions();
   }
 
 
@@ -31,8 +30,8 @@ class DrawerProfileController extends GetxController {
     var entityType = 0;
 
     try {
-      termsAndConditionsResponseModel = await Repository().getTermsAndConditions(entityType);
-      return termsAndConditionsResponseModel;
+      termsAndConditionsResponseModel.value = await Repository().getTermsAndConditions(entityType);
+      return termsAndConditionsResponseModel.value;
     } catch (error) {
       print("Error fetching Terms And Condition: $error");
       return null;

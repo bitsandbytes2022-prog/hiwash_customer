@@ -6,10 +6,11 @@ import 'package:hiwash_customer/featuers/profile/model/terms_and_conditions_resp
 
   class SecondDrawerController extends GetxController {
     var isChecked = [true, false, false].obs;
-    FaqResponseModel? faqResponse;
-    GuidesResponseModel? guidesResponseModel;
+    Rxn<FaqResponseModel> faqResponse=Rxn();
+    Rxn<GuidesResponseModel> guidesResponseModel=Rxn();
     RxBool isLoading = true.obs;
     RxList<bool> isExpanded = <bool>[].obs;
+    RxString searchQuery = ''.obs;
 
 
     void toggleCheckbox(int index) {
@@ -21,7 +22,7 @@ import 'package:hiwash_customer/featuers/profile/model/terms_and_conditions_resp
     @override
     void onInit() {
       super.onInit();
-      getFaq();
+
       getGuides();
     }
 
@@ -33,13 +34,14 @@ import 'package:hiwash_customer/featuers/profile/model/terms_and_conditions_resp
 
 
 
-    Future<void> getFaq() async {
+    Future<FaqResponseModel?> getFaq() async {
       isLoading.value = true;
       try {
         int entityType = 0;
-        faqResponse = await Repository().getFaq(entityType);
+        faqResponse.value = await Repository().getFaq(entityType);
 
-        isExpanded.value = List<bool>.filled(faqResponse?.data?.length ?? 0, false);
+        isExpanded.value = List<bool>.filled(faqResponse.value?.data?.length ?? 0, false);
+      //return faqResponse.value;
       } catch (error) {
         print("Error fetching FAQ: $error");
       } finally {
@@ -61,14 +63,14 @@ import 'package:hiwash_customer/featuers/profile/model/terms_and_conditions_resp
 
     Future<GuidesResponseModel?> getGuides() async {
       int entityType = 0;
-
-      try {
-        guidesResponseModel = await Repository().getGuides(entityType);
-        return guidesResponseModel;
-      } catch (error) {
-        print("Error fetching Guides: $error");
-        return null;
-      }
+      // try {
+        guidesResponseModel.value = await Repository().getGuides(entityType);
+        return guidesResponseModel.value;
+      // } catch (error) {
+      //   print("Error fetching Guides: $error");
+      //   throw Exception(error);
+      //   return null;
+      // }
     }
 
 

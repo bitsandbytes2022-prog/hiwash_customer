@@ -9,16 +9,23 @@ class TermsAndConditionScreen extends StatelessWidget {
   DrawerProfileController drawerProfileController=Get.find();
   @override
   Widget build(BuildContext context) {
+    drawerProfileController.getTermsAndConditions();
+
     return AppHomeBg(
       headingText: "Terms and Condition",
       iconRight: SizedBox(),
+
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
 
             15.heightSizeBox,
-            Text(drawerProfileController.termsAndConditionsResponseModel?.data?.first.content??"".tr)]),
+            Obx(
+               () {
+                return Text(drawerProfileController.termsAndConditionsResponseModel.value?.data?.first.content??"".tr,);
+              }
+            )]),
     );
   }
 }

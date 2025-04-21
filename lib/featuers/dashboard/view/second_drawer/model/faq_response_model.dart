@@ -32,7 +32,7 @@ class Data {
   String? question;
   String? answer;
   String? createdAt;
-  Null? modifyAt;
+  String? modifyAt;
 
   Data({this.id, this.question, this.answer, this.createdAt, this.modifyAt});
 
@@ -41,7 +41,7 @@ class Data {
     question = json['question'];
     answer = json['answer'];
     createdAt = json['createdAt'];
-    modifyAt = json['modifyAt'];
+    modifyAt = json['modifyAt']??'';
   }
 
   Map<String, dynamic> toJson() {

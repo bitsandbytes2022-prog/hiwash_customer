@@ -1,21 +1,92 @@
 import 'package:get/get.dart';
+import 'package:hiwash_customer/featuers/rewads/model/get_offer_categories.dart';
 import 'package:hiwash_customer/featuers/rewads/model/offer_response_model.dart';
-
+import '../../generated/assets.dart';
 import '../../network_manager/repository.dart';
+import 'model/get_offers_by_id_model.dart';
 
-class RewardController extends GetxController{
+class RewardController extends GetxController {
 
+  Rxn<GetOfferResponseModel>offerResponseModel=Rxn();
+  Rxn<GetOffersByIdModel>getOffersByIdModel=Rxn();
+  Rxn<GetOfferCategoriesModel>getOfferCategoriesModel=Rxn();
+  RxInt selectedDropDownIndex = (-1).obs;
 
-
-  GetOfferResponseModel? offerResponseModel;
-
-  Future<GetOfferResponseModel?>getAllOffers()async{
+  bool loading = false;
+  Future<GetOfferResponseModel?> getAllOffers() async {
     try {
-      offerResponseModel = await Repository().getAllOffer();
-      return offerResponseModel;
+      loading = true;
+      update();
+      offerResponseModel.value = await Repository().getAllOffer();
+      offerResponseModel.value;
     } catch (error) {
-      print("Error fetching Guides: $error");
-      return null;
+      loading = false;
+      update();
+      print("Error fetching Offers: $error");
+    }
+    return null;
+  }
+
+  Future<GetOffersByIdModel?> getOffersById(int id) async {
+
+    try {
+       getOffersByIdModel.value = await Repository().getOfferById(id);
+      getOffersByIdModel.value;
+      update();
+    } catch (error) {
+      print("Error fetching Offers: $error");
+    }
+  }
+
+
+
+  Future<GetOfferCategoriesModel?> getOfferCategoriesMethod() async {
+    try {
+      loading = true;
+      update();
+      getOfferCategoriesModel.value = await Repository().getOfferCategories();
+      getOfferCategoriesModel.value;
+    } catch (error) {
+      loading = false;
+      update();
+      print("Error fetching Offers: $error");
+    }
+    return null;
+  }
+  final List<String> images = [
+    Assets.demoOffer1,
+    Assets.demoOffer2,
+    Assets.demoOffer3,
+  ];
+
+
+  String timeUntilExpiry(String? expiryDate) {
+    if (expiryDate == null || expiryDate.isEmpty) {
+      return "No Expiry";
+    }
+
+    try {
+      DateTime expiry = DateTime.parse(expiryDate);
+      DateTime now = DateTime.now();
+      Duration difference = expiry.difference(now);
+
+      if (difference.isNegative) {
+        return "Expired";
+      } else if (difference.inDays > 365) {
+        return "${(difference.inDays / 365).floor()} years";
+      } else if (difference.inDays > 30) {
+        return "${(difference.inDays / 30).floor()} months";
+      } else if (difference.inDays > 0) {
+        return "${difference.inDays} days";
+      } else if (difference.inHours > 0) {
+        return "${difference.inHours} hours";
+      } else if (difference.inMinutes > 0) {
+        return "${difference.inMinutes} minutes";
+      } else {
+        return "${difference.inSeconds} seconds";
+      }
+    } catch (e) {
+      return "Invalid date";
     }
   }
 
