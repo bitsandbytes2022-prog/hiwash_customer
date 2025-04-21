@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
@@ -11,16 +12,25 @@ import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/hi_wash_text_field.dart';
 import '../../../widgets/components/image_view.dart';
+import '../controller/drawer.dart';
 
 class MyAccountScreen extends StatelessWidget {
-  const MyAccountScreen({super.key});
+  MyAccountScreen({super.key});
+
+  WashStatusController washStatusController = Get.find();
+  DrawerProfileController drawerProfileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    final userData = washStatusController.getCustomerData?.data?.first;
+    drawerProfileController.nameController.text = userData?.fullName ?? '';
+    drawerProfileController.emailController.text = userData?.email ?? '';
+    drawerProfileController.phoneController.text = userData?.mobileNumber ?? '';
+
     return AppHomeBg(
       headingText: "My Account",
-      iconRight:SizedBox(),
-      child:  Column(
+      iconRight: SizedBox(),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           15.heightSizeBox,
@@ -62,15 +72,21 @@ class MyAccountScreen extends StatelessWidget {
             ],
           ),
           11.heightSizeBox,
-          Text("Ibrahim Bafqia",style:w700_16a(color: AppColor.c2C2A2A) ,),
+          Text(
+            userData?.fullName ?? '',
+            style: w700_16a(color: AppColor.c2C2A2A),
+          ),
           4.heightSizeBox,
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
               children: [
-                TextSpan(text: 'Your ', style: w400_12p(color: AppColor.c455A64)),
                 TextSpan(
-                  text: 'Unlimited Washes',
+                  text: 'Your ',
+                  style: w400_12p(color: AppColor.c455A64),
+                ),
+                TextSpan(
+                  text: userData?.subscriptionName ?? '',
                   style: w600_14p(color: AppColor.cC31848),
                 ),
                 TextSpan(
@@ -78,7 +94,7 @@ class MyAccountScreen extends StatelessWidget {
                   style: w400_12p(color: AppColor.c455A64),
                 ),
                 TextSpan(
-                  text: '15-oct-2025',
+                  text: userData?.endDate ?? '',
                   style: w600_12p(color: AppColor.c455A64),
                 ),
               ],
@@ -86,17 +102,32 @@ class MyAccountScreen extends StatelessWidget {
           ),
           39.heightSizeBox,
           31.heightSizeBox,
-          HiWashTextField(hintText: "Name", labelText: "Name"),
+          HiWashTextField(
+            controller: drawerProfileController.nameController,
+
+            hintText: "Name",
+            labelText: "Name",
+          ),
           20.heightSizeBox,
-          HiWashTextField(hintText: "Email", labelText: "Email"),
+          HiWashTextField(
+            controller: drawerProfileController.emailController,
+
+            hintText: "Email",
+            labelText: "Email",
+          ),
           20.heightSizeBox,
-          HiWashTextField(hintText: "Phone", labelText: "Phone"),
+          HiWashTextField(
+            controller: drawerProfileController.phoneController,
+            hintText: "Phone",
+            labelText: "Phone",
+          ),
           20.heightSizeBox,
           Column(
             children: [
               Stack(
                 children: [
                   TextFormField(
+                    controller: drawerProfileController.addressController,
                     maxLines: 3,
                     style: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.9)),
                     decoration: InputDecoration(
@@ -106,7 +137,9 @@ class MyAccountScreen extends StatelessWidget {
                       filled: true,
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       labelStyle: w400_13a(color: AppColor.c455A64),
-                      hintStyle: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.40)),
+                      hintStyle: w400_14p(
+                        color: AppColor.c2C2A2A.withOpacity(0.40),
+                      ),
                       contentPadding: EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 12,
@@ -151,27 +184,29 @@ class MyAccountScreen extends StatelessWidget {
                   ),
 
                   Positioned(
-                      top: 9,
-                      right: 8,
-                      child:ImageView(
-
-                        path: Assets.iconsMyLocation,
-                        height: 18,
-                        width: 18,
-
-                      )
+                    top: 9,
+                    right: 8,
+                    child: ImageView(
+                      path: Assets.iconsMyLocation,
+                      height: 18,
+                      width: 18,
+                    ),
                   ),
                 ],
               ),
             ],
           ),
 
-
           20.heightSizeBox,
-          HiWashTextField(hintText: "Car Number", labelText: "Car Number"),
+          HiWashTextField(
+            controller: drawerProfileController.carNumberController,
+
+            hintText: "Car Number",
+            labelText: "Car Number",
+          ),
 
           60.heightSizeBox,
-          HiWashButton(text: 'Save',),
+          HiWashButton(text: 'Save'),
           30.heightSizeBox,
         ],
       ),

@@ -6,8 +6,6 @@ import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/styling/app_font_poppins.dart';
 import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
-import 'package:hiwash_customer/widgets/components/doted_horizontal_line.dart';
-import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
@@ -22,6 +20,7 @@ class FaqScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return AppHomeBg(
       headingText: "FAQ’s",
       iconRight: SizedBox(),
@@ -73,58 +72,71 @@ class FaqScreen extends StatelessWidget {
           ),
 
           20.heightSizeBox,
-          Container(
-            //padding: EdgeInsets.all(15),
-            width: Get.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: AppColor.white,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColor.c142293.withOpacity(0.15),
-                  blurRadius: 15,
-                  offset: Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Obx(
-              () => ListView.separated(
-                padding: EdgeInsets.only(top: 20, bottom: 20),
+          Obx(() {
+            if (secondDrawerController.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            final faqList = secondDrawerController.faqResponse?.data ?? [];
+
+            if (faqList.isEmpty) {
+              return const Center(child: Text("No FAQs found"));
+            }
+
+            return Container(
+              width: Get.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: AppColor.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.c142293.withOpacity(0.15),
+                    blurRadius: 15,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: ListView.separated(
+                padding: const EdgeInsets.only(top: 20, bottom: 20),
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: secondDrawerController.isExpanded.length,
-                separatorBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      10.heightSizeBox,
-                      Divider(color: AppColor.c142293.withOpacity(0.15)),
-                      10.heightSizeBox,
-                    ],
-                  );
-                },
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: faqList.length,
+                separatorBuilder: (context, index) => Column(
+                  children: [
+                    10.heightSizeBox,
+                    Divider(color: AppColor.c142293.withOpacity(0.15)),
+                    10.heightSizeBox,
+                  ],
+                ),
                 itemBuilder: (context, index) {
-                  bool isOpen = secondDrawerController.isExpanded[index];
+                  final isOpen = secondDrawerController.isExpanded[index];
+                  final faqItem = faqList[index];
+
                   return GestureDetector(
-                    onTap: () => secondDrawerController.toggleExpand(index),
+                    onTap: ()  {secondDrawerController.toggleExpand(index);
+
+
+                      },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                "How do I book a car wash?",
-                                style: w600_12a(color: AppColor.c2C2A2A),
+                              Expanded(
+                                child: Text(
+                                  faqItem.question ?? '',
+                                  style: w600_12a(color: AppColor.c2C2A2A),
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(1.0),
                                 child: ImageView(
-                                  path:
-                                      isOpen
-                                          ? Assets.iconsIcUpWardArrow
-                                          : Assets.iconsIcDropDown,
+                                  path: isOpen
+                                      ? Assets.iconsIcUpWardArrow
+                                      : Assets.iconsIcDropDown,
                                   height: 10,
                                   width: 12,
                                 ),
@@ -134,9 +146,12 @@ class FaqScreen extends StatelessWidget {
                         ),
                         if (isOpen) ...[
                           8.heightSizeBox,
-                          Text(
-                            "Go to the “Book Now” section, select your location, choose a service, and confirm your booking time.",
-                            style: w400_12p(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              faqItem.answer ?? '',
+                              style: w400_12p(),
+                            ),
                           ),
                         ],
                       ],
@@ -144,11 +159,12 @@ class FaqScreen extends StatelessWidget {
                   );
                 },
               ),
-            ),
-          ),
+            );
+          }),
         ],
       ),
     );
   }
 }
+
 

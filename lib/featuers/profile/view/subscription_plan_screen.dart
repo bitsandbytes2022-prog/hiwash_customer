@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
@@ -10,14 +11,16 @@ import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/doted_line.dart';
 import '../../../widgets/components/get_start_button.dart';
-import '../../../widgets/components/image_view.dart';
 import '../../subscription/widgets/plan_container.dart';
 
 class SubscriptionPlanScreen extends StatelessWidget {
-  const SubscriptionPlanScreen({super.key});
+   SubscriptionPlanScreen({super.key});
+  WashStatusController washStatusController = Get.find();
+
 
   @override
   Widget build(BuildContext context) {
+    final userData = washStatusController.getCustomerData?.data?.first;
     return AppHomeBg(
       padding: EdgeInsets.zero,
       headingText: "Subscription Plan",
@@ -46,11 +49,11 @@ class SubscriptionPlanScreen extends StatelessWidget {
                 ),
 
                 10.heightSizeBox,
-                Text("Ibrahim Bafqia",style:w700_16a(color: AppColor.c2C2A2A) ,),
+                Text(userData?.fullName??"",style:w700_16a(color: AppColor.c2C2A2A) ,),
                 42.heightSizeBox,
                 subscriptionRowWidget(
-                  title: 'Pack Name',
-                  packName: ' Unlimited Washes',
+                  title: 'Pack Name ',
+                  packName: userData?.subscriptionName??'',
                 ),
                 10.heightSizeBox,
                 DashedLineWidget(),

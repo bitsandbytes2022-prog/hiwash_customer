@@ -5,6 +5,7 @@ class Languages extends Translations {
   // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
     'en_US': {
+          'kHellos': 'Hello hello',
 "kDemoText":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       "kWelcomeToThe": "Welcome to the",
       "kHiWASH":"HI WASH",
@@ -19,7 +20,7 @@ class Languages extends Translations {
       "kTermsAndConditions": "Terms & Conditions",
       "kWashWin": "Wash & Win!",
       "kGetYourCarWashed":
-          "Get your car washed weekly at 100+ locations with exclusive offers.Missed washes still deducted.",
+          "Get your car washed weekly at 100+ locations with exclusive offers.",
 
       ///  Login screen
       "kLogin": "Log In!",

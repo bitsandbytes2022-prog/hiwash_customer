@@ -11,7 +11,7 @@ import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/app_bg.dart';
 import '../../../widgets/components/hi_wash_button.dart';
 import '../../../widgets/components/hi_wash_text_field.dart';
-import 'auth_controller/auth_controller.dart';
+import '../auth_controller/auth_controller.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   ForgotPasswordScreen({super.key});

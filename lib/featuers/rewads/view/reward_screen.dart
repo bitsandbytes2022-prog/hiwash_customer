@@ -19,12 +19,14 @@ import '../../../widgets/components/doted_horizontal_line.dart';
 import '../../../widgets/components/offers_grid_container.dart';
 import '../../../widgets/components/profile_image_container.dart';
 import '../../subscription/widgets/offer_card.dart';
+import '../controller.dart';
 
 class RewardScreen extends StatelessWidget {
-  const RewardScreen({super.key});
-
+   RewardScreen({super.key});
+  RewardController rewardController = Get.put(RewardController());
   @override
   Widget build(BuildContext context) {
+    rewardController.getAllOffers();
     return Column(
       children: [
         15.heightSizeBox,
@@ -33,7 +35,7 @@ class RewardScreen extends StatelessWidget {
           height: Get.height,
           child: GridView.builder(
             shrinkWrap: true,
-            // padding: EdgeInsets.symmetric(horizontal: 10),
+
             clipBehavior: Clip.hardEdge,
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

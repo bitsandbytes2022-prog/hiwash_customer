@@ -1,20 +1,20 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:hiwash_customer/featuers/auth/view/auth_controller/auth_controller.dart';
 import 'package:hiwash_customer/widgets/components/app_bg.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../../generated/assets.dart';
+import '../../../language/String_constant.dart';
 import '../../../route/route_strings.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
 import '../../../widgets/components/bottom_sheet_bg.dart';
 import '../../../widgets/components/hi_wash_button.dart';
+import '../auth_controller/auth_controller.dart';
 import 'auth_widgets/bg_widget.dart';
 import 'auth_widgets/or_widget.dart';
 import 'auth_widgets/social_media.dart';
@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
         headingText: "kWelcomeBack".tr,
         subText: "kLogin".tr,
 
-      showBackButton: true,
+        showBackButton: true,
         child: Form(
           key: formKey,
           child: Column(
@@ -49,20 +49,9 @@ class LoginScreen extends StatelessWidget {
                 labelText: "Phone".tr,
 
                 validator: (value) {
-                  return controller.validateEmail(value);
+                  return controller.validatePhoneNumberLogin(value);
                 },
               ),
-           /*   24.heightSizeBox,
-              HiWashTextField(
-                controller: controller.passwordController,
-                keyboardType: TextInputType.visiblePassword,
-                hintText: "kPassword".tr,
-                labelText: "kPassword".tr,
-
-                validator: (value) {
-                  return controller.validatePassword(value);
-                },
-              ),*/
               12.heightSizeBox,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -78,16 +67,29 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            54.heightSizeBox,
+              54.heightSizeBox,
               HiWashButton(
                 text: "kLogIn".tr,
                 onTap: () {
-                  Get.offNamed(RouteStrings.loginOtpScreen);
-                    /*if (formKey.currentState?.validate() ?? false) {
+                  // Get.offNamed(RouteStrings.loginOtpScreen);
+                  if (formKey.currentState?.validate() ?? false) {
 
-
-                  Get.offNamed(RouteStrings.dashboardScreen);
-                  }*/
+                    String phoneNumber =
+                        controller.loginPhoneController.text.trim();
+                    Get.offNamed(
+                      RouteStrings.loginOtpScreen,
+                      arguments: phoneNumber,
+                    );
+                    Get.snackbar(
+                      "success",
+                      "Otp sent on register number.",
+                      backgroundColor: Colors.green,
+                      colorText: AppColor.white,
+                    );
+                    controller.loginPhoneController.clear();
+                  } else {
+                    print("Enter number");
+                  }
                 },
               ),
               54.heightSizeBox,
@@ -106,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
-                         // Get.back();
+                                // Get.back();
                                 Get.toNamed(RouteStrings.signUpScreen);
                                 print("Sign Up tapped");
                               },
@@ -124,8 +126,6 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
-
-
     );
   }
 }

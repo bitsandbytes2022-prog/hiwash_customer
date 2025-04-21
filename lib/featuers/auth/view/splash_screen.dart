@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/generated/assets.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
+
+import '../../../network_manager/local_storage.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
@@ -17,14 +20,25 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2), () {
-      return Get.offNamed(RouteStrings.welcomeScreen);
-    });
     super.initState();
+    _checkLoginStatus();
   }
 
+  void _checkLoginStatus() async {
+    final LocalStorage localStorage = LocalStorage();
+    await Future.delayed(Duration(seconds: 2));
+
+    final token = localStorage.getToken();
+
+    if (token != null && token.isNotEmpty) {
+      Get.offNamed(RouteStrings.dashboardScreen);
+    } else {
+      Get.offNamed(RouteStrings.welcomeScreen);
+    }
+  }
   @override
   Widget build(BuildContext context) {  
     return Scaffold(
@@ -91,11 +105,11 @@ class _SplashScreenState extends State<SplashScreen> {
                         child: Column(
                           children: [
                             Text(
-                              "kWelcomeToThe".tr,
+                              StringConstant.kWelcomeToThe.tr,
                               style: w400_22a(color: AppColor.c2C2A2A),
                             ),
                             Text(
-                              "kHiWASH".tr,
+                              StringConstant.kHiWASH.tr,
                               style: w900_24a(color: AppColor.c2C2A2A),
                             ),
                           ],
@@ -109,7 +123,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Padding(
                 padding: EdgeInsets.only(bottom: 60),
                 child: Text(
-                  "kWeComeToYouTo".tr,
+                  StringConstant.kWeComeToYouTo.tr,
                   style: w500_16a(color: AppColor.white.withOpacity(0.4)),
                   textAlign: TextAlign.center,
                 ),

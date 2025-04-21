@@ -1,19 +1,29 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 
-class AuthController extends GetxController {
+import '../../../network_manager/local_storage.dart';
+import '../../../network_manager/repository.dart';
+import '../model/get_token_model.dart';
 
-@override
+class AuthController extends GetxController {
+  var isLoggedIn = false.obs;
+  @override
   void onInit() {
-  pageController.addListener(() {
-    onPageChanged(pageController.page!.round());
-  });
+    pageController.addListener(() {
+      onPageChanged(pageController.page!.round());
+    });
     super.onInit();
   }
-/// login controller
-  TextEditingController loginPhoneController = TextEditingController(text: "");
+
+
+
+  GetTokenModel?getTokenModel;
+  /// login controller
+  TextEditingController loginPhoneController = TextEditingController(text: "7696379802");
   TextEditingController passwordController = TextEditingController(text: "Abcd@123");
   ///signup controller
   TextEditingController nameController = TextEditingController(text: 'Abcd');
@@ -22,12 +32,12 @@ class AuthController extends GetxController {
   TextEditingController passwordSignupController = TextEditingController(text: "Abcd@123");
   TextEditingController cpasswordSignupController = TextEditingController(text: "Abcd@123");
 
-/// forgot password controller
+  /// forgot password controller
   TextEditingController phoneForgotController = TextEditingController();
 
-/// rest password controller
-TextEditingController passwordRestController = TextEditingController();
-TextEditingController cPasswordRestController = TextEditingController();
+  /// rest password controller
+  TextEditingController passwordRestController = TextEditingController();
+  TextEditingController cPasswordRestController = TextEditingController();
 
 
   bool obscurePassword = true;
@@ -37,12 +47,12 @@ TextEditingController cPasswordRestController = TextEditingController();
   final PageController pageController = PageController();
 
 
-var currentPage = 0.obs;
+  var currentPage = 0.obs;
 
 
-void onPageChanged(int index) {
-  currentPage.value = index;
-}
+  void onPageChanged(int index) {
+    currentPage.value = index;
+  }
   final List<String> headingText = [
     "kEcoCleanWalletGreen","Wash & Win!",
     //"kEcoCleanWalletGreen",
@@ -51,16 +61,16 @@ void onPageChanged(int index) {
   ]; final List<String> subText = [
     "kExclusiveDealsWithEvery",
     "Get your car washed weekly at 100+\nlocations with exclusive offers.\nMissed washes still deducted.",
-   // "kExclusiveDealsWithEvery",
+    // "kExclusiveDealsWithEvery",
 
   ];
 
-final List<String> backgroundImages = [
-  Assets.imagesWelcomeBg,
-  Assets.imagesWelcomMapBg,
- // Assets.imagesWelcomMapBg,
+  final List<String> backgroundImages = [
+    Assets.imagesWelcomeBg,
+    Assets.imagesWelcomMapBg,
+    // Assets.imagesWelcomMapBg,
 
-];
+  ];
 
 
 
@@ -121,16 +131,98 @@ final List<String> backgroundImages = [
     }
     return null;
   }
-String? validateConfirmPassword(String? value) {
-  if (value == null || value.isEmpty) {
-    return "Confirm password is required";
+
+
+  String? validatePhoneNumberLogin(String? value) {
+    if (value != null && value.isNotEmpty) {
+      value = value.trim();
+      if (!RegExp(r'^\d{8,15}$').hasMatch(value)) {
+        return "Please Enter Valid Phone Number";
+      }
+    } else {
+      return "Phone number cannot be empty";
+    }
+    return null;
   }
-  return null;
-}
+
+  String? validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Confirm password is required";
+    }
+    return null;
+  }
   String? validate(String? value) {
     if (value == null || value.isEmpty) {
       return "Required";
     }
     return null;
   }
+  var isLoading = false.obs;
+  var enteredOtp = ''.obs;
+  var secondsRemaining = 60.obs;
+  Timer? _timer;
+
+  void startTimer() {
+    secondsRemaining.value = 60;
+
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (secondsRemaining.value > 0) {
+        secondsRemaining.value--;
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  @override
+  void onClose() {
+    _timer?.cancel();
+    super.onClose();
+  }
+
+  /// GET
+  Future<GetTokenModel?> getToken(String phoneNumber) async {
+    Map<String, dynamic> requestBody = {"mobileNumber": phoneNumber};
+    print("Calling getToken with $phoneNumber");
+    isLoading.value = true;
+
+    try {
+      final value = await Repository().getTokens(requestBody).then((value){
+
+        print(" Value received in controller: $value");
+        getTokenModel = value;
+        LocalStorage token=LocalStorage();
+         token.saveToken(value.data?.token??'');
+      });
+    return value;
+    } catch (error) {
+      print(" Error in controller: $error");
+      return null;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+
+/*  getToken(String phoneNumber) async {
+    print("Calling getToken with $phoneNumber");
+    isLoading.value = true;
+    return await Repository().getTokens(phoneNumber).then((value) {
+      print("Value received in controller: $value");
+      getTokenModel = value;
+      isLoading.value = false;
+      return value;
+    }).onError((error, stackTrace) {
+      isLoading.value = false;
+      print("Error in controller: $error");
+      return ;
+    });
+  }*/
+
+
+
+
+
+
 }

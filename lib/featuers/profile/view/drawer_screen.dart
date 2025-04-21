@@ -11,6 +11,7 @@ import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../../generated/assets.dart';
+import '../../../network_manager/local_storage.dart';
 import '../../../route/route_strings.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
@@ -19,19 +20,24 @@ import '../../../widgets/components/doted_line.dart';
 import '../../../widgets/components/image_view.dart';
 import '../../subscription/controller/subscription_controller.dart';
 import '../../subscription/widgets/plan_container.dart';
+import '../../wash_status/controller/wash_status_controller.dart';
 import '../controller/drawer.dart';
 import 'my_account_screen.dart';
 import 'terms _and_condition_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
-  final DrawerControllerX drawerController = Get.put(DrawerControllerX());
+  final DrawerProfileController drawerController = Get.put(
+    DrawerProfileController(),
+  );
   final SubscriptionController controller =
       Get.isRegistered<SubscriptionController>()
           ? Get.find<SubscriptionController>()
           : Get.put(SubscriptionController());
+  WashStatusController washStatusController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    final userData = washStatusController.getCustomerData?.data?.first;
     return SafeArea(
       bottom: true,
       top: false,
@@ -42,7 +48,9 @@ class DrawerScreen extends StatelessWidget {
               //margin: EdgeInsets.only(bottom: ),
               decoration: BoxDecoration(
                 color: AppColor.white,
-                borderRadius: BorderRadius.horizontal(right: Radius.circular(15)),
+                borderRadius: BorderRadius.horizontal(
+                  right: Radius.circular(15),
+                ),
               ),
               child:
                   drawerController.currentDrawerSection.value == ''
@@ -59,6 +67,7 @@ class DrawerScreen extends StatelessWidget {
 
   /// **Main Drawer**
   Widget mainDrawerUI() {
+    final userData = washStatusController.getCustomerData?.data?.first;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,15 +121,21 @@ class DrawerScreen extends StatelessWidget {
             ],
           ),
           11.heightSizeBox,
-          Text("Ibrahim Bafqia",style:w700_16a(color: AppColor.c2C2A2A) ,),
+          Text(
+            userData?.fullName ?? "",
+            style: w700_16a(color: AppColor.c2C2A2A),
+          ),
           4.heightSizeBox,
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
               children: [
-                TextSpan(text: 'Your ', style: w400_12p(color: AppColor.c455A64)),
                 TextSpan(
-                  text: 'Unlimited Washes',
+                  text: 'Your ',
+                  style: w400_12p(color: AppColor.c455A64),
+                ),
+                TextSpan(
+                  text: userData?.subscriptionName ?? "",
                   style: w600_14p(color: AppColor.cC31848),
                 ),
                 TextSpan(
@@ -128,7 +143,7 @@ class DrawerScreen extends StatelessWidget {
                   style: w400_12p(color: AppColor.c455A64),
                 ),
                 TextSpan(
-                  text: '15-oct-2025',
+                  text: userData?.endDate ?? '',
                   style: w600_12p(color: AppColor.c455A64),
                 ),
               ],
@@ -138,33 +153,52 @@ class DrawerScreen extends StatelessWidget {
 
           /// **Drawer Options**
           drawerRowWidget(
-            onTap: () =>Get.toNamed(RouteStrings.myAccountScreen),
-            title: 'My Account', image:  Assets.iconsIcAccount,
+            onTap: () => Get.toNamed(RouteStrings.myAccountScreen),
+            title: 'My Account',
+            image: Assets.iconsIcAccount,
           ),
           drawerRowWidget(
-            onTap: () =>  Get.toNamed(RouteStrings.subscriptionPlanScreen),
-            title: 'Subscription Plan', image: Assets.iconsIcSubscriptionPlan,
+            onTap: () {
+              if (userData?.subscriptionId == null &&
+                  controller.isPremiumSelected.value == false) {
+                Get.toNamed(RouteStrings.subscribeMainScreen);
+              } else {
+                Get.toNamed(RouteStrings.subscriptionPlanScreen);
+              }
+            },
+            title: 'Subscription Plan',
+            image: Assets.iconsIcSubscriptionPlan,
+          ),
+
+          /* drawerRowWidget(
+              onTap: () => userData?.subscriptionId==null? Get.toNamed(RouteStrings.subscribeMainScreen):Get.toNamed(RouteStrings.subscriptionPlanScreen),
+              title: 'Subscription Plan', image: Assets.iconsIcSubscriptionPlan,
+            ),*/
+          drawerRowWidget(
+            onTap: () => drawerController.toggleDrawer('Theme'),
+            title: 'Theme',
+            image: Assets.iconsIcTheme,
           ),
           drawerRowWidget(
-             onTap: () => drawerController.toggleDrawer('Theme'),
-            title: 'Theme', image: Assets.iconsIcTheme,
-          ),
-          drawerRowWidget(
-            onTap: () =>Get.toNamed(RouteStrings.languageScreen),
-            title: 'Language', image: Assets.iconsIcLanguage,
+            onTap: () => Get.toNamed(RouteStrings.languageScreen),
+            title: 'Language',
+            image: Assets.iconsIcLanguage,
           ),
           drawerRowWidget(
             onTap: () => drawerController.toggleDrawer('Privacy Settings'),
-            title: 'Privacy Settings', image: Assets.iconsIcPrivacy,
+            title: 'Privacy Settings',
+            image: Assets.iconsIcPrivacy,
           ),
           drawerRowWidget(
             onTap: () => Get.to(TermsAndConditionScreen()),
-            title: 'Terms and Condition', image: Assets.iconsIcTermscondition,
+            title: 'Terms and Condition',
+            image: Assets.iconsIcTermscondition,
           ),
-        80.heightSizeBox,
+          80.heightSizeBox,
           GestureDetector(
-            onTap: () {
-              Get.offAllNamed(RouteStrings.loginScreen);
+            onTap: () async {
+              await LocalStorage().removeToken();
+              Get.offAllNamed(RouteStrings.welcomeScreen);
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 31, vertical: 10),
@@ -445,10 +479,7 @@ class DrawerScreen extends StatelessWidget {
               15.heightSizeBox,
               PlansContainer(index: 2),
               20.heightSizeBox,
-              GetStartButton(text: "Renew Now",
-              color: AppColor.c1F9D70,
-
-              )
+              GetStartButton(text: "Renew Now", color: AppColor.c1F9D70),
             ],
           ),
         ),
@@ -469,7 +500,12 @@ class DrawerScreen extends StatelessWidget {
   }
 
   /// **Reusable Row Widget**
-  Widget drawerRowWidget({required VoidCallback onTap, required String title,required String image, bool dashedLineWidget = true,}) {
+  Widget drawerRowWidget({
+    required VoidCallback onTap,
+    required String title,
+    required String image,
+    bool dashedLineWidget = true,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -491,7 +527,7 @@ class DrawerScreen extends StatelessWidget {
             ),
           ),
           18.heightSizeBox,
-          dashedLineWidget? DashedLineWidget():SizedBox(),
+          dashedLineWidget ? DashedLineWidget() : SizedBox(),
           18.heightSizeBox,
         ],
       ),

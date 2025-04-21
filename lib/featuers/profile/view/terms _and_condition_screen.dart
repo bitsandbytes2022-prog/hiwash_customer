@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiwash_customer/featuers/profile/controller/drawer.dart';
+import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import '../../../widgets/components/app_home_bg.dart';
 
 class TermsAndConditionScreen extends StatelessWidget {
-  const TermsAndConditionScreen({super.key});
-
+   TermsAndConditionScreen({super.key});
+  DrawerProfileController drawerProfileController=Get.find();
   @override
   Widget build(BuildContext context) {
     return AppHomeBg(
       headingText: "Terms and Condition",
       iconRight: SizedBox(),
-      child: Column(children: [Text("kDemoText".tr)]),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+
+            15.heightSizeBox,
+            Text(drawerProfileController.termsAndConditionsResponseModel?.data?.first.content??"".tr)]),
     );
   }
 }

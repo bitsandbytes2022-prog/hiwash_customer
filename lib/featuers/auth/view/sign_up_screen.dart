@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:hiwash_customer/featuers/auth/view/auth_controller/auth_controller.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/widgets/components/app_bg.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
@@ -12,6 +11,7 @@ import '../../../styling/app_font_anybody.dart';
 import '../../../widgets/components/bottom_sheet_bg.dart';
 import '../../../widgets/components/hi_wash_button.dart';
 import '../../../widgets/components/hi_wash_text_field.dart';
+import '../auth_controller/auth_controller.dart';
 import 'auth_widgets/or_widget.dart';
 import 'auth_widgets/social_media.dart';
 
@@ -98,7 +98,7 @@ class SignUpScreen extends StatelessWidget {
               HiWashButton(
                 text: "signUp".tr,
                 onTap: () {
-                  Get.toNamed(RouteStrings.subscribeMainScreen);
+                  Get.toNamed(RouteStrings.dashboardScreen);
                  /* if (formKey.currentState?.validate() ?? false) {
                     if (authController.passwordSignupController.text.trim() ==
                         authController.cpasswordSignupController.text.trim()) {

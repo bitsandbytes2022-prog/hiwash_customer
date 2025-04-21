@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/auth/view/auth_widgets/bg_widget.dart';
-import 'package:hiwash_customer/generated/assets.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -11,7 +11,7 @@ import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/bottom_sheet_bg.dart';
-import 'auth_controller/auth_controller.dart';
+import '../auth_controller/auth_controller.dart';
 
 class WelcomeScreen extends StatelessWidget {
   WelcomeScreen({super.key});
@@ -29,6 +29,7 @@ class WelcomeScreen extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           children: [
            /* BgWidget(imagePath: Assets.imagesWelcomeBg),*/
+
             Obx(() {
               return BgWidget(imagePath: authController.backgroundImages[authController.currentPage.value]);
             }),
@@ -60,12 +61,12 @@ class WelcomeScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Eco Clean, Wallet Green!",
+                                      StringConstant.kEcoCleanWalletGreen.tr,
                                       style: w700_22a(color: AppColor.c2C2A2A),
                                     ),
                                     15.heightSizeBox,
                                     Text(
-                                      "Exclusive Deals with Every Shine Free\nCoupons, BOGO Offers, Discounts &\nSpecial Perks!",
+                                     StringConstant.kExclusiveDealsWithEvery.tr,
                                       textAlign: TextAlign.center,
                                       style: w400_16p(color: AppColor.c455A64),
                                     ),
@@ -77,12 +78,12 @@ class WelcomeScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Wash & Win!",
+                                      StringConstant.kWashWin.tr,
                                       style: w700_22a(color: AppColor.c2C2A2A),
                                     ),
                                     15.heightSizeBox,
                                     Text(
-                                      "Get your car washed weekly at 100+\nlocations with exclusive offers.",
+                                     StringConstant.kGetYourCarWashed.tr,
                                       textAlign: TextAlign.center,
                                       style: w400_16p(color: AppColor.c455A64),
                                     ),
@@ -99,37 +100,9 @@ class WelcomeScreen extends StatelessWidget {
                             },
                           ),
                         ),
-                  /*      Container(
-                          height: 200,
-                          child: PageView.builder(
-                            controller: authController.pageController,
-                            onPageChanged: (index) {
-                              authController.onPageChanged(index);
-                            },
-                            itemCount: authController.headingText.length,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    authController.headingText[index].tr,
-                                    style: w700_22a(color: AppColor.c2C2A2A),
-                                  ),
-                                  15.heightSizeBox,
-                                  Text(
-                                    authController.subText[index].tr,
-                                    textAlign: TextAlign.center,
-                                    style: w400_16p(color: AppColor.c455A64),
-                                  ),
-                                ],
-                              );
 
-                            },
-                          ),
-                        ),*/
 
-                        // Smooth Page Indicator
+
                         SmoothPageIndicator(
                           controller: authController.pageController,
                           count: authController.headingText.length,
@@ -147,6 +120,7 @@ class WelcomeScreen extends StatelessWidget {
                           width: 193,
                           text: "kGetStarted".tr,
                           onTap: () {
+                           // LocalStorage.saveToken(token: null);
                             Get.toNamed(RouteStrings.signUpScreen);
                           },
                         ),

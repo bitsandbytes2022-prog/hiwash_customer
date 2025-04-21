@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/second_drawer_controller/second_drawer_controller.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import '../../../../generated/assets.dart';
@@ -11,7 +12,8 @@ import '../../../../widgets/components/image_view.dart';
 import '../../../profile/view/chat_screen.dart';
 
 class SecondDrawer extends StatelessWidget {
-  const SecondDrawer({super.key});
+   SecondDrawer({super.key});
+  final SecondDrawerController controller = Get.put(SecondDrawerController());
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +56,23 @@ class SecondDrawer extends StatelessWidget {
             image: Assets.iconsIcTicket,
           ),
           drawerRowWidget(
-            onTap: () => Get.toNamed(RouteStrings.faqScreen),
+            onTap: ()  {
+              //await controller.getFaq();
+              Get.toNamed(RouteStrings.faqScreen);
+            },
             title: 'FAQ’s',
             image: Assets.iconsIcFaq,
           ),
+       /*   drawerRowWidget(
+            onTap: () => Get.toNamed(RouteStrings.faqScreen),
+            title: 'FAQ’s',
+            image: Assets.iconsIcFaq,
+          ),*/
           drawerRowWidget(
-            onTap: () => Get.toNamed(RouteStrings.stepByStepGuideScreen),
+            onTap: ()  {
+
+              Get.toNamed(RouteStrings.stepByStepGuideScreen);
+              },
             title: 'Step-by-Step Guide',
             dashedLineWidget: false,
             image: Assets.iconsIcGuideBook,

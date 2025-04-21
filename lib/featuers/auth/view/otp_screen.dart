@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/auth/model/get_token_model.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:pinput/pinput.dart';
 
@@ -14,7 +15,7 @@ import '../../../widgets/components/app_bg.dart';
 import '../../../widgets/components/bottom_sheet_bg.dart';
 import '../../../widgets/components/hi_wash_button.dart';
 import '../../../widgets/components/hi_wash_text_field.dart';
-import 'auth_controller/auth_controller.dart';
+import '../auth_controller/auth_controller.dart';
 
 class OtpScreen extends StatelessWidget {
   OtpScreen({super.key});
@@ -23,6 +24,7 @@ class OtpScreen extends StatelessWidget {
       Get.isRegistered<AuthController>()
           ? Get.find<AuthController>()
           : Get.put(AuthController());
+  GetTokenModel ?getTokenModel;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +111,7 @@ class OtpScreen extends StatelessWidget {
             HiWashButton(
               text:  "kVerify".tr,
               onTap: () {
-                Get.toNamed(RouteStrings.resetPasswordScreen);
+                Get.toNamed(RouteStrings.resetPasswordScreen,);
               },
             ),
 
