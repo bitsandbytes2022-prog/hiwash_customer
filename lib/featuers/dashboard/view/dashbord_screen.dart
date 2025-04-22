@@ -71,7 +71,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  DashboardController dashboardController =Get.put(DashboardController());
+  DashboardController dashboardController = Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +185,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               });
               _openDrawer('second');
             },
-            child: ImageView(height: 23, width: 23, path: Assets.iconsIcMessage),
+            child: ImageView(
+              height: 23,
+              width: 23,
+              path: Assets.iconsIcMessage,
+            ),
           ),
           child: _pages[_currentIndex],
         ),
@@ -261,7 +265,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget scanDialog() {
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -277,27 +280,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
         15.heightSizeBox,
         GestureDetector(
-            onTap: (){
-              Get.back();
-              showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (BuildContext context) {
-                  return AppDialog(
+          onTap: () {
+            Get.back();
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) {
+                return AppDialog(
+                  padding: EdgeInsets.zero,
 
-                    padding: EdgeInsets.zero,
-
-
-                      bottomVisible: true, child: successDialog());
-                },
-              );
-            },
-            child: Image.asset(Assets.imagesImQr, height: 261, width: 261)),
+                  bottomVisible: true,
+                  child: successDialog(),
+                );
+              },
+            );
+          },
+          child: Image.asset(Assets.imagesImQr, height: 261, width: 261),
+        ),
 
         46.heightSizeBox,
       ],
     );
   }
+
   Widget successDialog() {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -392,7 +397,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
               15.heightSizeBox,
               GestureDetector(
                 onTap: () {
-                dashboardController.giveRating("4", "1", "1", "excellent");
+                  dashboardController
+                      .getRating("6", "1", "1", "excellent")
+                      .then((value) {
+                        if (value != null) {
+                          Get.back();
+                        }
+                      });
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 28, vertical: 12),
@@ -433,7 +444,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    ProfileImageView(radius: 20, radiusStack: 4,isVisibleStack: false,),
+                    ProfileImageView(
+                      radius: 20,
+                      radiusStack: 4,
+                      isVisibleStack: false,
+                    ),
                     9.widthSizeBox,
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -460,7 +475,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                           ],
                         ),
-
                       ],
                     ),
                   ],
@@ -473,4 +487,3 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 }
-

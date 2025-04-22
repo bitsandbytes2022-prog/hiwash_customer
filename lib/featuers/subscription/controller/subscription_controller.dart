@@ -16,7 +16,6 @@ class SubscriptionController extends GetxController {
   void onInit() {
     selectedIndex.value = 1;
 
-    getSubscription();
     super.onInit();
   }
 

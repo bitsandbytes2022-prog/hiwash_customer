@@ -29,6 +29,7 @@ import 'package:hiwash_customer/featuers/rewads/controller.dart';
 RewardController rewardController =Get.find();
     @override
     Widget build(BuildContext context) {
+      controller.getSubscription();
       return AppHomeBg(
         centerHeading: Container(
           margin: EdgeInsets.only(left: 60),

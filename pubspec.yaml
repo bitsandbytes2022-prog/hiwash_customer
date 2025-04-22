@@ -48,7 +48,7 @@ dependencies:
   flutter_rating_stars: ^1.1.0
   dio: ^5.8.0+1
   get_storage: ^2.1.1
-  fluttertoast: ^8.2.12
+  image_picker: ^1.1.2
 
 
 dev_dependencies:

@@ -71,11 +71,11 @@ var response = await dioHelper.post(
   }
 
   Future<GetSubscriptionModel> getSubscription() async {
-    var response = await dioHelper.get(
+    Map<String,dynamic> response = await dioHelper.get(
       url:  ApiConstant.getSubscription,
       isAuthRequired: true,
     );
-    return GetSubscriptionModel.fromJson(response.data);
+    return GetSubscriptionModel.fromJson(response);
   }
 
   Future<GetSubscriptionMembershipModel> getSubscriptionMembership(

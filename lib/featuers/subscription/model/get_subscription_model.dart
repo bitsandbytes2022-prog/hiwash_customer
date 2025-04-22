@@ -65,8 +65,8 @@ class Data {
     data['name'] = this.name;
     data['description'] = this.description;
     data['currency'] = this.currency;
-    data['price'] = this.price;
-    data['duration'] = this.duration;
+    data['price'] = this.price.toString();
+    data['duration'] = this.duration.toString();
     data['note'] = this.note;
     data['isPremium'] = this.isPremium;
     return data;

@@ -48,17 +48,17 @@ Dio getDio() {
           tag: 'ERROR DATA :--onError ERROR DATA--->',
           e.response?.data ?? "",
         );
-        if(e.response==null)
-{
-  Get.snackbar(
-    "Error",
-
-        "Something went wrong".toString(),
-    colorText: Colors.white,
-    backgroundColor: Colors.red,
-  );
-}
-        if (e.response?.statusCode == 401) {
+        print("object======>${e.response}");
+   if (e.response?.statusCode == 400) {
+          Get.snackbar(
+            "Error 400",
+            e.response?.data["error"]["message"] ??
+                "Something went wrong".toString(),
+            colorText: Colors.white,
+            backgroundColor: Colors.red,
+          );
+        }
+       else if (e.response?.statusCode == 401) {
           Get.snackbar(
             "Error",
             e.response?.data["error"]["message"] ??
