@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tawkto/flutter_tawk.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
@@ -9,13 +10,36 @@ import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/image_view.dart';
+import '../../wash_status/controller/wash_status_controller.dart';
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key});
-
+   ChatScreen({super.key});
+  WashStatusController washStatusController=Get.find();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Container(
+      margin: EdgeInsets.only(bottom: 50,top: 50),
+      child: Scaffold(
+      
+        body: Tawk(
+          
+        directChatLink: 'https://tawk.to/chat/68066e7b2db46a190e068251/1ipchv5dp',
+        visitor: TawkVisitor(
+          name: washStatusController.getCustomerData?.data?.first.fullName,
+          email: washStatusController.getCustomerData?.data?.first.email,
+        ),
+      ),
+      
+      ),
+    );
+  }
+}
+
+
+
+
+
+    /*Scaffold(
       body: Column(
         children: [
           Stack(
@@ -215,3 +239,4 @@ class ChatScreen extends StatelessWidget {
     );
   }
 }
+*/

@@ -104,6 +104,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
               _currentIndex == 0 || _currentIndex == 2
                   ? EdgeInsets.zero
                   : EdgeInsets.symmetric(horizontal: 16),
+          buttonPadding: _currentIndex==0? EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 40,
+            bottom: 30
+
+          ): EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 40,
+
+          ),
           childAppBar:
               _currentIndex == 0
                   ? Obx(

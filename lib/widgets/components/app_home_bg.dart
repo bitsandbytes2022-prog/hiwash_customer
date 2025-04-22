@@ -14,12 +14,14 @@ import 'doted_vertical_line.dart';
 class AppHomeBg extends StatelessWidget {
   final String? headingText;
   final Widget? child;
+
   final Widget? child1;
   final Widget? childAppBar;
   final Widget? iconRight;
   final Widget? iconLeft;
   final Widget? centerHeading;
   final EdgeInsets? padding;
+  final EdgeInsets? buttonPadding;
   final double? height;
 
   AppHomeBg({
@@ -31,7 +33,7 @@ class AppHomeBg extends StatelessWidget {
     this.padding,
     this.childAppBar,
     this.centerHeading,
-    this.height, this.child1,
+    this.height, this.child1, this.buttonPadding,
   });
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -154,7 +156,7 @@ class AppHomeBg extends StatelessWidget {
                       bottomRight: Radius.circular(25),
                     ),
                   ),
-                  padding: EdgeInsets.only(
+                  padding:buttonPadding?? EdgeInsets.only(
                     left: 16,
                     right: 16,
                     top: 40,
