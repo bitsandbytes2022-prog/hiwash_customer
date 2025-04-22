@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hiwash_customer/featuers/profile/controller/drawer.dart';
+import 'package:hiwash_customer/featuers/profile/controller/drawer_profile_controller.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import '../../../widgets/components/app_home_bg.dart';
 

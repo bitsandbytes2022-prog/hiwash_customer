@@ -59,7 +59,7 @@ class SubscriptionController extends GetxController {
         })
         .catchError((error) {
           loading = false;
-          print("Error fetching customer data: $error");
+          print("Error fetching Subscription data: $error");
         });
   }
 

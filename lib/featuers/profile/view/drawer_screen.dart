@@ -21,7 +21,7 @@ import '../../../widgets/components/image_view.dart';
 import '../../subscription/controller/subscription_controller.dart';
 import '../../subscription/widgets/plan_container.dart';
 import '../../wash_status/controller/wash_status_controller.dart';
-import '../controller/drawer.dart';
+import '../controller/drawer_profile_controller.dart';
 import 'my_account_screen.dart';
 import 'terms _and_condition_screen.dart';
 

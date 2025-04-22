@@ -12,7 +12,7 @@ import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/hi_wash_text_field.dart';
 import '../../../widgets/components/image_view.dart';
-import '../controller/drawer.dart';
+import '../controller/drawer_profile_controller.dart';
 
 class MyAccountScreen extends StatelessWidget {
   MyAccountScreen({super.key});
@@ -45,28 +45,36 @@ class MyAccountScreen extends StatelessWidget {
                 ),
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage: AssetImage(Assets.imagesDemoProfile),
+                  backgroundImage: drawerProfileController.imageFile != null
+                      ? FileImage(drawerProfileController.imageFile!)
+                      : AssetImage(Assets.imagesDemoProfile),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: AppColor.cC41949,
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: AppColor.white, width: 3),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.cC41949.withOpacity(0.25),
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
+              GestureDetector(
+                onTap: (){
+                  drawerProfileController.imagePicker();
 
-                child: ImageView(
-                  path: Assets.iconsIcEdit,
-                  height: 17,
-                  width: 17,
+                },
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: AppColor.cC41949,
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(color: AppColor.white, width: 3),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColor.cC41949.withOpacity(0.25),
+                        blurRadius: 10,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+
+                  child: ImageView(
+                    path: Assets.iconsIcEdit,
+                    height: 17,
+                    width: 17,
+                  ),
                 ),
               ),
             ],
