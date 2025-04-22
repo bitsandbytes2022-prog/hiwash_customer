@@ -54,7 +54,6 @@ class AppBg extends StatelessWidget {
            child: GestureDetector(
                   onTap: (){
                     Get.back();
-                    print("kshdjkfh");
                   },
                   child: Padding(
                     padding: EdgeInsets.only(left: 11, top: 50),

@@ -73,20 +73,20 @@ class LoginScreen extends StatelessWidget {
                 onTap: () {
                   // Get.offNamed(RouteStrings.loginOtpScreen);
                   if (formKey.currentState?.validate() ?? false) {
-
                     String phoneNumber =
                         controller.loginPhoneController.text.trim();
-                    Get.offNamed(
+                    Get.toNamed(
                       RouteStrings.loginOtpScreen,
                       arguments: phoneNumber,
                     );
-                    Get.snackbar(
+                  /*  Get.snackbar(
                       "success",
                       "Otp sent on register number.",
                       backgroundColor: Colors.green,
                       colorText: AppColor.white,
-                    );
+                    );*/
                     controller.loginPhoneController.clear();
+
                   } else {
                     print("Enter number");
                   }

@@ -5,6 +5,7 @@ static const baseUrl="https://loyaltyapistaging.pipelinedns.com/api";
 static const String baseImageUrl = "https://loyaltyapistaging.pipelinedns.com";
 
 static const getToken="$baseUrl/authentication/token";
+static const signUp="$baseUrl/customer";
 static  getCustomerId(int id)=>"$baseUrl/customer/$id";
 static const getSubscription="$baseUrl/subscription";
 static const getSubscriptionMembership="/subscription/membership";
