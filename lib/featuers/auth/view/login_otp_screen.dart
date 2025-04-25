@@ -87,11 +87,12 @@ class LoginOtpScreen extends StatelessWidget {
             Text("kDidGetOTPCode".tr, style: w400_12p(color: AppColor.c455A64)),
             5.heightSizeBox,
             GestureDetector(
-
-                onTap: (){
-
-                },
-                child: Text("resendCode".tr, style: w400_12p(color: AppColor.red))),
+              onTap: () {},
+              child: Text(
+                "resendCode".tr,
+                style: w400_12p(color: AppColor.red),
+              ),
+            ),
             26.heightSizeBox,
             Obx(
               () => HiWashButton(

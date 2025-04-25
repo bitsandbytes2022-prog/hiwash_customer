@@ -11,16 +11,17 @@ import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/doted_line.dart';
 import '../../../widgets/components/get_start_button.dart';
+import '../../dashboard/controller/dashboard_controller.dart';
 import '../../subscription/widgets/plan_container.dart';
 
 class SubscriptionPlanScreen extends StatelessWidget {
    SubscriptionPlanScreen({super.key});
-  WashStatusController washStatusController = Get.find();
+   DashboardController dashboardController = Get.find();
 
 
   @override
   Widget build(BuildContext context) {
-    final userData = washStatusController.getCustomerData?.data?.first;
+    final userData = dashboardController.getCustomerData?.data?.first;
     return AppHomeBg(
       padding: EdgeInsets.zero,
       headingText: "Subscription Plan",

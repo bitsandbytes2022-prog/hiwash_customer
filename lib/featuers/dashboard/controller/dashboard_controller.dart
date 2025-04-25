@@ -3,33 +3,66 @@ import 'package:get/get.dart';
 
 import '../../../network_manager/repository.dart';
 import '../../../network_manager/utils/api_response.dart';
+import '../../wash_status/model/get_customer_data_model.dart';
 
-class DashboardController extends  GetxController{
+class DashboardController extends GetxController {
   RxBool loading = false.obs;
-  Rxn <ApiResponse> apiResponse = Rxn<ApiResponse>();
+  Rxn<ApiResponse> apiResponse = Rxn<ApiResponse>();
   int userRating = 0;
   final TextEditingController commentController = TextEditingController();
-
-Future<ApiResponse?>getRating(String rating,String workerId,String locationId,String comment) async {
-  Map params = {
-    "rating": rating,
-    "workerId": workerId,
-    "locationId": locationId,
-    "comment" : comment
-
-  };
-  try{
-    print("Rating body--->: $params");
-  //  loading.value = true;
-    apiResponse.value = await Repository().rating(params);
-    return apiResponse.value;
-  }catch(e){
-    print("Error in controller: $e");
-    return null;
-  }finally{
-   // loading.value = false;
+  GetCustomerData? getCustomerData;
+  //bool  loading=true;
+  @override
+  void onInit() {
+    var customerId = Get.arguments;
+    if (customerId is int ) {
+      getCustomerDataById(customerId);
+    } /*else if (customerId is int) {
+    getCustomerDataById(customerId.toString());
+  }*/ else {
+      print("No valid customer ID provided");
+    }
   }
+
+
+  void getCustomerDataById(int id) {
+   // loading = true;
+    Repository().getCustomerData(id).then((value) {
+      getCustomerData = value;
+     // loading = false;
+      update();
+      if (getCustomerData?.data != null && getCustomerData!.data!.isNotEmpty) {
+        int? customerId = getCustomerData!.data![0].id;
+        print("Customer ID: $customerId");
+      }
+    }).catchError((error) {
+     // loading = false;
+      print("Error fetching customer data: $error");
+    });
+  }
+  Future<ApiResponse?> getRating(
+    String rating,
+    String workerId,
+    String locationId,
+    String comment,
+  ) async {
+    Map params = {
+      "rating": rating,
+      "workerId": workerId,
+      "locationId": locationId,
+      "comment": comment,
+    };
+    try {
+      print("Rating body--->: $params");
+      //  loading.value = true;
+      apiResponse.value = await Repository().rating(params);
+      return apiResponse.value;
+    } catch (e) {
+      print("Error in controller: $e");
+      return null;
+    } finally {
+      // loading.value = false;
+    }
     return null;
   }
 }
-

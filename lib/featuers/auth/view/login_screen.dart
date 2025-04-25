@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                   return controller.validatePhoneNumberLogin(value);
                 },
               ),
-              12.heightSizeBox,
+         /*     12.heightSizeBox,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -66,32 +66,51 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
+              ),*/
               54.heightSizeBox,
-              HiWashButton(
-                text: "kLogIn".tr,
-                onTap: () {
-                  // Get.offNamed(RouteStrings.loginOtpScreen);
-                  if (formKey.currentState?.validate() ?? false) {
-                    String phoneNumber =
-                        controller.loginPhoneController.text.trim();
-                    Get.toNamed(
-                      RouteStrings.loginOtpScreen,
-                      arguments: phoneNumber,
-                    );
-                  /*  Get.snackbar(
-                      "success",
-                      "Otp sent on register number.",
-                      backgroundColor: Colors.green,
-                      colorText: AppColor.white,
-                    );*/
-                    controller.loginPhoneController.clear();
+              Obx(() {
+                return HiWashButton(
+                  isLoading: controller.isLoading.value,
+                  text: "kLogIn".tr,
+                  onTap: () {
+                    if (formKey.currentState?.validate() ?? false) {
+                      String phoneNumber = controller.loginPhoneController.text.trim();
+                      controller.sendOtp(phoneNumber).then((value) {
+                        if (value != null) {
+                          Get.toNamed(
+                            RouteStrings.loginOtpScreen,
+                            arguments: phoneNumber,
+                          );
+                          controller.loginPhoneController.clear();
+                        }
+                      }).catchError((error) {
+                        print("Error during OTP sending: $error");
+                      });
+                    }
+                  },
+                );
+              }),
+          /*    Obx(() {
+               return HiWashButton(
+                  isLoading: controller.isLoading.value,
+                  text: "kLogIn".tr,
+                  onTap: () {
+                    if (formKey.currentState?.validate() ?? false) {
+                      String phoneNumber = controller.loginPhoneController.text.trim();
+                      controller.sendOtp(phoneNumber).then((value) {
+                        if (value != null) {
+                          Get.toNamed(
+                            RouteStrings.loginOtpScreen,
+                            arguments: phoneNumber,
+                          );
+                          controller.loginPhoneController.clear();
+                        }
+                      });
+                    }
+                  },
+                );
+              }),*/
 
-                  } else {
-                    print("Enter number");
-                  }
-                },
-              ),
               54.heightSizeBox,
 
               Center(

@@ -18,6 +18,7 @@ import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/doted_line.dart';
 import '../../../widgets/components/image_view.dart';
+import '../../dashboard/controller/dashboard_controller.dart';
 import '../../subscription/controller/subscription_controller.dart';
 import '../../subscription/widgets/plan_container.dart';
 import '../../wash_status/controller/wash_status_controller.dart';
@@ -33,11 +34,11 @@ class DrawerScreen extends StatelessWidget {
       Get.isRegistered<SubscriptionController>()
           ? Get.find<SubscriptionController>()
           : Get.put(SubscriptionController());
-  WashStatusController washStatusController = Get.find();
+  DashboardController dashboardController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    final userData = washStatusController.getCustomerData?.data?.first;
+    final userData = dashboardController.getCustomerData?.data?.first;
     return SafeArea(
       bottom: true,
       top: false,
@@ -67,7 +68,7 @@ class DrawerScreen extends StatelessWidget {
 
   /// **Main Drawer**
   Widget mainDrawerUI() {
-    final userData = washStatusController.getCustomerData?.data?.first;
+    final userData = dashboardController.getCustomerData?.data?.first;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

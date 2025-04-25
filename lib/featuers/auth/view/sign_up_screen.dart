@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
@@ -26,14 +27,28 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
+    final phoneNumberSignUp = Get.arguments;
 
+    String? phoneNumberString;
+    if (phoneNumberSignUp is String) {
+      phoneNumberString = phoneNumberSignUp;
+    } else if (phoneNumberSignUp is int) {
+      phoneNumberString = phoneNumberSignUp.toString();
+    } else {
+      phoneNumberString = null;
+    }
+
+    if (phoneNumberString != null) {
+      authController.phoneController.text = phoneNumberString;
+    } else {
+      authController.phoneController.text = '';
+    }
     return Scaffold(
       body: AppBg(
         headingText: "kHello".tr,
         subText: "SignUp".tr,
-       showBackButton: false,
+        showBackButton: false,
         heading: false,
-
         child: Form(
           key: formKey,
           child: Column(
@@ -72,42 +87,93 @@ class SignUpScreen extends StatelessWidget {
               ),
               20.heightSizeBox,
               HiWashTextField(
-                controller: authController.passwordSignupController,
-                hintText: "kPassword".tr,
-                labelText: "kPassword".tr,
-                obscure: true,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 .,-]')),
+                ],
+                keyboardType: TextInputType.text,
+                controller: authController.zoneController,
+                hintText: "Zone".tr,
+                labelText: "Zone".tr,
+                /*   obscure: true,
                 obscuringCharacter: "*",
                 validator: (value) {
                   return authController.validatePassword(value);
-                },
+                },*/
               ),
               20.heightSizeBox,
               HiWashTextField(
-                controller: authController.cpasswordSignupController,
-                hintText: "kConfirmPassword".tr,
-                labelText: "kConfirmPassword".tr,
-                obscure: true,
-                obscuringCharacter: '*',
-                validator: (value) {
-                  return authController.validate(value);
-                },
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 .,-]')),
+                ],
+                keyboardType: TextInputType.text,
+                controller: authController.streetController,
+                hintText: "Street".tr,
+                labelText: "Street".tr,
+              ),
+              20.heightSizeBox,
+              HiWashTextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 .,-]')),
+                ],
+                keyboardType: TextInputType.text,
+                controller: authController.buildingController,
+                hintText: "Building".tr,
+                labelText: "Building".tr,
+              ),
+              20.heightSizeBox,
+              HiWashTextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 .,-]')),
+                ],
+                controller: authController.unitController,
+                hintText: "Unit".tr,
+                labelText: "Unit".tr,
               ),
 
               35.heightSizeBox,
 
-              HiWashButton(
-                text: "signUp".tr,
-                onTap: () {
-                  Get.toNamed(RouteStrings.dashboardScreen);
-                 /* if (formKey.currentState?.validate() ?? false) {
-                    if (authController.passwordSignupController.text.trim() ==
-                        authController.cpasswordSignupController.text.trim()) {
-                      Get.toNamed(RouteStrings.subscriptionScreen);
-                    } else {
-                      Get.snackbar("Error", "Passwords do not match");
+              Obx(()=>
+                 HiWashButton(
+                  isLoading: authController.isLoading.value,
+                  text: "signUp".tr,
+                  onTap: () {
+                    String enteredPhone = authController.phoneController.text.trim();
+
+                    // Check if user has changed the phone number
+                    if (phoneNumberSignUp != null && phoneNumberSignUp != enteredPhone) {
+                      // User typed a different phone number
+                      Get.snackbar(
+                        "Phone Number Changed",
+                        "You have changed the phone number from the original one.",
+                        backgroundColor: Colors.orangeAccent,
+                        colorText: Colors.white,
+                      );
+                      // You can return here if you want to block submission
+                      // return;
                     }
-                  }*/
-                },
+                    // Get.toNamed(RouteStrings.dashboardScreen);
+                    if (formKey.currentState?.validate() ?? false) {
+                      authController
+                          .signUp(
+                            authController.nameController.text.trim(),
+                            authController.phoneController.text.trim(),
+                            authController.emailSignUpController.text.trim(),
+                            authController.zoneController.text.trim(),
+                            authController.streetController.text.trim(),
+                            authController.buildingController.text.trim(),
+                            authController.unitController.text.trim(),
+                          )
+                          .then((value) {
+                            if (value != null) {
+                              Get.toNamed(
+                                RouteStrings.otpScreen,
+                                arguments: enteredPhone,
+                              );
+                            }
+                          });
+                    }
+                  },
+                ),
               ),
               45.heightSizeBox,
               Center(
@@ -141,8 +207,6 @@ class SignUpScreen extends StatelessWidget {
           ),
         ),
       ),
-
-
     );
   }
 }

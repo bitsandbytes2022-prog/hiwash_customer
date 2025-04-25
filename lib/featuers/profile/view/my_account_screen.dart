@@ -12,17 +12,18 @@ import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/hi_wash_text_field.dart';
 import '../../../widgets/components/image_view.dart';
+import '../../dashboard/controller/dashboard_controller.dart';
 import '../controller/drawer_profile_controller.dart';
 
 class MyAccountScreen extends StatelessWidget {
   MyAccountScreen({super.key});
 
-  WashStatusController washStatusController = Get.find();
+  DashboardController dashboardController = Get.find();
   DrawerProfileController drawerProfileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    final userData = washStatusController.getCustomerData?.data?.first;
+    final userData = dashboardController.getCustomerData?.data?.first;
     drawerProfileController.nameController.text = userData?.fullName ?? '';
     drawerProfileController.emailController.text = userData?.email ?? '';
     drawerProfileController.phoneController.text = userData?.mobileNumber ?? '';

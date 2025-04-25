@@ -1,16 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:hiwash_customer/featuers/auth/model/sign_up_model.dart';
 import 'package:hiwash_customer/generated/assets.dart';
+import 'package:hiwash_customer/route/route_strings.dart';
 
 import '../../../network_manager/local_storage.dart';
 import '../../../network_manager/repository.dart';
 import '../model/get_token_model.dart';
+import '../model/send_otp_model.dart';
 
 class AuthController extends GetxController {
   var isLoggedIn = false.obs;
+
   @override
   void onInit() {
     pageController.addListener(() {
@@ -19,18 +22,25 @@ class AuthController extends GetxController {
     super.onInit();
   }
 
-
-
-  GetTokenModel?getTokenModel;
+  GetTokenModel? getTokenModel;
+  SendOtpModel? sendOtpModel;
+  SignUpModel? signUpModel;
   /// login controller
-  TextEditingController loginPhoneController = TextEditingController(text: "7696379802");
-  TextEditingController passwordController = TextEditingController(text: "Abcd@123");
+  TextEditingController loginPhoneController = TextEditingController(
+    text: "7696379802",
+  );
+  TextEditingController passwordController = TextEditingController(
+    text: "Abcd@123",
+  );
+
   ///signup controller
   TextEditingController nameController = TextEditingController(text: 'Abcd');
-  TextEditingController emailSignUpController = TextEditingController(text: 'abcd@gmail.com');
-  TextEditingController phoneController = TextEditingController(text: "9087654321");
-  TextEditingController passwordSignupController = TextEditingController(text: "Abcd@123");
-  TextEditingController cpasswordSignupController = TextEditingController(text: "Abcd@123");
+  TextEditingController emailSignUpController = TextEditingController(text: 'abcd@gmail.com',);
+  TextEditingController phoneController = TextEditingController(text: "9087654321",);
+  TextEditingController zoneController = TextEditingController(text: "Zone 50",);
+  TextEditingController streetController = TextEditingController(text: "al Matar Street",);
+  TextEditingController buildingController = TextEditingController(text: 'Abcd');
+  TextEditingController unitController = TextEditingController(text: 'Abcd');
 
   /// forgot password controller
   TextEditingController phoneForgotController = TextEditingController();
@@ -39,41 +49,36 @@ class AuthController extends GetxController {
   TextEditingController passwordRestController = TextEditingController();
   TextEditingController cPasswordRestController = TextEditingController();
 
-
   bool obscurePassword = true;
   bool obscureConfirmPassword = true;
 
   /// Welcome screen
   final PageController pageController = PageController();
 
-
   var currentPage = 0.obs;
-
 
   void onPageChanged(int index) {
     currentPage.value = index;
   }
+
   final List<String> headingText = [
-    "kEcoCleanWalletGreen","Wash & Win!",
+    "kEcoCleanWalletGreen", "Wash & Win!",
+
     //"kEcoCleanWalletGreen",
-
-
-  ]; final List<String> subText = [
+  ];
+  final List<String> subText = [
     "kExclusiveDealsWithEvery",
     "Get your car washed weekly at 100+\nlocations with exclusive offers.\nMissed washes still deducted.",
-    // "kExclusiveDealsWithEvery",
 
+    // "kExclusiveDealsWithEvery",
   ];
 
   final List<String> backgroundImages = [
     Assets.imagesWelcomeBg,
     Assets.imagesWelcomMapBg,
+
     // Assets.imagesWelcomMapBg,
-
   ];
-
-
-
 
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -132,7 +137,6 @@ class AuthController extends GetxController {
     return null;
   }
 
-
   String? validatePhoneNumberLogin(String? value) {
     if (value != null && value.isNotEmpty) {
       value = value.trim();
@@ -151,12 +155,14 @@ class AuthController extends GetxController {
     }
     return null;
   }
+
   String? validate(String? value) {
     if (value == null || value.isEmpty) {
       return "Required";
     }
     return null;
   }
+
   var isLoading = false.obs;
   var enteredOtp = ''.obs;
   var secondsRemaining = 60.obs;
@@ -182,22 +188,62 @@ class AuthController extends GetxController {
   }
 
   /// GET
+  Future<SendOtpModel?> sendOtp(String phoneNumber) async {
+    Map<String, dynamic> requestBody = {
+      "mobileNumber": phoneNumber,
+      "userType": "0",
+    };
+
+    print("Calling sendOtp with $phoneNumber");
+    isLoading.value = true;
+
+    try {
+      // Call the repository function to send OTP
+      sendOtpModel = await Repository().sendOtpRepo(requestBody);
+      print("Value received in controller sendOtp: $sendOtpModel");
+
+      if (sendOtpModel != null) {
+        print("OTP: ${sendOtpModel?.data?.otp}");
+        print("OTP Expiry Date: ${sendOtpModel?.data?.otpExpiredDate}");
+        print("Mobile Number: ${sendOtpModel?.data?.mobileNumber}");
+
+        return sendOtpModel;
+      } else {
+        throw Exception('Failed to generate OTP');
+      }
+    } catch (error) {
+      print("Error in controller while sending OTP: $error");
+
+      // Check if the error contains the specific message
+      if (error.toString().contains('User not found (404)')) {
+        // Redirect to signup screen if the user is not found
+        Get.offAllNamed(RouteStrings.signUpScreen, arguments: phoneNumber);
+      }
+
+      return null;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   Future<GetTokenModel?> getToken(String phoneNumber) async {
-    Map<String, dynamic> requestBody = {"mobileNumber": phoneNumber};
+    Map<String, dynamic> requestBody = {
+      "mobileNumber": phoneNumber,
+      "userType": "0",
+    };
     print("Calling getToken with $phoneNumber");
     isLoading.value = true;
 
     try {
       final value = await Repository().getTokens(requestBody);
+      print(" Value received in controller: $value");
+      getTokenModel = value;
+      LocalStorage token = LocalStorage();
+      token.saveToken(value.data?.token ?? '');
 
-        print(" Value received in controller: $value");
-        getTokenModel = value;
-        LocalStorage token=LocalStorage();
-         token.saveToken(value.data?.token??'');
-
-    return value;
-    } catch (error) {
-      print(" Error in controller: $error");
+      return value;
+    } catch (    error) {
+      print(" Error in controller send otp: $error");
       return null;
     } finally {
       isLoading.value = false;
@@ -205,22 +251,37 @@ class AuthController extends GetxController {
   }
 
 
-/*  getToken(String phoneNumber) async {
+
+  Future<SignUpModel?> signUp(String fullName,String phoneNumber,String email,
+      String zone,String street,String building,String unit
+      ) async {
+    Map<String, dynamic> requestBody = {
+      "fullName": fullName,
+      "email": email,
+      "mobileNumber": phoneNumber,
+      "zone":zone,
+      "street":street,
+      "building":building,
+      "unit":unit,
+      "userType": "0",
+    };
     print("Calling getToken with $phoneNumber");
     isLoading.value = true;
-    return await Repository().getTokens(phoneNumber).then((value) {
-      print("Value received in controller: $value");
-      getTokenModel = value;
-      isLoading.value = false;
-      return value;
-    }).onError((error, stackTrace) {
-      isLoading.value = false;
-      print("Error in controller: $error");
-      return ;
-    });
-  }*/
+
+    try {
+      signUpModel= await Repository().signUp(requestBody);
+      print(" Value received in controller: $signUpModel");
 
 
+
+      return signUpModel;
+    } catch (    error) {
+      print(" Error in controller send otp: $error");
+      return null;
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
 
 

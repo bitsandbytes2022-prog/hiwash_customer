@@ -48,10 +48,9 @@ Dio getDio() {
           tag: 'ERROR DATA :--onError ERROR DATA--->',
           e.response?.data ?? "",
         );
-       // print("object======>${e.response}");
    if (e.response?.statusCode == 400) {
           Get.snackbar(
-            "Error 400",
+            "Error",
             e.response?.data["error"]["message"] ??
                 "Something went wrong".toString(),
             colorText: Colors.white,

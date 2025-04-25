@@ -4,6 +4,7 @@ static const baseUrl="https://loyaltyapistaging.pipelinedns.com/api";
 
 static const String baseImageUrl = "https://loyaltyapistaging.pipelinedns.com";
 
+static const sendOtp="$baseUrl/authentication/send-otp";
 static const getToken="$baseUrl/authentication/token";
 static const signUp="$baseUrl/customer";
 static  getCustomerId(int id)=>"$baseUrl/customer/$id";
@@ -16,6 +17,7 @@ static const getOffers="$baseUrl/offer";
 static  getOffersById(int id)=>"$baseUrl/offer/$id";
 static  const offerCategories="$baseUrl/offer/categories";
 static const rating="$baseUrl/customer/rating";
+static const washSummary="$baseUrl/customer/wash-summary";
 
 
 

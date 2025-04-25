@@ -20,99 +20,101 @@ import '../auth_controller/auth_controller.dart';
 class OtpScreen extends StatelessWidget {
   OtpScreen({super.key});
 
-  AuthController controller =
-      Get.isRegistered<AuthController>()
-          ? Get.find<AuthController>()
-          : Get.put(AuthController());
-  GetTokenModel ?getTokenModel;
+  final AuthController controller =
+  Get.isRegistered<AuthController>()
+      ? Get.find<AuthController>()
+      : Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
+    final String phoneNumberSignUp = Get.arguments as String;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.startTimer();
+    });
+
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
-      textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
+      textStyle: const TextStyle(
+        fontSize: 20,
+        color: Color.fromRGBO(30, 60, 87, 1),
+        fontWeight: FontWeight.w600,
+      ),
       decoration: BoxDecoration(
         border: Border.all(color: AppColor.c5C6B72.withOpacity(0.49)),
         borderRadius: BorderRadius.circular(100),
-
-      ),
-
-
-    );
-
-    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: AppColor.c5C6B72.withOpacity(0.49)),
-      borderRadius: BorderRadius.circular(100),
-
-    );
-
-    final submittedPinTheme = defaultPinTheme.copyWith(
-      decoration: defaultPinTheme.decoration?.copyWith(
-          color: AppColor.c5C6B72.withOpacity(0.1),
-
       ),
     );
+
     return Scaffold(
       body: AppBg(
         headingText: "kAuthentication".tr,
-        subText:  "kOTP".tr,
-
+        subText: "kOTP".tr,
         child: Column(
           children: [
             110.heightSizeBox,
-            Text(
-                "kVerifyPhone".tr,
-              style: w700_22a(color: AppColor.c2C2A2A),
-            ),
+            Text("kVerifyPhone".tr, style: w700_22a(color: AppColor.c2C2A2A)),
             14.heightSizeBox,
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: "kCodeHasBeenSentTo".tr,
-                  style: w400_12p(color: AppColor.c455A64),
-                ),
-                TextSpan(
-                  text: '+6281375112234',
-                  style: w500_14p(color: AppColor.blue).copyWith(decoration: TextDecoration.underline,decorationColor: AppColor.c455A64),
-                ),
-              ],
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: "kCodeHasBeenSentTo".tr,
+                    style: w400_12p(color: AppColor.c455A64),
+                  ),
+                  TextSpan(
+                    text: phoneNumberSignUp,
+                    style: w500_14p(
+                      color: AppColor.blue,
+                    ).copyWith(decoration: TextDecoration.underline),
+                  ),
+                ],
+              ),
             ),
-          ),
-
             28.heightSizeBox,
-
             Pinput(
+              length: 4,
               defaultPinTheme: defaultPinTheme.copyDecorationWith(
-
                 color: AppColor.c5C6B72.withOpacity(0.1),
               ),
-              focusedPinTheme: focusedPinTheme,
-              submittedPinTheme: submittedPinTheme,
-              validator: (s) {
-                return s == '2222' ? null : 'Pin is incorrect';
-              },
+              onCompleted: (pin) => controller.enteredOtp.value = pin,
               pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
               showCursor: true,
-              onCompleted: (pin) => print(pin),
-
-
             ),
+
             24.heightSizeBox,
-            Text("00:23",style: w400_12p(color: AppColor.red),),
-
+            Obx(() {
+              final seconds = controller.secondsRemaining.value;
+              final formatted = "00:${seconds.toString().padLeft(2, '0')}";
+              return Text(formatted, style: w400_12p(color: AppColor.red));
+            }),
             52.heightSizeBox,
-
-            Text("kDidGetOTPCode".tr,style: w400_12p(color: AppColor.c455A64),),
-           5.heightSizeBox,
-            Text("resendCode".tr,style: w400_12p(color: AppColor.red),),
+            Text("kDidGetOTPCode".tr, style: w400_12p(color: AppColor.c455A64)),
+            5.heightSizeBox,
+            GestureDetector(
+              onTap: () {},
+              child: Text(
+                "resendCode".tr,
+                style: w400_12p(color: AppColor.red),
+              ),
+            ),
             26.heightSizeBox,
-            HiWashButton(
-              text:  "kVerify".tr,
-              onTap: () {
-                Get.toNamed(RouteStrings.resetPasswordScreen,);
-              },
+            Obx(
+                  () => HiWashButton(
+                isLoading: controller.isLoading.value,
+                text: "kVerify".tr,
+                onTap: () {
+                  controller.getToken(phoneNumberSignUp).then((value) {
+                    if (value != null) {
+                      Get.offNamed(
+                        RouteStrings.dashboardScreen,
+                        arguments: controller.getTokenModel?.data?.id,
+                      );
+                    }
+                  });
+                },
+              ),
             ),
 
             30.heightSizeBox,

@@ -85,7 +85,7 @@ class AppBg extends StatelessWidget {
          ),
               SingleChildScrollView(
                 child: Container(
-                 // color: Colors.red,
+                  //color: Colors.red,
                   margin: EdgeInsets.only(top: 90),
                   child: Stack(
                     alignment: Alignment.topCenter,

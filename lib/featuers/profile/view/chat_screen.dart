@@ -10,11 +10,12 @@ import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/image_view.dart';
+import '../../dashboard/controller/dashboard_controller.dart';
 import '../../wash_status/controller/wash_status_controller.dart';
 
 class ChatScreen extends StatelessWidget {
    ChatScreen({super.key});
-  WashStatusController washStatusController=Get.find();
+   DashboardController dashboardController=Get.find();
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -25,8 +26,8 @@ class ChatScreen extends StatelessWidget {
           
         directChatLink: 'https://tawk.to/chat/68066e7b2db46a190e068251/1ipchv5dp',
         visitor: TawkVisitor(
-          name: washStatusController.getCustomerData?.data?.first.fullName,
-          email: washStatusController.getCustomerData?.data?.first.email,
+          name: dashboardController.getCustomerData?.data?.first.fullName,
+          email: dashboardController.getCustomerData?.data?.first.email,
         ),
       ),
       
