@@ -106,12 +106,12 @@ class Repository {
   }
 
 
-  Future<GetCustomerData> getCustomerData(int id) async {
+  Future<GetCustomerData> getCustomerData(var id) async {
     var response = await dioHelper.get(
       url: ApiConstant.getCustomerId(id),
       isAuthRequired: true,
     );
-    return GetCustomerData.fromJson(response.data);
+    return GetCustomerData.fromJson(response);
   }
 
   Future<GetSubscriptionModel> getSubscription() async {

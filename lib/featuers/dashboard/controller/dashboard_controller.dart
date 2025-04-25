@@ -17,29 +17,35 @@ class DashboardController extends GetxController {
     var customerId = Get.arguments;
     if (customerId is int ) {
       getCustomerDataById(customerId);
-    } /*else if (customerId is int) {
+    } else if (customerId is int) {
     getCustomerDataById(customerId.toString());
-  }*/ else {
+  } else {
       print("No valid customer ID provided");
     }
   }
 
 
-  void getCustomerDataById(int id) {
-   // loading = true;
-    Repository().getCustomerData(id).then((value) {
-      getCustomerData = value;
-     // loading = false;
+  Future<GetCustomerData?> getCustomerDataById(var id) async {
+    // loading = true;\
+    try {
+      final getCustomerData = await Repository().getCustomerData(id);
+      // loading = false;
       update();
-      if (getCustomerData?.data != null && getCustomerData!.data!.isNotEmpty) {
-        int? customerId = getCustomerData!.data![0].id;
+
+      if (getCustomerData.data != null && getCustomerData.data!.isNotEmpty) {
+        int? customerId = getCustomerData.data![0].id;
         print("Customer ID: $customerId");
       }
-    }).catchError((error) {
-     // loading = false;
+
+      return getCustomerData;
+    } catch (error) {
+      // loading = false;
       print("Error fetching customer data: $error");
-    });
+      return null;
+    }
   }
+
+
   Future<ApiResponse?> getRating(
     String rating,
     String workerId,
@@ -63,6 +69,6 @@ class DashboardController extends GetxController {
     } finally {
       // loading.value = false;
     }
-    return null;
+
   }
 }

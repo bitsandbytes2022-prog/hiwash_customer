@@ -13,7 +13,7 @@ import '../../../widgets/components/doted_line.dart';
 import '../../../widgets/components/doted_vertical_line.dart';
 import '../../../widgets/components/image_view.dart';
 import '../../../widgets/components/profile_image_container.dart';
-import '../../profile/view/chat_screen.dart';
+import '../../dashboard/view/second_drawer/chat_screen.dart';
 import '../controller/notification_controller.dart';
 
 class NotificationScreen extends StatelessWidget {

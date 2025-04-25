@@ -32,32 +32,46 @@ class Data {
   String? fullName;
   String? email;
   String? mobileNumber;
+  String? street;
+  String? zone;
+  String? building;
+  String? unit;
   int? subscriptionId;
   String? startDate;
   String? endDate;
   String? subscriptionName;
   int? price;
   String? currency;
-  int? duration;
+  String? duration;
+  String? qrCodeUrl;
 
   Data(
       {this.id,
         this.fullName,
         this.email,
         this.mobileNumber,
+        this.street,
+        this.zone,
+        this.building,
+        this.unit,
         this.subscriptionId,
         this.startDate,
         this.endDate,
         this.subscriptionName,
         this.price,
         this.currency,
-        this.duration});
+        this.duration,
+        this.qrCodeUrl});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     fullName = json['fullName'];
     email = json['email'];
     mobileNumber = json['mobileNumber'];
+    street = json['street'];
+    zone = json['zone'];
+    building = json['building'];
+    unit = json['unit'];
     subscriptionId = json['subscriptionId'];
     startDate = json['startDate'];
     endDate = json['endDate'];
@@ -65,21 +79,27 @@ class Data {
     price = json['price'];
     currency = json['currency'];
     duration = json['duration'];
+    qrCodeUrl = json['qrCodeUrl'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
+    data['id'] = this.id.toString();
     data['fullName'] = this.fullName;
     data['email'] = this.email;
     data['mobileNumber'] = this.mobileNumber;
-    data['subscriptionId'] = this.subscriptionId;
+    data['street'] = this.street;
+    data['zone'] = this.zone;
+    data['building'] = this.building;
+    data['unit'] = this.unit;
+    data['subscriptionId'] = this.subscriptionId.toString();
     data['startDate'] = this.startDate;
     data['endDate'] = this.endDate;
     data['subscriptionName'] = this.subscriptionName;
-    data['price'] = this.price;
+    data['price'] = this.price.toString();
     data['currency'] = this.currency;
-    data['duration'] = this.duration;
+    data['duration'] = this.duration.toString();
+    data['qrCodeUrl'] = this.qrCodeUrl;
     return data;
   }
 }

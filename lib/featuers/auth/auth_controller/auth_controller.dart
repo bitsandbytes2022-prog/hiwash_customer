@@ -27,7 +27,7 @@ class AuthController extends GetxController {
   SignUpModel? signUpModel;
   /// login controller
   TextEditingController loginPhoneController = TextEditingController(
-    text: "7696379802",
+    text: "9016824518",
   );
   TextEditingController passwordController = TextEditingController(
     text: "Abcd@123",
@@ -36,7 +36,7 @@ class AuthController extends GetxController {
   ///signup controller
   TextEditingController nameController = TextEditingController(text: 'Abcd');
   TextEditingController emailSignUpController = TextEditingController(text: 'abcd@gmail.com',);
-  TextEditingController phoneController = TextEditingController(text: "9087654321",);
+  TextEditingController phoneController = TextEditingController(text: "9016824518",);
   TextEditingController zoneController = TextEditingController(text: "Zone 50",);
   TextEditingController streetController = TextEditingController(text: "al Matar Street",);
   TextEditingController buildingController = TextEditingController(text: 'Abcd');
@@ -236,7 +236,7 @@ class AuthController extends GetxController {
 
     try {
       final value = await Repository().getTokens(requestBody);
-      print(" Value received in controller: $value");
+      print(" Value received in controller token: $value");
       getTokenModel = value;
       LocalStorage token = LocalStorage();
       token.saveToken(value.data?.token ?? '');

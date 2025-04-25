@@ -12,6 +12,7 @@ import '../../../network_manager/repository.dart';
 class SubscriptionController extends GetxController {
   GetSubscriptionModel? getSubscriptionModel;
   final box = GetStorage();
+
   @override
   void onInit() {
     selectedIndex.value = 1;
@@ -32,6 +33,7 @@ class SubscriptionController extends GetxController {
   ];
 
   var selectedIndex = 1.obs;
+
   bool get isSubscribed => box.read('isSubscribed') ?? false;
 
   void selectPlan(int index) {
@@ -40,12 +42,11 @@ class SubscriptionController extends GetxController {
 
       selectedIndex.value = index;
     }
-
   }
 
   bool loading = false;
 
-   getSubscription() {
+  getSubscription() {
     loading = true;
     Repository()
         .getSubscription()
@@ -63,7 +64,7 @@ class SubscriptionController extends GetxController {
         });
   }
 
-   getSubscriptionMembership(
+  getSubscriptionMembership(
     String subscriptionId,
     String transactionId,
     String carNumber,

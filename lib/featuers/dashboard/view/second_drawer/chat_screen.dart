@@ -2,35 +2,88 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tawkto/flutter_tawk.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
-import '../../../generated/assets.dart';
-import '../../../styling/app_color.dart';
-import '../../../styling/app_font_anybody.dart';
-import '../../../styling/app_font_poppins.dart';
-import '../../../widgets/components/image_view.dart';
-import '../../dashboard/controller/dashboard_controller.dart';
-import '../../wash_status/controller/wash_status_controller.dart';
+import '../../../../generated/assets.dart';
+import '../../../../styling/app_color.dart';
+import '../../../../styling/app_font_anybody.dart';
+import '../../../../styling/app_font_poppins.dart';
+import '../../../../widgets/components/image_view.dart';
+import '../../controller/dashboard_controller.dart';
+import '../../../wash_status/controller/wash_status_controller.dart';
 
 class ChatScreen extends StatelessWidget {
    ChatScreen({super.key});
    DashboardController dashboardController=Get.find();
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      margin: EdgeInsets.only(bottom: 50,top: 50),
-      child: Scaffold(
-      
-        body: Tawk(
-          
-        directChatLink: 'https://tawk.to/chat/68066e7b2db46a190e068251/1ipchv5dp',
-        visitor: TawkVisitor(
-          name: dashboardController.getCustomerData?.data?.first.fullName,
-          email: dashboardController.getCustomerData?.data?.first.email,
-        ),
-      ),
-      
+    return Scaffold(
+      backgroundColor: AppColor.blue,
+      body:  Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.only(bottom: 50,top: 80),
+            child: Tawk(
+
+              directChatLink: 'https://tawk.to/chat/68066e7b2db46a190e068251/1ipchv5dp',
+              visitor: TawkVisitor(
+                name: dashboardController.getCustomerData?.data?.first.fullName,
+                email: dashboardController.getCustomerData?.data?.first.email,
+              ),
+            ),
+          ),
+          Stack(
+            alignment: Alignment.bottomCenter,
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: AppColor.blue,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25),
+                      bottomRight: Radius.circular(25),
+                    ),
+                  ),
+                  padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 40,
+
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+
+                          GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: ImageView(
+                              path: Assets.iconsIcArrow,
+
+                              height: 15,
+                              width: 15,
+                            ),
+                          ),
+
+                          Text(
+                            '',
+                            style: w700_16a(color: AppColor.white),
+                          ),
+
+
+                    ],
+                  )
+
+              ),
+
+            ],
+          ),
+        ],
       ),
     );
   }

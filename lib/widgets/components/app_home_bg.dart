@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:hiwash_customer/featuers/profile/view/chat_screen.dart';
+import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/chat_screen.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';

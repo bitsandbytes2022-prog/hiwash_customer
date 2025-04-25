@@ -9,7 +9,7 @@ import '../../../../styling/app_font_anybody.dart';
 import '../../../../widgets/components/doted_horizontal_line.dart';
 import '../../../../widgets/components/doted_vertical_line.dart';
 import '../../../../widgets/components/image_view.dart';
-import '../../../profile/view/chat_screen.dart';
+import 'chat_screen.dart';
 
 class SecondDrawer extends StatelessWidget {
    SecondDrawer({super.key});
