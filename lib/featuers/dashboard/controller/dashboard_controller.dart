@@ -10,34 +10,33 @@ class DashboardController extends GetxController {
   Rxn<ApiResponse> apiResponse = Rxn<ApiResponse>();
   int userRating = 0;
   final TextEditingController commentController = TextEditingController();
-  GetCustomerData? getCustomerData;
+Rxn<GetCustomerData> getCustomerData=Rxn();
   //bool  loading=true;
   @override
   void onInit() {
     var customerId = Get.arguments;
     if (customerId is int ) {
       getCustomerDataById(customerId);
-    } else if (customerId is int) {
+    }/* else if (customerId is String) {
     getCustomerDataById(customerId.toString());
-  } else {
+  }*/ else {
       print("No valid customer ID provided");
     }
   }
 
 
-  Future<GetCustomerData?> getCustomerDataById(var id) async {
+  Future<GetCustomerData?> getCustomerDataById(int id) async {
     // loading = true;\
     try {
-      final getCustomerData = await Repository().getCustomerData(id);
+       getCustomerData.value= await Repository().getCustomerData(id);
       // loading = false;
-      update();
 
-      if (getCustomerData.data != null && getCustomerData.data!.isNotEmpty) {
-        int? customerId = getCustomerData.data![0].id;
+      if (getCustomerData.value?.data != null) {
+        int? customerId = getCustomerData.value?.data!.customerDetails?.id;
         print("Customer ID: $customerId");
       }
 
-      return getCustomerData;
+      return getCustomerData.value;
     } catch (error) {
       // loading = false;
       print("Error fetching customer data: $error");

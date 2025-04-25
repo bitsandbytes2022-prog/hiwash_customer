@@ -44,7 +44,7 @@ class Data {
     data['id'] = this.id;
     data['fullName'] = this.fullName;
     data['email'] = this.email;
-    data['mobileNumber'] = this.mobileNumber;
+    data['mobileNumber'] = this.mobileNumber.toString();
     data['token'] = this.token;
     return data;
   }

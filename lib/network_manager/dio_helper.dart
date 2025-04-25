@@ -103,10 +103,9 @@ class DioHelper {
   }
 
   /// MULTIPART API
-  Future<dynamic> uploadFile({required String url, required Object requestBody, bool isAuthRequired = false}) async {
-    Options option = Options(headers: {"Content-Type": "multipart/form-data"});
+  Future<dynamic> uploadFile({required String url, required var requestBody, bool isAuthRequired = true}) async {
     try {
-      Response response = await dio.post(url, data: requestBody, options: option);
+      Response response = await dio.post(url, data: requestBody,);
       return response.data;
     } catch (error) {
       return null;

@@ -76,6 +76,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+ /*   final id=Get.arguments;
+    dashboardController.getCustomerDataById(id);*/
     final List<Widget> filledImages = [
       fillNavigationImage(image: Assets.iconsIcHomeFill),
       fillNavigationImage(image: Assets.iconsIcRewardFill),

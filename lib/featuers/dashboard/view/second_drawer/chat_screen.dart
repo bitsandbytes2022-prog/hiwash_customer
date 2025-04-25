@@ -26,11 +26,10 @@ class ChatScreen extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(bottom: 50,top: 80),
             child: Tawk(
-
               directChatLink: 'https://tawk.to/chat/68066e7b2db46a190e068251/1ipchv5dp',
               visitor: TawkVisitor(
-                name: dashboardController.getCustomerData?.data?.first.fullName,
-                email: dashboardController.getCustomerData?.data?.first.email,
+                name: dashboardController.getCustomerData.value?.data?.customerDetails?.fullName,
+                email: dashboardController.getCustomerData.value?.data?.customerDetails?.email,
               ),
             ),
           ),

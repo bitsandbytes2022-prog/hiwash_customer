@@ -121,7 +121,7 @@ class WelcomeScreen extends StatelessWidget {
                           text: "kGetStarted".tr,
                           onTap: () {
                            // LocalStorage.saveToken(token: null);
-                            Get.toNamed(RouteStrings.signUpScreen);
+                            Get.toNamed(RouteStrings.loginScreen);
                           },
                         ),
                         40.heightSizeBox,

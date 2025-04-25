@@ -19,6 +19,7 @@ class PlansContainer extends StatelessWidget {
   final String? image;
   final bool imageShow;
   final VoidCallback? onTap;
+  final String? subscriptionId;
 
 
   PlansContainer({
@@ -30,6 +31,7 @@ class PlansContainer extends StatelessWidget {
     this.numberText,
     this.qarText, this.image, this.imageShow = false,
     this.onTap,
+    this.subscriptionId,
   });
 
   final SubscriptionController controller = Get.find();
@@ -38,7 +40,7 @@ class PlansContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        controller.selectPlan(index);
+
         if (onTap != null) onTap!();
       },
 

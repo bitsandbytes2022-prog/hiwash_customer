@@ -113,7 +113,7 @@ class LoginScreen extends StatelessWidget {
 
               54.heightSizeBox,
 
-              Center(
+            /*  Center(
                 child: RichText(
                   text: TextSpan(
                     children: <TextSpan>[
@@ -136,7 +136,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              18.heightSizeBox,
+              18.heightSizeBox,*/
               OrDivider(),
               18.heightSizeBox,
               SocialMedia(),

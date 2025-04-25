@@ -38,7 +38,7 @@ class DrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userData = dashboardController.getCustomerData?.data?.first;
+    final userData = dashboardController.getCustomerData.value?.data?.customerDetails;
     return SafeArea(
       bottom: true,
       top: false,
@@ -68,7 +68,7 @@ class DrawerScreen extends StatelessWidget {
 
   /// **Main Drawer**
   Widget mainDrawerUI() {
-    final userData = dashboardController.getCustomerData?.data?.first;
+    final userData = dashboardController.getCustomerData.value?.data?.subscriptionDetails;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,7 +123,7 @@ class DrawerScreen extends StatelessWidget {
           ),
           11.heightSizeBox,
           Text(
-            userData?.fullName ?? "",
+            dashboardController.getCustomerData.value?.data?.customerDetails?.fullName?? "",
             style: w700_16a(color: AppColor.c2C2A2A),
           ),
           4.heightSizeBox,
@@ -158,18 +158,39 @@ class DrawerScreen extends StatelessWidget {
             title: 'My Account',
             image: Assets.iconsIcAccount,
           ),
-          drawerRowWidget(
+          GetBuilder<DashboardController>(
+            builder: (dashboardController) {
+              final userData = dashboardController.getCustomerData.value?.data;
+
+              return drawerRowWidget(
+                onTap: () {
+                  print("profile----->${userData?.subscriptionDetails?.subscriptionId}");
+
+                  if (userData?.subscriptionDetails?.subscriptionId == null) {
+                    Get.toNamed(RouteStrings.subscribeMainScreen);
+                  } else {
+                    Get.toNamed(RouteStrings.subscriptionPlanScreen);
+                  }
+                },
+                title: 'Subscription Plan',
+                image: Assets.iconsIcSubscriptionPlan,
+              );
+            },
+          ),
+
+          /*  drawerRowWidget(
             onTap: () {
-              if (userData?.subscriptionId == null &&
-                  controller.isPremiumSelected.value == false) {
+              print("profile----->${userData?.subscriptionId}");
+              if (userData?.subscriptionId == null) {
                 Get.toNamed(RouteStrings.subscribeMainScreen);
+
               } else {
                 Get.toNamed(RouteStrings.subscriptionPlanScreen);
               }
             },
             title: 'Subscription Plan',
             image: Assets.iconsIcSubscriptionPlan,
-          ),
+          ),*/
 
           /* drawerRowWidget(
               onTap: () => userData?.subscriptionId==null? Get.toNamed(RouteStrings.subscribeMainScreen):Get.toNamed(RouteStrings.subscriptionPlanScreen),

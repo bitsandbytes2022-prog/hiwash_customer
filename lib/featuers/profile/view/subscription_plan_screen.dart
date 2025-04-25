@@ -21,7 +21,8 @@ class SubscriptionPlanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userData = dashboardController.getCustomerData?.data?.first;
+    final userData = dashboardController.getCustomerData.value?.data?.customerDetails;
+    final userDataSub = dashboardController.getCustomerData.value?.data?.subscriptionDetails;
     return AppHomeBg(
       padding: EdgeInsets.zero,
       headingText: "Subscription Plan",
@@ -54,7 +55,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
                 42.heightSizeBox,
                 subscriptionRowWidget(
                   title: 'Pack Name ',
-                  packName: userData?.subscriptionName??'',
+                  packName: userDataSub?.subscriptionName??'',
                 ),
                 10.heightSizeBox,
                 DashedLineWidget(),

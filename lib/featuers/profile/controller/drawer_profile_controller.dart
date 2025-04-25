@@ -2,12 +2,25 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
+import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
+import 'package:dio/dio.dart' as dio;
 import '../../../network_manager/repository.dart';
 import '../model/terms_and_conditions_response_model.dart';
 import 'package:image_picker/image_picker.dart';
 
 class DrawerProfileController extends GetxController {
+  var imageFile = Rx<File?>(null);
+
+  Future<void> imagePicker() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      imageFile.value = File(pickedFile.path);
+    }
+  }
+
   var currentDrawerSection = ''.obs;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -24,18 +37,25 @@ class DrawerProfileController extends GetxController {
     }
   }
 
-  File? imageFile;
+  Future<dio.FormData> getFormDataForUpload() async {
+    if (imageFile == null) throw Exception("Image not selected");
 
-  Future<void> imagePicker() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
+    final fileName = imageFile.value?.path.split('/').last;
+    var file = await dio.MultipartFile.fromFile(
+      imageFile.value!.path,
+      filename: fileName,
     );
+    return dio.FormData.fromMap({"file": file});
+  }
 
-
-    if (pickedFile != null) {
-      imageFile = File(pickedFile.path);
+  Future<dynamic> uploadProfileImage() async {
+    try {
+      final formData = await getFormDataForUpload();
+      final response = await Repository().uploadProfilePicture(formData);
+      return response;
+    } catch (e) {
+      print("Upload error: $e");
     }
-    update();
   }
 
   Future<TermsAndConditionsResponseModel?> getTermsAndConditions() async {

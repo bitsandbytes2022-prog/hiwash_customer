@@ -25,8 +25,7 @@ class Repository {
   final DioHelper dioHelper = DioHelper();
   final LocalStorage localStorage = LocalStorage();
 
-
-/*  Future<SendOtpModel> sendOtp(Object requestBody) async {
+  /*  Future<SendOtpModel> sendOtp(Object requestBody) async {
     print(" sendOtp body--->: $requestBody");
     print(" sendOtp url--->: ${ApiConstant.sendOtp}");
 
@@ -41,10 +40,7 @@ class Repository {
     final dio = Dio();
 
     try {
-      final response = await dio.post(
-        ApiConstant.sendOtp,
-        data: requestBody,
-      );
+      final response = await dio.post(ApiConstant.sendOtp, data: requestBody);
 
       if (response.statusCode == 200) {
         return SendOtpModel.fromJson(response.data);
@@ -58,8 +54,8 @@ class Repository {
         final errorData = e.response?.data['error'];
 
         if (errorData != null) {
-          int errorCode = errorData['code'];  // Get error code (e.g., 404)
-          String errorMessage = errorData['message'];  // Get error message
+          int errorCode = errorData['code']; // Get error code (e.g., 404)
+          String errorMessage = errorData['message']; // Get error message
 
           if (errorCode == 404 && errorMessage == "Your account not found.") {
             // Handle 'User not found' error
@@ -95,8 +91,8 @@ class Repository {
 
     return GetTokenModel.fromJson(response);
   }
-  Future<SignUpModel> signUp(Object requestBody) async {
 
+  Future<SignUpModel> signUp(Object requestBody) async {
     var response = await dioHelper.post(
       url: ApiConstant.signUp,
       requestBody: requestBody,
@@ -105,12 +101,14 @@ class Repository {
     return SignUpModel.fromJson(response);
   }
 
-
-  Future<GetCustomerData> getCustomerData(var id) async {
+  Future<GetCustomerData> getCustomerData(int id) async {
+    print("url--->:${ApiConstant.getCustomerId(id)}");
     var response = await dioHelper.get(
       url: ApiConstant.getCustomerId(id),
       isAuthRequired: true,
     );
+    print("---->getCustomerData--->${response.toString()}");
+
     return GetCustomerData.fromJson(response);
   }
 
@@ -122,15 +120,13 @@ class Repository {
     return GetSubscriptionModel.fromJson(response);
   }
 
-  Future<GetSubscriptionMembershipModel> getSubscriptionMembership(
-    Object requestBody,
-  ) async {
+  Future<ApiResponse> getSubscriptionMembership(Object requestBody) async {
     Map<String, dynamic> response = await dioHelper.post(
       url: ApiConstant.baseUrl + ApiConstant.getSubscriptionMembership,
       isAuthRequired: true,
       requestBody: requestBody,
     );
-    return GetSubscriptionMembershipModel.fromJson(response);
+    return ApiResponse.fromJson(response);
   }
 
   Future<FaqResponseModel> getFaq(int entityType) async {
@@ -209,8 +205,6 @@ class Repository {
     return GetOfferCategoriesModel.fromJson(response);
   }
 
-
-
   Future<WashSummaryModel> washSummary() async {
     print("washSummary url--->:${ApiConstant.washSummary}");
     Map<String, dynamic> response = await dioHelper.get(
@@ -220,4 +214,19 @@ class Repository {
     print("Response--->: $response");
     return WashSummaryModel.fromJson(response);
   }
+
+
+  Future<void> uploadProfilePicture( requestBody) async {
+    try {
+      final response = await dioHelper.post(
+        url: ApiConstant.uploadProfile,
+        requestBody: requestBody,
+        isAuthRequired: true,
+      );
+     print("Upload success: $response");
+    } catch (e) {
+      print("Upload failed: $e");
+    }
+  }
+
 }
