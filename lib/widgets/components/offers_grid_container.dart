@@ -7,9 +7,8 @@ import '../../generated/assets.dart';
 import '../../styling/app_color.dart';
 import '../../styling/app_font_anybody.dart';
 import '../../widgets/sized_box_extension.dart';
-
 class OffersGridContainer extends StatelessWidget {
-  final Data offer;
+  final Offers offer;
 
   OffersGridContainer({super.key, required this.offer});
 
@@ -41,7 +40,8 @@ class OffersGridContainer extends StatelessWidget {
             alignment: Alignment.topRight,
             child: DateTimeWidget(
               title: rewardController.timeUntilExpiry(
-                  offer.expiryDate ?? "No Expiry"),
+                offer.expiryDate ?? "No Expiry",
+              ),
             ),
           ),
           Spacer(),
@@ -54,39 +54,3 @@ class OffersGridContainer extends StatelessWidget {
     );
   }
 }
-/*
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColor.c5C6B72.withOpacity(0.4)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: DateTimeWidget(
-              title: rewardController.timeUntilExpiry(offer.expiryDate ?? "No Expiry"),
-            ),
-          ),
-          Image(
-            image: (offer.image != null && offer.image!.isNotEmpty)
-                ? NetworkImage(offer.image!)
-                : AssetImage(Assets.imagesImOffer),
-            fit: BoxFit.cover,
-          ),
-
-          5.heightSizeBox,
-          Text(
-            "${offer.discountValue ?? 0}% Off",
-            style: w900_14a(color: AppColor.c2C2A2A),
-          ),
-        ],
-      ),
-    );
-  }
-}*/

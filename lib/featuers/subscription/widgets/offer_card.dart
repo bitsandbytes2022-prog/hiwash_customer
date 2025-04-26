@@ -50,7 +50,7 @@ class OfferCardWidget extends StatelessWidget {
                       rewardController
                               .getOfferCategoriesModel
                               .value
-                              ?.data![0]
+                              ?.data?[0]
                               .image ??
                           '',
                       fit: BoxFit.cover,
@@ -91,7 +91,7 @@ class OfferCardWidget extends StatelessWidget {
                     rewardController
                             .getOfferCategoriesModel
                             .value
-                            ?.data![1]
+                            ?.data?[1]
                             .image ??
                         '',
                     fit: BoxFit.cover,
@@ -134,7 +134,7 @@ class OfferCardWidget extends StatelessWidget {
                     rewardController
                             .getOfferCategoriesModel
                             .value
-                            ?.data![2]
+                            ?.data?[2]
                             .image ??
                         '',
                     fit: BoxFit.cover,

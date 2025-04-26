@@ -21,6 +21,7 @@ import '../../../route/route_strings.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/app_dialog.dart';
 import '../../../widgets/components/offers_grid_container.dart';
+import '../../rewads/model/offer_response_model.dart';
 import '../widgets/offer_card.dart';
 import '../widgets/plan_container.dart';
 
@@ -307,7 +308,7 @@ WashStatusController washStatusController =Get.find();
             ),
             25.heightSizeBox,
             Obx(() {
-              final data = rewardController.offerResponseModel.value?.data;
+              final List<Offers> data = rewardController.offerResponseModel.value?.data?.offers ?? [];
 
               if (data == null) {
                 return Center(child: CircularProgressIndicator());

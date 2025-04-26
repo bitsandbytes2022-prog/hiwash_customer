@@ -1,21 +1,17 @@
-import 'package:hiwash_customer/network_manager/api_constant.dart';
+
+import '../../../network_manager/api_constant.dart';
 
 class GetOfferResponseModel {
   bool? success;
   String? message;
-  List<Data>? data;
+  Data? data;
 
   GetOfferResponseModel({this.success, this.message, this.data});
 
   GetOfferResponseModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -23,14 +19,63 @@ class GetOfferResponseModel {
     data['success'] = this.success;
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 }
 
 class Data {
+  Summary? summary;
+  List<Offers>? offers;
+
+  Data({this.summary, this.offers});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    summary =
+    json['summary'] != null ? new Summary.fromJson(json['summary']) : null;
+    if (json['offers'] != null) {
+      offers = <Offers>[];
+      json['offers'].forEach((v) {
+        offers!.add(new Offers.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.summary != null) {
+      data['summary'] = this.summary!.toJson();
+    }
+    if (this.offers != null) {
+      data['offers'] = this.offers!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Summary {
+  int? totalReward;
+  int? rewardedCustomers;
+
+  Summary({this.totalReward, this.rewardedCustomers});
+
+  Summary.fromJson(Map<String, dynamic> json) {
+    totalReward = json['totalReward'];
+    rewardedCustomers = json['rewardedCustomers'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['totalReward'] = this.totalReward;
+    data['rewardedCustomers'] = this.rewardedCustomers;
+    return data;
+  }
+}
+
+class Offers {
   int? id;
+  int? partnerId;
   String? businessName;
   String? categoryName;
   String? title;
@@ -38,12 +83,14 @@ class Data {
   String? offerDetails;
   String? howToRedeem;
   String? termsAndConditions;
-  String? discountValue;
+  double? discountValue;
   String? expiryDate;
   String? image;
+  String? qRCodeUrl;
 
-  Data(
+  Offers(
       {this.id,
+        this.partnerId,
         this.businessName,
         this.categoryName,
         this.title,
@@ -53,10 +100,12 @@ class Data {
         this.termsAndConditions,
         this.discountValue,
         this.expiryDate,
-        this.image});
+        this.image,
+        this.qRCodeUrl});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Offers.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    partnerId = json['partnerId'];
     businessName = json['businessName'];
     categoryName = json['categoryName'];
     title = json['title'];
@@ -64,16 +113,18 @@ class Data {
     offerDetails = json['offerDetails'];
     howToRedeem = json['howToRedeem'];
     termsAndConditions = json['termsAndConditions'];
-    discountValue = json['discountValue'].toString();
+    discountValue = json['discountValue'];
     expiryDate = json['expiryDate'];
     image = json['image'] != null
         ? "${ApiConstant.baseImageUrl}${json['image']}"
         : null;
+    qRCodeUrl = json['qRCodeUrl'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['partnerId'] = this.partnerId;
     data['businessName'] = this.businessName;
     data['categoryName'] = this.categoryName;
     data['title'] = this.title;
@@ -84,6 +135,10 @@ class Data {
     data['discountValue'] = this.discountValue;
     data['expiryDate'] = this.expiryDate;
     data['image'] = this.image;
+    data['qRCodeUrl'] = this.qRCodeUrl;
     return data;
   }
 }
+
+
+

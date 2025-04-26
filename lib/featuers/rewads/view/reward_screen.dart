@@ -20,6 +20,7 @@ import '../../../widgets/components/offers_grid_container.dart';
 import '../../../widgets/components/profile_image_container.dart';
 import '../../subscription/widgets/offer_card.dart';
 import '../controller.dart';
+import '../model/offer_response_model.dart';
 
 class RewardScreen extends StatelessWidget {
   RewardScreen({super.key});
@@ -35,17 +36,13 @@ class RewardScreen extends StatelessWidget {
         15.heightSizeBox,
         exclusiveOffer(),
         Obx(() {
-          final data = rewardController.offerResponseModel.value?.data;
+          final List<Offers> data =
+              rewardController.offerResponseModel.value?.data?.offers ?? [];
 
-          if (data == null) {
-            return Container(
-              padding: EdgeInsets.only(top: 150),
-              child: 
-              Text("No Data Found"),
-            );
-          }
-
-          return SizedBox(
+          return data.isEmpty?Container(
+            padding: EdgeInsets.only(top: 150),
+            child: CircularProgressIndicator(),
+          ):SizedBox(
             height: Get.height,
             child:
                 data.isNotEmpty
@@ -66,7 +63,7 @@ class RewardScreen extends StatelessWidget {
                     : Padding(
                       padding: const EdgeInsets.only(top: 30),
                       child: Text(
-                        'Data is not found',
+                        '',
                         style: TextStyle(fontSize: 18, color: Colors.black),
                       ),
                     ),
@@ -206,7 +203,8 @@ class RewardScreen extends StatelessWidget {
             ),
             25.heightSizeBox,
             Obx(() {
-              final data = rewardController.offerResponseModel.value?.data;
+              final List<Offers> data =
+                  rewardController.offerResponseModel.value?.data?.offers ?? [];
 
               if (data == null) {
                 return Center(child: CircularProgressIndicator());
@@ -572,6 +570,7 @@ class RewardScreen extends StatelessWidget {
       ),
     );
   }
+
   Widget dropDownRow({
     required int index,
     required String? title,
@@ -583,7 +582,7 @@ class RewardScreen extends StatelessWidget {
       return GestureDetector(
         onTap: () {
           rewardController.selectedDropDownIndex.value =
-          isExpanded ? -1 : index; // Toggle
+              isExpanded ? -1 : index; // Toggle
         },
         child: Container(
           color: Colors.transparent,
@@ -596,14 +595,12 @@ class RewardScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      title ?? "",
-                      style: w600_12a(color: AppColor.c2C2A2A),
-                    ),
+                    Text(title ?? "", style: w600_12a(color: AppColor.c2C2A2A)),
                     ImageView(
-                      path: isExpanded
-                          ? Assets.iconsIcUpWardArrow
-                          : Assets.iconsIcDropDown,
+                      path:
+                          isExpanded
+                              ? Assets.iconsIcUpWardArrow
+                              : Assets.iconsIcDropDown,
                       height: 6,
                       width: 10,
                     ),
@@ -613,10 +610,7 @@ class RewardScreen extends StatelessWidget {
               if (isExpanded)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
-                    content,
-                    style: w400_12p(),
-                  ),
+                  child: Text(content, style: w400_12p()),
                 ),
               10.heightSizeBox,
             ],
@@ -626,7 +620,7 @@ class RewardScreen extends StatelessWidget {
     });
   }
 
-/*  Widget dropDownRow(String? title, VoidCallback onTap) {
+  /*  Widget dropDownRow(String? title, VoidCallback onTap) {
     RxInt select = 0.obs;
     return GestureDetector(
       onTap: onTap,

@@ -22,7 +22,7 @@ class RewardController extends GetxController {
     } catch (error) {
       loading = false;
       update();
-      print("Error fetching Offers: $error");
+      print("Error fetching Offers Get All: $error");
     }
     return null;
   }
@@ -35,7 +35,7 @@ class RewardController extends GetxController {
      return  getOffersByIdModel.value;
 
     } catch (error) {
-      print("Error fetching Offers: $error");
+      print("Error fetching Offers by Di: $error");
     }
     return null;
   }
@@ -47,11 +47,11 @@ class RewardController extends GetxController {
       loading = true;
       update();
       getOfferCategoriesModel.value = await Repository().getOfferCategories();
-      getOfferCategoriesModel.value;
+      return  getOfferCategoriesModel.value;
     } catch (error) {
       loading = false;
       update();
-      print("Error fetching Offers: $error");
+      print("Error fetching Offers Categories: $error");
     }
     return null;
   }

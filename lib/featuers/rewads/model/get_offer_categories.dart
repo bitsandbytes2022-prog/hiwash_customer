@@ -3,25 +3,24 @@ import '../../../network_manager/api_constant.dart';
 class GetOfferCategoriesModel {
   bool? success;
   String? message;
-  List<Data>? data;
+  List<OfferCategory>? data;
 
   GetOfferCategoriesModel({this.success, this.message, this.data});
 
   GetOfferCategoriesModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
-      });
+    if (json['data'] != null && json['data'] is List) {
+      data = (json['data'] as List)
+          .map((v) => OfferCategory.fromJson(v as Map<String, dynamic>))
+          .toList();
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -29,15 +28,15 @@ class GetOfferCategoriesModel {
   }
 }
 
-class Data {
+class OfferCategory {
   int? id;
   String? name;
   String? description;
   String? image;
 
-  Data({this.id, this.name, this.description, this.image});
+  OfferCategory({this.id, this.name, this.description, this.image});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  OfferCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
@@ -47,11 +46,11 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['description'] = description;
+    data['image'] = image;
     return data;
   }
 }
