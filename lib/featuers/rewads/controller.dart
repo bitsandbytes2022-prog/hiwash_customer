@@ -18,7 +18,7 @@ class RewardController extends GetxController {
       loading = true;
       update();
       offerResponseModel.value = await Repository().getAllOffer();
-      offerResponseModel.value;
+      return offerResponseModel.value;
     } catch (error) {
       loading = false;
       update();
@@ -31,11 +31,13 @@ class RewardController extends GetxController {
 
     try {
        getOffersByIdModel.value = await Repository().getOfferById(id);
-      getOffersByIdModel.value;
-      update();
+       update();
+     return  getOffersByIdModel.value;
+
     } catch (error) {
       print("Error fetching Offers: $error");
     }
+    return null;
   }
 
 

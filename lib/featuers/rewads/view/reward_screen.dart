@@ -38,7 +38,11 @@ class RewardScreen extends StatelessWidget {
           final data = rewardController.offerResponseModel.value?.data;
 
           if (data == null) {
-            return Center(child: CircularProgressIndicator());
+            return Container(
+              padding: EdgeInsets.only(top: 150),
+              child: 
+              Text("No Data Found"),
+            );
           }
 
           return SizedBox(

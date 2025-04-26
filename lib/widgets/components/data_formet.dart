@@ -7,5 +7,5 @@ String formatDate(String? dateString) {
   }
 
   DateTime dateTime = DateTime.parse(dateString);
-  return DateFormat('d-MMMM-yyyy').format(dateTime);
+  return DateFormat('d MMM yyyy').format(dateTime);
 }

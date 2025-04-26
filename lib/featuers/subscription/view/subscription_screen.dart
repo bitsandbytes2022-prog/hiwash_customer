@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
 import 'package:hiwash_customer/featuers/rewads/controller.dart';
 import 'package:hiwash_customer/featuers/subscription/controller/subscription_controller.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
@@ -29,7 +30,7 @@ class SubscriptionScreen extends StatelessWidget {
   DashboardController dashboardController = Get.find();
   SubscriptionController controller = Get.put(SubscriptionController());
   RewardController rewardController = Get.find();
-
+WashStatusController washStatusController =Get.find();
   @override
   Widget build(BuildContext context) {
     controller.getSubscription();
@@ -138,11 +139,12 @@ class SubscriptionScreen extends StatelessWidget {
                         imageShow: subscription.isPremium ?? false,
                         subscriptionId: subscription.id?.toString(),
                         onTap: () {
-                          print("index Print---->${index+1}");
+                          print("index Print---->${index + 1}");
+                          controller.setPremiumStatus(
+                            subscription.isPremium ?? false,
+                          );
 
-                          controller.selectedIndex.value = index+1 ;
-
-
+                          controller.selectedIndex.value = index + 1;
                         },
                       );
                     },
@@ -205,49 +207,34 @@ class SubscriptionScreen extends StatelessWidget {
               40.heightSizeBox,
               HiWashButton(
                 onTap: () {
+                  String selectedId =
+                      controller.selectedSubscriptionId.toString();
 
-                  String selectedId = controller.selectedSubscriptionId.toString();
-
-                  controller.getSubscriptionMembership(
-                    selectedId,
-                    "7984187154",
-                    "gJ18",
-                    "Success",
-                  ).then((value){
-                    Get.toNamed(RouteStrings.enterCardDetailScreen);
-                  });
+                  controller
+                      .getSubscriptionMembership(
+                        selectedId,
+                        "7984187154",
+                        "gJ18",
+                        "Success",
+                      )
+                      .then((value) {
+                        dashboardController.getCustomerDataById(
+                          dashboardController
+                                  .getCustomerData
+                                  .value
+                                  ?.data
+                                  ?.customerDetails
+                                  ?.id ??
+                              0,
+                        );
+                        washStatusController.getWashSummary();
+                        Get.toNamed(RouteStrings.enterCardDetailScreen);
+                      });
                   print("seclectionId---->${selectedId}");
-
-
                 },
                 text: "kSubscribe".tr,
                 margin: EdgeInsets.symmetric(horizontal: 30),
               ),
-             /* Obx(
-                 () {
-                  return HiWashButton(
-                    onTap: () {
-                      final selectedId =
-                          dashboardController
-                              .getCustomerData
-                              .value
-                              ?.data
-                              ?.subscriptionDetails?.subscriptionId ??
-                          "";
-                      controller.getSubscriptionMembership(
-                        "2",
-                        "7984187154",
-                        "gJ18",
-                        "Success",
-                      );
-
-                      Get.toNamed(RouteStrings.enterCardDetailScreen);
-                    },
-                    text: "kSubscribe".tr,
-                    margin: EdgeInsets.symmetric(horizontal: 30),
-                  );
-                }
-              ),*/
 
               30.heightSizeBox,
             ],
