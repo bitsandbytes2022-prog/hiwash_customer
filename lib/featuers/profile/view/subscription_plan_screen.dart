@@ -21,6 +21,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
 
   DashboardController dashboardController = Get.find();
   SubscriptionController controller = Get.find();
+  WashStatusController washStatusController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +69,17 @@ class SubscriptionPlanScreen extends StatelessWidget {
                 10.heightSizeBox,
                 DashedLineWidget(),
                 10.heightSizeBox,
-                subscriptionRowWidget(title: 'Remaining wash', packName: '1'),
+                subscriptionRowWidget(
+                  title: 'Remaining wash',
+                  packName:
+                      washStatusController
+                          .washSummaryModel
+                          .value
+                          ?.data
+                          ?.summary
+                          ?.remainingWashes ??
+                      '',
+                ),
                 10.heightSizeBox,
                 DashedLineWidget(),
                 10.heightSizeBox,
