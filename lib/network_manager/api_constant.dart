@@ -18,7 +18,8 @@ static  getOffersById(int id)=>"$baseUrl/offer/$id";
 static  const offerCategories="$baseUrl/offer/categories";
 static const rating="$baseUrl/customer/rating";
 static const washSummary="$baseUrl/customer/wash-summary";
-static const uploadProfile="$baseUrl/customer/upload-profile-picture";
+static const uploadProfileImage="$baseUrl/customer/upload-profile-picture";
+static const uploadProfile="$baseUrl/customer/update-profile";
 
 
 

@@ -88,7 +88,9 @@ class SignUpScreen extends StatelessWidget {
               20.heightSizeBox,
               HiWashTextField(
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 .,-]')),
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r"[a-zA-Z0-9 .,@#&/\-':()+=]"),
+                  ),
                 ],
                 keyboardType: TextInputType.text,
                 controller: authController.zoneController,
@@ -103,7 +105,9 @@ class SignUpScreen extends StatelessWidget {
               20.heightSizeBox,
               HiWashTextField(
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 .,-]')),
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r"[a-zA-Z0-9 .,@#&/\-':()+=]"),
+                  ),
                 ],
                 keyboardType: TextInputType.text,
                 controller: authController.streetController,
@@ -113,7 +117,9 @@ class SignUpScreen extends StatelessWidget {
               20.heightSizeBox,
               HiWashTextField(
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 .,-]')),
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r"[a-zA-Z0-9 .,@#&/\-':()+=]"),
+                  ),
                 ],
                 keyboardType: TextInputType.text,
                 controller: authController.buildingController,
@@ -123,7 +129,9 @@ class SignUpScreen extends StatelessWidget {
               20.heightSizeBox,
               HiWashTextField(
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 .,-]')),
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r"[a-zA-Z0-9 .,@#&/\-':()+=]"),
+                  ),
                 ],
                 controller: authController.unitController,
                 hintText: "Unit".tr,
@@ -139,17 +147,13 @@ class SignUpScreen extends StatelessWidget {
                   onTap: () {
                     String enteredPhone = authController.phoneController.text.trim();
 
-                    // Check if user has changed the phone number
                     if (phoneNumberSignUp != null && phoneNumberSignUp != enteredPhone) {
-                      // User typed a different phone number
                       Get.snackbar(
                         "Phone Number Changed",
                         "You have changed the phone number from the original one.",
                         backgroundColor: Colors.orangeAccent,
                         colorText: Colors.white,
                       );
-                      // You can return here if you want to block submission
-                      // return;
                     }
                     // Get.toNamed(RouteStrings.dashboardScreen);
                     if (formKey.currentState?.validate() ?? false) {

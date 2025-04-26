@@ -219,13 +219,26 @@ class Repository {
   Future<void> uploadProfilePicture( requestBody) async {
     try {
       final response = await dioHelper.post(
-        url: ApiConstant.uploadProfile,
+        url: ApiConstant.uploadProfileImage,
         requestBody: requestBody,
         isAuthRequired: true,
       );
      print("Upload success: $response");
     } catch (e) {
       print("Upload failed: $e");
+    }
+  }
+
+  Future<dynamic> uploadProfile(Object requestBody) async {
+    try {
+      final response = await dioHelper.put(
+        url: ApiConstant.uploadProfile,
+        requestBody: requestBody,
+        isAuthRequired: true,
+      );
+      print("Save profile success: $response");
+    } catch (e) {
+      print("Save profile failed: $e");
     }
   }
 
