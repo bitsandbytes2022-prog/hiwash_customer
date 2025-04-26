@@ -20,15 +20,17 @@ import '../auth_controller/auth_controller.dart';
 class OtpScreen extends StatelessWidget {
   OtpScreen({super.key});
 
+
   final AuthController controller =
   Get.isRegistered<AuthController>()
       ? Get.find<AuthController>()
       : Get.put(AuthController());
 
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    final String phoneNumberSignUp = Get.arguments as String;
-
+    final String phoneNumber = Get.arguments as String;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.startTimer();
     });
@@ -64,7 +66,7 @@ class OtpScreen extends StatelessWidget {
                     style: w400_12p(color: AppColor.c455A64),
                   ),
                   TextSpan(
-                    text: phoneNumberSignUp,
+                    text: phoneNumber,
                     style: w500_14p(
                       color: AppColor.blue,
                     ).copyWith(decoration: TextDecoration.underline),
@@ -73,14 +75,23 @@ class OtpScreen extends StatelessWidget {
               ),
             ),
             28.heightSizeBox,
-            Pinput(
-              length: 4,
-              defaultPinTheme: defaultPinTheme.copyDecorationWith(
-                color: AppColor.c5C6B72.withOpacity(0.1),
+            Form(
+              key: formKey,
+              child: Pinput(
+                length: 4,
+                defaultPinTheme: defaultPinTheme.copyDecorationWith(
+                  color: AppColor.c5C6B72.withOpacity(0.1),
+                ),
+                onCompleted: (pin) => controller.enteredOtp.value = pin,
+                validator: (value) {
+                  if (value == null || value.length != 4) {
+                    return 'Enter valid OTP';
+                  }
+                  return null;
+                },
+                pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                showCursor: true,
               ),
-              onCompleted: (pin) => controller.enteredOtp.value = pin,
-              pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-              showCursor: true,
             ),
 
             24.heightSizeBox,
@@ -92,28 +103,68 @@ class OtpScreen extends StatelessWidget {
             52.heightSizeBox,
             Text("kDidGetOTPCode".tr, style: w400_12p(color: AppColor.c455A64)),
             5.heightSizeBox,
-            GestureDetector(
-              onTap: () {},
-              child: Text(
-                "resendCode".tr,
-                style: w400_12p(color: AppColor.red),
-              ),
-            ),
+
+            Obx(() {
+              final seconds = controller.secondsRemaining.value;
+              final isActive = seconds == 0;
+
+              return GestureDetector(
+                onTap: isActive
+                    ? () {
+                  controller.sendOtp(phoneNumber);
+                }
+                    : null,
+                child: Text(
+                  "resendCode".tr,
+                  style: w400_12p(
+                    color: isActive ? AppColor.red : AppColor.c5C6B72,
+                  ),
+                ),
+              );
+            }),
             26.heightSizeBox,
+
             Obx(
                   () => HiWashButton(
-                isLoading: controller.isLoading.value,
-                text: "kVerify".tr,
-                onTap: () {
-                  controller.getToken(phoneNumberSignUp).then((value) {
-                    if (value != null) {
-                      Get.offNamed(
-                        RouteStrings.dashboardScreen,
-                        arguments: controller.getTokenModel?.data?.id,
-                      );
+                  isLoading: controller.isLoading.value,
+                  text: "kVerify".tr,
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      if (controller.enteredOtp.value != "1234") {
+                        Get.snackbar(
+                          "Invalid OTP",
+                          "Please enter the correct OTP",
+                          backgroundColor: Colors.red.withOpacity(0.9),
+                          colorText: Colors.white,
+                          snackPosition: SnackPosition.TOP,
+                          margin: const EdgeInsets.all(16),
+                          borderRadius: 10,
+                        );
+                        return;
+                      }
+                      controller.getToken(phoneNumber).then((value) {
+                        if (value != null) {
+                          Get.offNamed(
+                            RouteStrings.dashboardScreen,
+                            arguments: controller.getTokenModel?.data?.id,
+                          );
+                        }
+                      });
                     }
-                  });
-                },
+                  }
+
+                /* onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    controller.getToken(phoneNumber).then((value) {
+                      if (value != null) {
+                        Get.offNamed(
+                          RouteStrings.dashboardScreen,
+                          arguments: controller.getTokenModel?.data?.id,
+                        );
+                      }
+                    });
+                  }
+                },*/
               ),
             ),
 

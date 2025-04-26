@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/auth/model/sign_up_model.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
+import 'package:hiwash_customer/styling/app_color.dart';
 
 import '../../../network_manager/local_storage.dart';
 import '../../../network_manager/repository.dart';
@@ -25,6 +27,7 @@ class AuthController extends GetxController {
   GetTokenModel? getTokenModel;
   SendOtpModel? sendOtpModel;
   SignUpModel? signUpModel;
+
   /// login controller
   TextEditingController loginPhoneController = TextEditingController(
     text: "9016824518",
@@ -35,11 +38,19 @@ class AuthController extends GetxController {
 
   ///signup controller
   TextEditingController nameController = TextEditingController(text: 'Abcd');
-  TextEditingController emailSignUpController = TextEditingController(text: 'abcd@gmail.com',);
-  TextEditingController phoneController = TextEditingController(text: "9016824518",);
-  TextEditingController zoneController = TextEditingController(text: "Zone 50",);
-  TextEditingController streetController = TextEditingController(text: "al Matar Street",);
-  TextEditingController buildingController = TextEditingController(text: 'Abcd');
+  TextEditingController emailSignUpController = TextEditingController(
+    text: 'abcd@gmail.com',
+  );
+  TextEditingController phoneController = TextEditingController(
+    text: "9016824518",
+  );
+  TextEditingController zoneController = TextEditingController(text: "Zone 50");
+  TextEditingController streetController = TextEditingController(
+    text: "al Matar Street",
+  );
+  TextEditingController buildingController = TextEditingController(
+    text: 'Abcd',
+  );
   TextEditingController unitController = TextEditingController(text: 'Abcd');
 
   /// forgot password controller
@@ -165,11 +176,11 @@ class AuthController extends GetxController {
 
   var isLoading = false.obs;
   var enteredOtp = ''.obs;
-  var secondsRemaining = 60.obs;
+  var secondsRemaining = 30.obs;
   Timer? _timer;
 
   void startTimer() {
-    secondsRemaining.value = 60;
+    secondsRemaining.value = 30;
 
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -203,10 +214,16 @@ class AuthController extends GetxController {
       print("Value received in controller sendOtp: $sendOtpModel");
 
       if (sendOtpModel != null) {
+        Get.snackbar(
+          'Success',
+          "OTP: ${sendOtpModel?.data?.otp}",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.green,
+         colorText: AppColor.white
+        );
         print("OTP: ${sendOtpModel?.data?.otp}");
         print("OTP Expiry Date: ${sendOtpModel?.data?.otpExpiredDate}");
         print("Mobile Number: ${sendOtpModel?.data?.mobileNumber}");
-
         return sendOtpModel;
       } else {
         throw Exception('Failed to generate OTP');
@@ -214,9 +231,7 @@ class AuthController extends GetxController {
     } catch (error) {
       print("Error in controller while sending OTP: $error");
 
-      // Check if the error contains the specific message
       if (error.toString().contains('User not found (404)')) {
-        // Redirect to signup screen if the user is not found
         Get.offAllNamed(RouteStrings.signUpScreen, arguments: phoneNumber);
       }
 
@@ -242,7 +257,7 @@ class AuthController extends GetxController {
       token.saveToken(value.data?.token ?? '');
 
       return value;
-    } catch (    error) {
+    } catch (error) {
       print(" Error in controller send otp: $error");
       return null;
     } finally {
@@ -250,40 +265,38 @@ class AuthController extends GetxController {
     }
   }
 
-
-
-  Future<SignUpModel?> signUp(String fullName,String phoneNumber,String email,
-      String zone,String street,String building,String unit
-      ) async {
+  Future<SignUpModel?> signUp(
+    String fullName,
+    String phoneNumber,
+    String email,
+    String zone,
+    String street,
+    String building,
+    String unit,
+  ) async {
     Map<String, dynamic> requestBody = {
       "fullName": fullName,
       "email": email,
       "mobileNumber": phoneNumber,
-      "zone":zone,
-      "street":street,
-      "building":building,
-      "unit":unit,
+      "zone": zone,
+      "street": street,
+      "building": building,
+      "unit": unit,
       "userType": "0",
     };
     print("Calling getToken with $phoneNumber");
     isLoading.value = true;
 
     try {
-      signUpModel= await Repository().signUp(requestBody);
+      signUpModel = await Repository().signUp(requestBody);
       print(" Value received in controller: $signUpModel");
 
-
-
       return signUpModel;
-    } catch (    error) {
+    } catch (error) {
       print(" Error in controller send otp: $error");
       return null;
     } finally {
       isLoading.value = false;
     }
   }
-
-
-
-
 }

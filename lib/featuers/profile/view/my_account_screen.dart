@@ -10,7 +10,8 @@
   import '../../../styling/app_color.dart';
   import '../../../styling/app_font_anybody.dart';
   import '../../../styling/app_font_poppins.dart';
-  import '../../../widgets/components/hi_wash_text_field.dart';
+  import '../../../widgets/components/data_formet.dart';
+import '../../../widgets/components/hi_wash_text_field.dart';
   import '../../../widgets/components/image_view.dart';
   import '../../dashboard/controller/dashboard_controller.dart';
   import '../controller/drawer_profile_controller.dart';
@@ -151,7 +152,7 @@
                     style: w400_12p(color: AppColor.c455A64),
                   ),
                   TextSpan(
-                    text: userDataSub?.endDate ?? '',
+                    text: formatDate(userDataSub?.endDate),
                     style: w600_12p(color: AppColor.c455A64),
                   ),
                 ],

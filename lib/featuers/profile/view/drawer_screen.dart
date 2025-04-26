@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/chat_screen.dart';
 import 'package:hiwash_customer/featuers/profile/view/subscription_plan_screen.dart';
+import 'package:hiwash_customer/widgets/components/data_formet.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
@@ -144,7 +145,7 @@ class DrawerScreen extends StatelessWidget {
                   style: w400_12p(color: AppColor.c455A64),
                 ),
                 TextSpan(
-                  text: userData?.endDate ?? '',
+                  text: formatDate(userData?.endDate),
                   style: w600_12p(color: AppColor.c455A64),
                 ),
               ],
