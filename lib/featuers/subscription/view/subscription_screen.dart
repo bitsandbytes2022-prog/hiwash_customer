@@ -139,12 +139,9 @@ class SubscriptionScreen extends StatelessWidget {
                         subscriptionId: subscription.id?.toString(),
                         onTap: () {
                           print("index Print---->${index+1}");
-                          /*
-                          controller.setPremiumStatus(
-                            subscription.isPremium ?? false,
-                          );*/
-                          controller.selectPlan(controller.selectedIndex.value, subscription.id.toString());
+
                           controller.selectedIndex.value = index+1 ;
+
 
                         },
                       );
@@ -208,15 +205,9 @@ class SubscriptionScreen extends StatelessWidget {
               40.heightSizeBox,
               HiWashButton(
                 onTap: () {
-                 /* final selectedId =
-                      dashboardController
-                          .getCustomerData
-                          .value
-                          ?.data
-                          ?.subscriptionDetails?.subscriptionId ??
-                          "";*/
 
-                  String selectedId = controller.selectedSubscriptionId;
+                  String selectedId = controller.selectedSubscriptionId.toString();
+
                   controller.getSubscriptionMembership(
                     selectedId,
                     "7984187154",

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/second_drawer_controller/second_drawer_controller.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../generated/assets.dart';
 import '../../../../styling/app_color.dart';
 import '../../../../styling/app_font_anybody.dart';
@@ -12,7 +13,8 @@ import '../../../../widgets/components/image_view.dart';
 import 'chat_screen.dart';
 
 class SecondDrawer extends StatelessWidget {
-   SecondDrawer({super.key});
+  SecondDrawer({super.key});
+
   final SecondDrawerController controller = Get.put(SecondDrawerController());
 
   @override
@@ -46,7 +48,13 @@ class SecondDrawer extends StatelessWidget {
 
           /// **Drawer Options**
           drawerRowWidget(
-            onTap: () => Get.toNamed(RouteStrings.chatScreen),
+            onTap: () async {
+              String url =
+                  "https://tawk.to/chat/68066e7b2db46a190e068251/1ipchv5dp";
+              if (!await launchUrl(Uri.parse(url))) {
+                throw Exception('Could not launch $url');
+              }
+            },
             title: 'Chat with Support',
             image: Assets.iconsIcChat,
           ),
@@ -56,23 +64,22 @@ class SecondDrawer extends StatelessWidget {
             image: Assets.iconsIcTicket,
           ),
           drawerRowWidget(
-            onTap: ()  {
+            onTap: () {
               //await controller.getFaq();
               Get.toNamed(RouteStrings.faqScreen);
             },
             title: 'FAQ’s',
             image: Assets.iconsIcFaq,
           ),
-       /*   drawerRowWidget(
+          /*   drawerRowWidget(
             onTap: () => Get.toNamed(RouteStrings.faqScreen),
             title: 'FAQ’s',
             image: Assets.iconsIcFaq,
           ),*/
           drawerRowWidget(
-            onTap: ()  {
-
+            onTap: () {
               Get.toNamed(RouteStrings.stepByStepGuideScreen);
-              },
+            },
             title: 'Step-by-Step Guide',
             dashedLineWidget: false,
             image: Assets.iconsIcGuideBook,

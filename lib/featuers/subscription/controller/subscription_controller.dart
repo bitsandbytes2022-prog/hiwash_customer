@@ -26,14 +26,12 @@
     void setPremiumStatus(bool status) {
       isPremiumSelected.value = status;
     }
-    String selectedSubscriptionId = "";
+    int selectedSubscriptionId = 1;
 
     void selectPlan(int index, String subscriptionId) {
       selectedIndex.value = index;
-      selectedSubscriptionId = subscriptionId;
-    //  update();
+      selectedSubscriptionId = int.tryParse(subscriptionId) ?? 0;
     }
-
     getSubscription() {
       loading = true;
       Repository()

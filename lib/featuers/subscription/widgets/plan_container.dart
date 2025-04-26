@@ -9,7 +9,7 @@ import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
 import '../controller/subscription_controller.dart';
 
-class PlansContainer extends StatelessWidget {
+  class PlansContainer extends StatelessWidget {
   final int index;
   final String? heading;
   final String? subHeading;
@@ -40,7 +40,7 @@ class PlansContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-
+        controller.selectPlan(index, subscriptionId ?? "");
         if (onTap != null) onTap!();
       },
 

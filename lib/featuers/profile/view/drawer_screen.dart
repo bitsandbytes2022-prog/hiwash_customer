@@ -158,39 +158,19 @@ class DrawerScreen extends StatelessWidget {
             title: 'My Account',
             image: Assets.iconsIcAccount,
           ),
-          GetBuilder<DashboardController>(
-            builder: (dashboardController) {
-              final userData = dashboardController.getCustomerData.value?.data;
+            drawerRowWidget(
+              onTap: () {
+                print("profile----->${userData?.subscriptionId}");
+                if (userData?.subscriptionId == null) {
+                  Get.toNamed(RouteStrings.subscribeMainScreen);
 
-              return drawerRowWidget(
-                onTap: () {
-                  print("profile----->${userData?.subscriptionDetails?.subscriptionId}");
-
-                  if (userData?.subscriptionDetails?.subscriptionId == null) {
-                    Get.toNamed(RouteStrings.subscribeMainScreen);
-                  } else {
-                    Get.toNamed(RouteStrings.subscriptionPlanScreen);
-                  }
-                },
-                title: 'Subscription Plan',
-                image: Assets.iconsIcSubscriptionPlan,
-              );
-            },
-          ),
-
-          /*  drawerRowWidget(
-            onTap: () {
-              print("profile----->${userData?.subscriptionId}");
-              if (userData?.subscriptionId == null) {
-                Get.toNamed(RouteStrings.subscribeMainScreen);
-
-              } else {
-                Get.toNamed(RouteStrings.subscriptionPlanScreen);
-              }
-            },
-            title: 'Subscription Plan',
-            image: Assets.iconsIcSubscriptionPlan,
-          ),*/
+                } else {
+                  Get.toNamed(RouteStrings.subscriptionPlanScreen);
+                }
+              },
+              title: 'Subscription Plan',
+              image: Assets.iconsIcSubscriptionPlan,
+            ),
 
           /* drawerRowWidget(
               onTap: () => userData?.subscriptionId==null? Get.toNamed(RouteStrings.subscribeMainScreen):Get.toNamed(RouteStrings.subscriptionPlanScreen),
