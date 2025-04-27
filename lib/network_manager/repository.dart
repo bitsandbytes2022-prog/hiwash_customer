@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/multipart/form_data.dart' as dio;
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/model/faq_response_model.dart';
 import 'package:hiwash_customer/featuers/profile/model/terms_and_conditions_response_model.dart';
@@ -215,7 +216,15 @@ class Repository {
     return WashSummaryModel.fromJson(response);
   }
 
-
+/*  Future<dynamic> uploadProfilePicture(dio.FormData formData) async {
+    try {
+      final response = await dio.Dio().post('YOUR_API_ENDPOINT', data: formData);
+      return response.data;
+    } catch (e) {
+      print("Error uploading profile picture: $e");
+      throw e; // Rethrow the error for further handling
+    }
+  }*/
   Future<void> uploadProfilePicture( requestBody) async {
     try {
       final response = await dioHelper.post(

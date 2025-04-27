@@ -1,3 +1,5 @@
+import '../../../network_manager/api_constant.dart';
+
 class GetCustomerData {
   bool? success;
   String? message;
@@ -29,12 +31,14 @@ class Data {
   Data({this.customerDetails, this.subscriptionDetails});
 
   Data.fromJson(Map<String, dynamic> json) {
-    customerDetails = json['customerDetails'] != null
-        ? new CustomerDetails.fromJson(json['customerDetails'])
-        : null;
-    subscriptionDetails = json['subscriptionDetails'] != null
-        ? new SubscriptionDetails.fromJson(json['subscriptionDetails'])
-        : null;
+    customerDetails =
+        json['customerDetails'] != null
+            ? new CustomerDetails.fromJson(json['customerDetails'])
+            : null;
+    subscriptionDetails =
+        json['subscriptionDetails'] != null
+            ? new SubscriptionDetails.fromJson(json['subscriptionDetails'])
+            : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -58,18 +62,21 @@ class CustomerDetails {
   String? zone;
   String? building;
   String? unit;
-  String? qrCodeUrl;
+  String? profilePicUrl;
+  String? carNumber;
 
-  CustomerDetails(
-      {this.id,
-        this.fullName,
-        this.email,
-        this.mobileNumber,
-        this.street,
-        this.zone,
-        this.building,
-        this.unit,
-        this.qrCodeUrl});
+  CustomerDetails({
+    this.id,
+    this.fullName,
+    this.email,
+    this.mobileNumber,
+    this.street,
+    this.zone,
+    this.building,
+    this.unit,
+    this.profilePicUrl,
+    this.carNumber,
+  });
 
   CustomerDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -80,7 +87,12 @@ class CustomerDetails {
     zone = json['zone'];
     building = json['building'];
     unit = json['unit'];
-    qrCodeUrl = json['qrCodeUrl'];
+    profilePicUrl =
+        json['profilePicUrl'] != null
+            ? "${ApiConstant.baseImageUrl}${json['profilePicUrl']}"
+            : null;
+
+    carNumber = json['carNumber'];
   }
 
   Map<String, dynamic> toJson() {
@@ -93,7 +105,8 @@ class CustomerDetails {
     data['zone'] = this.zone;
     data['building'] = this.building;
     data['unit'] = this.unit;
-    data['qrCodeUrl'] = this.qrCodeUrl;
+    data['profilePicUrl'] = this.profilePicUrl;
+    data['carNumber'] = this.carNumber;
     return data;
   }
 }
@@ -107,16 +120,19 @@ class SubscriptionDetails {
   bool? isPremium;
   double? price;
   String? currency;
+  String? qrCodeUrl;
 
-  SubscriptionDetails(
-      {this.subscriptionId,
-        this.startDate,
-        this.endDate,
-        this.subscriptionName,
-        this.duration,
-        this.isPremium,
-        this.price,
-        this.currency});
+  SubscriptionDetails({
+    this.subscriptionId,
+    this.startDate,
+    this.endDate,
+    this.subscriptionName,
+    this.duration,
+    this.isPremium,
+    this.price,
+    this.currency,
+    this.qrCodeUrl,
+  });
 
   SubscriptionDetails.fromJson(Map<String, dynamic> json) {
     subscriptionId = json['subscriptionId'];
@@ -127,18 +143,20 @@ class SubscriptionDetails {
     isPremium = json['isPremium'];
     price = json['price'];
     currency = json['currency'];
+    qrCodeUrl = json['qrCodeUrl'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['subscriptionId'] = this.subscriptionId;
-    data['startDate'] = this.startDate.toString();
-    data['endDate'] = this.endDate.toString();
+    data['startDate'] = this.startDate;
+    data['endDate'] = this.endDate;
     data['subscriptionName'] = this.subscriptionName;
-    data['duration'] = this.duration.toString();
+    data['duration'] = this.duration;
     data['isPremium'] = this.isPremium;
-    data['price'] = this.price.toString();
+    data['price'] = this.price;
     data['currency'] = this.currency;
+    data['qrCodeUrl'] = this.qrCodeUrl;
     return data;
   }
 }

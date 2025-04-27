@@ -37,7 +37,7 @@ class MyAccountScreen extends StatelessWidget {
     drawerProfileController.streetController.text = userData?.street ?? '';
     drawerProfileController.buildingController.text = userData?.building ?? '';
     drawerProfileController.unitController.text = userData?.unit ?? '';
-    //  drawerProfileController.carNumberController.text = userData?.carNumber ?? '';
+     drawerProfileController.carNumberController.text = userData?.carNumber ?? '';
 
     return AppHomeBg(
       headingText: "My Account",
@@ -56,8 +56,30 @@ class MyAccountScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     border: Border.all(color: AppColor.blue.withOpacity(0.2)),
-                  ),
-                  child: Obx(
+                  )
+                    ,child: Obx(
+                      () {
+                    if (drawerProfileController.imageFile.value != null) {
+                      return CircleAvatar(
+                        radius: 50,
+                        backgroundImage: FileImage(
+                          drawerProfileController.imageFile.value!,
+                        ),
+                      );
+                    } else if ((userData?.profilePicUrl ?? '').isNotEmpty) {
+                      return CircleAvatar(
+                        radius: 50,
+                        backgroundImage: NetworkImage(userData!.profilePicUrl!),
+                      );
+                    } else {
+                      return CircleAvatar(
+                        radius: 50,
+                        backgroundImage: AssetImage(Assets.imagesDemoProfile),
+                      );
+                    }
+                  },
+                ),
+                 /* child: Obx(
                     () => CircleAvatar(
                       radius: 50,
                       backgroundImage:
@@ -65,36 +87,23 @@ class MyAccountScreen extends StatelessWidget {
                               ? FileImage(
                                 drawerProfileController.imageFile.value!,
                               )
-                              : AssetImage(Assets.imagesDemoProfile)
-                                  as ImageProvider,
+                              : AssetImage(Assets.imagesDemoProfile),
                     ),
-                  ),
+                  ),*/
                 ),
                 GestureDetector(
                   onTap: () async {
                     await drawerProfileController.imagePicker();
 
-                    final response =
-                        await drawerProfileController.uploadProfileImage();
-                    if (response != null) {
-                      Get.snackbar(
-                        "Success",
-                        "Profile image updated successfully",
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.green,
-                        colorText: Colors.white,
-                      );
+                   await drawerProfileController.uploadProfileImage().then((value){
 
-                      drawerProfileController.uploadProfileImage();
-                    } else {
-                      Get.snackbar(
-                        "Error",
-                        "Failed to upload image",
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.red,
-                        colorText: Colors.white,
+
+                      dashboardController.getCustomerDataById(
+                        dashboardController.getCustomerData.value?.data?.customerDetails?.id ?? 0,
+
                       );
-                    }
+                    });
+
                   },
                   child: Container(
                     padding: EdgeInsets.all(5),
@@ -276,17 +285,23 @@ class MyAccountScreen extends StatelessWidget {
                       drawerProfileController.streetController.text,
                       drawerProfileController.buildingController.text,
                       drawerProfileController.unitController.text,
-                      drawerProfileController.imageFile.value?.path ?? '',
-                      drawerProfileController.carNumberController.text,
+                      userData!.profilePicUrl??"",
+                      drawerProfileController.carNumberController.text
+
                     );
 
                     dashboardController.getCustomerDataById(
                       dashboardController.getCustomerData.value?.data?.customerDetails?.id ?? 0,
 
                     );
-                    drawerProfileController.update();
-                    Get.back();
-                    /*.then((value){
+                   // drawerProfileController.update();
+                  /*  dashboardController.getCustomerDataById(
+                      dashboardController.getCustomerData.value?.data?.customerDetails?.id ?? 0,
+
+                    );*/
+
+                   // Get.back();
+                   /* .then((value){
                       if(value != null){
                         dashboardController.getCustomerDataById(
                           dashboardController.getCustomerData.value?.data?.customerDetails?.id ?? 0,
