@@ -199,10 +199,11 @@ class RewardScreen extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Text(
-                          "Sort by Expiry",
+                        Obx(() => Text(
+                          rewardController.sortByText.value,
                           style: w400_12p(color: AppColor.c2C2A2A),
-                        ),
+                        )),
+
                         Spacer(),
                         ImageView(
                           path: Assets.iconsIcDropDown,
@@ -291,8 +292,8 @@ class RewardScreen extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
 
-                  width: 200,
-                  height: 120,
+                  width: 180,
+                  height: 110,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15)
                     ,
@@ -314,6 +315,7 @@ class RewardScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
                       GestureDetector(
                         onTap: () {
                           rewardController.toggleSortOrder();
@@ -337,27 +339,7 @@ class RewardScreen extends StatelessWidget {
                       ),
 
 
-                      /*  GestureDetector(
-                        onTap: (){},
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Text(
-                            "Asending order",
 
-                          ),
-                        ),
-                      ),
-                      15.heightSizeBox,
-                      GestureDetector(
-                        onTap: (){},
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Text(
-                            "descending order",
-
-                          ),
-                        ),
-                      ),*/
                     ],
                   ),
                 ),

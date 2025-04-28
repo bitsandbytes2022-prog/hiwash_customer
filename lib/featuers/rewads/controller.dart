@@ -63,9 +63,13 @@ class RewardController extends GetxController {
   ];
 
   RxBool isAscending = true.obs;
-
+  RxString sortByText = "Sort by Expiry".obs;
   void toggleSortOrder() {
-    isAscending.value = !isAscending.value;
+    if (sortByText.value == "Sort by Expiry") {
+      isAscending.value = true;
+    } else {
+      isAscending.value = !isAscending.value;
+    }
 
     final offers = offerResponseModel.value?.data?.offers ?? [];
     offers.sort((a, b) {
@@ -76,10 +80,18 @@ class RewardController extends GetxController {
           : bDate.compareTo(aDate);
     });
 
+    sortByText.value = isAscending.value
+        ? "Ascending order"
+        : "Descending order";
+
     offerResponseModel.update((val) {
       val?.data?.offers = offers;
     });
   }
+
+
+
+
   String timeUntilExpiry(String? expiryDate) {
     if (expiryDate == null || expiryDate.isEmpty) {
       return "No Expiry";
