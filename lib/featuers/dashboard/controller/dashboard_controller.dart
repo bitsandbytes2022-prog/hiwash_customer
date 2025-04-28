@@ -47,15 +47,15 @@ import '../../../network_manager/repository.dart';
 
     Future<ApiResponse?> getRating(
       String rating,
-      String workerId,
-      String locationId,
+      String washId,
       String comment,
+
     ) async {
       Map params = {
         "rating": rating,
-        "workerId": workerId,
-        "locationId": locationId,
+        "washId": washId,
         "comment": comment,
+
       };
       try {
         print("Rating body--->: $params");

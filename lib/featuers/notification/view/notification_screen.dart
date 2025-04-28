@@ -24,102 +24,107 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        15.heightSizeBox,
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 15),
-          padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
-          decoration: BoxDecoration(
-            color: AppColor.cC31848,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.cC31848.withOpacity(0.30),
-                spreadRadius: 0,
-                blurRadius: 15,
-                offset: Offset(0, 10),
+    return Expanded(
+      child: SingleChildScrollView(
+        padding: EdgeInsets.only(bottom: 40),
+        child: Column(
+          children: [
+            15.heightSizeBox,
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 15),
+              padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
+              decoration: BoxDecoration(
+                color: AppColor.cC31848,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.cC31848.withOpacity(0.30),
+                    spreadRadius: 0,
+                    blurRadius: 15,
+                    offset: Offset(0, 10),
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: AppColor.white.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(40),
-                  border: Border.all(color: AppColor.c000000.withOpacity(0.1)),
-                ),
-                child: ImageView(
-                  path: Assets.iconsIcBook,
-                  height: 24,
-                  width: 24,
-                  color: AppColor.white,
-                ),
-              ),
-              10.widthSizeBox,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        style: TextStyle(color: Colors.black, fontSize: 16),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Your ',
-                            style: w500_12p(
-                              color: AppColor.white.withOpacity(0.70),
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'Unlimited Washes',
-                            style: w600_12p(color: AppColor.white),
-                          ),
-                          TextSpan(
-                            text:
-                                ' Pack Has\n Been Overdue Since October 15, 2025!',
-                            style: w500_12p(
-                              color: AppColor.white.withOpacity(0.70),
-                            ),
-                          ),
-                        ],
-                      ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: AppColor.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(40),
+                      border: Border.all(color: AppColor.c000000.withOpacity(0.1)),
                     ),
-                  ],
-                ),
+                    child: ImageView(
+                      path: Assets.iconsIcBook,
+                      height: 24,
+                      width: 24,
+                      color: AppColor.white,
+                    ),
+                  ),
+                  10.widthSizeBox,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            style: TextStyle(color: Colors.black, fontSize: 16),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Your ',
+                                style: w500_12p(
+                                  color: AppColor.white.withOpacity(0.70),
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Unlimited Washes',
+                                style: w600_12p(color: AppColor.white),
+                              ),
+                              TextSpan(
+                                text:
+                                    ' Pack Has\n Been Overdue Since October 15, 2025!',
+                                style: w500_12p(
+                                  color: AppColor.white.withOpacity(0.70),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+        
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(right: 16),
+                    child: ImageView(
+                      path: Assets.iconsIcForward,
+                      height: 10,
+                      width: 10,
+                    ),
+                  ),
+                ],
               ),
-
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.only(right: 16),
-                child: ImageView(
-                  path: Assets.iconsIcForward,
-                  height: 10,
-                  width: 10,
-                ),
-              ),
-            ],
-          ),
+            ),
+            21.heightSizeBox,
+        
+            ListView.separated(
+              physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              itemCount: 20,
+              separatorBuilder: (context, index) {
+                return DotedHorizontalLine();
+              },
+              itemBuilder: (context, index) {
+                return Obx(() {
+                  return notificationContainer(index);
+                });
+              },
+            ),
+          ],
         ),
-        21.heightSizeBox,
-
-        ListView.separated(
-          physics: NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          itemCount: 20,
-          separatorBuilder: (context, index) {
-            return DotedHorizontalLine();
-          },
-          itemBuilder: (context, index) {
-            return Obx(() {
-              return notificationContainer(index);
-            });
-          },
-        ),
-      ],
+      ),
     );
   }
 

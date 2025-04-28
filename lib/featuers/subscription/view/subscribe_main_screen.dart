@@ -12,11 +12,14 @@ import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../../widgets/components/image_view.dart';
 import '../../dashboard/controller/dashboard_controller.dart';
+import '../../rewads/controller.dart';
 
 class SubscribeMainScreen extends StatelessWidget {
    SubscribeMainScreen({super.key});
   DashboardController dashboardController = Get.find();
-  @override
+    RewardController rewardController = Get.find<RewardController>();
+
+   @override
   Widget build(BuildContext context) {
     final userData =
         dashboardController.getCustomerData.value?.data?.customerDetails;
@@ -74,68 +77,66 @@ class SubscribeMainScreen extends StatelessWidget {
           ),
         ),
       ),
-      child1: Expanded(
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            ImageView(
-              path: Assets.imagesImMap,
-              width: Get.width,
-              //height:Get.height/1.4,
-              fit: BoxFit.cover,
-            ),
-            Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                ImageView(
-                  path: Assets.imagesSubscribeBottome,
-                  width: Get.width,
-                  //height:Get.height/1.4,
-                  fit: BoxFit.cover,
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text("Wash & Win!",style: w700_22a(color: AppColor.c2C2A2A),),
-                   15.heightSizeBox,
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Get your car washed at ',
-                            style: w400_16p(color: AppColor.c455A64),
-                          ),
-                          TextSpan(
-                            text: '100+\nlocations ',
-                            style: w400_16p(color: AppColor.c2C2A2A),
-                          ),
-                          TextSpan(
-                            text: '& unlock',
-                            style: w400_16p(color: AppColor.c455A64),
-                          ),
-                          TextSpan(
-                            text: ' exclusive offers.',
-                            style: w400_16p(color: AppColor.c2C2A2A),
-                          ),
-                        ],
-                      ),
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          ImageView(
+            path: Assets.imagesImMap,
+            width: Get.width,
+            height:Get.height/1.4,
+            fit: BoxFit.cover,
+          ),
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              ImageView(
+                path: Assets.imagesSubscribeBottome,
+                width: Get.width,
+                //height:Get.height/1.4,
+                fit: BoxFit.cover,
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Wash & Win!",style: w700_22a(color: AppColor.c2C2A2A),),
+                 15.heightSizeBox,
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Get your car washed at ',
+                          style: w400_16p(color: AppColor.c455A64),
+                        ),
+                        TextSpan(
+                          text: '100+\nlocations ',
+                          style: w400_16p(color: AppColor.c2C2A2A),
+                        ),
+                        TextSpan(
+                          text: '& unlock',
+                          style: w400_16p(color: AppColor.c455A64),
+                        ),
+                        TextSpan(
+                          text: ' exclusive offers.',
+                          style: w400_16p(color: AppColor.c2C2A2A),
+                        ),
+                      ],
                     ),
-                    24.heightSizeBox,
-                    HiWashButton(
-                      margin: EdgeInsets.symmetric(horizontal: 30),
-                      text: 'subscribe Now',
-                      onTap: (){
-                        Get.toNamed(RouteStrings.subscriptionScreen);
-                      },
-                    ),
-                    20.heightSizeBox,
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
+                  ),
+                  24.heightSizeBox,
+                  HiWashButton(
+                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    text: 'subscribe Now',
+                    onTap: (){
+                      Get.toNamed(RouteStrings.subscriptionScreen);
+                    },
+                  ),
+                  20.heightSizeBox,
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

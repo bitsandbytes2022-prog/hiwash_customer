@@ -1,4 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:get/get.dart';
@@ -78,10 +79,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
-
     final List<Widget> filledImages = [
       fillNavigationImage(image: Assets.iconsIcHomeFill),
       fillNavigationImage(image: Assets.iconsIcRewardFill),
@@ -93,8 +90,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           borderRadius: BorderRadius.circular(100),
           border: Border.all(color: AppColor.blue.withOpacity(0.2)),
         ),
-        child: Obx(()=>
-          CircleAvatar(
+        child: Obx(
+          () => CircleAvatar(
             radius: 25,
             backgroundImage:
                 (dashboardController
@@ -118,8 +115,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
       ),
-
-
     ];
 
     final List<Widget> outlineImages = [
@@ -132,28 +127,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
           borderRadius: BorderRadius.circular(100),
           border: Border.all(color: AppColor.blue.withOpacity(0.2)),
         ),
-        child: Obx(()=>
-         CircleAvatar(
+        child: Obx(
+          () => CircleAvatar(
             radius: 22,
             backgroundImage:
-            (dashboardController
-                .getCustomerData
-                .value
-                ?.data
-                ?.customerDetails
-                ?.profilePicUrl
-                ?.isNotEmpty ??
-                false)
-                ? NetworkImage(
-              dashboardController
-                  .getCustomerData
-                  .value
-                  ?.data
-                  ?.customerDetails
-                  ?.profilePicUrl ??
-                  "",
-            )
-                : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
+                (dashboardController
+                            .getCustomerData
+                            .value
+                            ?.data
+                            ?.customerDetails
+                            ?.profilePicUrl
+                            ?.isNotEmpty ??
+                        false)
+                    ? NetworkImage(
+                      dashboardController
+                              .getCustomerData
+                              .value
+                              ?.data
+                              ?.customerDetails
+                              ?.profilePicUrl ??
+                          "",
+                    )
+                    : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
           ),
         ),
       ),
@@ -188,14 +183,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                washStatusController.isWashSelected.value = true;
+                                washStatusController.isWashSelected.value =
+                                    true;
                               },
                               child: Container(
                                 alignment: Alignment.center,
                                 height: 30,
                                 decoration: BoxDecoration(
                                   color:
-                                  washStatusController.isWashSelected.value
+                                      washStatusController.isWashSelected.value
                                           ? AppColor.cF6F7FF
                                           : Colors.transparent,
                                   borderRadius: BorderRadius.only(
@@ -207,7 +203,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   "kWash".tr,
                                   style: w700_16a(
                                     color:
-                                    washStatusController.isWashSelected.value
+                                        washStatusController
+                                                .isWashSelected
+                                                .value
                                             ? AppColor.c2C2A2A
                                             : AppColor.white,
                                   ),
@@ -219,7 +217,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                washStatusController.isWashSelected.value = false;
+                                washStatusController.isWashSelected.value =
+                                    false;
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -238,7 +237,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   "kLocations".tr,
                                   style: w700_16a(
                                     color:
-                                        !washStatusController.isWashSelected.value
+                                        !washStatusController
+                                                .isWashSelected
+                                                .value
                                             ? AppColor.c2C2A2A
                                             : AppColor.white,
                                   ),
@@ -290,7 +291,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
               barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
-                return AppDialog(bottomVisible: true, child: scanDialog(),remainingTextBottom: washStatusController.washSummaryModel.value?.data?.summary?.remainingWashes??'',);
+                return AppDialog(
+                  bottomVisible: true,
+                  child: scanDialog(),
+                  remainingTextBottom:
+                      washStatusController
+                          .washSummaryModel
+                          .value
+                          ?.data
+                          ?.summary
+                          ?.remainingWashes ??
+                      '',
+                );
               },
             );
           },
@@ -362,11 +374,82 @@ class _DashboardScreenState extends State<DashboardScreen> {
               context: context,
               builder: (BuildContext context) {
                 return AppDialog(
+
+                  padding: EdgeInsets.zero,
+                  bottomVisible: true,
+                  child: successDialog(),
+                  remainingTextBottom:
+                  washStatusController
+                      .washSummaryModel
+                      .value
+                      ?.data
+                      ?.summary
+                      ?.remainingWashes ?? '',
+                );
+              },
+            );
+          },
+          child: Obx(() {
+            final qrCodeUrl = dashboardController
+                .getCustomerData
+                .value
+                ?.data
+                ?.subscriptionDetails
+                ?.qrCodeUrl;
+
+            return CachedNetworkImage(
+              imageUrl: qrCodeUrl ?? '',
+              height: 261,
+              width: 261,
+              placeholder: (context, url) => SizedBox(
+                height: 261,
+                width: 261,
+                child: Center(
+                  child: SizedBox(
+                    height: 24,
+                    width: 24,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                ),
+              ),
+         /*     placeholder: (context, url) => SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+
+
+                ),
+              ),*/
+              errorWidget: (context, url, error) => Image.asset(
+                Assets.imagesImQr,
+                height: 261,
+                width: 261,
+              ),
+              fit: BoxFit.cover,
+            );
+          }),
+        ),
+
+        /*  GestureDetector(
+          onTap: () {
+            Get.back();
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) {
+                return AppDialog(
                   padding: EdgeInsets.zero,
 
                   bottomVisible: true,
                   child: successDialog(),
-                  remainingTextBottom:washStatusController.washSummaryModel.value?.data?.summary?.remainingWashes??'',
+                  remainingTextBottom:
+                      washStatusController
+                          .washSummaryModel
+                          .value
+                          ?.data
+                          ?.summary
+                          ?.remainingWashes ??
+                      '',
                 );
               },
             );
@@ -387,7 +470,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             );
           }),
         ),
-
+*/
         46.heightSizeBox,
       ],
     );
@@ -402,6 +485,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               30.heightSizeBox,
               Container(
@@ -494,7 +578,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       dashboardController.userRating.toString();
 
                   dashboardController
-                      .getRating(ratingString, "24", "1", comment)
+                      .getRating(ratingString, "6", comment)
                       .then((value) {
                         if (value != null) {
                           Get.back();

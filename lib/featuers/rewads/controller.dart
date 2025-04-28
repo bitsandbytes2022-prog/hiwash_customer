@@ -8,12 +8,13 @@ import 'model/get_offers_by_id_model.dart';
 class RewardController extends GetxController {
   final RxBool isVisible = false.obs;
 
-  Rxn<GetOfferResponseModel>offerResponseModel=Rxn();
-  Rxn<GetOffersByIdModel>getOffersByIdModel=Rxn();
-  Rxn<GetOfferCategoriesModel>getOfferCategoriesModel=Rxn();
+  Rxn<GetOfferResponseModel> offerResponseModel = Rxn();
+  Rxn<GetOffersByIdModel> getOffersByIdModel = Rxn();
+  Rxn<GetOfferCategoriesModel> getOfferCategoriesModel = Rxn();
   RxInt selectedDropDownIndex = (-1).obs;
 
   bool loading = false;
+
   Future<GetOfferResponseModel?> getAllOffers() async {
     try {
       loading = true;
@@ -29,26 +30,22 @@ class RewardController extends GetxController {
   }
 
   Future<GetOffersByIdModel?> getOffersById(int id) async {
-
     try {
-       getOffersByIdModel.value = await Repository().getOfferById(id);
-       update();
-     return  getOffersByIdModel.value;
-
+      getOffersByIdModel.value = await Repository().getOfferById(id);
+      update();
+      return getOffersByIdModel.value;
     } catch (error) {
       print("Error fetching Offers by Di: $error");
     }
     return null;
   }
 
-
-
   Future<GetOfferCategoriesModel?> getOfferCategoriesMethod() async {
     try {
       loading = true;
       update();
       getOfferCategoriesModel.value = await Repository().getOfferCategories();
-      return  getOfferCategoriesModel.value;
+      return getOfferCategoriesModel.value;
     } catch (error) {
       loading = false;
       update();
@@ -56,6 +53,7 @@ class RewardController extends GetxController {
     }
     return null;
   }
+
   final List<String> images = [
     Assets.demoOffer1,
     Assets.demoOffer2,
@@ -64,6 +62,7 @@ class RewardController extends GetxController {
 
   RxBool isAscending = true.obs;
   RxString sortByText = "Sort by Expiry".obs;
+
   void toggleSortOrder() {
     if (sortByText.value == "Sort by Expiry") {
       isAscending.value = true;
@@ -80,17 +79,13 @@ class RewardController extends GetxController {
           : bDate.compareTo(aDate);
     });
 
-    sortByText.value = isAscending.value
-        ? "Ascending order"
-        : "Descending order";
+    sortByText.value =
+        isAscending.value ? "Ascending order" : "Descending order";
 
     offerResponseModel.update((val) {
       val?.data?.offers = offers;
     });
   }
-
-
-
 
   String timeUntilExpiry(String? expiryDate) {
     if (expiryDate == null || expiryDate.isEmpty) {
@@ -121,5 +116,4 @@ class RewardController extends GetxController {
       return "Invalid date";
     }
   }
-
 }

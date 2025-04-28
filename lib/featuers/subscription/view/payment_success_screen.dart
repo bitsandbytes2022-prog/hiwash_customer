@@ -77,30 +77,35 @@ class PaymentSuccessScreen extends StatelessWidget {
           ),
         ),
       ),
-      child: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: ImageView(path: Assets.imagesSuccessBg),
-          ),
-          Column(
+      child: Expanded(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(bottom: 40),
+          child: Stack(
             children: [
-              19.heightSizeBox,
-              QrDialog(),
-              30.heightSizeBox,
-              GetStartButton(
-                text: "kGetStarted",
-
-                onTap: () {
-                  Get.toNamed(RouteStrings.dashboardScreen);
-                },
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: ImageView(path: Assets.imagesSuccessBg),
+              ),
+              Column(
+                children: [
+                  19.heightSizeBox,
+                  QrDialog(),
+                  30.heightSizeBox,
+                  GetStartButton(
+                    text: "kGetStarted",
+          
+                    onTap: () {
+                      Get.toNamed(RouteStrings.dashboardScreen);
+                    },
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -34,146 +34,150 @@ class SubscriptionPlanScreen extends StatelessWidget {
       padding: EdgeInsets.zero,
       headingText: "Subscription Plan",
       iconRight: SizedBox(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 20, left: 16, right: 16),
-            color: AppColor.white,
-
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(color: AppColor.blue.withOpacity(0.2)),
-                  ),
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundImage:
-                        (dashboardController
-                                    .getCustomerData
-                                    .value
-                                    ?.data
-                                    ?.customerDetails
-                                    ?.profilePicUrl
-                                    ?.isNotEmpty ??
-                                false)
-                            ? NetworkImage(
-                              dashboardController
-                                      .getCustomerData
-                                      .value
-                                      ?.data
-                                      ?.customerDetails
-                                      ?.profilePicUrl ??
-                                  "",
-                            )
-                            : AssetImage(Assets.imagesDemoProfile)
-                                as ImageProvider,
-                  ),
+      child: Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: 20, left: 16, right: 16),
+                color: AppColor.white,
+          
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(color: AppColor.blue.withOpacity(0.2)),
+                      ),
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage:
+                            (dashboardController
+                                        .getCustomerData
+                                        .value
+                                        ?.data
+                                        ?.customerDetails
+                                        ?.profilePicUrl
+                                        ?.isNotEmpty ??
+                                    false)
+                                ? NetworkImage(
+                                  dashboardController
+                                          .getCustomerData
+                                          .value
+                                          ?.data
+                                          ?.customerDetails
+                                          ?.profilePicUrl ??
+                                      "",
+                                )
+                                : AssetImage(Assets.imagesDemoProfile)
+                                    as ImageProvider,
+                      ),
+                    ),
+          
+                    10.heightSizeBox,
+                    Text(
+                      userData?.fullName ?? "",
+                      style: w700_16a(color: AppColor.c2C2A2A),
+                    ),
+                    42.heightSizeBox,
+                    subscriptionRowWidget(
+                      title: 'Pack Name ',
+                      packName: userDataSub?.subscriptionName ?? '',
+                    ),
+                    10.heightSizeBox,
+                    DashedLineWidget(),
+                    10.heightSizeBox,
+                    subscriptionRowWidget(
+                      title: 'Remaining wash',
+                      packName:
+                          washStatusController
+                              .washSummaryModel
+                              .value
+                              ?.data
+                              ?.summary
+                              ?.remainingWashes ??
+                          '',
+                    ),
+                    10.heightSizeBox,
+                    DashedLineWidget(),
+                    10.heightSizeBox,
+                    subscriptionRowWidget(
+                      title: 'Expiry date ',
+                      packName: formatDate(userDataSub?.endDate ?? ''),
+                      color: AppColor.cC41949,
+                    ),
+                    40.heightSizeBox,
+                  ],
                 ),
-
-                10.heightSizeBox,
-                Text(
-                  userData?.fullName ?? "",
-                  style: w700_16a(color: AppColor.c2C2A2A),
-                ),
-                42.heightSizeBox,
-                subscriptionRowWidget(
-                  title: 'Pack Name ',
-                  packName: userDataSub?.subscriptionName ?? '',
-                ),
-                10.heightSizeBox,
-                DashedLineWidget(),
-                10.heightSizeBox,
-                subscriptionRowWidget(
-                  title: 'Remaining wash',
-                  packName:
-                      washStatusController
-                          .washSummaryModel
-                          .value
-                          ?.data
-                          ?.summary
-                          ?.remainingWashes ??
-                      '',
-                ),
-                10.heightSizeBox,
-                DashedLineWidget(),
-                10.heightSizeBox,
-                subscriptionRowWidget(
-                  title: 'Expiry date ',
-                  packName: formatDate(userDataSub?.endDate ?? ''),
-                  color: AppColor.cC41949,
-                ),
-                40.heightSizeBox,
-              ],
-            ),
-          ),
-
-          DashedLineWidget(),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-
-            width: Get.width,
-            color: AppColor.cF6F7FF,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                26.heightSizeBox,
-                Text(
-                  "upgrade your Plan now",
-                  style: w600_14a(color: AppColor.c2C2A2A),
-                ),
-                16.heightSizeBox,
-                GetBuilder<SubscriptionController>(
-                  builder: (controller) {
-                    final list = controller.getSubscriptionModel?.data ?? [];
-
-                    if (controller.loading) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-
-                    if (list.isEmpty) {
-                      return Center(child: Text("No plans available"));
-                    }
-
-                    return ListView.separated(
-                      itemCount: list.length,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      separatorBuilder: (context, index) => 15.heightSizeBox,
-                      itemBuilder: (context, index) {
-                        final subscription = list[index];
-
-                        return PlansContainer(
-                          index: index + 1,
-                          heading: subscription.name ?? "",
-                          subHeading: subscription.description ?? "",
-                          qarText: subscription.currency?.trim() ?? "",
-                          numberText: subscription.price?.toString() ?? '',
-                          yearText: "/ Year",
-                          imageShow: subscription.isPremium ?? false,
-                          subscriptionId: subscription.id?.toString(),
+              ),
+          
+              DashedLineWidget(),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+          
+                width: Get.width,
+                color: AppColor.cF6F7FF,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    26.heightSizeBox,
+                    Text(
+                      "upgrade your Plan now",
+                      style: w600_14a(color: AppColor.c2C2A2A),
+                    ),
+                    16.heightSizeBox,
+                    GetBuilder<SubscriptionController>(
+                      builder: (controller) {
+                        final list = controller.getSubscriptionModel?.data ?? [];
+          
+                        if (controller.loading) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+          
+                        if (list.isEmpty) {
+                          return Center(child: Text("No plans available"));
+                        }
+          
+                        return ListView.separated(
+                          itemCount: list.length,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          separatorBuilder: (context, index) => 15.heightSizeBox,
+                          itemBuilder: (context, index) {
+                            final subscription = list[index];
+          
+                            return PlansContainer(
+                              index: index + 1,
+                              heading: subscription.name ?? "",
+                              subHeading: subscription.description ?? "",
+                              qarText: subscription.currency?.trim() ?? "",
+                              numberText: subscription.price?.toString() ?? '',
+                              yearText: "/ Year",
+                              imageShow: subscription.isPremium ?? false,
+                              subscriptionId: subscription.id?.toString(),
+                            );
+                          },
                         );
                       },
-                    );
-                  },
+                    ),
+          
+                    20.heightSizeBox,
+                    GetStartButton(
+                      text: "Renew Now",
+                      color: AppColor.c1F9D70,
+                      boxShadowColor: AppColor.c1F9D70.withOpacity(0.30),
+                    ),
+                    60.heightSizeBox,
+                  ],
                 ),
-
-                20.heightSizeBox,
-                GetStartButton(
-                  text: "Renew Now",
-                  color: AppColor.c1F9D70,
-                  boxShadowColor: AppColor.c1F9D70.withOpacity(0.30),
-                ),
-                60.heightSizeBox,
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

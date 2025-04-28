@@ -20,6 +20,7 @@ import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import '../../../route/route_strings.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/app_dialog.dart';
+import '../../../widgets/components/common_offer_bottom_sheet.dart';
 import '../../../widgets/components/offers_grid_container.dart';
 import '../../rewads/model/offer_response_model.dart';
 import '../widgets/offer_card.dart';
@@ -70,179 +71,183 @@ WashStatusController washStatusController =Get.find();
           ),
         ),
       ),
-      child: Stack(
-        children: [
-          ImageView(
-            path: Assets.imagesSubscriptionBg,
-            width: Get.width,
-            height: Get.height / 1.4,
-          ),
-          Column(
-            children: [
-              17.heightSizeBox,
-              Text("kChooseAPlan".tr, style: w700_22a(color: AppColor.c2C2A2A)),
-
-              8.heightSizeBox,
-              Text(
-                "kGetBenefitsAcrossAll".tr,
-                textAlign: TextAlign.center,
-                style: w400_12p(color: AppColor.c455A64),
-              ),
-              30.heightSizeBox,
-              OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 10)),
-              25.heightSizeBox,
-              viewOfferButton(() {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
+      child: Expanded(
+        child: SingleChildScrollView(
+          child: Container(
+            child: Stack(
+              children: [
+                ImageView(
+                  path: Assets.imagesSubscriptionBg,
+                  width: Get.width,
+                  height: Get.height / 1.4,
+                ),
+                Column(
+                  children: [
+                    17.heightSizeBox,
+                    Text("kChooseAPlan".tr, style: w700_22a(color: AppColor.c2C2A2A)),
+          
+                    8.heightSizeBox,
+                    Text(
+                      "kGetBenefitsAcrossAll".tr,
+                      textAlign: TextAlign.center,
+                      style: w400_12p(color: AppColor.c455A64),
                     ),
-                  ),
-                  builder: (BuildContext context) {
-                    return CustomBottomSheet(
-                      // padding: EdgeInsets.only(left: 16,right: 16),
-                      child: bottomSheet(),
-                    );
-                  },
-                );
-              }),
-
-              32.heightSizeBox,
-              GetBuilder<SubscriptionController>(
-                builder: (controller) {
-                  final list = controller.getSubscriptionModel?.data ?? [];
-
-                  if (controller.loading) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-
-                  if (list.isEmpty) {
-                    return Center(child: Text("No plans available"));
-                  }
-
-                  return ListView.separated(
-                    itemCount: list.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    separatorBuilder: (context, index) => 15.heightSizeBox,
-                    itemBuilder: (context, index) {
-                      final subscription = list[index];
-                      return PlansContainer(
-                        index: index + 1,
-                        heading: subscription.name ?? "",
-                        subHeading: subscription.description ?? "",
-                        qarText: subscription.currency?.trim() ?? "",
-                        numberText: subscription.price?.toString() ?? '',
-                        yearText: "/ Year",
-
-                        imageShow: subscription.isPremium ?? false,
-                        subscriptionId: subscription.id?.toString(),
-                        onTap: () {
-                          print("index Print---->${index + 1}");
-                          controller.setPremiumStatus(
-                            subscription.isPremium ?? false,
-                          );
-
-                          controller.selectedIndex.value = index + 1;
-                        },
-                      );
-                    },
-                  );
-                },
-              ),
-
-              18.heightSizeBox,
-              Obx(() {
-                if (controller.selectedIndex.value == 1) {
-                  return Container(
-                    padding: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: AppColor.cFF973B.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                        color: AppColor.cFF973B.withOpacity(0.4),
-                      ),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(Assets.iconsIcTAndC, height: 35, width: 35),
-                        10.widthSizeBox,
-
-                        Expanded(
-                          child: Text(
-                            "WashYourCarOnce".tr,
-                            style: w400_12p(
-                              color: AppColor.c455A64,
-                            ).copyWith(height: 2),
+                    30.heightSizeBox,
+                    OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 10)),
+                    25.heightSizeBox,
+                    viewOfferButton(() {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                } else if (controller.selectedIndex.value == 2) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-                    child: Column(
-                      children: [
-                        Text(
-                          "kCarRegistrationNumber".tr,
-                          style: w500_12p(color: AppColor.c455A64),
-                        ),
-                        4.heightSizeBox,
-                        Text(
-                          "kUnlimitedWashesPlan".tr,
-                          style: w500_12p(color: AppColor.c2C2A2A),
-                        ),
-                        15.heightSizeBox,
-                        HiWashTextField(hintText: "kEnterCarNumber".tr),
-                      ],
-                    ),
-                  );
-                } else {
-                  return SizedBox.shrink();
-                }
-              }),
-              40.heightSizeBox,
-              HiWashButton(
-                onTap: () {
-                  String selectedId =
-                      controller.selectedSubscriptionId.toString();
-
-                  controller
-                      .getSubscriptionMembership(
-                        selectedId,
-                        "7984187154",
-                        "gJ18",
-                        "Success",
-                      )
-                      .then((value) {
-                        dashboardController.getCustomerDataById(
-                          dashboardController
-                                  .getCustomerData
-                                  .value
-                                  ?.data
-                                  ?.customerDetails
-                                  ?.id ??
-                              0,
+                        builder: (BuildContext context) {
+                          return BottomSheetWidget();
+                        },
+                      );
+                    }),
+          
+                    32.heightSizeBox,
+                    GetBuilder<SubscriptionController>(
+                      builder: (controller) {
+                        final list = controller.getSubscriptionModel?.data ?? [];
+          
+                        if (controller.loading) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+          
+                        if (list.isEmpty) {
+                          return Center(child: Text("No plans available"));
+                        }
+          
+                        return ListView.separated(
+                          itemCount: list.length,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          separatorBuilder: (context, index) => 15.heightSizeBox,
+                          itemBuilder: (context, index) {
+                            final subscription = list[index];
+                            return PlansContainer(
+                              index: index + 1,
+                              heading: subscription.name ?? "",
+                              subHeading: subscription.description ?? "",
+                              qarText: subscription.currency?.trim() ?? "",
+                              numberText: subscription.price?.toString() ?? '',
+                              yearText: "/ Year",
+          
+                              imageShow: subscription.isPremium ?? false,
+                              subscriptionId: subscription.id?.toString(),
+                              onTap: () {
+                                print("index Print---->${index + 1}");
+                                controller.setPremiumStatus(
+                                  subscription.isPremium ?? false,
+                                );
+          
+                                controller.selectedIndex.value = index + 1;
+                              },
+                            );
+                          },
                         );
-                        washStatusController.getWashSummary();
-                        Get.toNamed(RouteStrings.enterCardDetailScreen);
-                      });
-                  print("seclectionId---->${selectedId}");
-                },
-                text: "kSubscribe".tr,
-                margin: EdgeInsets.symmetric(horizontal: 30),
-              ),
-
-              30.heightSizeBox,
-            ],
+                      },
+                    ),
+          
+                    18.heightSizeBox,
+                    Obx(() {
+                      if (controller.selectedIndex.value == 1) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 16),
+                          padding: EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: AppColor.cFF973B.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: AppColor.cFF973B.withOpacity(0.4),
+                            ),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(Assets.iconsIcTAndC, height: 35, width: 35),
+                              10.widthSizeBox,
+          
+                              Expanded(
+                                child: Text(
+                                  "WashYourCarOnce".tr,
+                                  style: w400_12p(
+                                    color: AppColor.c455A64,
+                                  ).copyWith(height: 2),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else if (controller.selectedIndex.value == 2) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+                          child: Column(
+                            children: [
+                              Text(
+                                "kCarRegistrationNumber".tr,
+                                style: w500_12p(color: AppColor.c455A64),
+                              ),
+                              4.heightSizeBox,
+                              Text(
+                                "kUnlimitedWashesPlan".tr,
+                                style: w500_12p(color: AppColor.c2C2A2A),
+                              ),
+                              15.heightSizeBox,
+                              HiWashTextField(hintText: "kEnterCarNumber".tr),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return SizedBox.shrink();
+                      }
+                    }),
+                    40.heightSizeBox,
+                    HiWashButton(
+                      onTap: () {
+                        String selectedId =
+                            controller.selectedSubscriptionId.toString();
+          
+                        controller
+                            .getSubscriptionMembership(
+                              selectedId,
+                              "7984187154",
+                              "gJ18",
+                              "Success",
+                            )
+                            .then((value) {
+                              dashboardController.getCustomerDataById(
+                                dashboardController
+                                        .getCustomerData
+                                        .value
+                                        ?.data
+                                        ?.customerDetails
+                                        ?.id ??
+                                    0,
+                              );
+                              washStatusController.getWashSummary();
+                              Get.toNamed(RouteStrings.enterCardDetailScreen);
+                            });
+                        print("seclectionId---->${selectedId}");
+                      },
+                      text: "kSubscribe".tr,
+                      margin: EdgeInsets.symmetric(horizontal: 30),
+                    ),
+          
+                    30.heightSizeBox,
+                  ],
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -269,7 +274,7 @@ WashStatusController washStatusController =Get.find();
     );
   }
 
-  Widget bottomSheet() {
+  Widget _bottomSheet() {
     return Expanded(
       child: SingleChildScrollView(
         child: Column(

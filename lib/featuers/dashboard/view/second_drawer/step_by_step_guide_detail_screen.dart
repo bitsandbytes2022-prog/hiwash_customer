@@ -21,15 +21,18 @@ class StepByStepGuideDetailScreen extends StatelessWidget {
 
       headingText: "Step-by-Step Guide - Detail",
       iconRight: SizedBox(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          15.heightSizeBox,
-          Text(title.trim(), style: w600_16p()),
-          10.heightSizeBox,
-          Text(description.trim(), style: w400_14p()),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            15.heightSizeBox,
+            Text(title.trim(), style: w600_16p()),
+            10.heightSizeBox,
+            Text(description.trim(), style: w400_14p()),
+          ],
+        ),
       ),
     );
   }

@@ -162,12 +162,14 @@ class WashStatusScreen extends StatelessWidget {
                       ),
                     ),
                   )
+
                   : Stack(
                     children: [
                       ImageView(
                         path: Assets.imagesImMap,
                         width: Get.width,
-                        height: Get.height / 1.28,
+                      // height: Get.height,
+                        height: Get.height / 1.5,
                         fit: BoxFit.cover,
                       ),
                       Padding(
@@ -235,8 +237,8 @@ class WashStatusScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Spacer(),
-                              /*  servicesContainer(),*/
+                              //Spacer(),
+                               /* servicesContainer(con),*/
                             ],
                           ),
                         ),

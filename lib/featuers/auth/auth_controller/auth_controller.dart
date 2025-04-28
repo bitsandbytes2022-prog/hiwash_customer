@@ -31,7 +31,7 @@ class AuthController extends GetxController {
 
   /// login controller
   TextEditingController loginPhoneController = TextEditingController(
-    text: "9016824518",
+    text: "90909090",
   );
   TextEditingController passwordController = TextEditingController(
     text: "Abcd@123",
