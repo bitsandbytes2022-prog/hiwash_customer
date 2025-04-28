@@ -21,6 +21,7 @@ class AuthController extends GetxController {
     pageController.addListener(() {
       onPageChanged(pageController.page!.round());
     });
+    checkLoginStatus();
     super.onInit();
   }
 
@@ -198,6 +199,22 @@ class AuthController extends GetxController {
     super.onClose();
   }
 
+
+
+
+
+
+  void checkLoginStatus() {
+    String? token = LocalStorage().getToken();
+    if (token != null && token.isNotEmpty) {
+      isLoggedIn.value = true;
+      print("User already logged in ");
+    } else {
+      isLoggedIn.value = false;
+      print("User not logged in ");
+    }
+  }
+
   /// GET
   Future<SendOtpModel?> sendOtp(String phoneNumber) async {
     Map<String, dynamic> requestBody = {
@@ -252,11 +269,15 @@ class AuthController extends GetxController {
     try {
       final value = await Repository().getTokens(requestBody);
       print(" Value received in controller token: $value");
-      getTokenModel = value;
-      LocalStorage token = LocalStorage();
-      token.saveToken(value.data?.token ?? '');
+      if (value.data?.token != null && value.data!.token!.isNotEmpty) {
+        LocalStorage tokenStorage = LocalStorage();
+        await tokenStorage.saveToken(value.data!.token!);
+        isLoggedIn.value = true;
+      }
 
+      getTokenModel = value;
       return value;
+
     } catch (error) {
       print(" Error in controller send otp: $error");
       return null;
@@ -298,5 +319,12 @@ class AuthController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+
+  Future<void> logout() async {
+    await LocalStorage().removeToken();
+    isLoggedIn.value = false;
+    Get.offAllNamed(RouteStrings.welcomeScreen);
   }
 }

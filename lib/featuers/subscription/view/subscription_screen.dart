@@ -34,6 +34,8 @@ class SubscriptionScreen extends StatelessWidget {
 WashStatusController washStatusController =Get.find();
   @override
   Widget build(BuildContext context) {
+    final userData =
+        dashboardController.getCustomerData.value?.data?.customerDetails;
     controller.getSubscription();
     return AppHomeBg(
       centerHeading: Container(
@@ -42,7 +44,7 @@ WashStatusController washStatusController =Get.find();
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Hello, Ibrahim", style: w400_16a(color: AppColor.white)),
+            Text(userData?.fullName??'', style: w400_16a(color: AppColor.white)),
             Text(
               "Full access subscription",
               style: w400_12a(color: AppColor.white.withOpacity(0.5)),

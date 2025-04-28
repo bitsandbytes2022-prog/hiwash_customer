@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
@@ -27,11 +28,14 @@ class _SplashScreenState extends State<SplashScreen> {
     _checkLoginStatus();
   }
 
+
+
   void _checkLoginStatus() async {
     final LocalStorage localStorage = LocalStorage();
     await Future.delayed(Duration(seconds: 2));
 
     final token = localStorage.getToken();
+    print("Token retrieved: $token");
 
     if (token != null && token.isNotEmpty) {
       Get.offNamed(RouteStrings.dashboardScreen);

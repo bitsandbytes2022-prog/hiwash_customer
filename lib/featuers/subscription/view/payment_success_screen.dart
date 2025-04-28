@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
@@ -14,46 +15,68 @@ import '../../../widgets/components/app_home_bg.dart';
 import '../../../widgets/components/qr_dialog.dart';
 
 class PaymentSuccessScreen extends StatelessWidget {
-  const PaymentSuccessScreen({super.key});
+  PaymentSuccessScreen({super.key});
+
+  DashboardController dashboardController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    final userData =
+        dashboardController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
-padding: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
       centerHeading: Container(
-        margin: EdgeInsets.only(left: 60,),
+        margin: EdgeInsets.only(left: 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-                "Hello, Ibrahim",
-                style: w400_16a(color: AppColor.white)
+              userData?.fullName ?? '',
+              style: w400_16a(color: AppColor.white),
             ),
             Text(
-                "Full access subscription",
-                style:  w400_12a(color: AppColor.white.withOpacity(0.5))
-
-            )
+              "Full access subscription",
+              style: w400_12a(color: AppColor.white.withOpacity(0.5)),
+            ),
           ],
         ),
       ),
-      childAppBar:  Positioned(
+      childAppBar: Positioned(
         left: 46,
         bottom: -10,
         child: Container(
           decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColor.cF6F7FF,
-              // border: Border.symmetric(horizontal: BorderSide.none),
-              border: Border.all(color: AppColor.cF6F7FF,width: 10)
+            shape: BoxShape.circle,
+            color: AppColor.cF6F7FF,
+            // border: Border.symmetric(horizontal: BorderSide.none),
+            border: Border.all(color: AppColor.cF6F7FF, width: 10),
           ),
-          child: CircleAvatar(
+          child:CircleAvatar(
             radius: 28,
-            backgroundImage: AssetImage(Assets.imagesDemoProfile),
+            backgroundImage:
+            (dashboardController
+                .getCustomerData
+                .value
+                ?.data
+                ?.customerDetails
+                ?.profilePicUrl
+                ?.isNotEmpty ??
+                false)
+                ? NetworkImage(
+              dashboardController
+                  .getCustomerData
+                  .value
+                  ?.data
+                  ?.customerDetails
+                  ?.profilePicUrl ??
+                  "",
+            )
+                : AssetImage(Assets.imagesDemoProfile)
+            as ImageProvider,
           ),
         ),
-      ) ,
+      ),
       child: Stack(
         children: [
           Positioned(
@@ -61,16 +84,17 @@ padding: EdgeInsets.zero,
             left: 0,
             right: 0,
             bottom: 0,
-            child: ImageView(path: Assets.imagesSuccessBg,)
+            child: ImageView(path: Assets.imagesSuccessBg),
           ),
           Column(
             children: [
               19.heightSizeBox,
               QrDialog(),
               30.heightSizeBox,
-              GetStartButton(text: "kGetStarted",
+              GetStartButton(
+                text: "kGetStarted",
 
-                onTap: (){
+                onTap: () {
                   Get.toNamed(RouteStrings.dashboardScreen);
                 },
               ),
@@ -81,7 +105,6 @@ padding: EdgeInsets.zero,
     );
   }
 }
-
 
 /*Stack(
                 children: [

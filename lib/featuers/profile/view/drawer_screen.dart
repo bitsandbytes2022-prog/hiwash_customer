@@ -19,6 +19,7 @@ import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/doted_line.dart';
 import '../../../widgets/components/image_view.dart';
+import '../../auth/auth_controller/auth_controller.dart';
 import '../../dashboard/controller/dashboard_controller.dart';
 import '../../subscription/controller/subscription_controller.dart';
 import '../../subscription/widgets/plan_container.dart';
@@ -36,7 +37,7 @@ class DrawerScreen extends StatelessWidget {
           ? Get.find<SubscriptionController>()
           : Get.put(SubscriptionController());
   DashboardController dashboardController = Get.find();
-
+  AuthController authController =Get.find();
   @override
   Widget build(BuildContext context) {
     final userData = dashboardController.getCustomerData.value?.data?.customerDetails;
@@ -101,10 +102,13 @@ class DrawerScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                   border: Border.all(color: AppColor.blue.withOpacity(0.2)),
                 ),
-                child: CircleAvatar(
+                child:CircleAvatar(
                   radius: 50,
-                  backgroundImage: AssetImage(Assets.imagesDemoProfile),
-                ),
+                  backgroundImage: (dashboardController.getCustomerData.value?.data?.customerDetails?.profilePicUrl?.isNotEmpty ?? false)
+                      ? NetworkImage(dashboardController.getCustomerData.value!.data!.customerDetails!.profilePicUrl!)
+                      : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
+                )
+
               ),
               Container(
                 padding: EdgeInsets.all(5),
@@ -200,7 +204,10 @@ class DrawerScreen extends StatelessWidget {
           80.heightSizeBox,
           GestureDetector(
             onTap: () async {
-              await LocalStorage().removeToken();
+              print("Token before logout: ${LocalStorage().getToken()}");
+
+              authController.logout();
+              print("Token after logout: ${LocalStorage().getToken()}");
               Get.offAllNamed(RouteStrings.welcomeScreen);
             },
             child: Container(

@@ -11,12 +11,15 @@ import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../../widgets/components/image_view.dart';
+import '../../dashboard/controller/dashboard_controller.dart';
 
 class SubscribeMainScreen extends StatelessWidget {
-  const SubscribeMainScreen({super.key});
-
+   SubscribeMainScreen({super.key});
+  DashboardController dashboardController = Get.find();
   @override
   Widget build(BuildContext context) {
+    final userData =
+        dashboardController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
       padding: EdgeInsets.zero,
 
@@ -26,7 +29,7 @@ class SubscribeMainScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Hello, Ibrahim", style: w400_16a(color: AppColor.white)),
+            Text( userData?.fullName ?? '', style: w400_16a(color: AppColor.white)),
             Text(
               "Full access subscription",
               style: w400_12a(color: AppColor.white.withOpacity(0.5)),
@@ -46,8 +49,27 @@ class SubscribeMainScreen extends StatelessWidget {
             radius: 38,
             backgroundColor: Colors.white,
             child: CircleAvatar(
-              radius: 28,
-              backgroundImage: AssetImage(Assets.imagesDemoProfile),
+              radius: 50,
+              backgroundImage:
+              (dashboardController
+                  .getCustomerData
+                  .value
+                  ?.data
+                  ?.customerDetails
+                  ?.profilePicUrl
+                  ?.isNotEmpty ??
+                  false)
+                  ? NetworkImage(
+                dashboardController
+                    .getCustomerData
+                    .value
+                    ?.data
+                    ?.customerDetails
+                    ?.profilePicUrl ??
+                    "",
+              )
+                  : AssetImage(Assets.imagesDemoProfile)
+              as ImageProvider,
             ),
           ),
         ),

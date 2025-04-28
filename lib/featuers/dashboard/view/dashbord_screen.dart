@@ -17,6 +17,7 @@ import '../../../widgets/components/doted_vertical_line.dart';
 import '../../../widgets/components/image_view.dart';
 import '../../../widgets/components/profile_image_container.dart';
 import '../../../widgets/components/star_rating.dart';
+import '../../auth/auth_controller/auth_controller.dart';
 import '../../notification/view/notification_screen.dart';
 import '../../profile/view/drawer_screen.dart';
 import '../../rewads/view/reward_screen.dart';
@@ -38,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String _currentDrawer = 'first';
-  final WashStatusController controller =
+  final WashStatusController washStatusController =
       Get.isRegistered<WashStatusController>()
           ? Get.find()
           : Get.put(WashStatusController());
@@ -73,23 +74,85 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   DashboardController dashboardController = Get.put(DashboardController());
+  AuthController authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
- /*   final id=Get.arguments;
-    dashboardController.getCustomerDataById(id);*/
+
+
+
+
     final List<Widget> filledImages = [
       fillNavigationImage(image: Assets.iconsIcHomeFill),
       fillNavigationImage(image: Assets.iconsIcRewardFill),
       fillNavigationImage(image: Assets.iconsIcNotificationFill),
-      ProfileImageView(isVisibleStack: false),
+
+      Container(
+        padding: EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(color: AppColor.blue.withOpacity(0.2)),
+        ),
+        child: CircleAvatar(
+          radius: 25,
+          backgroundImage:
+              (dashboardController
+                          .getCustomerData
+                          .value
+                          ?.data
+                          ?.customerDetails
+                          ?.profilePicUrl
+                          ?.isNotEmpty ??
+                      false)
+                  ? NetworkImage(
+                    dashboardController
+                            .getCustomerData
+                            .value
+                            ?.data
+                            ?.customerDetails
+                            ?.profilePicUrl ??
+                        "",
+                  )
+                  : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
+        ),
+      ),
+
+
     ];
 
     final List<Widget> outlineImages = [
       ImageView(path: Assets.iconsIcHome, height: 23, width: 23),
       ImageView(path: Assets.iconsTrophy, height: 23, width: 23),
       ImageView(path: Assets.iconsIcNotification, height: 23, width: 23),
-      ProfileImageView(isVisibleStack: false),
+      Container(
+        padding: EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(color: AppColor.blue.withOpacity(0.2)),
+        ),
+        child: CircleAvatar(
+          radius: 22,
+          backgroundImage:
+          (dashboardController
+              .getCustomerData
+              .value
+              ?.data
+              ?.customerDetails
+              ?.profilePicUrl
+              ?.isNotEmpty ??
+              false)
+              ? NetworkImage(
+            dashboardController
+                .getCustomerData
+                .value
+                ?.data
+                ?.customerDetails
+                ?.profilePicUrl ??
+                "",
+          )
+              : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
+        ),
+      ),
     ];
 
     return SafeArea(
@@ -121,14 +184,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                controller.isWashSelected.value = true;
+                                washStatusController.isWashSelected.value = true;
                               },
                               child: Container(
                                 alignment: Alignment.center,
                                 height: 30,
                                 decoration: BoxDecoration(
                                   color:
-                                      controller.isWashSelected.value
+                                  washStatusController.isWashSelected.value
                                           ? AppColor.cF6F7FF
                                           : Colors.transparent,
                                   borderRadius: BorderRadius.only(
@@ -140,7 +203,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   "kWash".tr,
                                   style: w700_16a(
                                     color:
-                                        controller.isWashSelected.value
+                                    washStatusController.isWashSelected.value
                                             ? AppColor.c2C2A2A
                                             : AppColor.white,
                                   ),
@@ -152,14 +215,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                controller.isWashSelected.value = false;
+                                washStatusController.isWashSelected.value = false;
                               },
                               child: Container(
                                 alignment: Alignment.center,
                                 height: 30,
                                 decoration: BoxDecoration(
                                   color:
-                                      !controller.isWashSelected.value
+                                      !washStatusController.isWashSelected.value
                                           ? AppColor.cF6F7FF
                                           : Colors.transparent,
                                   borderRadius: BorderRadius.only(
@@ -171,7 +234,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   "kLocations".tr,
                                   style: w700_16a(
                                     color:
-                                        !controller.isWashSelected.value
+                                        !washStatusController.isWashSelected.value
                                             ? AppColor.c2C2A2A
                                             : AppColor.white,
                                   ),
@@ -222,7 +285,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
-                return AppDialog(bottomVisible: true, child: scanDialog());
+                return AppDialog(bottomVisible: true, child: scanDialog(),remainingTextBottom: washStatusController.washSummaryModel.value?.data?.summary?.remainingWashes??'',);
               },
             );
           },
@@ -302,7 +365,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
               },
             );
           },
-          child: Image.asset(Assets.imagesImQr, height: 261, width: 261),
+
+          child: Obx(() {
+            final qrCodeUrl =
+                dashboardController
+                    .getCustomerData
+                    .value
+                    ?.data
+                    ?.subscriptionDetails
+                    ?.qrCodeUrl;
+            return ImageView(
+              path: qrCodeUrl ?? Assets.imagesImQr,
+              height: 261,
+              width: 261,
+            );
+          }),
         ),
 
         46.heightSizeBox,
@@ -353,25 +430,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       controller.userRating = v.toInt();
                       controller.update();
                     },
-                    starBuilder: (index, color) => Icon(
-                      Icons.star,
-                      color: color,
-                      size: 28,
-                    ),
+                    starBuilder:
+                        (index, color) =>
+                            Icon(Icons.star, color: color, size: 28),
                     starCount: 5,
                     starSize: 28,
                     valueLabelVisibility: false,
                     starColor: AppColor.cFFC200,
                     starOffColor: Colors.grey,
 
-
                     animationDuration: Duration(milliseconds: 200),
                     starSpacing: 2,
-
                   );
                 },
               ),
-
 
               15.heightSizeBox,
 
@@ -500,188 +572,4 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ],
     );
   }
-
-  /*  Widget successDialog() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              30.heightSizeBox,
-              Container(
-                width: Get.width,
-
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: ImageView(
-                        path: Assets.imagesImSussess,
-                        width: Get.width,
-                        fit: BoxFit.cover,
-                        height: 180,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              21.heightSizeBox,
-              Text("Wash Complete! ", style: w700_22a(color: AppColor.c2C2A2A)),
-              Text(
-                "Share your feedback and\nrate the Customer.",
-                textAlign: TextAlign.center,
-                style: w400_16p(),
-              ),
-              9.heightSizeBox,
-              StarRating(rating: 4),
-              15.heightSizeBox,
-              TextFormField(
-                maxLines: 3,
-                style: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.9)),
-                decoration: InputDecoration(
-                  fillColor: AppColor.white,
-                  hintText: "Enter your comment here...",
-                  //  labelText: "Address",
-                  filled: true,
-                  //  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  labelStyle: w400_13a(color: AppColor.c455A64),
-                  hintStyle: w400_14p(
-                    color: AppColor.c2C2A2A.withOpacity(0.40),
-                  ),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 12,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColor.cEAE8E8.withOpacity(0.5),
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColor.c5C6B72.withOpacity(0.30),
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColor.c5C6B72.withOpacity(0.30),
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColor.c5C6B72.withOpacity(0.30),
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  disabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColor.c5C6B72.withOpacity(0.30),
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColor.c5C6B72.withOpacity(0.30),
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-              ),
-              15.heightSizeBox,
-              GestureDetector(
-                onTap: () {
-                  dashboardController
-                      .getRating("3", "1", "1", "excellent")
-                      .then((value) {
-                        if (value != null) {
-                          Get.back();
-                        }
-                      });
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 28, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: AppColor.c142293,
-                    borderRadius: BorderRadius.circular(100),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColor.c142293.withOpacity(0.30),
-                        blurRadius: 15,
-                        spreadRadius: 0,
-                        offset: Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Text("Submit", style: w500_14a(color: AppColor.white)),
-                ),
-              ),
-              18.heightSizeBox,
-            ],
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: AppColor.cF6F7FF,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-          ),
-          child: Column(
-            children: [
-              DotedHorizontalLine(),
-
-              Padding(
-                padding: EdgeInsets.only(top: 23, left: 19, bottom: 40),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    ProfileImageView(
-                      radius: 20,
-                      radiusStack: 4,
-                      isVisibleStack: false,
-                    ),
-                    9.widthSizeBox,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Ibrahim Bafqia",
-                          style: w600_14a(color: AppColor.c2C2A2A),
-                        ),
-                        5.widthSizeBox,
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ImageView(
-                              path: Assets.iconsIcPlaceMarker,
-                              height: 18,
-                              width: 18,
-                            ),
-
-                            Text(
-                              "09-May-2024",
-                              style: w400_12a(color: AppColor.c455A64),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }*/
 }

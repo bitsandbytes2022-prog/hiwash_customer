@@ -118,7 +118,7 @@ class Offers {
     image = json['image'] != null
         ? "${ApiConstant.baseImageUrl}${json['image']}"
         : null;
-    qRCodeUrl = json['qRCodeUrl'];
+    qRCodeUrl = json['qRCodeUrl']!=null?"${ApiConstant.baseImageUrl}${json['qRCodeUrl']}":null;
   }
 
   Map<String, dynamic> toJson() {

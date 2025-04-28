@@ -8,7 +8,7 @@ import 'package:hiwash_customer/featuers/rewads/model/get_offers_by_id_model.dar
 import 'package:hiwash_customer/featuers/rewads/model/offer_response_model.dart';
 import 'package:hiwash_customer/featuers/subscription/model/get_subscription_membership_model.dart';
 import 'package:hiwash_customer/featuers/subscription/model/get_subscription_model.dart';
-import 'package:hiwash_customer/featuers/wash_status/model/get_customer_data_model.dart';
+import 'package:hiwash_customer/featuers/dashboard/model/get_customer_data_model.dart';
 import 'package:hiwash_customer/featuers/wash_status/model/wash_summry.dart';
 import 'package:hiwash_customer/network_manager/utils/api_response.dart';
 
@@ -26,17 +26,7 @@ class Repository {
   final DioHelper dioHelper = DioHelper();
   final LocalStorage localStorage = LocalStorage();
 
-  /*  Future<SendOtpModel> sendOtp(Object requestBody) async {
-    print(" sendOtp body--->: $requestBody");
-    print(" sendOtp url--->: ${ApiConstant.sendOtp}");
 
-    var response = await dioHelper.post(
-      url: ApiConstant.sendOtp,
-      requestBody: requestBody,
-    );
-    print("SendOtp Response--->: $response");
-    return SendOtpModel.fromJson(response);
-  }*/
   Future<SendOtpModel?> sendOtpRepo(Map<String, dynamic> requestBody) async {
     final dio = Dio();
 
@@ -46,29 +36,29 @@ class Repository {
       if (response.statusCode == 200) {
         return SendOtpModel.fromJson(response.data);
       } else {
-        // Handle unexpected status codes (non-200)
+
         throw Exception('Failed to send OTP: ${response.statusCode}');
       }
     } on DioError catch (e) {
       if (e.response != null) {
-        // Extract error data from the response
+
         final errorData = e.response?.data['error'];
 
         if (errorData != null) {
-          int errorCode = errorData['code']; // Get error code (e.g., 404)
-          String errorMessage = errorData['message']; // Get error message
+          int errorCode = errorData['code'];
+          String errorMessage = errorData['message'];
 
           if (errorCode == 404 && errorMessage == "Your account not found.") {
-            // Handle 'User not found' error
+
             print("Error 404: $errorMessage");
             throw Exception('User not found (404): $errorMessage');
           } else {
-            // Handle other errors
+
             print("Error: $errorMessage");
             throw Exception('Failed to send OTP: $errorMessage');
           }
         }
-        // If no error data is found in the response, handle it
+
         print("Unexpected error response: ${e.response?.data}");
       } else {
         print("Error sending request: ${e.message}");
@@ -81,14 +71,14 @@ class Repository {
   }
 
   Future<GetTokenModel> getTokens(Object requestBody) async {
-    print("body--->: $requestBody");
-    print("url--->: ${ApiConstant.getToken}");
+   // print("body--->: $requestBody");
+  //  print("url--->: ${ApiConstant.getToken}");
 
     var response = await dioHelper.post(
       url: ApiConstant.getToken,
       requestBody: requestBody,
     );
-    print("Response--->: $response");
+ //   print("Response--->: $response");
 
     return GetTokenModel.fromJson(response);
   }
@@ -98,17 +88,17 @@ class Repository {
       url: ApiConstant.signUp,
       requestBody: requestBody,
     );
-    print("Sign Response--->: $response");
+   // print("Sign Response--->: $response");
     return SignUpModel.fromJson(response);
   }
 
   Future<GetCustomerData> getCustomerData(int id) async {
-    print("url--->:${ApiConstant.getCustomerId(id)}");
+    print("url dss--->:${ApiConstant.getCustomerId(id)}");
     var response = await dioHelper.get(
       url: ApiConstant.getCustomerId(id),
       isAuthRequired: true,
     );
-    print("---->getCustomerData--->${response.toString()}");
+    print("getCustomerData--->${response.toString()}");
 
     return GetCustomerData.fromJson(response);
   }
@@ -154,7 +144,7 @@ class Repository {
       url: ApiConstant.baseUrl + ApiConstant.getTermsAndConditions(entityType),
       isAuthRequired: true,
     );
-    print("---->termcondition${response.toString()}");
+  //  print("---->termcondition${response.toString()}");
     return TermsAndConditionsResponseModel.fromJson(response);
   }
 
@@ -166,53 +156,53 @@ class Repository {
     return GetOfferResponseModel.fromJson(response.data);
   }*/
   Future<GetOfferResponseModel> getAllOffer() async {
-    print("url--->:${ApiConstant.getOffers}");
+   // print("url--->:${ApiConstant.getOffers}");
     Map<String, dynamic> response = await dioHelper.get(
       url: ApiConstant.getOffers,
       isAuthRequired: true,
     );
-    print("Response--->: $response");
+   // print("Response--->: $response");
     return GetOfferResponseModel.fromJson(response);
   }
 
   Future<GetOffersByIdModel> getOfferById(int id) async {
-    print("url--->:${ApiConstant.getOffersById}");
+   // print("url--->:${ApiConstant.getOffersById}");
     Map<String, dynamic> response = await dioHelper.get(
       url: ApiConstant.getOffersById(id),
       isAuthRequired: true,
     );
-    print("Response--->: $response");
+  //  print("Response--->: $response");
     return GetOffersByIdModel.fromJson(response);
   }
 
   Future<ApiResponse> rating(Object requestBody) async {
-    print("Rating body--->: $requestBody");
+   // print("Rating body--->: $requestBody");
     Map<String, dynamic> response = await dioHelper.post(
       url: ApiConstant.rating,
       requestBody: requestBody,
       isAuthRequired: true,
     );
-    print("Rating Response--->: $response");
+  //  print("Rating Response--->: $response");
     return ApiResponse.fromJson(response);
   }
 
   Future<GetOfferCategoriesModel> getOfferCategories() async {
-    print("url--->:${ApiConstant.offerCategories}");
+   // print("url--->:${ApiConstant.offerCategories}");
     Map<String, dynamic> response = await dioHelper.get(
       url: ApiConstant.getOffers,
       isAuthRequired: true,
     );
-    print("Response--->: $response");
+   // print("Response--->: $response");
     return GetOfferCategoriesModel.fromJson(response);
   }
 
   Future<WashSummaryModel> washSummary() async {
-    print("washSummary url--->:${ApiConstant.washSummary}");
+   // print("washSummary url--->:${ApiConstant.washSummary}");
     Map<String, dynamic> response = await dioHelper.get(
       url: ApiConstant.washSummary,
       isAuthRequired: true,
     );
-    print("Response--->: $response");
+   // print("Response--->: $response");
     return WashSummaryModel.fromJson(response);
   }
 

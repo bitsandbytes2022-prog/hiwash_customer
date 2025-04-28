@@ -41,10 +41,14 @@ class ProfileImageView extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             border: Border.all(color: AppColor.blue.withOpacity(0.2)),
           ),
-          child: CircleAvatar(
+          child:CircleAvatar(
             radius: radius,
-            backgroundImage: AssetImage(imagePath??Assets.imagesDemoProfile),
-          ),
+            backgroundImage: imagePath != null && imagePath!.isNotEmpty
+                ? NetworkImage(imagePath!)  // If imagePath is not null and not empty, use network image
+                : AssetImage(Assets.imagesDemoProfile) as ImageProvider,  // Otherwise, show the default asset image
+          )
+
+
         ),
         if(isVisibleStack==true)    Container(
           padding: EdgeInsets.all(3),

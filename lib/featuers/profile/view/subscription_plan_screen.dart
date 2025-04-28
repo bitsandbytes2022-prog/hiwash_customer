@@ -45,14 +45,33 @@ class SubscriptionPlanScreen extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(6),
+                  padding: EdgeInsets.all(2),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     border: Border.all(color: AppColor.blue.withOpacity(0.2)),
                   ),
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage(Assets.imagesDemoProfile),
+                    backgroundImage:
+                        (dashboardController
+                                    .getCustomerData
+                                    .value
+                                    ?.data
+                                    ?.customerDetails
+                                    ?.profilePicUrl
+                                    ?.isNotEmpty ??
+                                false)
+                            ? NetworkImage(
+                              dashboardController
+                                      .getCustomerData
+                                      .value
+                                      ?.data
+                                      ?.customerDetails
+                                      ?.profilePicUrl ??
+                                  "",
+                            )
+                            : AssetImage(Assets.imagesDemoProfile)
+                                as ImageProvider,
                   ),
                 ),
 

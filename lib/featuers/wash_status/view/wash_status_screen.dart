@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
@@ -16,6 +17,8 @@ class WashStatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    controller. getWashSummary();
     return Stack(
       children: [
         Obx(

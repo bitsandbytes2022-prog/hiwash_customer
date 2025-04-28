@@ -48,6 +48,7 @@ Dio getDio() {
           tag: 'ERROR DATA :--onError ERROR DATA--->',
           e.response?.data ?? "",
         );
+        print("999----->${e.message}");
    if (e.response?.statusCode == 400) {
           Get.snackbar(
             "Error",

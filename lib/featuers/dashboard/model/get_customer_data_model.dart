@@ -143,7 +143,7 @@ class SubscriptionDetails {
     isPremium = json['isPremium'];
     price = json['price'];
     currency = json['currency'];
-    qrCodeUrl = json['qrCodeUrl'];
+    qrCodeUrl = json['qrCodeUrl']!=null?"${ApiConstant.baseImageUrl}${json['qrCodeUrl']}":null;
   }
 
   Map<String, dynamic> toJson() {

@@ -11,13 +11,18 @@ import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/app_home_bg.dart';
 import '../../../widgets/components/custom_swipe_button.dart';
+import '../../dashboard/controller/dashboard_controller.dart';
 import '../widgets/payment_methods.dart';
 
 class EnterCardDetailScreen extends StatelessWidget {
-  const EnterCardDetailScreen({super.key});
+  EnterCardDetailScreen({super.key});
+
+  DashboardController dashboardController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    final userData =
+        dashboardController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
       centerHeading: Container(
         margin: EdgeInsets.only(left: 60),
@@ -25,7 +30,10 @@ class EnterCardDetailScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Hello, Ibrahim", style: w400_16a(color: AppColor.white)),
+            Text(
+              userData?.fullName ?? "",
+              style: w400_16a(color: AppColor.white),
+            ),
             Text(
               "Full access subscription",
               style: w400_12a(color: AppColor.white.withOpacity(0.5)),
@@ -85,7 +93,12 @@ class EnterCardDetailScreen extends StatelessWidget {
               PaymentMethods(),
               PaymentMethods(),
 
-              PaymentMethods(checkBoxShow: true,height: 70,width: 70,borderColor: AppColor.cC31848,),
+              PaymentMethods(
+                checkBoxShow: true,
+                height: 70,
+                width: 70,
+                borderColor: AppColor.cC31848,
+              ),
               PaymentMethods(),
               PaymentMethods(),
             ],
