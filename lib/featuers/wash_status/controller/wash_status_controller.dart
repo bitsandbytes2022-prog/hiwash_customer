@@ -31,6 +31,7 @@ Rxn<WashSummaryModel>washSummaryModel=Rxn();
       print("Error fetching Wash summary: $error");
     }
     return null;
+
   }
 
 
