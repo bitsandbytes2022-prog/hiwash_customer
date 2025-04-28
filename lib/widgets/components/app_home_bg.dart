@@ -157,7 +157,7 @@ class AppHomeBg extends StatelessWidget {
                     ),
                   ),
                   padding:buttonPadding?? EdgeInsets.only(
-                    left: 16,
+                   // left: 16,
                     right: 16,
                     top: 40,
 
@@ -170,11 +170,16 @@ class AppHomeBg extends StatelessWidget {
                             onTap: () {
                               Get.back();
                             },
-                            child: ImageView(
-                              path: Assets.iconsIcArrow,
+                            child: Container(
+                              margin: EdgeInsets.only(left: 15),
+                              padding: EdgeInsets.only(right: 5,bottom: 10,top: 10),
+                              color: Colors.transparent,
+                              child: ImageView(
+                                path: Assets.iconsIcArrow,
 
-                              height: 15,
-                              width: 15,
+                                height: 15,
+                                width: 15,
+                              ),
                             ),
                           ),
                       centerHeading ??

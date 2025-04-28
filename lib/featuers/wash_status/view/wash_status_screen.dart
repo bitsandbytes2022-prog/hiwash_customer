@@ -14,10 +14,10 @@ class WashStatusScreen extends StatelessWidget {
   WashStatusScreen({super.key});
 
   final WashStatusController controller = Get.put(WashStatusController());
-
+//DashboardController dashboardController=Get.isRegistered<DashboardController>()?Get.find():Get.put(DashboardController());
   @override
   Widget build(BuildContext context) {
-
+//dashboardController.getCustomerDataById(dashboardController.getCustomerData.value?.data?.customerDetails?.id??0);
     controller. getWashSummary();
     return Stack(
       children: [

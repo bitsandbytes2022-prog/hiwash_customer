@@ -93,27 +93,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
           borderRadius: BorderRadius.circular(100),
           border: Border.all(color: AppColor.blue.withOpacity(0.2)),
         ),
-        child: CircleAvatar(
-          radius: 25,
-          backgroundImage:
-              (dashboardController
-                          .getCustomerData
-                          .value
-                          ?.data
-                          ?.customerDetails
-                          ?.profilePicUrl
-                          ?.isNotEmpty ??
-                      false)
-                  ? NetworkImage(
-                    dashboardController
+        child: Obx(()=>
+          CircleAvatar(
+            radius: 25,
+            backgroundImage:
+                (dashboardController
                             .getCustomerData
                             .value
                             ?.data
                             ?.customerDetails
-                            ?.profilePicUrl ??
-                        "",
-                  )
-                  : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
+                            ?.profilePicUrl
+                            ?.isNotEmpty ??
+                        false)
+                    ? NetworkImage(
+                      dashboardController
+                              .getCustomerData
+                              .value
+                              ?.data
+                              ?.customerDetails
+                              ?.profilePicUrl ??
+                          "",
+                    )
+                    : AssetImage(Assets.imagesDemoProfile),
+          ),
         ),
       ),
 
@@ -130,27 +132,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
           borderRadius: BorderRadius.circular(100),
           border: Border.all(color: AppColor.blue.withOpacity(0.2)),
         ),
-        child: CircleAvatar(
-          radius: 22,
-          backgroundImage:
-          (dashboardController
-              .getCustomerData
-              .value
-              ?.data
-              ?.customerDetails
-              ?.profilePicUrl
-              ?.isNotEmpty ??
-              false)
-              ? NetworkImage(
-            dashboardController
+        child: Obx(()=>
+         CircleAvatar(
+            radius: 22,
+            backgroundImage:
+            (dashboardController
                 .getCustomerData
                 .value
                 ?.data
                 ?.customerDetails
-                ?.profilePicUrl ??
-                "",
-          )
-              : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
+                ?.profilePicUrl
+                ?.isNotEmpty ??
+                false)
+                ? NetworkImage(
+              dashboardController
+                  .getCustomerData
+                  .value
+                  ?.data
+                  ?.customerDetails
+                  ?.profilePicUrl ??
+                  "",
+            )
+                : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
+          ),
         ),
       ),
     ];
@@ -261,6 +265,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               path: Assets.iconsIcMessage,
             ),
           ),
+
           child: _pages[_currentIndex],
         ),
         bottomNavigationBar: AnimatedBottomNavigationBar.builder(
@@ -361,6 +366,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                   bottomVisible: true,
                   child: successDialog(),
+                  remainingTextBottom:washStatusController.washSummaryModel.value?.data?.summary?.remainingWashes??'',
                 );
               },
             );

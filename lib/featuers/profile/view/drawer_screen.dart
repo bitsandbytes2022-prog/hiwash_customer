@@ -17,6 +17,7 @@ import '../../../route/route_strings.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
+import '../../../widgets/components/doted_horizontal_line.dart';
 import '../../../widgets/components/doted_line.dart';
 import '../../../widgets/components/image_view.dart';
 import '../../auth/auth_controller/auth_controller.dart';
@@ -520,25 +521,29 @@ class DrawerScreen extends StatelessWidget {
       onTap: onTap,
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(left: 18, right: 12),
-            child: Row(
-              children: [
-                ImageView(path: image, height: 20, width: 20),
-                10.widthSizeBox,
-                Text(title, style: w500_14a(color: AppColor.c2C2A2A)),
-                Spacer(),
-                ImageView(
-                  path: Assets.iconsBlackForwardArrow,
-                  height: 13,
-                  width: 13,
-                ),
-              ],
+          Container(
+            color: Colors.transparent,
+            child: Padding(
+              padding: EdgeInsets.only(left: 18, right: 12,top: 15,bottom: 15),
+              child: Row(
+                children: [
+                  ImageView(path: image, height: 20, width: 20),
+                  10.widthSizeBox,
+                  Text(title, style: w500_14a(color: AppColor.c2C2A2A)),
+                  Spacer(),
+                  ImageView(
+                    path: Assets.iconsBlackForwardArrow,
+                    height: 13,
+                    width: 13,
+                  ),
+                ],
+              ),
             ),
           ),
-          18.heightSizeBox,
+          dashedLineWidget ? DotedHorizontalLine() : SizedBox(),
+          /*   18.heightSizeBox,
           dashedLineWidget ? DashedLineWidget() : SizedBox(),
-          18.heightSizeBox,
+          18.heightSizeBox,*/
         ],
       ),
     );

@@ -165,104 +165,206 @@ class RewardScreen extends StatelessWidget {
   Widget bottomSheet() {
     return Expanded(
       child: SingleChildScrollView(
-        child: Column(
+        padding:EdgeInsets.only(
+          bottom: MediaQuery.of(Get.context!).viewInsets.bottom,
+
+        ),
+        child: Stack(
+          alignment: Alignment.center,
           children: [
-            21.heightSizeBox,
-            Text(
-              "See All Exclusive Offers.",
-              style: w700_16a(color: AppColor.c2C2A2A),
-            ),
 
-            27.heightSizeBox,
-            OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 20)),
-            25.heightSizeBox,
-            Container(
-              width: 158,
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-              decoration: BoxDecoration(
-                //color: AppColor.c5C6B72.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(28),
-                border: Border.all(color: AppColor.c5C6B72.withOpacity(0.3)),
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    "Sort by Expiry",
-                    style: w400_12p(color: AppColor.c2C2A2A),
+            Column(
+              children: [
+                21.heightSizeBox,
+                Text(
+                  "See All Exclusive Offers.",
+                  style: w700_16a(color: AppColor.c2C2A2A),
+                ),
+
+                27.heightSizeBox,
+                OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 20)),
+                25.heightSizeBox,
+                GestureDetector(
+                  onTap: (){
+                    rewardController.isVisible.value =
+                    !rewardController.isVisible.value;
+                  },
+                  child: Container(
+                    width: 158,
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+                    decoration: BoxDecoration(
+                      //color: AppColor.c5C6B72.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(28),
+                      border: Border.all(color: AppColor.c5C6B72.withOpacity(0.3)),
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Sort by Expiry",
+                          style: w400_12p(color: AppColor.c2C2A2A),
+                        ),
+                        Spacer(),
+                        ImageView(
+                          path: Assets.iconsIcDropDown,
+                          height: 5,
+                          width: 9,
+                          color: AppColor.c2C2A2A,
+                        ),
+                        //Icon(Icons.arrow_drop_down, size: 20),
+                      ],
+                    ),
                   ),
-                  Spacer(),
-                  ImageView(
-                    path: Assets.iconsIcDropDown,
-                    height: 5,
-                    width: 9,
-                    color: AppColor.c2C2A2A,
-                  ),
-                  //Icon(Icons.arrow_drop_down, size: 20),
-                ],
-              ),
-            ),
-            25.heightSizeBox,
-            Obx(() {
-              final List<Offers> data =
-                  rewardController.offerResponseModel.value?.data?.offers ?? [];
+                ),
+                25.heightSizeBox,
+                Column(
+                  children: [
+                    Obx(() {
+                      final List<Offers> data =
+                          rewardController.offerResponseModel.value?.data?.offers ?? [];
 
-              if (data == null) {
-                return Center(child: CircularProgressIndicator());
-              }
+                      if (data == null) {
+                        return Center(child: CircularProgressIndicator());
+                      }
 
-              return SizedBox(
-                height: Get.height,
-                child:
-                    data.isNotEmpty
-                        ? GridView.builder(
-                          padding: EdgeInsets.only(
-                            left: 16,
-                            right: 15,
-                            bottom: 150,
-                          ),
-                          clipBehavior: Clip.hardEdge,
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 15,
-                                mainAxisSpacing: 15,
-                              ),
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                Get.back();
-                                rewardController.getOffersById(data[index].id!);
-                                showModalBottomSheet(
-                                  context: Get.context!,
-                                  isScrollControlled: true,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15),
-                                    ),
+                      return SizedBox(
+                        height: Get.height,
+                        child:
+                            data.isNotEmpty
+                                ? GridView.builder(
+                                  padding: EdgeInsets.only(
+                                    left: 16,
+                                    right: 15,
+                                    bottom: MediaQuery.of(Get.context!).viewInsets.bottom,
                                   ),
-                                  builder: (BuildContext context) {
-                                    return CustomBottomSheet(
-                                      child: viewOfferDetailBottomSheet(),
+                                  clipBehavior: Clip.hardEdge,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 15,
+                                        mainAxisSpacing: 15,
+                                      ),
+                                  itemCount: data.length,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        Get.back();
+                                        rewardController.getOffersById(data[index].id!);
+                                        showModalBottomSheet(
+                                          context: Get.context!,
+                                          isScrollControlled: true,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(15),
+                                              topRight: Radius.circular(15),
+                                            ),
+                                          ),
+                                          builder: (BuildContext context) {
+                                            return CustomBottomSheet(
+                                              child: viewOfferDetailBottomSheet(),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: OffersGridContainer(offer: data[index]),
                                     );
                                   },
-                                );
-                              },
-                              child: OffersGridContainer(offer: data[index]),
-                            );
-                          },
-                        )
-                        : Padding(
-                          padding: const EdgeInsets.only(top: 30),
+                                )
+                                : Padding(
+                                  padding: const EdgeInsets.only(top: 30),
+                                  child: Text(
+                                    'Data is not found',
+                                    style: TextStyle(fontSize: 18, color: Colors.black),
+                                  ),
+                                ),
+                      );
+                    }),
+                  ],
+                ),
+              ],
+            ),
+            Obx(
+                  () =>
+              rewardController.isVisible.value
+                  ? Positioned(
+                top: Get.height / 2.99,
+                child: Container(
+                  alignment: Alignment.center,
+
+                  width: 200,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15)
+                    ,
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.deepPurple.withOpacity(0.3),
+                        blurRadius: 10,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 15,
+                  ),
+                  //   color: Colors.white,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          rewardController.toggleSortOrder();
+                          rewardController.isVisible.value = false; // Hide popup
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: Text("Ascending order"),
+                        ),
+                      ),
+
+                      GestureDetector(
+                        onTap: () {
+                          rewardController.toggleSortOrder();
+                          rewardController.isVisible.value = false; // Hide popup
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: Text("Descending order"),
+                        ),
+                      ),
+
+
+                      /*  GestureDetector(
+                        onTap: (){},
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8),
                           child: Text(
-                            'Data is not found',
-                            style: TextStyle(fontSize: 18, color: Colors.black),
+                            "Asending order",
+
                           ),
                         ),
-              );
-            }),
+                      ),
+                      15.heightSizeBox,
+                      GestureDetector(
+                        onTap: (){},
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: Text(
+                            "descending order",
+
+                          ),
+                        ),
+                      ),*/
+                    ],
+                  ),
+                ),
+              )
+                  : Container(),
+            ),
+
           ],
         ),
       ),

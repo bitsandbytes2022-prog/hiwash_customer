@@ -199,11 +199,6 @@ class AuthController extends GetxController {
     super.onClose();
   }
 
-
-
-
-
-
   void checkLoginStatus() {
     String? token = LocalStorage().getToken();
     if (token != null && token.isNotEmpty) {
@@ -226,7 +221,6 @@ class AuthController extends GetxController {
     isLoading.value = true;
 
     try {
-      // Call the repository function to send OTP
       sendOtpModel = await Repository().sendOtpRepo(requestBody);
       print("Value received in controller sendOtp: $sendOtpModel");
 
@@ -236,7 +230,7 @@ class AuthController extends GetxController {
           "OTP: ${sendOtpModel?.data?.otp}",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.green,
-         colorText: AppColor.white
+          colorText: AppColor.white,
         );
         print("OTP: ${sendOtpModel?.data?.otp}");
         print("OTP Expiry Date: ${sendOtpModel?.data?.otpExpiredDate}");
@@ -272,12 +266,13 @@ class AuthController extends GetxController {
       if (value.data?.token != null && value.data!.token!.isNotEmpty) {
         LocalStorage tokenStorage = LocalStorage();
         await tokenStorage.saveToken(value.data!.token!);
+        await tokenStorage.saveUserId(value.data!.id.toString());
+
         isLoggedIn.value = true;
       }
 
       getTokenModel = value;
       return value;
-
     } catch (error) {
       print(" Error in controller send otp: $error");
       return null;
@@ -320,7 +315,6 @@ class AuthController extends GetxController {
       isLoading.value = false;
     }
   }
-
 
   Future<void> logout() async {
     await LocalStorage().removeToken();

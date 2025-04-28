@@ -140,7 +140,7 @@ class LoginOtpScreen extends StatelessWidget {
                             if (value != null) {
                               Get.offNamed(
                                 RouteStrings.dashboardScreen,
-                                arguments: controller.getTokenModel?.data?.id,
+                              /*  arguments: controller.getTokenModel?.data?.id,*/
                               );
                             }
                           });

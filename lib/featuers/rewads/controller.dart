@@ -6,6 +6,7 @@ import '../../network_manager/repository.dart';
 import 'model/get_offers_by_id_model.dart';
 
 class RewardController extends GetxController {
+  final RxBool isVisible = false.obs;
 
   Rxn<GetOfferResponseModel>offerResponseModel=Rxn();
   Rxn<GetOffersByIdModel>getOffersByIdModel=Rxn();
@@ -61,7 +62,24 @@ class RewardController extends GetxController {
     Assets.demoOffer3,
   ];
 
+  RxBool isAscending = true.obs;
 
+  void toggleSortOrder() {
+    isAscending.value = !isAscending.value;
+
+    final offers = offerResponseModel.value?.data?.offers ?? [];
+    offers.sort((a, b) {
+      final aDate = DateTime.tryParse(a.expiryDate ?? "") ?? DateTime.now();
+      final bDate = DateTime.tryParse(b.expiryDate ?? "") ?? DateTime.now();
+      return isAscending.value
+          ? aDate.compareTo(bDate)
+          : bDate.compareTo(aDate);
+    });
+
+    offerResponseModel.update((val) {
+      val?.data?.offers = offers;
+    });
+  }
   String timeUntilExpiry(String? expiryDate) {
     if (expiryDate == null || expiryDate.isEmpty) {
       return "No Expiry";
