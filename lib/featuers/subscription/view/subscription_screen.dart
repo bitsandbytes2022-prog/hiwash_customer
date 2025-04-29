@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,16 +60,47 @@ WashStatusController washStatusController =Get.find();
         child: Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.symmetric(horizontal: BorderSide.none),
+            color: AppColor.cF6F7FF,
+            // border: Border.symmetric(horizontal: BorderSide.none),
+            border: Border.all(color: AppColor.cF6F7FF, width: 10),
           ),
-          child: CircleAvatar(
-            radius: 38,
-            backgroundColor: Colors.white,
-            child: CircleAvatar(
+          child: Obx(() {
+            final profilePicUrl = dashboardController
+                .getCustomerData
+                .value
+                ?.data
+                ?.customerDetails
+                ?.profilePicUrl;
+
+            final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+
+            return CircleAvatar(
               radius: 28,
-              backgroundImage: AssetImage(Assets.imagesDemoProfile),
-            ),
-          ),
+              backgroundColor: Colors.grey[200],
+              child: ClipOval(
+                child: CachedNetworkImage(
+                  imageUrl: hasValidUrl ? profilePicUrl! : '',
+                  fit: BoxFit.cover,
+                  height: 56, // radius * 2
+                  width: 56,
+                  placeholder: (context, url) => Center(
+                    child: SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Image.asset(
+                    Assets.imagesDemoProfile,
+                    fit: BoxFit.cover,
+                    height: 56,
+                    width: 56,
+                  ),
+                ),
+              ),
+            );
+          }),
+
         ),
       ),
       child: Expanded(
@@ -93,7 +125,7 @@ WashStatusController washStatusController =Get.find();
                       style: w400_12p(color: AppColor.c455A64),
                     ),
                     30.heightSizeBox,
-                    OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 10)),
+                    OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 20)),
                     25.heightSizeBox,
                     viewOfferButton(() {
                       showModalBottomSheet(

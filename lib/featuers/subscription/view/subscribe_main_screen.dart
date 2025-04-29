@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -46,35 +47,47 @@ class SubscribeMainScreen extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.symmetric(horizontal: BorderSide.none),
+            color: AppColor.cF6F7FF,
+            // border: Border.symmetric(horizontal: BorderSide.none),
+            border: Border.all(color: AppColor.cF6F7FF, width: 10),
           ),
-          child: CircleAvatar(
-            radius: 38,
-            backgroundColor: Colors.white,
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage:
-              (dashboardController
-                  .getCustomerData
-                  .value
-                  ?.data
-                  ?.customerDetails
-                  ?.profilePicUrl
-                  ?.isNotEmpty ??
-                  false)
-                  ? NetworkImage(
-                dashboardController
-                    .getCustomerData
-                    .value
-                    ?.data
-                    ?.customerDetails
-                    ?.profilePicUrl ??
-                    "",
-              )
-                  : AssetImage(Assets.imagesDemoProfile)
-              as ImageProvider,
-            ),
-          ),
+          child: Obx(() {
+            final profilePicUrl = dashboardController
+                .getCustomerData
+                .value
+                ?.data
+                ?.customerDetails
+                ?.profilePicUrl;
+
+            final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+
+            return CircleAvatar(
+              radius: 28,
+              backgroundColor: Colors.grey[200],
+              child: ClipOval(
+                child: CachedNetworkImage(
+                  imageUrl: hasValidUrl ? profilePicUrl! : '',
+                  fit: BoxFit.cover,
+                  height: 56, // radius * 2
+                  width: 56,
+                  placeholder: (context, url) => Center(
+                    child: SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Image.asset(
+                    Assets.imagesDemoProfile,
+                    fit: BoxFit.cover,
+                    height: 56,
+                    width: 56,
+                  ),
+                ),
+              ),
+            );
+          }),
+
         ),
       ),
       child: Stack(

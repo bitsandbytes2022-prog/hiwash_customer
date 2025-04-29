@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -103,12 +104,43 @@ class DrawerScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                   border: Border.all(color: AppColor.blue.withOpacity(0.2)),
                 ),
-                child:CircleAvatar(
-                  radius: 50,
-                  backgroundImage: (dashboardController.getCustomerData.value?.data?.customerDetails?.profilePicUrl?.isNotEmpty ?? false)
-                      ? NetworkImage(dashboardController.getCustomerData.value!.data!.customerDetails!.profilePicUrl!)
-                      : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
-                )
+                child: Obx(() {
+                  final profilePicUrl = dashboardController
+                      .getCustomerData
+                      .value
+                      ?.data
+                      ?.customerDetails
+                      ?.profilePicUrl;
+
+                  final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+
+                  return CircleAvatar(
+                    radius: 50,
+                    backgroundColor: Colors.grey[200],
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        imageUrl: hasValidUrl ? profilePicUrl! : '',
+                        fit: BoxFit.cover,
+                        height: 100, // Diameter = radius * 2
+                        width: 100,
+                        placeholder: (context, url) => Center(
+                          child: SizedBox(
+                            height: 24,
+                            width: 24,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Image.asset(
+                          Assets.imagesDemoProfile,
+                          fit: BoxFit.cover,
+                          height: 100,
+                          width: 100,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+
 
               ),
               Container(

@@ -90,30 +90,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
           borderRadius: BorderRadius.circular(100),
           border: Border.all(color: AppColor.blue.withOpacity(0.2)),
         ),
-        child: Obx(
-          () => CircleAvatar(
-            radius: 25,
-            backgroundImage:
-                (dashboardController
-                            .getCustomerData
-                            .value
-                            ?.data
-                            ?.customerDetails
-                            ?.profilePicUrl
-                            ?.isNotEmpty ??
-                        false)
-                    ? NetworkImage(
-                      dashboardController
-                              .getCustomerData
-                              .value
-                              ?.data
-                              ?.customerDetails
-                              ?.profilePicUrl ??
-                          "",
-                    )
-                    : AssetImage(Assets.imagesDemoProfile),
-          ),
-        ),
+        child: Obx(() {
+          final profilePicUrl = dashboardController
+              .getCustomerData
+              .value
+              ?.data
+              ?.customerDetails
+              ?.profilePicUrl;
+
+          final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+
+          return CircleAvatar(
+            radius: 22,
+            backgroundColor: Colors.grey[200],
+            child: ClipOval(
+              child: CachedNetworkImage(
+                imageUrl: hasValidUrl ? profilePicUrl! : '',
+                fit: BoxFit.cover,
+
+                placeholder: (context, url) => Center(
+                  child: SizedBox(
+                    height: 16,
+                    width: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Image.asset(
+                  Assets.imagesDemoProfile,
+                  fit: BoxFit.cover,
+
+                ),
+              ),
+            ),
+          );
+        }),
+
+
       ),
     ];
 
@@ -127,30 +139,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
           borderRadius: BorderRadius.circular(100),
           border: Border.all(color: AppColor.blue.withOpacity(0.2)),
         ),
-        child: Obx(
-          () => CircleAvatar(
+        child: Obx(() {
+          final profilePicUrl = dashboardController
+              .getCustomerData
+              .value
+              ?.data
+              ?.customerDetails
+              ?.profilePicUrl;
+
+          final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+
+          return CircleAvatar(
             radius: 22,
-            backgroundImage:
-                (dashboardController
-                            .getCustomerData
-                            .value
-                            ?.data
-                            ?.customerDetails
-                            ?.profilePicUrl
-                            ?.isNotEmpty ??
-                        false)
-                    ? NetworkImage(
-                      dashboardController
-                              .getCustomerData
-                              .value
-                              ?.data
-                              ?.customerDetails
-                              ?.profilePicUrl ??
-                          "",
-                    )
-                    : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
-          ),
-        ),
+            backgroundColor: Colors.grey[200],
+            child: ClipOval(
+              child: CachedNetworkImage(
+                imageUrl: hasValidUrl ? profilePicUrl! : '',
+                fit: BoxFit.cover,
+
+                placeholder: (context, url) => Center(
+                  child: SizedBox(
+                    height: 16,
+                    width: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Image.asset(
+                  Assets.imagesDemoProfile,
+                  fit: BoxFit.cover,
+
+                ),
+              ),
+            ),
+          );
+        }),
+
+
       ),
     ];
 
