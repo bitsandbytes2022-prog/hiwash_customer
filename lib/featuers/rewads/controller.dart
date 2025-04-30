@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/rewads/model/get_offer_categories.dart';
 import 'package:hiwash_customer/featuers/rewads/model/offer_response_model.dart';
@@ -12,17 +14,50 @@ class RewardController extends GetxController {
   Rxn<GetOffersByIdModel> getOffersByIdModel = Rxn();
   Rxn<GetOfferCategoriesModel> getOfferCategoriesModel = Rxn();
   RxInt selectedDropDownIndex = (-1).obs;
+  Timer? _timer;
+  String countdown = "";
 
-  bool loading = false;
+  void startCountdown() {
+    final expiryDate = getOffersByIdModel.value?.data?.first.expiryDate;
+    if (expiryDate != null) {
+      final expiryDateTime = DateTime.parse(expiryDate);
+      final now = DateTime.now();
+      final difference = expiryDateTime.difference(now);
+
+      if (difference.inHours < 24) {
+        _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+          final remaining = expiryDateTime.difference(DateTime.now());
+          if (remaining.isNegative) {
+            _timer?.cancel();
+
+              countdown = "Expired";
+              update();
+          } else {
+
+              countdown = "${remaining.inHours.toString().padLeft(2, '0')}:${(remaining.inMinutes % 60).toString().padLeft(2, '0')}:${(remaining.inSeconds % 60).toString().padLeft(2, '0')}";
+        update()
+              ;
+          }
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+  RxBool loading = false.obs;
 
   Future<GetOfferResponseModel?> getAllOffers() async {
     try {
-      loading = true;
+      loading.value = true;
       update();
       offerResponseModel.value = await Repository().getAllOffer();
       return offerResponseModel.value;
     } catch (error) {
-      loading = false;
+      loading.value = false;
       update();
       print("Error fetching Offers Get All: $error");
     }
@@ -31,10 +66,15 @@ class RewardController extends GetxController {
 
   Future<GetOffersByIdModel?> getOffersById(int id) async {
     try {
+      //loading.value = true;
+
       getOffersByIdModel.value = await Repository().getOfferById(id);
-      update();
-      return getOffersByIdModel.value;
+
+       getOffersByIdModel.value;
+       //update();
     } catch (error) {
+      loading.value = false;
+      //update();
       print("Error fetching Offers by Di: $error");
     }
     return null;
@@ -42,12 +82,12 @@ class RewardController extends GetxController {
 
   Future<GetOfferCategoriesModel?> getOfferCategoriesMethod() async {
     try {
-      loading = true;
+      loading.value = true;
       update();
       getOfferCategoriesModel.value = await Repository().getOfferCategories();
       return getOfferCategoriesModel.value;
     } catch (error) {
-      loading = false;
+      loading.value = false;
       update();
       print("Error fetching Offers Categories: $error");
     }

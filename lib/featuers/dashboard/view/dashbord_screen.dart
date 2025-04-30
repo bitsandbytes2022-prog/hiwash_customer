@@ -90,7 +90,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
           borderRadius: BorderRadius.circular(100),
           border: Border.all(color: AppColor.blue.withOpacity(0.2)),
         ),
-        child: Obx(() {
+        child:Obx(() {
+          final profilePicUrl = dashboardController
+              .getCustomerData
+              .value
+              ?.data
+              ?.customerDetails
+              ?.profilePicUrl;
+
+          var hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+
+          return CircleAvatar(
+            radius: 22,
+            backgroundColor: Colors.grey[200],
+            backgroundImage: hasValidUrl
+                ? NetworkImage(profilePicUrl!)
+                : AssetImage(Assets.imagesDemoProfile) ,
+          );
+        }),
+
+        /*Obx(() {
           final profilePicUrl = dashboardController
               .getCustomerData
               .value
@@ -99,6 +118,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ?.profilePicUrl;
 
           final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+          print("image print ----->${hasValidUrl}");
+          print("image print profile url ----->${profilePicUrl}");
 
           return CircleAvatar(
             radius: 22,
@@ -123,7 +144,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
           );
-        }),
+        }),*/
 
 
       ),
@@ -139,7 +160,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
           borderRadius: BorderRadius.circular(100),
           border: Border.all(color: AppColor.blue.withOpacity(0.2)),
         ),
-        child: Obx(() {
+        child:Obx(() {
+          final profilePicUrl = dashboardController
+              .getCustomerData
+              .value
+              ?.data
+              ?.customerDetails
+              ?.profilePicUrl;
+
+          var hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+
+          return CircleAvatar(
+            radius: 22,
+            backgroundColor: Colors.grey[200],
+            backgroundImage: hasValidUrl
+                ? NetworkImage(profilePicUrl!)
+                : AssetImage(Assets.imagesDemoProfile) ,
+          );
+        }),
+
+        /*Obx(() {
           final profilePicUrl = dashboardController
               .getCustomerData
               .value
@@ -148,6 +188,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ?.profilePicUrl;
 
           final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+          print("image print ----->${hasValidUrl}");
+          print("image print profile url ----->${profilePicUrl}");
 
           return CircleAvatar(
             radius: 22,
@@ -172,7 +214,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
           );
-        }),
+        }),*/
 
 
       ),

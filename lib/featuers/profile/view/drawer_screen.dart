@@ -112,37 +112,18 @@ class DrawerScreen extends StatelessWidget {
                       ?.customerDetails
                       ?.profilePicUrl;
 
-                  final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+                  var hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
 
                   return CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.grey[200],
-                    child: ClipOval(
-                      child: CachedNetworkImage(
-                        imageUrl: hasValidUrl ? profilePicUrl! : '',
-                        fit: BoxFit.cover,
-                        height: 100, // Diameter = radius * 2
-                        width: 100,
-                        placeholder: (context, url) => Center(
-                          child: SizedBox(
-                            height: 24,
-                            width: 24,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          ),
-                        ),
-                        errorWidget: (context, url, error) => Image.asset(
-                          Assets.imagesDemoProfile,
-                          fit: BoxFit.cover,
-                          height: 100,
-                          width: 100,
-                        ),
-                      ),
-                    ),
+                    backgroundImage: hasValidUrl
+                        ? NetworkImage(profilePicUrl!)
+                        : AssetImage(Assets.imagesDemoProfile) ,
                   );
                 }),
-
-
-              ),
+              )
+,
               Container(
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
@@ -241,7 +222,7 @@ class DrawerScreen extends StatelessWidget {
 
               authController.logout();
               print("Token after logout: ${LocalStorage().getToken()}");
-              Get.offAllNamed(RouteStrings.welcomeScreen);
+              //Get.offAllNamed(RouteStrings.welcomeScreen);
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 31, vertical: 10),

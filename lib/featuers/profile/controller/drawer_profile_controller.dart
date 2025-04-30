@@ -50,10 +50,6 @@ class DrawerProfileController extends GetxController {
   }
 
   Future<dio.FormData> getFormDataForUpload() async {
-    if (imageFile == null) {}
-
-
-
     final fileName = imageFile.value?.path.split('/').last;
     var file = await dio.MultipartFile.fromFile(
       imageFile.value!.path,
@@ -85,58 +81,6 @@ class DrawerProfileController extends GetxController {
   }
 
 
-
-/*  Future<dynamic> uploadProfile(
-      String fullName,
-      String email,
-      String mobileNumber,
-      String zone,
-      String street,
-      String building,
-      String unit,
-      String carNumber,
-      ) async {
-    isLoading.value = true;
-    try {
-*//*      dio.MultipartFile? profileImage;
-      if (imageFile.value != null) {
-        final fileName = imageFile.value!.path.split('/').last;
-        profileImage = await dio.MultipartFile.fromFile(
-          imageFile.value!.path,
-          filename: fileName,
-        );
-      }*//*
-
-
-      final formData = dio.FormData.fromMap({
-        "fullName": fullName,
-        "email": email,
-        "mobileNumber": mobileNumber,
-        "zone": zone,
-        "street": street,
-        "building": building,
-        "unit": unit,
-        "carNumber": carNumber,
-        if (profileImage != null) "profilePic": profileImage,
-      });
-
-      final response = await Repository().uploadProfile(formData);
-      return response;
-    } catch (e) {
-      print("Update profile error: $e");
-      Get.snackbar(
-        "Error",
-        "Something went wrong while updating profile",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-      return null;
-    } finally {
-      isLoading.value = false;
-    }
-  }*/
-
   Future<dynamic> uploadProfile(
       String fullName,
       String email,
@@ -163,7 +107,7 @@ class DrawerProfileController extends GetxController {
       };
 
       final response = await Repository().uploadProfile(requestBody);
-
+update();
       return response;
     } catch (e) {
       print("Update profile error: $e");

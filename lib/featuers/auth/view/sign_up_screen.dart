@@ -57,6 +57,8 @@ class SignUpScreen extends StatelessWidget {
             children: [
               80.heightSizeBox,
               HiWashTextField(
+                textCapitalization: TextCapitalization.sentences,
+
                 controller: authController.nameController,
                 keyboardType: TextInputType.name,
                 labelText: "kName".tr,

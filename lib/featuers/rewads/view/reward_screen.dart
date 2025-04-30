@@ -121,6 +121,7 @@ class RewardScreen extends StatelessWidget {
               13.heightSizeBox,
               GestureDetector(
                 onTap: () {
+                  print("888888888888------>");
                   showModalBottomSheet(
 
                     context: Get.context!,
@@ -135,9 +136,12 @@ class RewardScreen extends StatelessWidget {
                     builder: (BuildContext context) {
                       return  BottomSheetWidget(
                         isVisible: true,
+
                       );
                     },
+
                   );
+               // Get.back();
                 },
                 child: Container(
                   padding: EdgeInsets.all(14),
@@ -174,205 +178,6 @@ class RewardScreen extends StatelessWidget {
     );
   }
 
-  Widget bottomSheet() {
-    return Expanded(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(Get.context!).viewInsets.bottom,
-        ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Column(
-              children: [
-                21.heightSizeBox,
-                Text(
-                  "See All Exclusive Offers.",
-                  style: w700_16a(color: AppColor.c2C2A2A),
-                ),
-
-                27.heightSizeBox,
-                OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 20)),
-                25.heightSizeBox,
-                GestureDetector(
-                  onTap: () {
-                    rewardController.isVisible.value =
-                        !rewardController.isVisible.value;
-                  },
-                  child: Container(
-                    width: 158,
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-                    decoration: BoxDecoration(
-                      //color: AppColor.c5C6B72.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(28),
-                      border: Border.all(
-                        color: AppColor.c5C6B72.withOpacity(0.3),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Obx(
-                          () => Text(
-                            rewardController.sortByText.value,
-                            style: w400_12p(color: AppColor.c2C2A2A),
-                          ),
-                        ),
-
-                        Spacer(),
-                        ImageView(
-                          path: Assets.iconsIcDropDown,
-                          height: 5,
-                          width: 9,
-                          color: AppColor.c2C2A2A,
-                        ),
-                        //Icon(Icons.arrow_drop_down, size: 20),
-                      ],
-                    ),
-                  ),
-                ),
-                25.heightSizeBox,
-                Column(
-                  children: [
-                    Obx(() {
-                      final List<Offers> data =
-                          rewardController
-                              .offerResponseModel
-                              .value
-                              ?.data
-                              ?.offers ??
-                          [];
-
-                      if (data == null) {
-                        return Center(child: CircularProgressIndicator());
-                      }
-
-                      return data.isNotEmpty
-                          ? GridView.builder(
-                        shrinkWrap: true,
-                            padding: EdgeInsets.only(
-                              left: 16,
-                              right: 15,
-                             bottom: 60
-                            ),
-                            clipBehavior: Clip.hardEdge,
-                            physics: NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 15,
-                                  mainAxisSpacing: 15,
-                                ),
-                            itemCount: data.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  Get.back();
-                                  rewardController.getOffersById(
-                                    data[index].id!,
-                                  );
-                                  showModalBottomSheet(
-                                    context: Get.context!,
-                                    isScrollControlled: true,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      ),
-                                    ),
-                                    builder: (BuildContext context) {
-                                      return CustomBottomSheet(
-                                        child:
-                                            viewOfferDetailBottomSheet(),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: OffersGridContainer(
-                                  offer: data[index],
-                                ),
-                              );
-                            },
-                          )
-                          : Padding(
-                            padding: const EdgeInsets.only(top: 30),
-                            child: Text(
-                              'Data is not found',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                              ),
-                            ),
-                          );
-                    }),
-                  ],
-                ),
-              ],
-            ),
-            Obx(
-              () =>
-                  rewardController.isVisible.value
-                      ? Positioned(
-                        top: Get.height / 2.99,
-                        child: Container(
-                          alignment: Alignment.center,
-
-                          width: 180,
-                          height: 110,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.deepPurple.withOpacity(0.3),
-                                blurRadius: 10,
-                                offset: Offset(0, 10),
-                              ),
-                            ],
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 15,
-                          ),
-                          //   color: Colors.white,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  rewardController.toggleSortOrder();
-                                  rewardController.isVisible.value =
-                                      false; // Hide popup
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 8),
-                                  child: Text("Ascending order"),
-                                ),
-                              ),
-
-                              GestureDetector(
-                                onTap: () {
-                                  rewardController.toggleSortOrder();
-                                  rewardController.isVisible.value =
-                                      false; // Hide popup
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 8),
-                                  child: Text("Descending order"),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                      : Container(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget viewOfferDetailBottomSheet() {
     return Expanded(
       child: SingleChildScrollView(
@@ -389,29 +194,33 @@ class RewardScreen extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: ImageView(
-                      height: 187,
-                      path:
-                          rewardController
+                  Builder(
+                    builder: (context) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: ImageView(
+                          height: 187,
+                          path:
+                              rewardController
+                                          .getOffersByIdModel
+                                          .value
+                                          ?.data
+                                          ?.first
+                                          .image
+                                          ?.isNotEmpty ==
+                                      true
+                                  ? rewardController
                                       .getOffersByIdModel
                                       .value
-                                      ?.data
-                                      ?.first
+                                      ?.data!
+                                      .first
                                       .image
-                                      ?.isNotEmpty ==
-                                  true
-                              ? rewardController
-                                  .getOffersByIdModel
-                                  .value
-                                  ?.data!
-                                  .first
-                                  .image
-                              : Assets.imagesImOffer,
-                      width: Get.width,
-                      fit: BoxFit.fitWidth,
-                    ),
+                                  : Assets.imagesImOffer,
+                          width: Get.width,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      );
+                    }
                   ),
                   Positioned(
                     top: 35,
@@ -466,7 +275,21 @@ class RewardScreen extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(2),
                         child: ImageView(
-                          path: Assets.imagesDemo,
+                          path:     rewardController
+                              .getOffersByIdModel
+                              .value
+                              ?.data
+                              ?.first
+                              .image
+                              ?.isNotEmpty ==
+                              true
+                              ? rewardController
+                              .getOffersByIdModel
+                              .value
+                              ?.data!
+                              .first
+                              .qRCodeUrl
+                              :Assets.imagesDemo,
                           height: 40,
                           width: 40,
                         ),

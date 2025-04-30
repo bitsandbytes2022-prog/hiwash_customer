@@ -21,6 +21,7 @@ import '../route/route_strings.dart';
 import 'api_constant.dart';
 import 'dio_helper.dart';
 import 'local_storage.dart';
+import 'package:dio/dio.dart' as dio;
 
 class Repository {
   final DioHelper dioHelper = DioHelper();
@@ -171,7 +172,7 @@ class Repository {
       url: ApiConstant.getOffersById(id),
       isAuthRequired: true,
     );
-  //  print("Response--->: $response");
+   print("Response--->: $response");
     return GetOffersByIdModel.fromJson(response);
   }
 
@@ -206,16 +207,22 @@ class Repository {
     return WashSummaryModel.fromJson(response);
   }
 
-/*  Future<dynamic> uploadProfilePicture(dio.FormData formData) async {
-    try {
-      final response = await dio.Dio().post('YOUR_API_ENDPOINT', data: formData);
-      return response.data;
-    } catch (e) {
-      print("Error uploading profile picture: $e");
-      throw e; // Rethrow the error for further handling
-    }
+
+
+/*
+  Future<dynamic> uploadProfilePicture( requestBody) async {
+    // print("washSummary url--->:${ApiConstant.washSummary}");
+    Map<String, dynamic> response = await dioHelper.post(
+      url: ApiConstant.uploadProfileImage,
+      isAuthRequired: true,
+      requestBody: requestBody
+    );
+    // print("Response--->: $response");
+    return response;
   }*/
+
   Future<void> uploadProfilePicture( requestBody) async {
+    print("Request Body Type: ${requestBody.runtimeType}");
     try {
       final response = await dioHelper.post(
         url: ApiConstant.uploadProfileImage,
@@ -223,7 +230,8 @@ class Repository {
         isAuthRequired: true,
       );
      print("Upload success: $response");
-    } catch (e) {
+    }
+    catch (e) {
       print("Upload failed: $e");
     }
   }
