@@ -76,6 +76,7 @@ class MyAccountScreen extends StatelessWidget {
                               ),
                             );
                           } else if ((userData?.profilePicUrl ?? '')
+
                               .isNotEmpty) {
                             return CircleAvatar(
                               radius: 50,
