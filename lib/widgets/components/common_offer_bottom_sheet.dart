@@ -262,6 +262,11 @@ class BottomSheetWidget extends StatelessWidget {
       init: RewardController(),
 
       builder: (controller) {
+   var  rewardDetail=   rewardController
+            .getOffersByIdModel
+            .value
+            ?.data
+            ?.first;
         return Expanded(
           child: SingleChildScrollView(
             child: Column(
@@ -437,29 +442,7 @@ class BottomSheetWidget extends StatelessWidget {
                             ),
                           ),
 
-                          /*ClipRRect(
-                            borderRadius: BorderRadius.circular(2),
-                            child: ImageView(
-                              path:
-                                  rewardController
-                                              .getOffersByIdModel
-                                              .value
-                                              ?.data
-                                              ?.first
-                                              .image
-                                              ?.isNotEmpty ==
-                                          true
-                                      ? rewardController
-                                          .getOffersByIdModel
-                                          .value
-                                          ?.data!
-                                          .first
-                                          .qRCodeUrl
-                                      : Assets.imagesDemo,
-                              height: 40,
-                              width: 40,
-                            ),
-                          ),*/
+
                         ),
                       ),
                     ],
@@ -474,12 +457,12 @@ class BottomSheetWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Exclusive Products.",
+                        rewardDetail?.title??'',
                         style: w700_16a(color: AppColor.c2C2A2A),
                       ),
 
                       Text(
-                        "Special Offers & FREE Coupons – Grab Yours Today!",
+                        rewardDetail?.description??'',
                         style: w400_12p(),
                       ),
                       29.heightSizeBox,
@@ -605,21 +588,21 @@ class BottomSheetWidget extends StatelessWidget {
                             dropDownRow(
                               index: 0,
                               title: "Offer Details",
-                              content: "Details about the offer go here...",
+                              content: rewardDetail?.offerDetails??'',
                             ),
                             Divider(color: AppColor.c142293.withOpacity(0.20)),
 
                             dropDownRow(
                               index: 1,
                               title: "How to redeem",
-                              content: "Redemption process explained here...",
+                              content:  rewardDetail?.howToRedeem??'',
                             ),
                             Divider(color: AppColor.c142293.withOpacity(0.20)),
 
                             dropDownRow(
                               index: 2,
                               title: "Terms & conditions",
-                              content: "All the fine print goes here...",
+                              content:  rewardDetail?.termsAndConditions??'',
                             ),
 
                             5.heightSizeBox,

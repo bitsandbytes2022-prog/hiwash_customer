@@ -20,6 +20,7 @@ static const rating="$baseUrl/customer/rating";
 static const washSummary="$baseUrl/customer/wash-summary";
 static const uploadProfileImage="$baseUrl/customer/upload-profile-picture";
 static const uploadProfile="$baseUrl/customer/update-profile";
+static  notification(int id)=>"$baseUrl/notification/$id";
 
 
 

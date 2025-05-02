@@ -22,14 +22,16 @@ class MyAccountScreen extends StatelessWidget {
 
   DashboardController dashboardController = Get.find();
   DrawerProfileController drawerProfileController = Get.find();
+
+  WashStatusController washStatusController=Get.find();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final userData =
-        dashboardController.getCustomerData.value?.data?.customerDetails;
+        washStatusController.getCustomerData.value?.data?.customerDetails;
     final userDataSub =
-        dashboardController.getCustomerData.value?.data?.subscriptionDetails;
+        washStatusController.getCustomerData.value?.data?.subscriptionDetails;
     drawerProfileController.nameController.text = userData?.fullName ?? '';
     drawerProfileController.emailController.text = userData?.email ?? '';
     drawerProfileController.phoneController.text = userData?.mobileNumber ?? '';
@@ -104,13 +106,25 @@ class MyAccountScreen extends StatelessWidget {
                       GestureDetector(
                         onTap: () async {
                           await drawerProfileController.imagePicker();
+                          await Future.delayed(Duration(seconds: 1));
+                          if (drawerProfileController.imageFile.value != null) {
+                            await drawerProfileController.uploadProfileImage();
+                            await Future.delayed(Duration(seconds: 1));
+                            await washStatusController.getCustomerDataById(
+                              washStatusController.getCustomerData.value?.data?.customerDetails?.id ?? 0,
+                            );
+                          } else {
+                            print("No image selected to upload");
+                          }
+                        },
+                       /* onTap: () async {
+                          await drawerProfileController.imagePicker();
 
                           await drawerProfileController
-                              .uploadProfileImage()
-                              .then((value) async {
-                                if (value != null) {
-                                  await dashboardController.getCustomerDataById(
-                                    dashboardController
+                              .uploadProfileImage();
+
+                                  await washStatusController.getCustomerDataById(
+                                    washStatusController
                                             .getCustomerData
                                             .value
                                             ?.data
@@ -118,9 +132,9 @@ class MyAccountScreen extends StatelessWidget {
                                             ?.id ??
                                         0,
                                   );
-                                }
-                              });
-                        },
+
+
+                        },*/
                         child: Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
@@ -305,8 +319,8 @@ class MyAccountScreen extends StatelessWidget {
                             drawerProfileController.carNumberController.text,
                           );
 
-                          await dashboardController.getCustomerDataById(
-                            dashboardController
+                        washStatusController.getCustomerDataById(
+                          washStatusController
                                     .getCustomerData
                                     .value
                                     ?.data
@@ -314,22 +328,6 @@ class MyAccountScreen extends StatelessWidget {
                                     ?.id ??
                                 0,
                           );
-                          // drawerProfileController.update();
-                          /*  dashboardController.getCustomerDataById(
-                            dashboardController.getCustomerData.value?.data?.customerDetails?.id ?? 0,
-
-                          );*/
-
-                          // Get.back();
-                          /* .then((value){
-                            if(value != null){
-                              dashboardController.getCustomerDataById(
-                                dashboardController.getCustomerData.value?.data?.customerDetails?.id ?? 0,
-
-                              );
-
-                            }
-                          });*/
                         } else {
                           Get.snackbar(
                             'Invalid Input',
@@ -342,23 +340,8 @@ class MyAccountScreen extends StatelessWidget {
                     );
                   }),
 
-                  /*  HiWashButton(text: 'Save',
-                  onTap: (){
-                    drawerProfileController.uploadProfile(
-                      drawerProfileController.nameController.text,
-                      drawerProfileController.emailController.text,
-                      drawerProfileController.phoneController.text,
-                      drawerProfileController.zoneController.text,
-                      drawerProfileController.streetController.text,
-                      drawerProfileController.buildingController.text,
-                      drawerProfileController.unitController.text,
-                      drawerProfileController.imageFile.value?.path ?? '',
-                      drawerProfileController.carNumberController.text,
 
-                    );
 
-                  },
-                  ),*/
                   30.heightSizeBox,
                 ],
               ),

@@ -9,11 +9,11 @@ class DioHelper {
   Future<Map<String, dynamic>> _getHeaders(bool isAuthRequired) async {
     final storage = LocalStorage();
     final token = storage.getToken();
-    print( "First------>${token}");
+    //print( "First------>${token}");
     if (isAuthRequired && token != null) {
       return {
         'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
+       // 'Content-Type': 'application/json',
       };
     } else {
       return {
@@ -26,7 +26,7 @@ class DioHelper {
     final headers = await _getHeaders(isAuthRequired);
     return Options(
       receiveDataWhenStatusError: true,
-      sendTimeout: const Duration(seconds: 10),
+      sendTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
       headers: headers,
     );
@@ -103,14 +103,30 @@ class DioHelper {
   }
 
   /// MULTIPART API
-  Future<dynamic> uploadFile({required String url, required var requestBody, bool isAuthRequired = true}) async {
+  Future<dynamic> uploadFile({
+    required String url,
+    required FormData requestBody,
+    bool isAuthRequired = true,
+  }) async {
     try {
-      Response response = await dio.post(url, data: requestBody,);
+      final fullOptions = await options(isAuthRequired);
+
+
+      if (requestBody.files.isEmpty) {
+        print("FormData is empty");
+        return null;
+      }
+
+      Response response = await dio.post(url, data: requestBody, options: fullOptions);
+      print("Upload response: ${response.data}");
       return response.data;
     } catch (error) {
+      print("Upload file error: $error");
       return null;
     }
   }
+
+
 }
 
 

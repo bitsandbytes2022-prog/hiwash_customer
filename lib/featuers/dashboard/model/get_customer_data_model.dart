@@ -23,7 +23,40 @@ class GetCustomerData {
     return data;
   }
 }
+class Data {
+  CustomerDetails? customerDetails;
+  SubscriptionDetails? subscriptionDetails;
 
+  Data({this.customerDetails, this.subscriptionDetails});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    customerDetails =
+    json['customerDetails'] != null
+        ? new CustomerDetails.fromJson(json['customerDetails'])
+        : null;
+    if(json['subscriptionDetails'] != null){
+    subscriptionDetails =
+    json['subscriptionDetails'] != null
+        ? new SubscriptionDetails.fromJson(json['subscriptionDetails'])
+        : null;}
+   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.customerDetails != null) {
+      data['customerDetails'] = this.customerDetails!.toJson();
+    }
+    if (this.subscriptionDetails != null) {
+      data['subscriptionDetails'] = this.subscriptionDetails!.toJson();
+    }
+    return data;
+  }
+
+  bool hasSubscription() {
+    return subscriptionDetails != null;
+  }
+}
+/*
 class Data {
   CustomerDetails? customerDetails;
   SubscriptionDetails? subscriptionDetails;
@@ -52,6 +85,7 @@ class Data {
     return data;
   }
 }
+*/
 
 class CustomerDetails {
   int? id;
@@ -72,21 +106,21 @@ class CustomerDetails {
     this.mobileNumber,
     this.street,
     this.zone,
-    this.building,
+    String? building,
     this.unit,
     this.profilePicUrl,
     this.carNumber,
-  });
+  }): building = building ?? "";
 
   CustomerDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    fullName = json['fullName'];
-    email = json['email'];
-    mobileNumber = json['mobileNumber'];
-    street = json['street'];
-    zone = json['zone'];
-    building = json['building'];
-    unit = json['unit'];
+    fullName = json['fullName'] ?? "";
+    email = json['email'] ?? "";
+    mobileNumber = json['mobileNumber'] ?? "";
+    street = json['street'] ?? "";
+    zone = json['zone'] ?? "";
+    building = json['building'] ?? "";
+    unit = json['unit'] ?? "";
     profilePicUrl =
         json['profilePicUrl'] != null
             ? "${ApiConstant.baseImageUrl}${json['profilePicUrl']}"

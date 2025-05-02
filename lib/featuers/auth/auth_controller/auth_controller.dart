@@ -266,7 +266,7 @@ class AuthController extends GetxController {
       if (value.data?.token != null && value.data!.token!.isNotEmpty) {
         LocalStorage tokenStorage = LocalStorage();
         await tokenStorage.saveToken(value.data!.token!);
-        await tokenStorage.saveUserId(value.data!.id.toString());
+       await  tokenStorage.saveUserId(value.data!.id.toString());
 
         isLoggedIn.value = true;
       }

@@ -16,6 +16,7 @@ import '../featuers/auth/model/get_token_model.dart';
 import '../featuers/auth/model/send_otp_model.dart';
 import '../featuers/auth/model/sign_up_model.dart';
 import '../featuers/dashboard/view/second_drawer/model/guides_response_model.dart';
+import '../featuers/notification/model/notification.dart';
 import '../featuers/rewads/model/get_offer_categories.dart';
 import '../route/route_strings.dart';
 import 'api_constant.dart';
@@ -99,7 +100,7 @@ class Repository {
       url: ApiConstant.getCustomerId(id),
       isAuthRequired: true,
     );
-    print("getCustomerData--->${response.toString()}");
+    print("getCustomerData response--->${response.toString()}");
 
     return GetCustomerData.fromJson(response);
   }
@@ -209,27 +210,32 @@ class Repository {
 
 
 
-/*
-  Future<dynamic> uploadProfilePicture( requestBody) async {
-    // print("washSummary url--->:${ApiConstant.washSummary}");
-    Map<String, dynamic> response = await dioHelper.post(
-      url: ApiConstant.uploadProfileImage,
-      isAuthRequired: true,
-      requestBody: requestBody
-    );
-    // print("Response--->: $response");
-    return response;
-  }*/
-
-  Future<void> uploadProfilePicture( requestBody) async {
-    print("Request Body Type: ${requestBody.runtimeType}");
+/*  Future<void> uploadProfilePictureRepo(requestBody) async {
+    //print("Request Body Type: ${requestBody.runtimeType}");
     try {
-      final response = await dioHelper.post(
+      final response = await dioHelper.uploadFile(
         url: ApiConstant.uploadProfileImage,
         requestBody: requestBody,
         isAuthRequired: true,
       );
+    //  print("Upload success: $response");
+    } catch (e) {
+      print("Upload failed: $e");
+    }
+  }*/
+
+
+  Future<dynamic> uploadProfilePictureRepo( requestBody) async {
+    print("Request Body Type: ${requestBody.runtimeType}");
+    try {
+      final response = await dioHelper.uploadFile(
+        url: ApiConstant.uploadProfileImage,
+        requestBody: requestBody,
+        isAuthRequired: true,
+      );
+
      print("Upload success: $response");
+
     }
     catch (e) {
       print("Upload failed: $e");
@@ -243,10 +249,23 @@ class Repository {
         requestBody: requestBody,
         isAuthRequired: true,
       );
-      print("Save profile success: $response");
+       print("Save profile success: $response");
+      return response;
+
     } catch (e) {
       print("Save profile failed: $e");
     }
+  }
+
+
+  Future<NotificationModel> notificationRepo(int id) async {
+    // print("washSummary url--->:${ApiConstant.washSummary}");
+    Map<String, dynamic> response = await dioHelper.get(
+      url: ApiConstant.notification(id),
+      isAuthRequired: true,
+    );
+    // print("Response--->: $response");
+    return NotificationModel.fromJson(response);
   }
 
 }

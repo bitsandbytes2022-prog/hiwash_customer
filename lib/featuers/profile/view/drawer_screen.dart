@@ -39,10 +39,13 @@ class DrawerScreen extends StatelessWidget {
           ? Get.find<SubscriptionController>()
           : Get.put(SubscriptionController());
   DashboardController dashboardController = Get.find();
-  AuthController authController =Get.find();
+  AuthController authController = Get.find();
+  WashStatusController washStatusController = Get.find();
+
   @override
   Widget build(BuildContext context) {
-    final userData = dashboardController.getCustomerData.value?.data?.customerDetails;
+    final userData =
+        washStatusController.getCustomerData.value?.data?.customerDetails;
     return SafeArea(
       bottom: true,
       top: false,
@@ -72,7 +75,8 @@ class DrawerScreen extends StatelessWidget {
 
   /// **Main Drawer**
   Widget mainDrawerUI() {
-    final userData = dashboardController.getCustomerData.value?.data?.subscriptionDetails;
+    final userData =
+        washStatusController.getCustomerData.value?.data?.subscriptionDetails;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,25 +109,61 @@ class DrawerScreen extends StatelessWidget {
                   border: Border.all(color: AppColor.blue.withOpacity(0.2)),
                 ),
                 child: Obx(() {
-                  final profilePicUrl = dashboardController
-                      .getCustomerData
-                      .value
-                      ?.data
-                      ?.customerDetails
-                      ?.profilePicUrl;
+                  final profilePicUrl =
+                      washStatusController
+                          .getCustomerData
+                          .value
+                          ?.data
+                          ?.customerDetails
+                          ?.profilePicUrl;
 
-                  var hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+                  final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
 
                   return CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.grey[200],
-                    backgroundImage: hasValidUrl
-                        ? NetworkImage(profilePicUrl!)
-                        : AssetImage(Assets.imagesDemoProfile) ,
+                    child: ClipOval(
+                      child:
+                        Image.network(
+                                profilePicUrl!,
+                                fit: BoxFit.cover,
+                                height: 100,
+                                // Diameter = radius * 2
+                                width: 100,
+                                loadingBuilder: (
+                                  BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent? loadingProgress,
+                                ) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: SizedBox(
+                                      height: 24,
+                                      width: 24,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                errorBuilder: (
+                                  BuildContext context,
+                                  Object error,
+                                  StackTrace? stackTrace,
+                                ) {
+                                  return Image.asset(
+                                    Assets.iconsIcUpWardArrow,
+                                    fit: BoxFit.cover,
+                                    height: 100,
+                                    width: 100,
+                                  );
+                                },
+                              )
+
+                    ),
                   );
                 }),
-              )
-,
+              ),
               Container(
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
@@ -142,7 +182,13 @@ class DrawerScreen extends StatelessWidget {
           ),
           11.heightSizeBox,
           Text(
-            dashboardController.getCustomerData.value?.data?.customerDetails?.fullName?? "",
+            washStatusController
+                    .getCustomerData
+                    .value
+                    ?.data
+                    ?.customerDetails
+                    ?.fullName ??
+                "",
             style: w700_16a(color: AppColor.c2C2A2A),
           ),
           4.heightSizeBox,
@@ -177,19 +223,18 @@ class DrawerScreen extends StatelessWidget {
             title: 'My Account',
             image: Assets.iconsIcAccount,
           ),
-            drawerRowWidget(
-              onTap: () {
-                print("profile----->${userData?.subscriptionId}");
-                if (userData?.subscriptionId == null) {
-                  Get.toNamed(RouteStrings.subscribeMainScreen);
-
-                } else {
-                  Get.toNamed(RouteStrings.subscriptionPlanScreen);
-                }
-              },
-              title: 'Subscription Plan',
-              image: Assets.iconsIcSubscriptionPlan,
-            ),
+          drawerRowWidget(
+            onTap: () {
+              print("profile----->${userData?.subscriptionId}");
+              if (userData?.subscriptionId == null) {
+                Get.toNamed(RouteStrings.subscribeMainScreen);
+              } else {
+                Get.toNamed(RouteStrings.subscriptionPlanScreen);
+              }
+            },
+            title: 'Subscription Plan',
+            image: Assets.iconsIcSubscriptionPlan,
+          ),
 
           /* drawerRowWidget(
               onTap: () => userData?.subscriptionId==null? Get.toNamed(RouteStrings.subscribeMainScreen):Get.toNamed(RouteStrings.subscriptionPlanScreen),
@@ -537,7 +582,12 @@ class DrawerScreen extends StatelessWidget {
           Container(
             color: Colors.transparent,
             child: Padding(
-              padding: EdgeInsets.only(left: 18, right: 12,top: 15,bottom: 15),
+              padding: EdgeInsets.only(
+                left: 18,
+                right: 12,
+                top: 15,
+                bottom: 15,
+              ),
               child: Row(
                 children: [
                   ImageView(path: image, height: 20, width: 20),

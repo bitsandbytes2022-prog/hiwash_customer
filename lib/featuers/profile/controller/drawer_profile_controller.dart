@@ -13,7 +13,20 @@ class DrawerProfileController extends GetxController {
   var imageFile = Rx<File?>(null);
   RxBool isLoading = false.obs;
 
+
   Future<void> imagePicker() async {
+    var pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    // Check if a file is selected
+    if (pickedFile != null) {
+      imageFile.value = File(pickedFile.path);
+    } else {
+      print("No file selected");
+    }
+  }
+/*  Future<void> imagePicker() async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -21,8 +34,7 @@ class DrawerProfileController extends GetxController {
     if (pickedFile != null) {
       imageFile.value = File(pickedFile.path);
     }
-  }
-
+  }*/
   var currentDrawerSection = ''.obs;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -58,15 +70,23 @@ class DrawerProfileController extends GetxController {
     return dio.FormData.fromMap({"file": file});
   }
 
-  Future<dynamic> uploadProfileImage() async {
+  Future<void> uploadProfileImage() async {
     try {
       final formData = await getFormDataForUpload();
-      final response = await Repository().uploadProfilePicture(formData);
-      return response;
+
+      final response = await Repository().uploadProfilePictureRepo(formData);
+
+      if (response != null) {
+        print("Upload successful: $response");
+
+      } else {
+        print("Failed to upload image");
+      }
     } catch (e) {
       print("Upload error: $e");
     }
   }
+
 
   Future<TermsAndConditionsResponseModel?> getTermsAndConditions() async {
     var entityType = 0;

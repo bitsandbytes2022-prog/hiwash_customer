@@ -37,7 +37,7 @@ WashStatusController washStatusController =Get.find();
   @override
   Widget build(BuildContext context) {
     final userData =
-        dashboardController.getCustomerData.value?.data?.customerDetails;
+        washStatusController.getCustomerData.value?.data?.customerDetails;
     controller.getSubscription();
     return AppHomeBg(
       centerHeading: Container(
@@ -65,7 +65,7 @@ WashStatusController washStatusController =Get.find();
             border: Border.all(color: AppColor.cF6F7FF, width: 10),
           ),
           child: Obx(() {
-            final profilePicUrl = dashboardController
+            final profilePicUrl = washStatusController
                 .getCustomerData
                 .value
                 ?.data
@@ -255,8 +255,8 @@ WashStatusController washStatusController =Get.find();
                               "Success",
                             )
                             .then((value) {
-                              dashboardController.getCustomerDataById(
-                                dashboardController
+                              washStatusController.getCustomerDataById(
+                                washStatusController
                                         .getCustomerData
                                         .value
                                         ?.data

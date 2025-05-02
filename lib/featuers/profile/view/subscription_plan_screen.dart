@@ -27,9 +27,9 @@ class SubscriptionPlanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.getSubscription();
     final userData =
-        dashboardController.getCustomerData.value?.data?.customerDetails;
+        washStatusController.getCustomerData.value?.data?.customerDetails;
     final userDataSub =
-        dashboardController.getCustomerData.value?.data?.subscriptionDetails;
+        washStatusController.getCustomerData.value?.data?.subscriptionDetails;
     return AppHomeBg(
       padding: EdgeInsets.zero,
       headingText: "Subscription Plan",
@@ -55,7 +55,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
                       child: CircleAvatar(
                         radius: 50,
                         backgroundImage:
-                            (dashboardController
+                            (washStatusController
                                         .getCustomerData
                                         .value
                                         ?.data
@@ -64,7 +64,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
                                         ?.isNotEmpty ??
                                     false)
                                 ? NetworkImage(
-                                  dashboardController
+                              washStatusController
                                           .getCustomerData
                                           .value
                                           ?.data

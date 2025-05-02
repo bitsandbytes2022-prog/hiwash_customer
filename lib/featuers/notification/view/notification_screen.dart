@@ -107,12 +107,12 @@ class NotificationScreen extends StatelessWidget {
               ),
             ),
             21.heightSizeBox,
-        
+        (controller.notificationModel.value?.data?.isNotEmpty==true)?
             ListView.separated(
               physics: NeverScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
               shrinkWrap: true,
-              itemCount: 20,
+              itemCount: controller.notificationModel.value!.data!.length,
               separatorBuilder: (context, index) {
                 return DotedHorizontalLine();
               },
@@ -121,7 +121,7 @@ class NotificationScreen extends StatelessWidget {
                   return notificationContainer(index);
                 });
               },
-            ),
+            ):SizedBox(),
           ],
         ),
       ),

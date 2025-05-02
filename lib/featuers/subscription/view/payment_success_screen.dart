@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
@@ -19,11 +20,12 @@ class PaymentSuccessScreen extends StatelessWidget {
   PaymentSuccessScreen({super.key});
 
   DashboardController dashboardController = Get.find();
+  WashStatusController washStatusController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     final userData =
-        dashboardController.getCustomerData.value?.data?.customerDetails;
+        washStatusController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
       padding: EdgeInsets.zero,
       centerHeading: Container(
@@ -54,7 +56,7 @@ class PaymentSuccessScreen extends StatelessWidget {
             border: Border.all(color: AppColor.cF6F7FF, width: 10),
           ),
           child: Obx(() {
-            final profilePicUrl = dashboardController
+            final profilePicUrl = washStatusController
                 .getCustomerData
                 .value
                 ?.data

@@ -17,6 +17,7 @@ import '../../../wash_status/controller/wash_status_controller.dart';
 class ChatScreen extends StatelessWidget {
    ChatScreen({super.key});
    DashboardController dashboardController=Get.find();
+   WashStatusController washStatusController=Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +29,8 @@ class ChatScreen extends StatelessWidget {
             child: Tawk(
               directChatLink: 'https://tawk.to/chat/68066e7b2db46a190e068251/1ipchv5dp',
               visitor: TawkVisitor(
-                name: dashboardController.getCustomerData.value?.data?.customerDetails?.fullName,
-                email: dashboardController.getCustomerData.value?.data?.customerDetails?.email,
+                name: washStatusController.getCustomerData.value?.data?.customerDetails?.fullName,
+                email: washStatusController.getCustomerData.value?.data?.customerDetails?.email,
               ),
             ),
           ),

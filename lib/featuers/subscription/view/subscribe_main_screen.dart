@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
@@ -18,12 +19,13 @@ import '../../rewads/controller.dart';
 class SubscribeMainScreen extends StatelessWidget {
    SubscribeMainScreen({super.key});
   DashboardController dashboardController = Get.find();
+  WashStatusController washStatusController = Get.find();
     RewardController rewardController = Get.find<RewardController>();
 
    @override
   Widget build(BuildContext context) {
     final userData =
-        dashboardController.getCustomerData.value?.data?.customerDetails;
+        washStatusController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
       padding: EdgeInsets.zero,
 
@@ -52,7 +54,7 @@ class SubscribeMainScreen extends StatelessWidget {
             border: Border.all(color: AppColor.cF6F7FF, width: 10),
           ),
           child: Obx(() {
-            final profilePicUrl = dashboardController
+            final profilePicUrl = washStatusController
                 .getCustomerData
                 .value
                 ?.data
