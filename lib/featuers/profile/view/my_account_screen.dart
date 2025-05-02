@@ -69,6 +69,7 @@ class MyAccountScreen extends StatelessWidget {
                         child: Obx(() {
                           if (drawerProfileController.imageFile.value != null) {
                             return CircleAvatar(
+
                               radius: 50,
                               backgroundImage: FileImage(
                                 drawerProfileController.imageFile.value!,
