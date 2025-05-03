@@ -85,68 +85,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
       fillNavigationImage(image: Assets.iconsIcNotificationFill),
 
       Container(
-        padding: EdgeInsets.all(4),
+        padding: EdgeInsets.all(6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
           border: Border.all(color: AppColor.blue.withOpacity(0.2)),
         ),
-        child:Obx(() {
-          final profilePicUrl = washStatusController
-              .getCustomerData
-              .value
-              ?.data
-              ?.customerDetails
-              ?.profilePicUrl;
-
-          var hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
+        child: Obx(() {
+          final profilePicUrl =
+              washStatusController
+                  .getCustomerData
+                  .value
+                  ?.data
+                  ?.customerDetails
+                  ?.profilePicUrl;
 
           return CircleAvatar(
-            radius: 22,
-            backgroundColor: Colors.grey[200],
-            backgroundImage: hasValidUrl
-                ? NetworkImage(profilePicUrl!)
-                : AssetImage(Assets.imagesDemoProfile) ,
+            radius: 20,
+            backgroundImage:
+                (profilePicUrl!.isNotEmpty)
+                    ? NetworkImage(profilePicUrl)
+                    : Image.asset(Assets.imagesImMap).image,
+
           );
         }),
-
-        /*Obx(() {
-          final profilePicUrl = dashboardController
-              .getCustomerData
-              .value
-              ?.data
-              ?.customerDetails
-              ?.profilePicUrl;
-
-          final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
-          print("image print ----->${hasValidUrl}");
-          print("image print profile url ----->${profilePicUrl}");
-
-          return CircleAvatar(
-            radius: 22,
-            backgroundColor: Colors.grey[200],
-            child: ClipOval(
-              child: CachedNetworkImage(
-                imageUrl: hasValidUrl ? profilePicUrl! : '',
-                fit: BoxFit.cover,
-
-                placeholder: (context, url) => Center(
-                  child: SizedBox(
-                    height: 16,
-                    width: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  ),
-                ),
-                errorWidget: (context, url, error) => Image.asset(
-                  Assets.imagesDemoProfile,
-                  fit: BoxFit.cover,
-
-                ),
-              ),
-            ),
-          );
-        }),*/
-
-
       ),
     ];
 
@@ -155,47 +116,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ImageView(path: Assets.iconsTrophy, height: 23, width: 23),
       ImageView(path: Assets.iconsIcNotification, height: 23, width: 23),
       Container(
-        padding: EdgeInsets.all(4),
+        padding: EdgeInsets.all(6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
           border: Border.all(color: AppColor.blue.withOpacity(0.2)),
         ),
         child: Obx(() {
-          final profilePicUrl = washStatusController
-              .getCustomerData
-              .value
-              ?.data
-              ?.customerDetails
-              ?.profilePicUrl;
-
-          final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
-
           return CircleAvatar(
-            radius: 22,
-            backgroundColor: Colors.grey[200],
-            child: ClipOval(
-              child: CachedNetworkImage(
-                imageUrl: hasValidUrl ? profilePicUrl! : '',
-                fit: BoxFit.cover,
-
-                placeholder: (context, url) => Center(
-                  child: SizedBox(
-                    height: 16,
-                    width: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  ),
-                ),
-                errorWidget: (context, url, error) => Image.asset(
-                  Assets.imagesDemoProfile,
-                  fit: BoxFit.cover,
-
-                ),
-              ),
-            ),
+            radius: 20,
+            backgroundImage:
+                ((washStatusController
+                            .getCustomerData
+                            .value
+                            ?.data
+                            ?.customerDetails
+                            ?.profilePicUrl)!
+                        .isNotEmpty)
+                    ? NetworkImage(
+                      (washStatusController
+                          .getCustomerData
+                          .value
+                          ?.data
+                          ?.customerDetails
+                          ?.profilePicUrl)!,
+                      headers: {'Cache-Control': 'no-cache'},
+                    )
+                    : Image.asset(Assets.imagesImMap).image,
           );
         }),
-
-
       ),
     ];
 
@@ -419,45 +367,47 @@ class _DashboardScreenState extends State<DashboardScreen> {
               context: context,
               builder: (BuildContext context) {
                 return AppDialog(
-
                   padding: EdgeInsets.zero,
                   bottomVisible: true,
                   child: successDialog(),
                   remainingTextBottom:
-                  washStatusController
-                      .washSummaryModel
-                      .value
-                      ?.data
-                      ?.summary
-                      ?.remainingWashes ?? '',
+                      washStatusController
+                          .washSummaryModel
+                          .value
+                          ?.data
+                          ?.summary
+                          ?.remainingWashes ??
+                      '',
                 );
               },
             );
           },
           child: Obx(() {
-            final qrCodeUrl = washStatusController
-                .getCustomerData
-                .value
-                ?.data
-                ?.subscriptionDetails
-                ?.qrCodeUrl;
+            final qrCodeUrl =
+                washStatusController
+                    .getCustomerData
+                    .value
+                    ?.data
+                    ?.subscriptionDetails
+                    ?.qrCodeUrl;
 
             return CachedNetworkImage(
               imageUrl: qrCodeUrl ?? '',
               height: 261,
               width: 261,
-              placeholder: (context, url) => SizedBox(
-                height: 261,
-                width: 261,
-                child: Center(
-                  child: SizedBox(
-                    height: 24,
-                    width: 24,
-                    child: CircularProgressIndicator(strokeWidth: 2),
+              placeholder:
+                  (context, url) => SizedBox(
+                    height: 261,
+                    width: 261,
+                    child: Center(
+                      child: SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-         /*     placeholder: (context, url) => SizedBox(
+              /*     placeholder: (context, url) => SizedBox(
                 height: 20,
                 width: 20,
                 child: CircularProgressIndicator(
@@ -465,11 +415,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 ),
               ),*/
-              errorWidget: (context, url, error) => Image.asset(
-                Assets.imagesImQr,
-                height: 261,
-                width: 261,
-              ),
+              errorWidget:
+                  (context, url, error) =>
+                      Image.asset(Assets.imagesImQr, height: 261, width: 261),
               fit: BoxFit.cover,
             );
           }),

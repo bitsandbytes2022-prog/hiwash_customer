@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:hiwash_customer/widgets/components/loader.dart';
 import '../../../network_manager/repository.dart';
 import '../model/terms_and_conditions_response_model.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,11 +14,8 @@ class DrawerProfileController extends GetxController {
   var imageFile = Rx<File?>(null);
   RxBool isLoading = false.obs;
 
-
   Future<void> imagePicker() async {
-    var pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
+    var pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     // Check if a file is selected
     if (pickedFile != null) {
@@ -26,7 +24,8 @@ class DrawerProfileController extends GetxController {
       print("No file selected");
     }
   }
-/*  Future<void> imagePicker() async {
+
+  /*  Future<void> imagePicker() async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -72,21 +71,21 @@ class DrawerProfileController extends GetxController {
 
   Future<void> uploadProfileImage() async {
     try {
+      showLoader();
       final formData = await getFormDataForUpload();
 
       final response = await Repository().uploadProfilePictureRepo(formData);
-
+      hideLoader();
       if (response != null) {
         print("Upload successful: $response");
-
       } else {
         print("Failed to upload image");
       }
     } catch (e) {
+      //hideLoader();
       print("Upload error: $e");
     }
   }
-
 
   Future<TermsAndConditionsResponseModel?> getTermsAndConditions() async {
     var entityType = 0;
@@ -100,18 +99,17 @@ class DrawerProfileController extends GetxController {
     }
   }
 
-
   Future<dynamic> uploadProfile(
-      String fullName,
-      String email,
-      String mobileNumber,
-      String zone,
-      String street,
-      String building,
-      String unit,
-      String profilePic,
-      String carNumber,
-      ) async {
+    String fullName,
+    String email,
+    String mobileNumber,
+    String zone,
+    String street,
+    String building,
+    String unit,
+    String profilePic,
+    String carNumber,
+  ) async {
     isLoading.value = true;
     try {
       Map<String, dynamic> requestBody = {
@@ -125,9 +123,9 @@ class DrawerProfileController extends GetxController {
         "profilePic": profilePic,
         "carNumber": carNumber,
       };
-
+      showLoader();
       final response = await Repository().uploadProfile(requestBody);
-update();
+      hideLoader();
       return response;
     } catch (e) {
       print("Update profile error: $e");
@@ -144,7 +142,4 @@ update();
       isLoading.value = false;
     }
   }
-
-
-
 }

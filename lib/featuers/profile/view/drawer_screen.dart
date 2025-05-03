@@ -30,16 +30,25 @@ import '../controller/drawer_profile_controller.dart';
 import 'my_account_screen.dart';
 import 'terms _and_condition_screen.dart';
 
-class DrawerScreen extends StatelessWidget {
+class DrawerScreen extends StatefulWidget {
+  @override
+  State<DrawerScreen> createState() => _DrawerScreenState();
+}
+
+class _DrawerScreenState extends State<DrawerScreen> {
   final DrawerProfileController drawerController = Get.put(
     DrawerProfileController(),
   );
+
   final SubscriptionController controller =
       Get.isRegistered<SubscriptionController>()
           ? Get.find<SubscriptionController>()
           : Get.put(SubscriptionController());
+
   DashboardController dashboardController = Get.find();
+
   AuthController authController = Get.find();
+
   WashStatusController washStatusController = Get.find();
 
   @override
@@ -109,15 +118,14 @@ class DrawerScreen extends StatelessWidget {
                   border: Border.all(color: AppColor.blue.withOpacity(0.2)),
                 ),
                 child: Obx(() {
-                  final profilePicUrl =
-                      washStatusController
+
+                  var profilePicUrl =    washStatusController
                           .getCustomerData
                           .value
                           ?.data
                           ?.customerDetails
                           ?.profilePicUrl;
 
-                  final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
 
                   return CircleAvatar(
                     radius: 50,
@@ -126,6 +134,7 @@ class DrawerScreen extends StatelessWidget {
                       child:
                         Image.network(
                                 profilePicUrl!,
+                                repeat: ImageRepeat.repeat ,
                                 fit: BoxFit.cover,
                                 height: 100,
                                 // Diameter = radius * 2
@@ -219,7 +228,11 @@ class DrawerScreen extends StatelessWidget {
 
           /// **Drawer Options**
           drawerRowWidget(
-            onTap: () => Get.toNamed(RouteStrings.myAccountScreen),
+            onTap: () => Get.toNamed(RouteStrings.myAccountScreen)!.then((value) {
+              setState(() {
+
+              });
+            },),
             title: 'My Account',
             image: Assets.iconsIcAccount,
           ),

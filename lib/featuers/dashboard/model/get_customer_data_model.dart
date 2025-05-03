@@ -23,6 +23,7 @@ class GetCustomerData {
     return data;
   }
 }
+
 class Data {
   CustomerDetails? customerDetails;
   SubscriptionDetails? subscriptionDetails;
@@ -31,15 +32,16 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     customerDetails =
-    json['customerDetails'] != null
-        ? new CustomerDetails.fromJson(json['customerDetails'])
-        : null;
-    if(json['subscriptionDetails'] != null){
-    subscriptionDetails =
-    json['subscriptionDetails'] != null
-        ? new SubscriptionDetails.fromJson(json['subscriptionDetails'])
-        : null;}
-   }
+        json['customerDetails'] != null
+            ? new CustomerDetails.fromJson(json['customerDetails'])
+            : null;
+    if (json['subscriptionDetails'] != null) {
+      subscriptionDetails =
+          json['subscriptionDetails'] != null
+              ? new SubscriptionDetails.fromJson(json['subscriptionDetails'])
+              : null;
+    }
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -110,7 +112,7 @@ class CustomerDetails {
     this.unit,
     this.profilePicUrl,
     this.carNumber,
-  }): building = building ?? "";
+  }) : building = building ?? "";
 
   CustomerDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -123,7 +125,7 @@ class CustomerDetails {
     unit = json['unit'] ?? "";
     profilePicUrl =
         json['profilePicUrl'] != null
-            ? "${ApiConstant.baseImageUrl}${json['profilePicUrl']}"
+            ? "${ApiConstant.baseImageUrl}${json['profilePicUrl']}?timestamp=${DateTime.now().millisecondsSinceEpoch}"
             : null;
 
     carNumber = json['carNumber'];
@@ -177,7 +179,10 @@ class SubscriptionDetails {
     isPremium = json['isPremium'];
     price = json['price'];
     currency = json['currency'];
-    qrCodeUrl = json['qrCodeUrl']!=null?"${ApiConstant.baseImageUrl}${json['qrCodeUrl']}":null;
+    qrCodeUrl =
+        json['qrCodeUrl'] != null
+            ? "${ApiConstant.baseImageUrl}${json['qrCodeUrl']}"
+            : null;
   }
 
   Map<String, dynamic> toJson() {

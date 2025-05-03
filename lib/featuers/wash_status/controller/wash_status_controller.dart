@@ -62,12 +62,12 @@ Rxn<WashSummaryModel>washSummaryModel=Rxn();
 
 
   Future<GetCustomerData?> getCustomerDataById(int id) async {
-    // loading = true;\
+    // loading = true;
     try {
       getCustomerData.value= await Repository().getCustomerData(id);
 
       getCustomerData.value;
-      update();
+      getCustomerData.refresh();
     } catch (error) {
       // loading = false;
       print("Error fetching customer data: $error");
