@@ -97,6 +97,7 @@ class BottomSheetWidget extends StatelessWidget {
                 ),
                 25.heightSizeBox,
                 Column(
+
                   children: [
                     Obx(() {
                       final List<Offers> data =

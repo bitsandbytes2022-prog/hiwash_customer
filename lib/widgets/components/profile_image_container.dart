@@ -44,8 +44,8 @@ class ProfileImageView extends StatelessWidget {
           child:CircleAvatar(
             radius: radius,
             backgroundImage: imagePath != null && imagePath!.isNotEmpty
-                ? NetworkImage(imagePath!)  // If imagePath is not null and not empty, use network image
-                : AssetImage(Assets.imagesDemoProfile) as ImageProvider,  // Otherwise, show the default asset image
+                ? NetworkImage(imagePath!)
+                : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
           )
 
 

@@ -14,7 +14,10 @@ class OfferCardWidget extends StatelessWidget {
 
   RewardController rewardController = Get.find();
 
-  SubscriptionController controller = Get.find();
+  SubscriptionController controller =
+      Get.isRegistered<SubscriptionController>()
+          ? Get.find()
+          : Get.put(SubscriptionController());
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +69,6 @@ class OfferCardWidget extends StatelessWidget {
               ),
             ),
           ),
-
 
           20.widthSizeBox,
           Expanded(
