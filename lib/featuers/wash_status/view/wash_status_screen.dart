@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
@@ -18,7 +19,7 @@ class WashStatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //dashboardController.getCustomerDataById(dashboardController.getCustomerData.value?.data?.customerDetails?.id??0);
-    controller. getWashSummary();
+  //  controller. getWashSummary();
     return Stack(
       children: [
         Obx(
@@ -168,7 +169,6 @@ class WashStatusScreen extends StatelessWidget {
                       ImageView(
                         path: Assets.imagesImMap,
                         width: Get.width,
-                      // height: Get.height,
                         height: Get.height / 1.5,
                         fit: BoxFit.cover,
                       ),
@@ -199,6 +199,7 @@ class WashStatusScreen extends StatelessWidget {
                                   ],
                                 ),
                                 child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
                                       padding: EdgeInsets.all(10),
@@ -216,23 +217,33 @@ class WashStatusScreen extends StatelessWidget {
                                       ),
                                     ),
                                     10.widthSizeBox,
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "kYourCurrentLocation".tr,
-                                          style: w400_12a(
-                                            color: AppColor.c455A64,
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "kYourCurrentLocation".tr,
+                                            style: w400_12a(
+                                              color: AppColor.c455A64,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          "2847 Poling Farm Road",
-                                          style: w500_14p(
-                                            color: AppColor.c000000,
-                                          ),
-                                        ),
-                                      ],
+                                          Obx(() => Text(
+                                            controller.currentAddress.value.isEmpty
+                                                ? "Fetching location..."
+                                                : controller.currentAddress.value,
+                                            style: w500_14p(
+                                              color: AppColor.c000000,
+                                            ),
+                                          )),
+                                        /*  Text(
+                                            "2847 Poling Farm Road",
+                                            style: w500_14p(
+                                              color: AppColor.c000000,
+                                            ),
+                                          ),*/
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -274,10 +285,19 @@ class WashStatusScreen extends StatelessWidget {
           ClipRRect(
             clipBehavior: Clip.hardEdge,
             borderRadius: BorderRadius.circular(15),
-            child: ImageView(
-              path: washData?.locationImage ?? Assets.imagesDemoProfile,
+            child: CachedNetworkImage(
+              imageUrl: washData?.locationImage ?? '',
+              placeholder: (context, url) => Image.asset(
+                Assets.imagesDemoProfile,
+                fit: BoxFit.fill,
+                width: 70,
+              ),
+              errorWidget: (context, url, error) => Image.asset(
+                Assets.imagesDemoProfile,
+                fit: BoxFit.fill,
+                width: 70,
+              ),
               fit: BoxFit.fill,
-
               width: 70,
             ),
           ),

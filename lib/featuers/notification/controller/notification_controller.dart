@@ -1,37 +1,88 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/notification/model/notification.dart';
+import 'package:hiwash_customer/widgets/components/loader.dart';
 
 import '../../../network_manager/repository.dart';
-
 class NotificationController extends GetxController {
-  RxList<bool> selectedIndices = List.generate(20, (index) => false).obs;
-@override
+  RxList<RxBool> selectedStates = <RxBool>[].obs;
+  Rxn<NotificationModel> notificationModel = Rxn();
+  RxBool isLoading = false.obs;
+  RxString errorMessage = ''.obs;
+
+  @override
   void onInit() {
-    getNotification();
     super.onInit();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getNotification();
+    });
   }
+
   void toggleSelection(int index) {
-    if (index >= 0 && index < selectedIndices.length) {
-      selectedIndices[index] = !selectedIndices[index];
+    if (index >= 0 && index < selectedStates.length) {
+      selectedStates[index].value = !selectedStates[index].value;
     }
   }
-  RxBool isWashSelected=true.obs;
-  Rxn<NotificationModel>notificationModel=Rxn();
+
+  Future<void> getNotification() async {
+
+    try {
+      isLoading.value = true;
+      errorMessage.value = '';
+      final response = await Repository().notificationRepo();
+      notificationModel.value = response;
+
+
+      if (response.data != null) {
+        selectedStates.value = List.generate(response.data!.length, (_) => false.obs);
+      } else {
+        selectedStates.clear();
+      }
+    } catch (error) {
+      errorMessage.value = "Error fetching notifications, please try again.";
+      print("Error fetching notifications: $error");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+}
+/*
+class NotificationController extends GetxController {
+  RxList<RxBool> selectedStates = <RxBool>[].obs;
+  Rxn<NotificationModel> notificationModel = Rxn();
+  RxBool isWashSelected = true.obs;
   bool loading = false;
 
+  @override
+  void onInit() {
+    super.onInit();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getNotification();
+    });
+  }
+
+  void toggleSelection(int index) {
+    if (index >= 0 && index < selectedStates.length) {
+      selectedStates[index].value = !selectedStates[index].value;
+    }
+  }
+
   Future<NotificationModel?> getNotification() async {
-    int id=0;
+   int id=0;
+   showLoader();
     try {
 
-      notificationModel.value = await Repository().notificationRepo(id);
+      final response = await Repository().notificationRepo(id);
+      notificationModel.value = response;
       return notificationModel.value;
     } catch (error) {
-      loading = false;
-      update();
-      print("Error fetching Wash summary: $error");
+      print("Error fetching notifications: $error");
+    } finally {
+
+      hideLoader();
     }
     return null;
-
   }
 
 }
+*/

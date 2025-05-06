@@ -83,7 +83,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       fillNavigationImage(image: Assets.iconsIcHomeFill),
       fillNavigationImage(image: Assets.iconsIcRewardFill),
       fillNavigationImage(image: Assets.iconsIcNotificationFill),
-
       Container(
         padding: EdgeInsets.all(6),
         decoration: BoxDecoration(
@@ -91,24 +90,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
           border: Border.all(color: AppColor.blue.withOpacity(0.2)),
         ),
         child: Obx(() {
-          final profilePicUrl =
-              washStatusController
-                  .getCustomerData
-                  .value
-                  ?.data
-                  ?.customerDetails
-                  ?.profilePicUrl;
+          final imageUrl = washStatusController
+              .getCustomerData
+              .value
+              ?.data
+              ?.customerDetails
+              ?.profilePicUrl;
 
-          return CircleAvatar(
-            radius: 20,
-            backgroundImage:
-                (profilePicUrl!.isNotEmpty)
-                    ? NetworkImage(profilePicUrl)
-                    : Image.asset(Assets.imagesImMap).image,
-
+          return ClipOval(
+            child: CachedNetworkImage(
+              imageUrl: imageUrl ?? '',
+              width: 40,
+              height: 40,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => Image.asset(
+                Assets.imagesDemoProfile,
+                width: 40,
+                height: 40,
+                fit: BoxFit.cover,
+              ),
+              errorWidget: (context, url, error) => Image.asset(
+                Assets.imagesDemoProfile,
+                width: 40,
+                height: 40,
+                fit: BoxFit.cover,
+              ),
+            ),
           );
         }),
-      ),
+      )
     ];
 
     final List<Widget> outlineImages = [
@@ -116,6 +126,45 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ImageView(path: Assets.iconsTrophy, height: 23, width: 23),
       ImageView(path: Assets.iconsIcNotification, height: 23, width: 23),
       Container(
+        padding: EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(color: AppColor.blue.withOpacity(0.2)),
+        ),
+        child: Obx(() {
+          final imageUrl = washStatusController
+              .getCustomerData
+              .value
+              ?.data
+              ?.customerDetails
+              ?.profilePicUrl;
+
+          return ClipOval(
+            child: CachedNetworkImage(
+              imageUrl: imageUrl ?? '',
+              width: 40,
+              height: 40,
+              fit: BoxFit.cover,
+             placeholder: (context, url) => SizedBox(
+            width: 20,
+            height: 20,
+            child: Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            ),
+          ),
+              errorWidget: (context, url, error) => Image.asset(
+                Assets.imagesDemoProfile,
+                width: 40,
+                height: 40,
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        }),
+      )
+      /*Container(
         padding: EdgeInsets.all(6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
@@ -130,7 +179,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             .value
                             ?.data
                             ?.customerDetails
-                            ?.profilePicUrl)!
+                            !.profilePicUrl)!
                         .isNotEmpty)
                     ? NetworkImage(
                       (washStatusController
@@ -144,7 +193,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     : Image.asset(Assets.imagesImMap).image,
           );
         }),
-      ),
+      ),*/
     ];
 
     return SafeArea(

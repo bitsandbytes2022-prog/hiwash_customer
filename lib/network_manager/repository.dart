@@ -18,6 +18,7 @@ import '../featuers/auth/model/sign_up_model.dart';
 import '../featuers/dashboard/view/second_drawer/model/guides_response_model.dart';
 import '../featuers/notification/model/notification.dart';
 import '../featuers/rewads/model/get_offer_categories.dart';
+import '../featuers/wash_status/model/get_location_model.dart';
 import '../route/route_strings.dart';
 import 'api_constant.dart';
 import 'dio_helper.dart';
@@ -28,7 +29,6 @@ class Repository {
   final DioHelper dioHelper = DioHelper();
   final LocalStorage localStorage = LocalStorage();
 
-
   Future<SendOtpModel?> sendOtpRepo(Map<String, dynamic> requestBody) async {
     final dio = Dio();
 
@@ -38,12 +38,10 @@ class Repository {
       if (response.statusCode == 200) {
         return SendOtpModel.fromJson(response.data);
       } else {
-
         throw Exception('Failed to send OTP: ${response.statusCode}');
       }
     } on DioError catch (e) {
       if (e.response != null) {
-
         final errorData = e.response?.data['error'];
 
         if (errorData != null) {
@@ -51,11 +49,9 @@ class Repository {
           String errorMessage = errorData['message'];
 
           if (errorCode == 404 && errorMessage == "Your account not found.") {
-
             print("Error 404: $errorMessage");
             throw Exception('User not found (404): $errorMessage');
           } else {
-
             print("Error: $errorMessage");
             throw Exception('Failed to send OTP: $errorMessage');
           }
@@ -73,14 +69,14 @@ class Repository {
   }
 
   Future<GetTokenModel> getTokens(Object requestBody) async {
-   // print("body--->: $requestBody");
-  //  print("url--->: ${ApiConstant.getToken}");
+    // print("body--->: $requestBody");
+    //  print("url--->: ${ApiConstant.getToken}");
 
     var response = await dioHelper.post(
       url: ApiConstant.getToken,
       requestBody: requestBody,
     );
- //   print("Response--->: $response");
+    //   print("Response--->: $response");
 
     return GetTokenModel.fromJson(response);
   }
@@ -90,7 +86,7 @@ class Repository {
       url: ApiConstant.signUp,
       requestBody: requestBody,
     );
-   // print("Sign Response--->: $response");
+    // print("Sign Response--->: $response");
     return SignUpModel.fromJson(response);
   }
 
@@ -146,7 +142,7 @@ class Repository {
       url: ApiConstant.baseUrl + ApiConstant.getTermsAndConditions(entityType),
       isAuthRequired: true,
     );
-  //  print("---->termcondition${response.toString()}");
+    //  print("---->termcondition${response.toString()}");
     return TermsAndConditionsResponseModel.fromJson(response);
   }
 
@@ -158,59 +154,57 @@ class Repository {
     return GetOfferResponseModel.fromJson(response.data);
   }*/
   Future<GetOfferResponseModel> getAllOffer() async {
-   // print("url--->:${ApiConstant.getOffers}");
+    // print("url--->:${ApiConstant.getOffers}");
     Map<String, dynamic> response = await dioHelper.get(
       url: ApiConstant.getOffers,
       isAuthRequired: true,
     );
-   // print("Response--->: $response");
+    // print("Response--->: $response");
     return GetOfferResponseModel.fromJson(response);
   }
 
   Future<GetOffersByIdModel> getOfferById(int id) async {
-   // print("url--->:${ApiConstant.getOffersById}");
+    // print("url--->:${ApiConstant.getOffersById}");
     Map<String, dynamic> response = await dioHelper.get(
       url: ApiConstant.getOffersById(id),
       isAuthRequired: true,
     );
-   print("Response--->: $response");
+    print("Response--->: $response");
     return GetOffersByIdModel.fromJson(response);
   }
 
   Future<ApiResponse> rating(Object requestBody) async {
-   // print("Rating body--->: $requestBody");
+    // print("Rating body--->: $requestBody");
     Map<String, dynamic> response = await dioHelper.post(
       url: ApiConstant.rating,
       requestBody: requestBody,
       isAuthRequired: true,
     );
-  //  print("Rating Response--->: $response");
+    //  print("Rating Response--->: $response");
     return ApiResponse.fromJson(response);
   }
 
   Future<GetOfferCategoriesModel> getOfferCategories() async {
-   // print("url--->:${ApiConstant.offerCategories}");
+    // print("url--->:${ApiConstant.offerCategories}");
     Map<String, dynamic> response = await dioHelper.get(
       url: ApiConstant.getOffers,
       isAuthRequired: true,
     );
-   // print("Response--->: $response");
+    // print("Response--->: $response");
     return GetOfferCategoriesModel.fromJson(response);
   }
 
   Future<WashSummaryModel> washSummary() async {
-   // print("washSummary url--->:${ApiConstant.washSummary}");
+    // print("washSummary url--->:${ApiConstant.washSummary}");
     Map<String, dynamic> response = await dioHelper.get(
       url: ApiConstant.washSummary,
       isAuthRequired: true,
     );
-   // print("Response--->: $response");
+    // print("Response--->: $response");
     return WashSummaryModel.fromJson(response);
   }
 
-
-
-/*  Future<void> uploadProfilePictureRepo(requestBody) async {
+  /*  Future<void> uploadProfilePictureRepo(requestBody) async {
     //print("Request Body Type: ${requestBody.runtimeType}");
     try {
       final response = await dioHelper.uploadFile(
@@ -224,8 +218,7 @@ class Repository {
     }
   }*/
 
-
-  Future<dynamic> uploadProfilePictureRepo( requestBody) async {
+  Future<dynamic> uploadProfilePictureRepo(requestBody) async {
     print("Request Body Type: ${requestBody.runtimeType}");
     try {
       final response = await dioHelper.uploadFile(
@@ -234,10 +227,8 @@ class Repository {
         isAuthRequired: true,
       );
 
-     print("Upload success: $response");
-
-    }
-    catch (e) {
+      print("Upload success: $response");
+    } catch (e) {
       print("Upload failed: $e");
     }
   }
@@ -249,23 +240,30 @@ class Repository {
         requestBody: requestBody,
         isAuthRequired: true,
       );
-       print("Save profile success: $response");
+      print("Save profile success: $response");
       return response;
-
     } catch (e) {
       print("Save profile failed: $e");
     }
   }
 
-
-  Future<NotificationModel> notificationRepo(int id) async {
-    // print("washSummary url--->:${ApiConstant.washSummary}");
+  Future<NotificationModel> notificationRepo() async {
+    print("{Notification------>${ApiConstant.notification}}");
     Map<String, dynamic> response = await dioHelper.get(
-      url: ApiConstant.notification(id),
+      url: ApiConstant.notification,
       isAuthRequired: true,
     );
-    // print("Response--->: $response");
+    print("{Notification------>${response}}");
     return NotificationModel.fromJson(response);
   }
 
+  Future<GetLocationModel> getLocationRepo(Object requestBody) async {
+    Map<String, dynamic> response = await dioHelper.post(
+      url: ApiConstant.getLocation,
+      isAuthRequired: true,
+      requestBody: requestBody,
+    );
+
+    return GetLocationModel.fromJson(response);
+  }
 }

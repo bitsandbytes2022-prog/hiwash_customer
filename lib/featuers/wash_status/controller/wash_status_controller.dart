@@ -1,47 +1,35 @@
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:hiwash_customer/featuers/wash_status/model/get_location_model.dart';
 
 import '../../../network_manager/local_storage.dart';
 import '../../../network_manager/repository.dart';
 import '../../dashboard/model/get_customer_data_model.dart';
 import '../model/wash_summry.dart';
 
-class WashStatusController extends GetxController{
-  RxBool isWashSelected=true.obs;
-Rxn<WashSummaryModel>washSummaryModel=Rxn();
+class WashStatusController extends GetxController {
+  RxBool isWashSelected = true.obs;
+  Rxn<WashSummaryModel> washSummaryModel = Rxn();
   bool loading = false;
- /* @override
-  void onInit() {
-    if(washSummaryModel.value==null){
-      print("=======>${washSummaryModel.value}");
-      washSummaryModel.value;
-    }else{
-      getWashSummary();
-    }
 
-    super.onInit();
-  }*/
   Future<WashSummaryModel?> getWashSummary() async {
     try {
-
       washSummaryModel.value = await Repository().washSummary();
-     return washSummaryModel.value;
+      return washSummaryModel.value;
     } catch (error) {
       loading = false;
       update();
       print("Error fetching Wash summary: $error");
     }
     return null;
-
   }
 
-
-  Rxn<GetCustomerData> getCustomerData=Rxn();
-
+  Rxn<GetCustomerData> getCustomerData = Rxn();
 
   @override
   void onInit() {
-   // var customerId = Get.arguments;
     final String? userIdStr = LocalStorage().getUserId();
 
     if (userIdStr != null) {
@@ -54,26 +42,125 @@ Rxn<WashSummaryModel>washSummaryModel=Rxn();
     } else {
       print("No valid customer ID provided");
     }
-
+    getWashSummary();
+    fetchAndSetLocation();
+    fetchCurrentAddress();
   }
 
-
-  //bool  loading=true;
-
-
   Future<GetCustomerData?> getCustomerDataById(int id) async {
-    // loading = true;
     try {
-      getCustomerData.value= await Repository().getCustomerData(id);
+      getCustomerData.value = await Repository().getCustomerData(id);
 
       getCustomerData.value;
       getCustomerData.refresh();
     } catch (error) {
-      // loading = false;
       print("Error fetching customer data: $error");
       return null;
     }
     return null;
   }
+
+  Rxn<GetLocationModel> getLocationModel = Rxn();
+
+  Future<Position> determinePosition() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Location permissions are permanently denied.');
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
+
+  Future<GetLocationModel?>getLocation(String latitude,String longitude) async {
+    try{
+      getLocationModel.value=await Repository().getLocationRepo({
+
+        "latitude":latitude,
+        "longitude":longitude,
+      });
+
+    }catch(e){
+      print("Error fetching location: $e");
+      return null;
+    }
+    return null;
+  }
+
+
+  Future<void> fetchAndSetLocation() async {
+    try {
+      Position position = await determinePosition();
+      final latitude = position.latitude.toString();
+      final longitude = position.longitude.toString();
+
+      final location = await getLocation(latitude, longitude);
+      if (location != null) {
+        getLocationModel.value = location;
+        update();
+      }
+    } catch (e) {
+      print("Error getting location: $e");
+    }
+  }
+
+  RxString currentAddress = ''.obs;
+
+  Future<void> fetchCurrentAddress() async {
+    try {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        currentAddress.value = "Location services are disabled";
+        return;
+      }
+
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          currentAddress.value = "Location permission denied";
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        currentAddress.value = "Location permission permanently denied";
+        return;
+      }
+
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      if (placemarks.isNotEmpty) {
+        Placemark place = placemarks.first;
+
+        currentAddress.value =
+        "${place.street ?? ''}, ${place.subLocality ?? ''}, ${place.locality ?? ''}, ${place.postalCode ?? ''}";
+      } else {
+        currentAddress.value = "Could not retrieve address details";
+      }
+    } catch (e) {
+      print("Error fetching current address: $e");
+      currentAddress.value = "Location not available";
+    }
+  }
+
 
 }
