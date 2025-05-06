@@ -15,6 +15,7 @@ import '../../../widgets/components/image_view.dart';
 import '../../../widgets/components/profile_image_container.dart';
 import '../../dashboard/view/second_drawer/chat_screen.dart';
 import '../controller/notification_controller.dart';
+
 class NotificationScreen extends StatelessWidget {
   NotificationScreen({super.key});
 
@@ -23,123 +24,126 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: SingleChildScrollView(
+      child: SingleChildScrollView(
         padding: EdgeInsets.only(bottom: 40),
-    child: Column(
-    children: [
-    15.heightSizeBox,
-    Container(
-    margin: EdgeInsets.symmetric(horizontal: 15),
-    padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
-    decoration: BoxDecoration(
-    color: AppColor.cC31848,
-    borderRadius: BorderRadius.circular(15),
-    boxShadow: [
-    BoxShadow(
-    color: AppColor.cC31848.withOpacity(0.30),
-    spreadRadius: 0,
-    blurRadius: 15,
-    offset: Offset(0, 10),
-    ),
-    ],
-    ),
-    child: Row(
-    children: [
-    Container(
-    padding: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-    color: AppColor.white.withOpacity(0.1),
-    borderRadius: BorderRadius.circular(40),
-    border: Border.all(color: AppColor.c000000.withOpacity(0.1)),
-    ),
-    child: ImageView(
-    path: Assets.iconsIcBook,
-    height: 24,
-    width: 24,
-    color: AppColor.white,
-    ),
-    ),
-    10.widthSizeBox,
-    Expanded(
-    child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-    RichText(
-    text: TextSpan(
-    style: TextStyle(color: Colors.black, fontSize: 16),
-    children: <TextSpan>[
-    TextSpan(
-    text: 'Your ',
-    style: w500_12p(
-    color: AppColor.white.withOpacity(0.70),
-    ),
-    ),
-    TextSpan(
-    text: 'Unlimited Washes',
-    style: w600_12p(color: AppColor.white),
-    ),
-    TextSpan(
-    text:
-    ' Pack Has\n Been Overdue Since October 15, 2025!',
-    style: w500_12p(
-    color: AppColor.white.withOpacity(0.70),
-    ),
-    ),
-    ],
-    ),
-    ),
-    ],
-    ),
-    ),
-    Container(
-    alignment: Alignment.center,
-    padding: const EdgeInsets.only(right: 16),
-    child: ImageView(
-    path: Assets.iconsIcForward,
-    height:                      10,
-      width: 10,
-    ),
-    ),
-    ],
-    ),
-    ),
-      21.heightSizeBox,
-      Obx(() {
-        // Show loading indicator while loading
-        if (controller.isLoading.value) {
-          return Center(child: CircularProgressIndicator());
-        }
-
-        // Show error message if error
-        if (controller.errorMessage.value.isNotEmpty) {
-          return Center(
-            child: Text(
-              controller.errorMessage.value,
-              style: TextStyle(color: Colors.red),
+        child: Column(
+          children: [
+            15.heightSizeBox,
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 15),
+              padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
+              decoration: BoxDecoration(
+                color: AppColor.cC31848,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.cC31848.withOpacity(0.30),
+                    spreadRadius: 0,
+                    blurRadius: 15,
+                    offset: Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: AppColor.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(40),
+                      border: Border.all(
+                        color: AppColor.c000000.withOpacity(0.1),
+                      ),
+                    ),
+                    child: ImageView(
+                      path: Assets.iconsIcBook,
+                      height: 24,
+                      width: 24,
+                      color: AppColor.white,
+                    ),
+                  ),
+                  10.widthSizeBox,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            style: TextStyle(color: Colors.black, fontSize: 16),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Your ',
+                                style: w500_12p(
+                                  color: AppColor.white.withOpacity(0.70),
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Unlimited Washes',
+                                style: w600_12p(color: AppColor.white),
+                              ),
+                              TextSpan(
+                                text:
+                                    ' Pack Has\n Been Overdue Since October 15, 2025!',
+                                style: w500_12p(
+                                  color: AppColor.white.withOpacity(0.70),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(right: 16),
+                    child: ImageView(
+                      path: Assets.iconsIcForward,
+                      height: 10,
+                      width: 10,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          );
-        }
+            21.heightSizeBox,
+            Obx(() {
+              // Show loading indicator while loading
+              if (controller.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              }
 
-        if (controller.notificationModel.value?.data?.isNotEmpty ?? false) {
-          return ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: controller.notificationModel.value!.data!.length,
-            separatorBuilder: (context, index) {
-              return DotedHorizontalLine();
-            },
-            itemBuilder: (context, index) {
-              return Obx(() => notificationContainer(index));
-            },
-          );
-        } else {
-          return Text("Not found");
-        }
-      })
-    ],
-    ),
+              // Show error message if error
+              if (controller.errorMessage.value.isNotEmpty) {
+                return Center(
+                  child: Text(
+                    controller.errorMessage.value,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                );
+              }
+
+              if (controller.notificationModel.value?.data?.isNotEmpty ??
+                  false) {
+                return ListView.separated(
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: controller.notificationModel.value!.data!.length,
+                  separatorBuilder: (context, index) {
+                    return DotedHorizontalLine();
+                  },
+                  itemBuilder: (context, index) {
+                    return Obx(() => notificationContainer(index));
+                  },
+                );
+              } else {
+                return Text("Not found");
+              }
+            }),
+          ],
         ),
+      ),
     );
   }
 
@@ -185,9 +189,10 @@ class NotificationScreen extends StatelessWidget {
       },
       child: Container(
         width: Get.width,
-        color: controller.selectedStates[index].value
-            ? Colors.white
-            : AppColor.cF6F7FF,
+        color:
+            controller.selectedStates[index].value
+                ? Colors.white
+                : AppColor.cF6F7FF,
         padding: EdgeInsets.only(top: 15, bottom: 15, left: 15, right: 26),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,7 +212,7 @@ class NotificationScreen extends StatelessWidget {
                   ),
                   4.heightSizeBox,
                   Text(
-              "Unknown time",
+                    "Unknown time",
                     style: w400_10p(color: AppColor.c455A64),
                   ),
                 ],
@@ -219,6 +224,7 @@ class NotificationScreen extends StatelessWidget {
     );
   }
 }
+
 /*class NotificationScreen extends StatelessWidget {
   NotificationScreen({super.key});
 
@@ -379,7 +385,7 @@ class NotificationScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ProfileImageView(radiusStack: 5, isVisibleStack: false, radius: 20),
-            *//* Container(
+            */ /* Container(
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
                 color: AppColor.white.withOpacity(0.1),
@@ -400,7 +406,7 @@ class NotificationScreen extends StatelessWidget {
                   radius: 20,
                 ),
               ),
-            ),*//*
+            ),*/ /*
             9.widthSizeBox,
             Expanded(
               child: Column(

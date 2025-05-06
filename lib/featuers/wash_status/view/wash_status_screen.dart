@@ -25,144 +25,147 @@ class WashStatusScreen extends StatelessWidget {
         Obx(
           () =>
               controller.isWashSelected.value
-                  ? SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          18.heightSizeBox,
-                          Container(
-                            height: 95,
-                            decoration: BoxDecoration(
-                              color: AppColor.cC31848,
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColor.cC31848.withOpacity(0.30),
-                                  spreadRadius: 0,
-                                  blurRadius: 15,
-                                  offset: Offset(0, 10),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 14,
-                                        top: 12,
-                                      ),
-                                      child: Text(
-                                        "${controller.washSummaryModel.value?.data?.summary?.totalWashes ?? ""}",
-                                        style: w700_27a(color: AppColor.white),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 10,
-                                        bottom: 9,
-                                      ),
-                                      child: Text(
-                                        "kTotalWashes".tr,
-                                        style: w500_12p(
-                                          color: AppColor.white.withOpacity(
-                                            0.7,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                ImageView(
-                                  path: Assets.imagesCarWash,
-                                  height: 59,
-                                  width: 107,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        alignment: Alignment.topRight,
-                                        width: 100,
+                  ? Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            18.heightSizeBox,
+                            Container(
+                              height: 95,
+                              decoration: BoxDecoration(
+                                color: AppColor.cC31848,
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColor.cC31848.withOpacity(0.30),
+                                    spreadRadius: 0,
+                                    blurRadius: 15,
+                                    offset: Offset(0, 10),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
                                         padding: EdgeInsets.only(
-                                          right: 14,
+                                          left: 14,
                                           top: 12,
                                         ),
                                         child: Text(
-                                          "${controller.washSummaryModel.value?.data?.summary?.remainingWashes ?? ""}",
-                                          style: w700_27a(
-                                            color: AppColor.white,
+                                          "${controller.washSummaryModel.value?.data?.summary?.totalWashes ?? ""}",
+                                          style: w700_27a(color: AppColor.white),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                          bottom: 9,
+                                        ),
+                                        child: Text(
+                                          "kTotalWashes".tr,
+                                          style: w500_12p(
+                                            color: AppColor.white.withOpacity(
+                                              0.7,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        right: 15,
-                                        bottom: 9,
-                                      ),
-                                      child: Text(
-                                        "kRemaining".tr,
-                                        style: w500_12p(
-                                          color: AppColor.white.withOpacity(
-                                            0.7,
+                                    ],
+                                  ),
+                                  ImageView(
+                                    path: Assets.imagesCarWash,
+                                    height: 59,
+                                    width: 107,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.topRight,
+                                          width: 100,
+                                          padding: EdgeInsets.only(
+                                            right: 14,
+                                            top: 12,
+                                          ),
+                                          child: Text(
+                                            "${controller.washSummaryModel.value?.data?.summary?.remainingWashes ?? ""}",
+                                            style: w700_27a(
+                                              color: AppColor.white,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          24.heightSizeBox,
-                          Text(
-                            "kCompleteWash".tr,
-                            style: w500_14a(color: AppColor.c2C2A2A),
-                          ),
-                          18.heightSizeBox,
-                          (controller
-                                      .washSummaryModel
-                                      .value
-                                      ?.data
-                                      ?.completedWash
-                                      ?.isEmpty ??
-                                  true)
-                              ? Container(
-                                alignment: Alignment.center,
-                                child: Text("Not Found"),
-                              )
-                              : ListView.separated(
-                                padding: EdgeInsets.only(top: 0, bottom: 60),
-                                physics: NeverScrollableScrollPhysics(),
-                                separatorBuilder:
-                                    (context, index) => 14.heightSizeBox,
-                                shrinkWrap: true,
-                                itemCount:
-                                    controller
-                                        .washSummaryModel
-                                        .value!
-                                        .data!
-                                        .completedWash!
-                                        .length,
-                                itemBuilder: (context, index) {
-                                  return servicesContainer(index);
-                                },
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 15,
+                                          bottom: 9,
+                                        ),
+                                        child: Text(
+                                          "kRemaining".tr,
+                                          style: w500_12p(
+                                            color: AppColor.white.withOpacity(
+                                              0.7,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                        ],
+                            ),
+                            24.heightSizeBox,
+                            Text(
+                              "kCompleteWash".tr,
+                              style: w500_14a(color: AppColor.c2C2A2A),
+                            ),
+                            18.heightSizeBox,
+                            (controller
+                                        .washSummaryModel
+                                        .value
+                                        ?.data
+                                        ?.completedWash
+                                        ?.isEmpty ??
+                                    true)
+                                ? Container(
+                                  alignment: Alignment.center,
+                                  child: Text("Not Found"),
+                                )
+                                : ListView.separated(
+                                  padding: EdgeInsets.only(top: 0, bottom: 60),
+                                  //physics: NeverScrollableScrollPhysics(),
+                                  separatorBuilder:
+                                      (context, index) => 14.heightSizeBox,
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      controller
+                                          .washSummaryModel
+                                          .value!
+                                          .data!
+                                          .completedWash!
+                                          .length,
+                                  itemBuilder: (context, index) {
+                                    return servicesContainer(index);
+                                  },
+                                ),
+                          ],
+                        ),
                       ),
                     ),
                   )
+
 
                   : Stack(
                     children: [
