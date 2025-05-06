@@ -26,6 +26,7 @@ class ForgotPasswordScreen extends StatelessWidget {
     final _formKey = GlobalKey<FormState>();
     return Scaffold(
       body: AppBg(
+
         headingText: "kForgot".tr,
         subText: "kPassword".tr,
 
