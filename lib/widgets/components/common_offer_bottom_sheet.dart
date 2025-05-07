@@ -9,6 +9,7 @@ import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../featuers/rewads/controller.dart';
 import '../../featuers/rewads/model/offer_response_model.dart';
+import '../../featuers/rewads/view/widget/widgets.dart';
 import '../../featuers/subscription/widgets/offer_card.dart';
 import '../../generated/assets.dart';
 import '../../styling/app_color.dart';
@@ -97,7 +98,6 @@ class BottomSheetWidget extends StatelessWidget {
                 ),
                 25.heightSizeBox,
                 Column(
-
                   children: [
                     Obx(() {
                       final List<Offers> data =
@@ -263,11 +263,8 @@ class BottomSheetWidget extends StatelessWidget {
       init: RewardController(),
 
       builder: (controller) {
-   var  rewardDetail=   rewardController
-            .getOffersByIdModel
-            .value
-            ?.data
-            ?.first;
+        var rewardDetail =
+            rewardController.getOffersByIdModel.value?.data?.first;
         return Expanded(
           child: SingleChildScrollView(
             child: Column(
@@ -395,7 +392,7 @@ class BottomSheetWidget extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Positioned(
+                 /*     Positioned(
                         right: 16,
                         top: 17,
 
@@ -408,42 +405,64 @@ class BottomSheetWidget extends StatelessWidget {
                               width: 40,
                               fit: BoxFit.fitWidth,
                               imageUrl:
-                              (rewardController
-                                  .getOffersByIdModel
-                                  .value
-                                  ?.data
-                                  ?.first
-                                  .qRCodeUrl
-                                  ?.isNotEmpty ??
-                                  false)
-                                  ? rewardController
-                                  .getOffersByIdModel
-                                  .value!
-                                  .data!
-                                  .first
-                                  .qRCodeUrl!
-                                  : Assets.imagesDemo,
+                                  (rewardController
+                                              .getOffersByIdModel
+                                              .value
+                                              ?.data
+                                              ?.first
+                                              .qRCodeUrl
+                                              ?.isNotEmpty ??
+                                          false)
+                                      ? rewardController
+                                          .getOffersByIdModel
+                                          .value!
+                                          .data!
+                                          .first
+                                          .qRCodeUrl!
+                                      : Assets.imagesDemo,
                               placeholder:
                                   (context, url) => Center(
-                                child: SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
+                                    child: SizedBox(
+                                      height: 25,
+                                      width: 25,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
                               errorWidget:
                                   (context, url, error) => Image.asset(
-                                Assets.imagesDemo,
-                                height: 40,
-                                width: 40,
-                                fit: BoxFit.fitWidth,
-                              ),
+                                    Assets.imagesDemo,
+                                    height: 40,
+                                    width: 40,
+                                    fit: BoxFit.fitWidth,
+                                  ),
                             ),
                           ),
+                        ),
+                      ),*/
 
+                      Positioned(
+                        right: 16,
+                        top: 17,
 
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Builder(
+                            builder: (_) {
+                              final base64String =
+                                  rewardController
+                                      .getOffersByIdModel
+                                      .value
+                                      ?.data
+                                      ?.first
+                                      .qRCodeUrl;
+
+                              print("QR BASE64 big image: $base64String");
+
+                              return Base64ImageWidget( base64String:base64String, height: 40, width: 40,);
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -458,14 +477,11 @@ class BottomSheetWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        rewardDetail?.title??'',
+                        rewardDetail?.title ?? '',
                         style: w700_16a(color: AppColor.c2C2A2A),
                       ),
 
-                      Text(
-                        rewardDetail?.description??'',
-                        style: w400_12p(),
-                      ),
+                      Text(rewardDetail?.description ?? '', style: w400_12p()),
                       29.heightSizeBox,
                       Stack(
                         alignment: Alignment.bottomCenter,
@@ -478,23 +494,14 @@ class BottomSheetWidget extends StatelessWidget {
                               width: Get.width,
                             ),
                           ),
-                          Positioned(
+
+                          /// todo show image
+                          /*  Positioned(
                             bottom: 10,
                             // left: Get.width/2,
                             child: GestureDetector(
                               onTap: () {
-                                Get.back();
-                                showDialog(
-                                  barrierDismissible: false,
-                                  context: Get.context!,
-                                  builder: (BuildContext context) {
-                                    return AppDialog(
-                                      padding: EdgeInsets.zero,
 
-                                      child: scanDialog(),
-                                    );
-                                  },
-                                );
                               },
                               child: CachedNetworkImage(
                                 height: 157,
@@ -535,26 +542,29 @@ class BottomSheetWidget extends StatelessWidget {
                                 ),
                               ),
 
-                              /*ImageView(
-                                path:
-                                    rewardController
-                                                .getOffersByIdModel
-                                                .value
-                                                ?.data
-                                                ?.first
-                                                .qRCodeUrl
-                                                ?.isNotEmpty ==
-                                            true
-                                        ? rewardController
-                                            .getOffersByIdModel
-                                            .value
-                                            ?.data!
-                                            .first
-                                            .qRCodeUrl
-                                        : Assets.imagesImQr,
-                                height: 157,
-                                width: 157,
-                              ),*/
+                            ),
+                          ),*/
+
+                          /// base64 image
+                          Positioned(
+                            bottom: 10,
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Builder(
+                                builder: (_) {
+                                  final base64String =
+                                      rewardController
+                                          .getOffersByIdModel
+                                          .value
+                                          ?.data
+                                          ?.first
+                                          .qRCodeUrl;
+
+                                  print("QR BASE64 big image: $base64String");
+
+                                  return Base64ImageWidget( base64String:base64String, height: 157, width: 157,);
+                                },
+                              ),
                             ),
                           ),
                         ],
@@ -589,21 +599,21 @@ class BottomSheetWidget extends StatelessWidget {
                             dropDownRow(
                               index: 0,
                               title: "Offer Details",
-                              content: rewardDetail?.offerDetails??'',
+                              content: rewardDetail?.offerDetails ?? '',
                             ),
                             Divider(color: AppColor.c142293.withOpacity(0.20)),
 
                             dropDownRow(
                               index: 1,
                               title: "How to redeem",
-                              content:  rewardDetail?.howToRedeem??'',
+                              content: rewardDetail?.howToRedeem ?? '',
                             ),
                             Divider(color: AppColor.c142293.withOpacity(0.20)),
 
                             dropDownRow(
                               index: 2,
                               title: "Terms & conditions",
-                              content:  rewardDetail?.termsAndConditions??'',
+                              content: rewardDetail?.termsAndConditions ?? '',
                             ),
 
                             5.heightSizeBox,
