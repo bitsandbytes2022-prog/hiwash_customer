@@ -30,25 +30,16 @@ import '../controller/drawer_profile_controller.dart';
 import 'my_account_screen.dart';
 import 'terms _and_condition_screen.dart';
 
-class DrawerScreen extends StatefulWidget {
-  @override
-  State<DrawerScreen> createState() => _DrawerScreenState();
-}
-
-class _DrawerScreenState extends State<DrawerScreen> {
+class DrawerScreen extends StatelessWidget {
   final DrawerProfileController drawerController = Get.put(
     DrawerProfileController(),
   );
-
   final SubscriptionController controller =
       Get.isRegistered<SubscriptionController>()
           ? Get.find<SubscriptionController>()
           : Get.put(SubscriptionController());
-
   DashboardController dashboardController = Get.find();
-
   AuthController authController = Get.find();
-
   WashStatusController washStatusController = Get.find();
 
   @override
@@ -118,58 +109,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   border: Border.all(color: AppColor.blue.withOpacity(0.2)),
                 ),
                 child: Obx(() {
-
-                  var profilePicUrl =    washStatusController
-                          .getCustomerData
-                          .value
-                          ?.data
-                          ?.customerDetails
-                          ?.profilePicUrl;
-
-
+                  final profilePicUrl = washStatusController.getCustomerData.value?.data?.customerDetails?.profilePicUrl??'' ?? '';
+                  final hasImage = profilePicUrl.isNotEmpty;
                   return CircleAvatar(
                     radius: 50,
-                    backgroundColor: Colors.grey[200],
-                    child: ClipOval(
-                      child:
-                        Image.network(
-                                profilePicUrl!,
-                                repeat: ImageRepeat.repeat ,
-                                fit: BoxFit.cover,
-                                height: 100,
-                                // Diameter = radius * 2
-                                width: 100,
-                                loadingBuilder: (
-                                  BuildContext context,
-                                  Widget child,
-                                  ImageChunkEvent? loadingProgress,
-                                ) {
-                                  if (loadingProgress == null) return child;
-                                  return Center(
-                                    child: SizedBox(
-                                      height: 24,
-                                      width: 24,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                errorBuilder: (
-                                  BuildContext context,
-                                  Object error,
-                                  StackTrace? stackTrace,
-                                ) {
-                                  return Image.asset(
-                                    Assets.iconsIcUpWardArrow,
-                                    fit: BoxFit.cover,
-                                    height: 100,
-                                    width: 100,
-                                  );
-                                },
-                              )
-
-                    ),
+                    backgroundImage: hasImage
+                        ? CachedNetworkImageProvider(
+                      profilePicUrl,
+                      headers: {'Cache-Control': 'no-cache'},
+                    )
+                        : AssetImage(Assets.imagesImMap),
                   );
                 }),
               ),
@@ -228,11 +177,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
           /// **Drawer Options**
           drawerRowWidget(
-            onTap: () => Get.toNamed(RouteStrings.myAccountScreen)!.then((value) {
-              setState(() {
-
-              });
-            },),
+            onTap: () => Get.toNamed(RouteStrings.myAccountScreen),
             title: 'My Account',
             image: Assets.iconsIcAccount,
           ),
