@@ -380,7 +380,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
         15.heightSizeBox,
         GestureDetector(
-          onTap: () {
+        /*  onTap: () {
             Get.back();
             showDialog(
               barrierDismissible: false,
@@ -402,7 +402,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 );
               },
             );
-          },
+          },*/
           child: Obx(() {
             final qrCodeUrl =
                 washStatusController
@@ -492,188 +492,4 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // final TextEditingController commentController = TextEditingController();
 
-  Widget successDialog() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              30.heightSizeBox,
-              Container(
-                width: Get.width,
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: ImageView(
-                        path: Assets.imagesImSussess,
-                        width: Get.width,
-                        fit: BoxFit.cover,
-                        height: 180,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              21.heightSizeBox,
-              Text("Wash Complete!", style: w700_22a(color: AppColor.c2C2A2A)),
-              Text(
-                "Share your feedback and\nrate the Customer.",
-                textAlign: TextAlign.center,
-                style: w400_16p(),
-              ),
-              9.heightSizeBox,
-              GetBuilder<DashboardController>(
-                builder: (controller) {
-                  return RatingStars(
-                    value: controller.userRating.toDouble(),
-                    onValueChanged: (v) {
-                      controller.userRating = v.toInt();
-                      controller.update();
-                    },
-                    starBuilder:
-                        (index, color) =>
-                            Icon(Icons.star, color: color, size: 28),
-                    starCount: 5,
-                    starSize: 28,
-                    valueLabelVisibility: false,
-                    starColor: AppColor.cFFC200,
-                    starOffColor: Colors.grey,
-
-                    animationDuration: Duration(milliseconds: 200),
-                    starSpacing: 2,
-                  );
-                },
-              ),
-
-              15.heightSizeBox,
-
-              TextFormField(
-                controller: dashboardController.commentController,
-                maxLines: 3,
-                style: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.9)),
-                decoration: InputDecoration(
-                  fillColor: AppColor.white,
-                  hintText: "Enter your comment here...",
-                  filled: true,
-                  labelStyle: w400_13a(color: AppColor.c455A64),
-                  hintStyle: w400_14p(
-                    color: AppColor.c2C2A2A.withOpacity(0.40),
-                  ),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 12,
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColor.c5C6B72.withOpacity(0.30),
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColor.c5C6B72.withOpacity(0.30),
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-              ),
-
-              15.heightSizeBox,
-
-              GestureDetector(
-                onTap: () {
-                  final comment =
-                      dashboardController.commentController.text.trim();
-                  final ratingString =
-                      dashboardController.userRating.toString();
-
-                  dashboardController
-                      .getRating(ratingString, "6", comment)
-                      .then((value) {
-                        if (value != null) {
-                          Get.back();
-                          dashboardController.commentController.clear();
-                        }
-                      });
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 28, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: AppColor.c142293,
-                    borderRadius: BorderRadius.circular(100),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColor.c142293.withOpacity(0.30),
-                        blurRadius: 15,
-                        offset: Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Text("Submit", style: w500_14a(color: AppColor.white)),
-                ),
-              ),
-
-              18.heightSizeBox,
-            ],
-          ),
-        ),
-
-        // Bottom profile section stays same
-        Container(
-          decoration: BoxDecoration(
-            color: AppColor.cF6F7FF,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-          ),
-          child: Column(
-            children: [
-              DotedHorizontalLine(),
-              Padding(
-                padding: EdgeInsets.only(top: 23, left: 19, bottom: 40),
-                child: Row(
-                  children: [
-                    ProfileImageView(
-                      radius: 20,
-                      radiusStack: 4,
-                      isVisibleStack: false,
-                    ),
-                    9.widthSizeBox,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Ibrahim Bafqia",
-                          style: w600_14a(color: AppColor.c2C2A2A),
-                        ),
-                        5.widthSizeBox,
-                        Row(
-                          children: [
-                            ImageView(
-                              path: Assets.iconsIcPlaceMarker,
-                              height: 18,
-                              width: 18,
-                            ),
-                            Text(
-                              "09-May-2024",
-                              style: w400_12a(color: AppColor.c455A64),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
 }

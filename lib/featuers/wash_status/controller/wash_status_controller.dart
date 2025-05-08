@@ -43,10 +43,10 @@ class WashStatusController extends GetxController {
       print("No valid customer ID provided");
     }
     getWashSummary();
-    fetchAndSetLocation();
+    //fetchAndSetLocation();
     fetchCurrentAddress();
   }
-
+/// Get Customer Data By Id
   Future<GetCustomerData?> getCustomerDataById(int id) async {
     try {
       getCustomerData.value = await Repository().getCustomerData(id);
@@ -62,26 +62,6 @@ class WashStatusController extends GetxController {
 
   Rxn<GetLocationModel> getLocationModel = Rxn();
 
-  Future<Position> determinePosition() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error('Location permissions are permanently denied.');
-    }
-
-    return await Geolocator.getCurrentPosition();
-  }
 
   Future<GetLocationModel?>getLocation(String latitude,String longitude) async {
     try{
@@ -97,26 +77,8 @@ class WashStatusController extends GetxController {
     }
     return null;
   }
-
-
-  Future<void> fetchAndSetLocation() async {
-    try {
-      Position position = await determinePosition();
-      final latitude = position.latitude.toString();
-      final longitude = position.longitude.toString();
-
-      final location = await getLocation(latitude, longitude);
-      if (location != null) {
-        getLocationModel.value = location;
-        update();
-      }
-    } catch (e) {
-      print("Error getting location: $e");
-    }
-  }
-
+  /// fetch Current Address
   RxString currentAddress = ''.obs;
-
   Future<void> fetchCurrentAddress() async {
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -161,6 +123,44 @@ class WashStatusController extends GetxController {
       currentAddress.value = "Location not available";
     }
   }
+
+/*
+  Future<void> fetchAndSetLocation() async {
+    try {
+      Position position = await determinePosition();
+      final latitude = position.latitude.toString();
+      final longitude = position.longitude.toString();
+
+      final location = await getLocation(latitude, longitude);
+      if (location != null) {
+        getLocationModel.value = location;
+        update();
+      }
+    } catch (e) {
+      print("Error getting location: $e");
+    }
+  }*/
+
+/*  Future<Position> determinePosition() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Location permissions are permanently denied.');
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }*/
 
 
 }
