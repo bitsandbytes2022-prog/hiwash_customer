@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/auth/model/sign_up_model.dart';
@@ -31,28 +32,34 @@ class AuthController extends GetxController {
 
   /// login controller
   TextEditingController loginPhoneController = TextEditingController(
-    text: "90909090",
+    text: kDebugMode ? "90909090" : "",
   );
   TextEditingController passwordController = TextEditingController(
-    text: "Abcd@123",
+    text: kDebugMode ? "Abcd@123" : "",
   );
 
   ///signup controller
-  TextEditingController nameController = TextEditingController(text: 'Abcd');
+  TextEditingController nameController = TextEditingController(
+    text: kDebugMode ? 'Abcd' : "",
+  );
   TextEditingController emailSignUpController = TextEditingController(
-    text: 'abcd@gmail.com',
+    text: kDebugMode ? 'abcd@gmail.com' : "",
   );
   TextEditingController phoneController = TextEditingController(
-    text: "9016824518",
+    text: kDebugMode ? "9016824518" : "",
   );
-  TextEditingController zoneController = TextEditingController(text: "Zone 50");
+  TextEditingController zoneController = TextEditingController(
+    text: kDebugMode ? "Zone 50" : "",
+  );
   TextEditingController streetController = TextEditingController(
-    text: "al Matar Street",
+    text: kDebugMode ? "al Matar Street" : "",
   );
   TextEditingController buildingController = TextEditingController(
-    text: 'Abcd',
+    text: kDebugMode ? 'Abcd' : "",
   );
-  TextEditingController unitController = TextEditingController(text: 'Abcd');
+  TextEditingController unitController = TextEditingController(
+    text: kDebugMode ? 'Abcd' : "",
+  );
 
   /// forgot password controller
   TextEditingController phoneForgotController = TextEditingController();
@@ -266,7 +273,7 @@ class AuthController extends GetxController {
       if (value.data?.token != null && value.data!.token!.isNotEmpty) {
         LocalStorage tokenStorage = LocalStorage();
         await tokenStorage.saveToken(value.data!.token!);
-       await  tokenStorage.saveUserId(value.data!.id.toString());
+        await tokenStorage.saveUserId(value.data!.id.toString());
 
         isLoggedIn.value = true;
       }
