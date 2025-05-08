@@ -176,13 +176,6 @@ class WashStatusScreen extends StatelessWidget {
                                       return AppDialog(
                                         padding: EdgeInsets.zero,
                                         bottomVisible: true,
-                                        child: successDialog(
-                                          controller
-                                              .washSummaryModel
-                                              .value!
-                                              .data!
-                                              .completedWash![index],
-                                        ),
 
                                         remainingTextBottom:
                                             controller
@@ -192,6 +185,13 @@ class WashStatusScreen extends StatelessWidget {
                                                 ?.summary
                                                 ?.remainingWashes ??
                                             '',
+                                        child: successDialog(
+                                          controller
+                                              .washSummaryModel
+                                              .value!
+                                              .data!
+                                              .completedWash![index],
+                                        ),
                                       );
                                     },
                                   );
@@ -516,15 +516,13 @@ class WashStatusScreen extends StatelessWidget {
                       dashboardController.userRating.toString();
 
                   dashboardController
-                      .getRating(ratingString, "6", comment)
+                      .getRating(ratingString,completedWashData.id.toString() , comment)
                       .then((value) {
                         if (value != null) {
                           dashboardController.commentController.clear();
                           dashboardController.userRating = 0;
-
                           controller.getWashSummary();
                           Get.back();
-                          /*  controller.washSummaryModel.value = null;*/
                         }
                       });
                 },
