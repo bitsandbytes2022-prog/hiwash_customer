@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/widgets/components/doted_horizontal_line.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
@@ -9,6 +10,7 @@ import '../../../route/route_strings.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
+import '../../../widgets/components/data_formet.dart';
 import '../../../widgets/components/doted_line.dart';
 import '../../../widgets/components/doted_vertical_line.dart';
 import '../../../widgets/components/image_view.dart';
@@ -20,6 +22,7 @@ class NotificationScreen extends StatelessWidget {
   NotificationScreen({super.key});
 
   final NotificationController controller = Get.put(NotificationController());
+  WashStatusController washStatusController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -78,12 +81,19 @@ class NotificationScreen extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: 'Unlimited Washes',
+                                text:
+                                    washStatusController
+                                        .getCustomerData
+                                        .value
+                                        ?.data
+                                        ?.subscriptionDetails
+                                        ?.subscriptionName ??
+                                    '',
                                 style: w600_12p(color: AppColor.white),
                               ),
                               TextSpan(
                                 text:
-                                    ' Pack Has\n Been Overdue Since October 15, 2025!',
+                                    ' Pack Has\n Been Overdue Since ${formatDate(washStatusController.getCustomerData.value?.data?.subscriptionDetails?.endDate)}!',
                                 style: w500_12p(
                                   color: AppColor.white.withOpacity(0.70),
                                 ),
@@ -193,31 +203,49 @@ class NotificationScreen extends StatelessWidget {
             controller.selectedStates[index].value
                 ? Colors.white
                 : AppColor.cF6F7FF,
-        padding: EdgeInsets.only(top: 15, bottom: 15, left: 15, right: 26),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        //padding: EdgeInsets.only(top: 15, bottom: 15, left: 15, right: 26),
+        child: Column(
           children: [
-            ProfileImageView(radiusStack: 5, isVisibleStack: false, radius: 20),
-            9.widthSizeBox,
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+            DotedHorizontalLine(),
+            Padding(
+              padding: EdgeInsets.only(
+                top: 15,
+                bottom: 15,
+                left: 15,
+                right: 26,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    "No Title",
-                    style: w500_12p(color: AppColor.c2C2A2A),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                  ProfileImageView(
+                    radiusStack: 5,
+                    isVisibleStack: false,
+                    radius: 20,
                   ),
-                  4.heightSizeBox,
-                  Text(
-                    "Unknown time",
-                    style: w400_10p(color: AppColor.c455A64),
+                  9.widthSizeBox,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.message ?? '',
+                          style: w500_12p(color: AppColor.c2C2A2A),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                        4.heightSizeBox,
+                        Text(
+                          formatDate(item.createdAt),
+                          style: w400_10p(color: AppColor.c455A64),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
+            DotedHorizontalLine(),
           ],
         ),
       ),

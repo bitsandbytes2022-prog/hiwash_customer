@@ -11,41 +11,15 @@ class DashboardController extends GetxController {
   Rxn<ApiResponse> apiResponse = Rxn<ApiResponse>();
   int userRating = 0;
   final TextEditingController commentController = TextEditingController();
-  //Rxn<GetCustomerData> getCustomerData = Rxn();
+
   final String? userId = LocalStorage().getUserId();
 
   @override
   Future<void> onInit() async {
     super.onInit();
 
-  /*  if (userId != null) {
-      final int? parsedId = int.tryParse(userId!);
-      if (parsedId != null && parsedId > 0) {
-      await  getCustomerDataById(parsedId);
-        print("unparsable user ID: $userId");
-      } else {
-        print("Invalid or unparsable user ID: $userId");
-      }
-    } else {
-      print("User ID not found in local storage");
-    }*/
   }
-/*
-  Future<GetCustomerData?> getCustomerDataById(int id) async {
-    // loading = true;\
-    try {
-      getCustomerData.value = await Repository().getCustomerData(id);
-print("Customer data--->:${getCustomerData.value}");
-      getCustomerData.value;
-      getCustomerData.refresh();
-      update();
-    } catch (error) {
-      // loading = false;
-      print("Error fetching customer data: $error");
-      return null;
-    }
-    return null;
-  }*/
+
 
   Future<ApiResponse?> getRating(
     String rating,
