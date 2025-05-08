@@ -97,7 +97,9 @@ class WashStatusScreen extends StatelessWidget {
                               ),
                               child: Text(
                                 "${controller.washSummaryModel.value?.data?.summary?.remainingWashes ?? ""}",
-                                style: w700_27a(
+                                style:(controller.washSummaryModel.value?.data?.summary?.remainingWashes == 1)?w700_27a(
+                                  color: AppColor.white,
+                                ):w700_15a(
                                   color: AppColor.white,
                                 ),
                               ),

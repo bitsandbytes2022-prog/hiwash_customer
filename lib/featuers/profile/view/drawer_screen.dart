@@ -102,7 +102,50 @@ class DrawerScreen extends StatelessWidget {
           Stack(
             alignment: Alignment.topRight,
             children: [
-              Container(
+            /*  Container(
+                padding: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(color: AppColor.blue.withOpacity(0.2)),
+                ),
+                child: Obx(() {
+                  final imageUrl =
+                      washStatusController
+                          .getCustomerData
+                          .value
+                          ?.data
+                          ?.customerDetails
+                          ?.profilePicUrl;
+
+                  return ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl ?? '',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: Center(
+                          child: SizedBox(
+                            height: 24,
+                            width: 24,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        ),
+                      ),
+                      errorWidget:
+                          (context, url, error) => Image.asset(
+                            Assets.imagesDemoProfile,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                    ),
+                  );
+                }),
+              ),*/
+                     Container(
                 padding: EdgeInsets.all(6),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),

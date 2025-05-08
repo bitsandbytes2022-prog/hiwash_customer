@@ -164,36 +164,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           );
         }),
       )
-      /*Container(
-        padding: EdgeInsets.all(6),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
-          border: Border.all(color: AppColor.blue.withOpacity(0.2)),
-        ),
-        child: Obx(() {
-          return CircleAvatar(
-            radius: 20,
-            backgroundImage:
-                ((washStatusController
-                            .getCustomerData
-                            .value
-                            ?.data
-                            ?.customerDetails
-                            !.profilePicUrl)!
-                        .isNotEmpty)
-                    ? NetworkImage(
-                      (washStatusController
-                          .getCustomerData
-                          .value
-                          ?.data
-                          ?.customerDetails
-                          ?.profilePicUrl)!,
-                      headers: {'Cache-Control': 'no-cache'},
-                    )
-                    : Image.asset(Assets.imagesImMap).image,
-          );
-        }),
-      ),*/
+
     ];
 
     return SafeArea(
@@ -419,6 +390,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   padding: EdgeInsets.zero,
                   bottomVisible: true,
                   child: successDialog(),
+
                   remainingTextBottom:
                       washStatusController
                           .washSummaryModel

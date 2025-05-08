@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 
 import '../../generated/assets.dart';
 import '../../styling/app_color.dart';
@@ -13,13 +14,24 @@ class AppDialog extends StatelessWidget {
   String? remainingTextTop;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
+  TextStyle? remainingTextBottomStyle;
   bool? topVisible = false;
   bool? bottomVisible = false;
 
-  AppDialog({super.key, this.child, this.margin, this.padding,this.topVisible,
+  AppDialog({
+    super.key,
+    this.child,
+    this.margin,
+    this.padding,
+    this.topVisible,
 
-    this.bottomVisible,this.remainingTextBottom,this.remainingTextTop
+    this.bottomVisible,
+    this.remainingTextBottom,
+    this.remainingTextTop,
+    this.remainingTextBottomStyle,
   });
+
+  WashStatusController washStatusController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +42,21 @@ class AppDialog extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-
             Stack(
               alignment: Alignment.bottomCenter,
               children: [
-
                 Stack(
                   alignment: Alignment.topRight,
                   children: [
                     Container(
                       margin:
-                      margin ??
-                          EdgeInsets.only(left: 16, right: 16, bottom: 11,top: 11),
+                          margin ??
+                          EdgeInsets.only(
+                            left: 16,
+                            right: 16,
+                            bottom: 11,
+                            top: 11,
+                          ),
                       width: Get.width,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -66,72 +81,89 @@ class AppDialog extends StatelessWidget {
                   ],
                 ),
 
-                if(bottomVisible==true) Container(
-                  padding: EdgeInsets.only(bottom: 0),
-                  margin: EdgeInsets.only(left: 50, right: 50, top: 40),
+                if (bottomVisible == true)
+                  Container(
+                    padding: EdgeInsets.only(bottom: 0),
+                    margin: EdgeInsets.only(left: 50, right: 50, top: 40),
 
-                  /*  decoration: BoxDecoration(
+                    /*  decoration: BoxDecoration(
                       image: DecorationImage(image: AssetImage(Assets.imagesDialogBottom),
                     ),*/
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Image.asset(Assets.imagesDialogBottom),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Remaining Washes: ',
-                          style: w500_14p(color: AppColor.c2C2A2A),
-                          children: <TextSpan>[
-                            TextSpan(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Image.asset(Assets.imagesDialogBottom),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Remaining Washes: ',
+                            style:
+                                washStatusController
+                                            .getCustomerData
+                                            .value
+                                            ?.data
+                                            ?.subscriptionDetails
+                                            ?.subscriptionId ==
+                                        1
+                                    ? w400_14p(color: AppColor.c2C2A2A)
+                                    : w400_13p(color: AppColor.c2C2A2A),
+                            children: <TextSpan>[
+                              TextSpan(
                                 text: remainingTextBottom,
-                                style: w400_16p(color: AppColor.cC31848)
-                            ),
-                          ],
+                                style:
+                                    washStatusController
+                                                .getCustomerData
+                                                .value
+                                                ?.data
+                                                ?.subscriptionDetails
+                                                ?.subscriptionId ==
+                                            1
+                                        ? w400_16p(color: AppColor.cC31848)
+                                        : w600_12p(color: AppColor.cC31848),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      /* Text(
+                        /* Text(
                         remainingTextTop ?? ''.tr,
                         style: w500_14p(color: AppColor.c2C2A2A),
                       ),*/
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            if(topVisible==true)  Container(
-
-              padding: EdgeInsets.only(top: 0),
-              margin: EdgeInsets.only(left: 50, right: 50,),
-
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Image.asset(Assets.imagesDiloagBgTop),
-
-
-                  RichText(
-                    text: TextSpan(
-                      text: 'Remaining Washes: ',
-                      style: w500_14p(color: AppColor.c2C2A2A),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: '19',
-                            style: w400_16p(color: AppColor.cC31848)
-                        ),
                       ],
                     ),
                   ),
-                  /* Text(
+              ],
+            ),
+            if (topVisible == true)
+              Container(
+                padding: EdgeInsets.only(top: 0),
+                margin: EdgeInsets.only(left: 50, right: 50),
+
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(Assets.imagesDiloagBgTop),
+
+                    RichText(
+                      text: TextSpan(
+                        text: 'Remaining Washes: ',
+                        style: w500_14p(color: AppColor.c2C2A2A),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '19',
+                            style: w400_16p(color: AppColor.cC31848),
+                          ),
+                        ],
+                      ),
+                    ),
+                    /* Text(
                     remainingTextBottom ?? ''.tr,
                     style: w500_14p(color: AppColor.c2C2A2A),
                   ),*/
-                ],
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       ),
     );
   }
 }
-

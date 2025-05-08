@@ -84,6 +84,7 @@ WashStatusController washStatusController =Get.find();
                   height: 56, // radius * 2
                   width: 56,
                   placeholder: (context, url) => Center(
+
                     child: SizedBox(
                       height: 20,
                       width: 20,
@@ -128,6 +129,7 @@ WashStatusController washStatusController =Get.find();
                     OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 20)),
                     25.heightSizeBox,
                     viewOfferButton(() {
+                    rewardController.getAllOffers();
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
@@ -254,8 +256,8 @@ WashStatusController washStatusController =Get.find();
                               "gJ18",
                               "Success",
                             )
-                            .then((value) {
-                              washStatusController.getCustomerDataById(
+                            .then((value) async {
+                          await    washStatusController.getCustomerDataById(
                                 washStatusController
                                         .getCustomerData
                                         .value
