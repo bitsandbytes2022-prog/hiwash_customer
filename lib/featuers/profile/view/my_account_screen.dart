@@ -93,17 +93,6 @@ class MyAccountScreen extends StatelessWidget {
                             );
                           }
                         }),
-                        /* child: Obx(
-                          () => CircleAvatar(
-                            radius: 50,
-                            backgroundImage:
-                                drawerProfileController.imageFile.value != null
-                                    ? FileImage(
-                                      drawerProfileController.imageFile.value!,
-                                    )
-                                    : AssetImage(Assets.imagesDemoProfile),
-                          ),
-                        ),*/
                       ),
                       GestureDetector(
                         onTap: () async {
@@ -119,24 +108,7 @@ class MyAccountScreen extends StatelessWidget {
                             print("No image selected to upload");
                           }
                         },
-                       /* onTap: () async {
-                          await drawerProfileController.imagePicker();
 
-                          await drawerProfileController
-                              .uploadProfileImage();
-
-                                  await washStatusController.getCustomerDataById(
-                                    washStatusController
-                                            .getCustomerData
-                                            .value
-                                            ?.data
-                                            ?.customerDetails
-                                            ?.id ??
-                                        0,
-                                  );
-
-
-                        },*/
                         child: Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(

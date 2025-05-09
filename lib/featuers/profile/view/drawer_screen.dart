@@ -102,7 +102,7 @@ class DrawerScreen extends StatelessWidget {
           Stack(
             alignment: Alignment.topRight,
             children: [
-            /*  Container(
+              Container(
                 padding: EdgeInsets.all(6),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
@@ -144,8 +144,8 @@ class DrawerScreen extends StatelessWidget {
                     ),
                   );
                 }),
-              ),*/
-                     Container(
+              ),
+              /*       Container(
                 padding: EdgeInsets.all(6),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
@@ -164,8 +164,9 @@ class DrawerScreen extends StatelessWidget {
                         : AssetImage(Assets.imagesImMap),
                   );
                 }),
-              ),
-              Container(
+              ),*/
+          washStatusController.getCustomerData.value?.data?.subscriptionDetails?.subscriptionId==2?
+          Container(
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   color: AppColor.white,
@@ -178,7 +179,7 @@ class DrawerScreen extends StatelessWidget {
                   height: 17,
                   width: 17,
                 ),
-              ),
+              ):SizedBox(),
             ],
           ),
           11.heightSizeBox,
