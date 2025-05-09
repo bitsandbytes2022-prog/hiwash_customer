@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
@@ -20,9 +21,7 @@ class PlansContainer extends StatelessWidget {
   final bool imageShow;
   final VoidCallback? onTap;
   final String? subscriptionId;
-  final int? currentUserSubscriptionId;
-  final bool isViewOnly;
-
+  final bool subscriptionSelection;
 
   PlansContainer({
     super.key,
@@ -36,31 +35,51 @@ class PlansContainer extends StatelessWidget {
     this.imageShow = false,
     this.onTap,
     this.subscriptionId,
-    this.currentUserSubscriptionId,
-    this.isViewOnly = false,
+    this.subscriptionSelection = false,
   });
 
   final SubscriptionController controller = Get.find();
+  final WashStatusController washStatusController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    bool isDisabled = isViewOnly || currentUserSubscriptionId == 1 || currentUserSubscriptionId == 2;
-
     return GestureDetector(
       onTap: () {
-        if (isDisabled) return;
-        controller.selectPlan(index, subscriptionId ?? "");
+        if (washStatusController
+                    .getCustomerData
+                    .value
+                    ?.data
+                    ?.subscriptionDetails
+                    ?.subscriptionId ==
+                1 ||
+            washStatusController
+                    .getCustomerData
+                    .value
+                    ?.data
+                    ?.subscriptionDetails
+                    ?.subscriptionId ==
+                2) {
+          return;
+        }
+
+        if (subscriptionSelection) {
+          controller.selectPlan(index, subscriptionId ?? "");
+        }
+
         if (onTap != null) onTap!();
       },
 
+      /*    onTap: () {
+        controller.selectPlan(index, subscriptionId ?? "");
+        if (onTap != null) onTap!();
+      },*/
       child: Obx(
         () => Container(
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color:isDisabled
-                    ? Colors.transparent:
+                color:
                     controller.selectedIndex.value == index
                         ? AppColor.cC31848.withOpacity(0.25)
                         : AppColor.c142293.withOpacity(0.1),
@@ -71,8 +90,7 @@ class PlansContainer extends StatelessWidget {
             ],
             borderRadius: BorderRadius.circular(15),
             border: Border.all(
-              color:isDisabled
-                  ? Colors.grey.shade400:
+              color:
                   controller.selectedIndex.value == index
                       ? AppColor.cC31848
                       : AppColor.c5C6B72.withOpacity(0.6),

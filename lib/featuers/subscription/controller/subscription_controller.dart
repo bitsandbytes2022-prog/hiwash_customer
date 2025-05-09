@@ -23,13 +23,6 @@
       update();
     }
 
-    void setInitialSelectedIndex(String? currentSubId) {
-      final list = getSubscriptionModel?.data ?? [];
-      final index = list.indexWhere((element) => element.id.toString() == currentSubId);
-      if (index != -1) {
-        selectedIndex.value = index; // ← NO +1 here
-      }
-    }
 
     void setPremiumStatus(bool status) {
       isPremiumSelected.value = status;
@@ -40,6 +33,16 @@
       selectedIndex.value = index;
       selectedSubscriptionId = int.tryParse(subscriptionId) ?? 0;
     }
+
+    void setInitialSelectedIndex(String? currentSubId) {
+      final list = getSubscriptionModel?.data ?? [];
+      final index = list.indexWhere((element) => element.id.toString() == currentSubId);
+      if (index != -1) {
+        selectedIndex.value = index; // ← NO +1 here
+      }
+    }
+
+
     getSubscription() {
       loading = true;
       Repository()

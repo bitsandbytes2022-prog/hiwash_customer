@@ -151,8 +151,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
                             final subscription = list[index];
           
                             return PlansContainer(
-                              currentUserSubscriptionId: washStatusController
-                                  .getCustomerData.value?.data?.subscriptionDetails?.subscriptionId,
+
                               index: index + 1,
                               heading: subscription.name ?? "",
                               subHeading: subscription.description ?? "",
@@ -161,7 +160,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
                               yearText: "/ Year",
                               imageShow: subscription.isPremium ?? false,
                               subscriptionId: subscription.id?.toString(),
-                              isViewOnly: false,
+                             // isViewOnly: false,
                             );
                           },
                         );

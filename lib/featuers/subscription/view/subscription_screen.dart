@@ -167,7 +167,7 @@ WashStatusController washStatusController =Get.find();
                           itemBuilder: (context, index) {
                             final subscription = list[index];
                             return PlansContainer(
-                              index: index,
+                              index: index + 1,
                               heading: subscription.name ?? "",
                               subHeading: subscription.description ?? "",
                               qarText: subscription.currency?.trim() ?? "",
@@ -176,18 +176,12 @@ WashStatusController washStatusController =Get.find();
           
                               imageShow: subscription.isPremium ?? false,
                               subscriptionId: subscription.id?.toString(),
-                              isViewOnly: true,
                               onTap: () {
                                 print("index Print---->${index + 1}");
                                 controller.setPremiumStatus(
                                   subscription.isPremium ?? false,
                                 );
-                                controller.getSubscription();
-                                final currentSubId = washStatusController
-                                    .getCustomerData.value?.data?.subscriptionDetails?.subscriptionId?.toString();
-                                controller.setInitialSelectedIndex(currentSubId);
-
-                                //controller.selectedIndex.value = index + 1;
+                                controller.selectedIndex.value = index + 1;
                               },
                             );
                           },
@@ -313,7 +307,7 @@ WashStatusController washStatusController =Get.find();
     );
   }
 
-  Widget _bottomSheet() {
+/*  Widget _bottomSheet() {
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
@@ -388,30 +382,11 @@ WashStatusController washStatusController =Get.find();
                         ),
               );
             }),
-            /*  SizedBox(
-                height: Get.height,
-                child: GridView.builder(
-                  shrinkWrap: true,
 
-                  padding: EdgeInsets.only(left: 16, right: 16, bottom: 200),
-                  clipBehavior: Clip.hardEdge,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                    // mainAxisExtent: Get.height * 0.22,
-                  ),
-                  itemCount: 7,
-                  itemBuilder: (context, index) {
-                    return OffersGridContainer();
-                  },
-                ),
-              ),*/
             60.heightSizeBox,
           ],
         ),
       ),
     );
-  }
+  }*/
 }
