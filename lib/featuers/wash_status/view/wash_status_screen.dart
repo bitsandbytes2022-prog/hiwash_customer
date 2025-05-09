@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
+import 'package:hiwash_customer/featuers/wash_status/model/get_location_model.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/widgets/components/data_formet.dart';
@@ -215,84 +216,101 @@ class WashStatusScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
                       height: Get.height / 1.38,
-                      // color: Colors.red,
-                      child: Column(
-                        children: [
-                          15.heightSizeBox,
-                          Container(
-                            padding: EdgeInsets.only(
-                              top: 8,
-                              left: 8,
-                              bottom: 7,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColor.white,
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColor.c142293.withOpacity(0.20),
-                                  spreadRadius: 0,
-                                  blurRadius: 15,
-                                  offset: Offset(0, 5),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(10),
-
-                                  decoration: BoxDecoration(
-                                    color: AppColor.cC41948.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(15),
+                      child: SingleChildScrollView(
+                        // Wrap with SingleChildScrollView
+                        child: Column(
+                          children: [
+                            15.heightSizeBox,
+                            Container(
+                              padding: EdgeInsets.only(
+                                top: 8,
+                                left: 8,
+                                bottom: 7,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColor.white,
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColor.c142293.withOpacity(0.20),
+                                    spreadRadius: 0,
+                                    blurRadius: 15,
+                                    offset: Offset(0, 5),
                                   ),
-                                  child: ImageView(
-                                    path: Assets.iconsMyLocation,
-                                    height: 24,
-                                    width: 24,
+                                ],
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: AppColor.cC41948.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: ImageView(
+                                      path: Assets.iconsMyLocation,
+                                      height: 24,
+                                      width: 24,
+                                    ),
                                   ),
-                                ),
-                                10.widthSizeBox,
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "kYourCurrentLocation".tr,
-                                        style: w400_12a(
-                                          color: AppColor.c455A64,
-                                        ),
-                                      ),
-                                      Obx(
-                                        () => Text(
-                                          controller
-                                                  .currentAddress
-                                                  .value
-                                                  .isEmpty
-                                              ? "Fetching location..."
-                                              : controller.currentAddress.value,
-                                          style: w500_14p(
-                                            color: AppColor.c000000,
+                                  10.widthSizeBox,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "kYourCurrentLocation".tr,
+                                          style: w400_12a(
+                                            color: AppColor.c455A64,
                                           ),
                                         ),
-                                      ),
-                                      /*  Text(
-                                            "2847 Poling Farm Road",
+                                        Obx(
+                                          () => Text(
+                                            controller
+                                                    .currentAddress
+                                                    .value
+                                                    .isEmpty
+                                                ? "Fetching location..."
+                                                : controller
+                                                    .currentAddress
+                                                    .value,
                                             style: w500_14p(
                                               color: AppColor.c000000,
                                             ),
-                                          ),*/
-                                    ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          //Spacer(),
-                          /* servicesContainer(con),*/
-                        ],
+                            Obx(() {
+                              if (controller.locationList.isEmpty) {
+                                return Text("No nearby locations found");
+                              }
+
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                // Prevents scroll conflict
+                                itemCount: controller.locationList.length,
+                                itemBuilder: (context, index) {
+                                  final location =
+                                      controller.locationList[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0,
+                                    ),
+                                    child: locationContainer(location),
+                                  );
+                                },
+                              );
+                            }),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -358,7 +376,7 @@ class WashStatusScreen extends StatelessWidget {
                         style: w600_14a(color: AppColor.c2C2A2A),
                       ),
                       Text(
-                        washData?.comment ?? '',
+                        formatDate(washData?.redeemedAt ?? ''),
                         style: w400_12a(color: AppColor.c455A64),
                       ),
                       13.heightSizeBox,
@@ -516,7 +534,11 @@ class WashStatusScreen extends StatelessWidget {
                       dashboardController.userRating.toString();
 
                   dashboardController
-                      .getRating(ratingString,completedWashData.id.toString() , comment)
+                      .getRating(
+                        ratingString,
+                        completedWashData.id.toString(),
+                        comment,
+                      )
                       .then((value) {
                         if (value != null) {
                           dashboardController.commentController.clear();
@@ -601,6 +623,118 @@ class WashStatusScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget locationContainer(LocationData locationList) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: AppColor.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.c142293.withOpacity(0.15),
+            spreadRadius: 0,
+            blurRadius: 7,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            clipBehavior: Clip.hardEdge,
+            borderRadius: BorderRadius.circular(15),
+            child: Image.asset(
+              Assets.imagesImMap,
+              fit: BoxFit.fill,
+              width: 70,
+              height: 70,
+            ),
+          ),
+
+          15.widthSizeBox,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          locationList.name ?? '',
+                          style: w600_14a(color: AppColor.c2C2A2A),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ImageView(
+                          path: Assets.iconsIcPlaceMarker,
+                          height: 18,
+                          width: 18,
+                        ),
+
+                        Text(
+                          "${locationList.distanceInKm?.toStringAsFixed(2) ?? "0.00"} km",
+                          style: w400_12a(color: AppColor.c455A64),
+                        ),
+                      ],
+                    ),
+
+                    13.heightSizeBox,
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ImageView(
+                      path: Assets.iconsIcTimeMachine,
+                      height: 18,
+                      width: 18,
+                    ),
+                    5.widthSizeBox,
+                    Text(
+                      "Open 9:00 AM to 8:00 PM Static",
+                      style: w400_10p(color: AppColor.c455A64),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          /*  Container(
+                                  width: 50,
+                                  child:
+                                  washData?.rating == 0
+                                      ? SizedBox()
+                                      : Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      ImageView(
+                                        path: Assets.iconsIcStar,
+                                        height: 14,
+                                        width: 14,
+                                      ),
+                                      Text(
+                                       " washData?.rating.toString() ?? ''",
+                                        style: w400_10a(color: AppColor.c455A64),
+                                      ),
+                                      13.heightSizeBox,
+
+                                    ],
+                                  ),
+                                ),*/
+        ],
+      ),
     );
   }
 }

@@ -43,6 +43,7 @@ class WashStatusController extends GetxController {
       print("No valid customer ID provided");
     }
     getWashSummary();
+
     //fetchAndSetLocation();
     fetchCurrentAddress();
   }
@@ -60,26 +61,78 @@ class WashStatusController extends GetxController {
     return null;
   }
 
-  Rxn<GetLocationModel> getLocationModel = Rxn();
+  RxList<LocationData> locationList = <LocationData>[].obs;
 
-
-  Future<GetLocationModel?>getLocation(String latitude,String longitude) async {
-    try{
-      getLocationModel.value=await Repository().getLocationRepo({
-
-        "latitude":latitude,
-        "longitude":longitude,
+  Future<void> getLocation(String latitude, String longitude) async {
+    try {
+      final result = await Repository().getLocationRepo({
+        "latitude": latitude,
+        "longitude": longitude,
       });
 
-    }catch(e){
+      if (result != null && result.locationData != null) {
+        locationList.assignAll(result.locationData!);
+      } else {
+        locationList.clear();
+      }
+    } catch (e) {
       print("Error fetching location: $e");
-      return null;
     }
-    return null;
   }
+
+
+
   /// fetch Current Address
   RxString currentAddress = ''.obs;
   Future<void> fetchCurrentAddress() async {
+    try {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        currentAddress.value = "Location services are disabled";
+        return;
+      }
+
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          currentAddress.value = "Location permission denied";
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        currentAddress.value = "Location permission permanently denied";
+        return;
+      }
+
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      if (placemarks.isNotEmpty) {
+        Placemark place = placemarks.first;
+        currentAddress.value =
+        "${place.street ?? ''}, ${place.subLocality ?? ''}, ${place.locality ?? ''}, ${place.postalCode ?? ''}";
+      } else {
+        currentAddress.value = "Could not retrieve address details";
+      }
+
+      /// 🟢 Ye line add karo - API ko call karo
+      await getLocation(position.latitude.toString(), position.longitude.toString());
+
+    } catch (e) {
+      print("Error fetching current address: $e");
+      currentAddress.value = "Location not available";
+    }
+  }
+
+/*Future<void> fetchCurrentAddress() async {
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
@@ -122,7 +175,7 @@ class WashStatusController extends GetxController {
       print("Error fetching current address: $e");
       currentAddress.value = "Location not available";
     }
-  }
+  }*/
 
 /*
   Future<void> fetchAndSetLocation() async {
@@ -163,4 +216,21 @@ class WashStatusController extends GetxController {
   }*/
 
 
+/*  Rxn<GetLocationModel> getLocationModel = Rxn();
+
+
+  Future<GetLocationModel?>getLocation(String latitude,String longitude) async {
+    try{
+      getLocationModel.value=await Repository().getLocationRepo({
+
+        "latitude":latitude,
+        "longitude":longitude,
+      });
+
+    }catch(e){
+      print("Error fetching location: $e");
+      return null;
+    }
+    return null;
+  }*/
 }

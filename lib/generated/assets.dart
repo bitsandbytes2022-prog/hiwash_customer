@@ -52,6 +52,7 @@ class Assets {
   static const String iconsIcTermscondition = 'assets/icons/ic_termscondition.png';
   static const String iconsIcTheme = 'assets/icons/ic_theme.png';
   static const String iconsIcTicket = 'assets/icons/ic_ticket.png';
+  static const String iconsIcTimeMachine = 'assets/icons/ic_time_machine.png';
   static const String iconsIcUpWardArrow = 'assets/icons/ic_up_ward_arrow.png';
   static const String iconsIcVerify = 'assets/icons/ic_verify.png';
   static const String iconsMyLocation = 'assets/icons/my_location.png';

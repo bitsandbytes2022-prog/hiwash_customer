@@ -167,7 +167,7 @@ WashStatusController washStatusController =Get.find();
                           itemBuilder: (context, index) {
                             final subscription = list[index];
                             return PlansContainer(
-                              index: index + 1,
+                              index: index,
                               heading: subscription.name ?? "",
                               subHeading: subscription.description ?? "",
                               qarText: subscription.currency?.trim() ?? "",
@@ -176,13 +176,18 @@ WashStatusController washStatusController =Get.find();
           
                               imageShow: subscription.isPremium ?? false,
                               subscriptionId: subscription.id?.toString(),
+                              isViewOnly: true,
                               onTap: () {
                                 print("index Print---->${index + 1}");
                                 controller.setPremiumStatus(
                                   subscription.isPremium ?? false,
                                 );
-          
-                                controller.selectedIndex.value = index + 1;
+                                controller.getSubscription();
+                                final currentSubId = washStatusController
+                                    .getCustomerData.value?.data?.subscriptionDetails?.subscriptionId?.toString();
+                                controller.setInitialSelectedIndex(currentSubId);
+
+                                //controller.selectedIndex.value = index + 1;
                               },
                             );
                           },

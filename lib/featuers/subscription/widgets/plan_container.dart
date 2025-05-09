@@ -21,6 +21,7 @@ class PlansContainer extends StatelessWidget {
   final VoidCallback? onTap;
   final String? subscriptionId;
   final int? currentUserSubscriptionId;
+  final bool isViewOnly;
 
 
   PlansContainer({
@@ -36,13 +37,14 @@ class PlansContainer extends StatelessWidget {
     this.onTap,
     this.subscriptionId,
     this.currentUserSubscriptionId,
+    this.isViewOnly = false,
   });
 
   final SubscriptionController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    bool isDisabled = currentUserSubscriptionId == 1 || currentUserSubscriptionId == 2;
+    bool isDisabled = isViewOnly || currentUserSubscriptionId == 1 || currentUserSubscriptionId == 2;
 
     return GestureDetector(
       onTap: () {

@@ -1,17 +1,17 @@
 class GetLocationModel {
   bool? success;
   String? message;
-  List<Data>? data;
+  List<LocationData>? locationData;
 
-  GetLocationModel({this.success, this.message, this.data});
+  GetLocationModel({this.success, this.message, this.locationData});
 
   GetLocationModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
     if (json['data'] != null) {
-      data = <Data>[];
+      locationData = <LocationData>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        locationData!.add(new LocationData.fromJson(v));
       });
     }
   }
@@ -20,14 +20,14 @@ class GetLocationModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['success'] = this.success;
     data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    if (this.locationData != null) {
+      data['data'] = this.locationData!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Data {
+class LocationData {
   int? id;
   String? name;
   String? lattitude;
@@ -38,7 +38,7 @@ class Data {
   Null? country;
   double? distanceInKm;
 
-  Data(
+  LocationData(
       {this.id,
         this.name,
         this.lattitude,
@@ -49,7 +49,7 @@ class Data {
         this.country,
         this.distanceInKm});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  LocationData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     lattitude = json['lattitude'];

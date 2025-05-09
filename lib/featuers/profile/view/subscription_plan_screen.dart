@@ -161,6 +161,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
                               yearText: "/ Year",
                               imageShow: subscription.isPremium ?? false,
                               subscriptionId: subscription.id?.toString(),
+                              isViewOnly: false,
                             );
                           },
                         );
