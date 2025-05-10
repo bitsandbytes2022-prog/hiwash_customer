@@ -569,8 +569,8 @@ class BottomSheetWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-
-                      13.heightSizeBox,
+/// working on later
+                     /* 13.heightSizeBox,
 
                       rewardController.countdown.isNotEmpty
                           ? Text("${rewardController.countdown}")
@@ -581,7 +581,7 @@ class BottomSheetWidget extends StatelessWidget {
                           path: Assets.imagesTimeView,
                           height: 37,
                         ),
-                      ),
+                      ),*/
                       28.heightSizeBox,
                       Container(
                         decoration: BoxDecoration(

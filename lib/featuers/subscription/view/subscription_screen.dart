@@ -33,7 +33,8 @@ class SubscriptionScreen extends StatelessWidget {
   DashboardController dashboardController = Get.find();
   SubscriptionController controller = Get.put(SubscriptionController());
   RewardController rewardController = Get.find();
-WashStatusController washStatusController =Get.find();
+  WashStatusController washStatusController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     final userData =
@@ -46,7 +47,10 @@ WashStatusController washStatusController =Get.find();
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(userData?.fullName??'', style: w400_16a(color: AppColor.white)),
+            Text(
+              userData?.fullName ?? '',
+              style: w400_16a(color: AppColor.white),
+            ),
             Text(
               "Full access subscription",
               style: w400_12a(color: AppColor.white.withOpacity(0.5)),
@@ -65,12 +69,13 @@ WashStatusController washStatusController =Get.find();
             border: Border.all(color: AppColor.cF6F7FF, width: 10),
           ),
           child: Obx(() {
-            final profilePicUrl = washStatusController
-                .getCustomerData
-                .value
-                ?.data
-                ?.customerDetails
-                ?.profilePicUrl;
+            final profilePicUrl =
+                washStatusController
+                    .getCustomerData
+                    .value
+                    ?.data
+                    ?.customerDetails
+                    ?.profilePicUrl;
 
             final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
 
@@ -81,27 +86,28 @@ WashStatusController washStatusController =Get.find();
                 child: CachedNetworkImage(
                   imageUrl: hasValidUrl ? profilePicUrl! : '',
                   fit: BoxFit.cover,
-                  height: 56, // radius * 2
+                  height: 56,
+                  // radius * 2
                   width: 56,
-                  placeholder: (context, url) => Center(
-
-                    child: SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Image.asset(
-                    Assets.imagesDemoProfile,
-                    fit: BoxFit.cover,
-                    height: 56,
-                    width: 56,
-                  ),
+                  placeholder:
+                      (context, url) => Center(
+                        child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
+                      ),
+                  errorWidget:
+                      (context, url, error) => Image.asset(
+                        Assets.imagesDemoProfile,
+                        fit: BoxFit.cover,
+                        height: 56,
+                        width: 56,
+                      ),
                 ),
               ),
             );
           }),
-
         ),
       ),
       child: Expanded(
@@ -117,8 +123,11 @@ WashStatusController washStatusController =Get.find();
                 Column(
                   children: [
                     17.heightSizeBox,
-                    Text("kChooseAPlan".tr, style: w700_22a(color: AppColor.c2C2A2A)),
-          
+                    Text(
+                      "kChooseAPlan".tr,
+                      style: w700_22a(color: AppColor.c2C2A2A),
+                    ),
+
                     8.heightSizeBox,
                     Text(
                       "kGetBenefitsAcrossAll".tr,
@@ -126,10 +135,12 @@ WashStatusController washStatusController =Get.find();
                       style: w400_12p(color: AppColor.c455A64),
                     ),
                     30.heightSizeBox,
-                    OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 20)),
+                    OfferCardWidget(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                    ),
                     25.heightSizeBox,
                     viewOfferButton(() {
-                    rewardController.getAllOffers();
+                      rewardController.getAllOffers();
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
@@ -144,26 +155,28 @@ WashStatusController washStatusController =Get.find();
                         },
                       );
                     }),
-          
+
                     32.heightSizeBox,
                     GetBuilder<SubscriptionController>(
                       builder: (controller) {
-                        final list = controller.getSubscriptionModel?.data ?? [];
-          
+                        final list =
+                            controller.getSubscriptionModel?.data ?? [];
+
                         if (controller.loading) {
                           return Center(child: CircularProgressIndicator());
                         }
-          
+
                         if (list.isEmpty) {
                           return Center(child: Text("No plans available"));
                         }
-          
+
                         return ListView.separated(
                           itemCount: list.length,
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           padding: EdgeInsets.symmetric(horizontal: 16),
-                          separatorBuilder: (context, index) => 15.heightSizeBox,
+                          separatorBuilder:
+                              (context, index) => 15.heightSizeBox,
                           itemBuilder: (context, index) {
                             final subscription = list[index];
                             return PlansContainer(
@@ -173,7 +186,7 @@ WashStatusController washStatusController =Get.find();
                               qarText: subscription.currency?.trim() ?? "",
                               numberText: subscription.price?.toString() ?? '',
                               yearText: "/ Year",
-          
+
                               imageShow: subscription.isPremium ?? false,
                               subscriptionId: subscription.id?.toString(),
                               onTap: () {
@@ -188,7 +201,7 @@ WashStatusController washStatusController =Get.find();
                         );
                       },
                     ),
-          
+
                     18.heightSizeBox,
                     Obx(() {
                       if (controller.selectedIndex.value == 1) {
@@ -205,9 +218,13 @@ WashStatusController washStatusController =Get.find();
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset(Assets.iconsIcTAndC, height: 35, width: 35),
+                              Image.asset(
+                                Assets.iconsIcTAndC,
+                                height: 35,
+                                width: 35,
+                              ),
                               10.widthSizeBox,
-          
+
                               Expanded(
                                 child: Text(
                                   "WashYourCarOnce".tr,
@@ -221,7 +238,10 @@ WashStatusController washStatusController =Get.find();
                         );
                       } else if (controller.selectedIndex.value == 2) {
                         return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 30,
+                            vertical: 0,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -244,21 +264,18 @@ WashStatusController washStatusController =Get.find();
                     }),
                     40.heightSizeBox,
                     HiWashButton(
-
                       onTap: () {
-
                         String selectedId =
                             controller.selectedSubscriptionId.toString();
-          
-                        controller
-                            .getSubscriptionMembership(
+
+                        controller.getSubscriptionMembership(
                               selectedId,
                               "7984187154",
                               "gJ18",
                               "Success",
                             )
                             .then((value) async {
-                          await    washStatusController.getCustomerDataById(
+                              await washStatusController.getCustomerDataById(
                                 washStatusController
                                         .getCustomerData
                                         .value
@@ -275,7 +292,7 @@ WashStatusController washStatusController =Get.find();
                       text: "kSubscribe".tr,
                       margin: EdgeInsets.symmetric(horizontal: 30),
                     ),
-          
+
                     30.heightSizeBox,
                   ],
                 ),
@@ -309,7 +326,7 @@ WashStatusController washStatusController =Get.find();
     );
   }
 
-/*  Widget _bottomSheet() {
+  /*  Widget _bottomSheet() {
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
