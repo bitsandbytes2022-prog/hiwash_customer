@@ -69,10 +69,6 @@ class PlansContainer extends StatelessWidget {
         if (onTap != null) onTap!();
       },
 
-      /*    onTap: () {
-        controller.selectPlan(index, subscriptionId ?? "");
-        if (onTap != null) onTap!();
-      },*/
       child: Obx(
         () => Container(
           decoration: BoxDecoration(

@@ -244,7 +244,9 @@ WashStatusController washStatusController =Get.find();
                     }),
                     40.heightSizeBox,
                     HiWashButton(
+
                       onTap: () {
+
                         String selectedId =
                             controller.selectedSubscriptionId.toString();
           
