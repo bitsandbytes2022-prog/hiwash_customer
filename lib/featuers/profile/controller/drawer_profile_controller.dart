@@ -11,9 +11,46 @@ import '../model/terms_and_conditions_response_model.dart';
 import 'package:image_picker/image_picker.dart';
 
 class DrawerProfileController extends GetxController {
-  var imageFile = Rx<File?>(null);
+  var  imageFile = Rx<File?>(null);
   RxBool isLoading = false.obs;
 
+  Future<void> imagePicker({required ImageSource source}) async {
+    var pickedFile = await ImagePicker().pickImage(source: source,imageQuality: 20);
+
+    if (pickedFile != null) {
+      imageFile.value = File(pickedFile.path,  );
+    } else {
+      print("No file selected");
+    }
+  }
+  Future<dio.FormData> getFormDataForUpload() async {
+    final fileName = imageFile.value?.path.split('/').last;
+    var file = await dio.MultipartFile.fromFile(
+      imageFile.value!.path,
+      filename: fileName,
+    );
+    return dio.FormData.fromMap({"file": file});
+  }
+
+  Future<void> uploadProfileImage() async {
+    try {
+      showLoader();
+      final formData = await getFormDataForUpload();
+
+      final response = await Repository().uploadProfilePictureRepo(formData);
+      hideLoader();
+      if (response != null) {
+        print("Upload successful: $response");
+      } else {
+        print("Failed to upload image");
+      }
+    } catch (e) {
+      //hideLoader();
+      print("Upload error: $e");
+    }
+  }
+
+/*
   Future<void> imagePicker() async {
     var pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -22,16 +59,6 @@ class DrawerProfileController extends GetxController {
       imageFile.value = File(pickedFile.path);
     } else {
       print("No file selected");
-    }
-  }
-
-  /*  Future<void> imagePicker() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
-
-    if (pickedFile != null) {
-      imageFile.value = File(pickedFile.path);
     }
   }*/
   var currentDrawerSection = ''.obs;
@@ -60,32 +87,6 @@ class DrawerProfileController extends GetxController {
     }
   }
 
-  Future<dio.FormData> getFormDataForUpload() async {
-    final fileName = imageFile.value?.path.split('/').last;
-    var file = await dio.MultipartFile.fromFile(
-      imageFile.value!.path,
-      filename: fileName,
-    );
-    return dio.FormData.fromMap({"file": file});
-  }
-
-  Future<void> uploadProfileImage() async {
-    try {
-      showLoader();
-      final formData = await getFormDataForUpload();
-
-      final response = await Repository().uploadProfilePictureRepo(formData);
-      hideLoader();
-      if (response != null) {
-        print("Upload successful: $response");
-      } else {
-        print("Failed to upload image");
-      }
-    } catch (e) {
-      //hideLoader();
-      print("Upload error: $e");
-    }
-  }
 
   Future<TermsAndConditionsResponseModel?> getTermsAndConditions() async {
     var entityType = 0;
