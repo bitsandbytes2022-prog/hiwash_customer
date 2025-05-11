@@ -106,6 +106,7 @@ class LoginOtpScreen extends StatelessWidget {
                 onTap: isActive
                     ? () {
                   controller.sendOtp(phoneNumber);
+                  controller.resetTimer();
                 }
                     : null,
                 child: Text(
@@ -138,7 +139,7 @@ class LoginOtpScreen extends StatelessWidget {
                           }
                           controller.getToken(phoneNumber).then((value) {
                             if (value != null) {
-                              Get.offNamed(
+                              Get.offAllNamed(
                                 RouteStrings.dashboardScreen,
                               /*  arguments: controller.getTokenModel?.data?.id,*/
                               );

@@ -30,7 +30,7 @@
     int selectedSubscriptionId = 1;
 
     void selectPlan(int index, String subscriptionId) {
-      selectedIndex.value = index;
+      selectedIndex.value = index+1;
       selectedSubscriptionId = int.tryParse(subscriptionId) ?? 0;
     }
 
@@ -38,7 +38,7 @@
       final list = getSubscriptionModel?.data ?? [];
       final index = list.indexWhere((element) => element.id.toString() == currentSubId);
       if (index != -1) {
-        selectedIndex.value = index; // ← NO +1 here
+        selectedIndex.value = index+1;
       }
     }
 

@@ -200,6 +200,9 @@ class AuthController extends GetxController {
     });
   }
 
+  void resetTimer() {
+    startTimer();
+  }
   @override
   void onClose() {
     _timer?.cancel();
@@ -250,6 +253,7 @@ class AuthController extends GetxController {
       print("Error in controller while sending OTP: $error");
 
       if (error.toString().contains('User not found (404)')) {
+
         Get.offAllNamed(RouteStrings.signUpScreen, arguments: phoneNumber);
       }
 

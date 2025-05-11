@@ -266,8 +266,9 @@ class SubscriptionScreen extends StatelessWidget {
                     HiWashButton(
                       onTap: () {
                         String selectedId =
-                            controller.selectedSubscriptionId.toString();
+                            controller.selectedIndex.toString();
 
+                        print("====p>${selectedId}");
                         controller.getSubscriptionMembership(
                               selectedId,
                               "7984187154",
