@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -12,6 +13,7 @@ import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/doted_line.dart';
 import '../../../widgets/components/get_start_button.dart';
+import '../../../widgets/components/image_view.dart';
 import '../../dashboard/controller/dashboard_controller.dart';
 import '../../subscription/controller/subscription_controller.dart';
 import '../../subscription/widgets/plan_container.dart';
@@ -46,7 +48,90 @@ class SubscriptionPlanScreen extends StatelessWidget {
           
                 child: Column(
                   children: [
-                    Container(
+                    Stack(
+                      alignment: Alignment.topRight,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(color: AppColor.blue.withOpacity(0.2)),
+                          ),
+                          child: Obx(() {
+                            final imageUrl =
+                                washStatusController
+                                    .getCustomerData
+                                    .value
+                                    ?.data
+                                    ?.customerDetails
+                                    ?.profilePicUrl;
+
+                            return ClipOval(
+                              child: CachedNetworkImage(
+                                imageUrl: imageUrl ?? '',
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => SizedBox(
+                                  height: 100,
+                                  width: 100,
+                                  child: Center(
+                                    child: SizedBox(
+                                      height: 24,
+                                      width: 24,
+                                      child: CircularProgressIndicator(strokeWidth: 2),
+                                    ),
+                                  ),
+                                ),
+                                errorWidget:
+                                    (context, url, error) => Image.asset(
+                                  Assets.imagesDemoProfile,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                        /*       Container(
+                padding: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(color: AppColor.blue.withOpacity(0.2)),
+                ),
+                child: Obx(() {
+                  final profilePicUrl = washStatusController.getCustomerData.value?.data?.customerDetails?.profilePicUrl??'' ?? '';
+                  final hasImage = profilePicUrl.isNotEmpty;
+                  return CircleAvatar(
+                    radius: 50,
+                    backgroundImage: hasImage
+                        ? CachedNetworkImageProvider(
+                      profilePicUrl,
+                      headers: {'Cache-Control': 'no-cache'},
+                    )
+                        : AssetImage(Assets.imagesImMap),
+                  );
+                }),
+              ),*/
+                        washStatusController.getCustomerData.value?.data?.subscriptionDetails?.subscriptionId==2?
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: AppColor.white,
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(color: AppColor.cE8E9F4),
+                          ),
+
+                          child: ImageView(
+                            path: Assets.iconsIcCrown,
+                            height: 17,
+                            width: 17,
+                          ),
+                        ):SizedBox(),
+                      ],
+                    ),
+                   /* Container(
                       padding: EdgeInsets.all(2),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
@@ -75,7 +160,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
                                 : AssetImage(Assets.imagesDemoProfile)
                                     as ImageProvider,
                       ),
-                    ),
+                    ),*/
           
                     10.heightSizeBox,
                     Text(

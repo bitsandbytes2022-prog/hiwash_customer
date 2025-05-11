@@ -263,35 +263,41 @@ class SubscriptionScreen extends StatelessWidget {
                       }
                     }),
                     40.heightSizeBox,
-                    HiWashButton(
-                      onTap: () {
-                        String selectedId =
-                            controller.selectedIndex.toString();
+                    Obx(
+                       () {
+                        return HiWashButton(
+                          isLoading: controller.isLoading.value,
+                          onTap: () {
+                            String selectedId =
+                                controller.selectedIndex.toString();
 
-                        print("====p>${selectedId}");
-                        controller.getSubscriptionMembership(
-                              selectedId,
-                              "7984187154",
-                              "gJ18",
-                              "Success",
-                            )
-                            .then((value) async {
-                              await washStatusController.getCustomerDataById(
-                                washStatusController
-                                        .getCustomerData
-                                        .value
-                                        ?.data
-                                        ?.customerDetails
-                                        ?.id ??
-                                    0,
-                              );
-                              washStatusController.getWashSummary();
-                              Get.toNamed(RouteStrings.enterCardDetailScreen);
-                            });
-                        print("seclectionId---->${selectedId}");
-                      },
-                      text: "kSubscribe".tr,
-                      margin: EdgeInsets.symmetric(horizontal: 30),
+                            print("====p>${selectedId}");
+                            //controller.isLoading.value = true;
+                            controller.getSubscriptionMembership(
+                                  selectedId,
+                                  "7984187154",
+                                  "gJ18",
+                                  "Success",
+                                )
+                                .then((value) async {
+                                  await washStatusController.getCustomerDataById(
+                                    washStatusController
+                                            .getCustomerData
+                                            .value
+                                            ?.data
+                                            ?.customerDetails
+                                            ?.id ??
+                                        0,
+                                  );
+                                  washStatusController.getWashSummary();
+                                  Get.offNamed(RouteStrings.enterCardDetailScreen);
+                                });
+                            print("seclectionId---->${selectedId}");
+                          },
+                          text: "kSubscribe".tr,
+                          margin: EdgeInsets.symmetric(horizontal: 30),
+                        );
+                      }
                     ),
 
                     30.heightSizeBox,

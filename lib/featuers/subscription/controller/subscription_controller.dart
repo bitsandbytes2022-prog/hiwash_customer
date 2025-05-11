@@ -15,6 +15,7 @@
     RxInt selectedIndex = 2.obs;
 
     bool loading = false;
+    RxBool isLoading = false.obs;
 
     @override
     void onInit() {
@@ -72,15 +73,19 @@
       };
 
       try {
-        loading = true;
+        isLoading.value = true;
         final response = await Repository().getSubscriptionMembership(params);
         apiResponse.value = response;
+       // isLoading.value = false;
         return response;
       } catch (error) {
+       // isLoading.value = false;
         print("Error --> ${error.toString()}");
         return ApiResponse(success: false, message: error.toString());
       } finally {
-        loading = false;
+        isLoading.value = false;
+
+
       }
     }
   }
