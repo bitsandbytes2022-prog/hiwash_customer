@@ -1,4 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,11 +10,16 @@ import 'package:hiwash_customer/route/routes.dart';
 import 'package:hiwash_customer/styling/app_theam.dart';
 
 import 'featuers/dashboard/view/dashbord_screen.dart';
+import 'featuers/notification/services/notification_services.dart';
 import 'language/languages.dart';
 
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await GetStorage.init();
   runApp(const MyApp());
 }

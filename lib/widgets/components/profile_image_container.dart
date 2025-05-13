@@ -45,7 +45,7 @@ class ProfileImageView extends StatelessWidget {
             radius: radius,
             backgroundImage: imagePath != null && imagePath!.isNotEmpty
                 ? NetworkImage(imagePath!)
-                : AssetImage(Assets.imagesDemoProfile) as ImageProvider,
+                : AssetImage(Assets.imagesDemoProfile),
           )
 
 

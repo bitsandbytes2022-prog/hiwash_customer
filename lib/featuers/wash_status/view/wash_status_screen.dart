@@ -402,13 +402,13 @@ class WashStatusScreen extends StatelessWidget {
               ),
             ),
             Container(
-              width: 50,
+              width: 30,
               child:
                   washData?.rating == 0
                       ? SizedBox()
                       : Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           ImageView(
                             path: Assets.iconsIcStar,

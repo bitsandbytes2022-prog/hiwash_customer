@@ -18,7 +18,7 @@ class RewardController extends GetxController {
   String countdown = "";
 
   void startCountdown() {
-    final expiryDate = getOffersByIdModel.value?.data?.first.expiryDate;
+    final expiryDate = getOffersByIdModel.value?.offerDetailList?.first.expiryDate;
     if (expiryDate != null) {
       final expiryDateTime = DateTime.parse(expiryDate);
       final now = DateTime.now();

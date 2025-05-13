@@ -7,6 +7,7 @@ import '../../generated/assets.dart';
 import '../../styling/app_color.dart';
 import '../../styling/app_font_anybody.dart';
 import '../../widgets/sized_box_extension.dart';
+import 'countdown_else_full_date.dart';
 class OffersGridContainer extends StatelessWidget {
   final Offers offer;
 
@@ -29,7 +30,7 @@ class OffersGridContainer extends StatelessWidget {
         image: DecorationImage(
           image: imageUrl.isNotEmpty
               ? NetworkImage(imageUrl)
-              : AssetImage(Assets.imagesImOffer) as ImageProvider,
+              : AssetImage(Assets.imagesImOffer),
           fit: BoxFit.cover,
         ),
       ),
@@ -38,11 +39,7 @@ class OffersGridContainer extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.topRight,
-            child: DateTimeWidget(
-              title: rewardController.timeUntilExpiry(
-                offer.expiryDate ?? "No Expiry",
-              ),
-            ),
+            child: CountdownElseFullDate(expiryDateStr: offer.expiryDate ?? ''),
           ),
           Spacer(),
           Text(

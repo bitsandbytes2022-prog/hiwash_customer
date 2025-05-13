@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/auth/view/auth_widgets/bg_widget.dart';
+import 'package:hiwash_customer/featuers/notification/services/notification_services.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
@@ -132,8 +133,12 @@ class WelcomeScreen extends StatelessWidget {
                             width: 193,
                             text: "kGetStarted".tr,
                             onTap: () {
-                             // LocalStorage.saveToken(token: null);
                               Get.toNamed(RouteStrings.loginScreen);
+
+                              /// Todo Get notification
+                            /*  NotificationServices notificationServices =NotificationServices();
+                              notificationServices.requestNotificationPermission();
+                              notificationServices.getDeviceToken();*/
                             },
                           ),
                           40.heightSizeBox,

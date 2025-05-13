@@ -35,13 +35,6 @@
       selectedSubscriptionId = int.tryParse(subscriptionId) ?? 0;
     }
 
-    void setInitialSelectedIndex(String? currentSubId) {
-      final list = getSubscriptionModel?.data ?? [];
-      final index = list.indexWhere((element) => element.id.toString() == currentSubId);
-      if (index != -1) {
-        selectedIndex.value = index+1;
-      }
-    }
 
 
     getSubscription() {

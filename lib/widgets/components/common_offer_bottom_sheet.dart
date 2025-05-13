@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hiwash_customer/widgets/components/profile_image_container.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../featuers/rewads/controller.dart';
@@ -16,6 +17,7 @@ import '../../styling/app_color.dart';
 import '../../styling/app_font_anybody.dart';
 import '../../styling/app_font_poppins.dart';
 import 'app_dialog.dart';
+import 'countdown_or_date_timer.dart';
 import 'custom_bottomsheet.dart';
 import 'date_time_widget.dart';
 import 'doted_line.dart';
@@ -157,7 +159,14 @@ class BottomSheetWidget extends StatelessWidget {
                                   // Get.back();
                                 },
 
-                                child: OffersGridContainer(offer: data[index]),
+                                child: OffersGridContainer
+
+                                  (
+
+                                  /// key to force rebuild
+                                    key: ValueKey(data[index].expiryDate),
+
+                                    offer: data[index]),
                               );
                             },
                           )
@@ -264,7 +273,7 @@ class BottomSheetWidget extends StatelessWidget {
 
       builder: (controller) {
         var rewardDetail =
-            rewardController.getOffersByIdModel.value?.data?.first;
+            rewardController.getOffersByIdModel.value?.offerDetailList?.first;
         return Expanded(
           child: SingleChildScrollView(
             child: Column(
@@ -292,17 +301,17 @@ class BottomSheetWidget extends StatelessWidget {
                               (rewardController
                                           .getOffersByIdModel
                                           .value
-                                          ?.data
+                                          ?.offerDetailList
                                           ?.first
-                                          .image
+                                          .bannerImageUrl
                                           ?.isNotEmpty ??
                                       false)
                                   ? rewardController
                                       .getOffersByIdModel
                                       .value!
-                                      .data!
+                                      .offerDetailList!
                                       .first
-                                      .image!
+                                      .bannerImageUrl!
                                   : Assets.imagesImOffer,
                           placeholder:
                               (context, url) => Center(
@@ -324,30 +333,7 @@ class BottomSheetWidget extends StatelessWidget {
                         ),
                       ),
 
-                      /*  ClipRRect(
-                       borderRadius: BorderRadius.circular(15),
-                       child: ImageView(
-                         height: 187,
-                         path:
-                         rewardController
-                             .getOffersByIdModel
-                             .value
-                             ?.data
-                             ?.first
-                             .image
-                             ?.isNotEmpty ==
-                             true
-                             ? rewardController
-                             .getOffersByIdModel
-                             .value
-                             ?.data!
-                             .first
-                             .image
-                             : Assets.imagesImOffer,
-                         width: Get.width,
-                         fit: BoxFit.fitWidth,
-                       ),
-                     ),*/
+
                       Positioned(
                         top: 35,
                         left: 14,
@@ -355,25 +341,14 @@ class BottomSheetWidget extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            DateTimeWidget(
-                              title: rewardController.timeUntilExpiry(
-                                rewardController
-                                        .getOffersByIdModel
-                                        .value
-                                        ?.data
-                                        ?.first
-                                        .expiryDate ??
-                                    "No Expiry",
-                              ),
-                            ),
-                            /* DateTimeWidget(
-                            title: "0:3 HRS - 34 MINS",
-                            textColor: AppColor.c000000,
-                            color: AppColor.white.withOpacity(0.5),
-                          ),*/
+                            DateTimeWidget(title: rewardController
+                                .getOffersByIdModel
+                                .value!
+                                .offerDetailList!
+                                .first.businessName??""),
                             13.heightSizeBox,
                             Text(
-                              "${rewardController.getOffersByIdModel.value?.data?.first.title ?? ""}",
+                              "${rewardController.getOffersByIdModel.value?.offerDetailList?.first.title ?? ""}",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.rumRaisin(
                                 fontWeight: FontWeight.w400,
@@ -381,66 +356,11 @@ class BottomSheetWidget extends StatelessWidget {
                                 color: AppColor.white,
                               ),
                             ),
-                            /* Text("FREE Accessories",
-                             textAlign: TextAlign.center,
-                             style: GoogleFonts.rumRaisin(
-                               fontWeight: FontWeight.w400,
-                               fontSize: 24,
-                               color: AppColor.white,
-                             ),
-                           ),*/
+
                           ],
                         ),
                       ),
-                 /*     Positioned(
-                        right: 16,
-                        top: 17,
 
-                        child: Container(
-                          padding: EdgeInsets.only(top: 0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(2),
-                            child: CachedNetworkImage(
-                              height: 40,
-                              width: 40,
-                              fit: BoxFit.fitWidth,
-                              imageUrl:
-                                  (rewardController
-                                              .getOffersByIdModel
-                                              .value
-                                              ?.data
-                                              ?.first
-                                              .qRCodeUrl
-                                              ?.isNotEmpty ??
-                                          false)
-                                      ? rewardController
-                                          .getOffersByIdModel
-                                          .value!
-                                          .data!
-                                          .first
-                                          .qRCodeUrl!
-                                      : Assets.imagesDemo,
-                              placeholder:
-                                  (context, url) => Center(
-                                    child: SizedBox(
-                                      height: 25,
-                                      width: 25,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                      ),
-                                    ),
-                                  ),
-                              errorWidget:
-                                  (context, url, error) => Image.asset(
-                                    Assets.imagesDemo,
-                                    height: 40,
-                                    width: 40,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ),*/
 
                       Positioned(
                         right: 16,
@@ -454,7 +374,7 @@ class BottomSheetWidget extends StatelessWidget {
                                   rewardController
                                       .getOffersByIdModel
                                       .value
-                                      ?.data
+                                      ?.offerDetailList
                                       ?.first
                                       .qRCodeUrl;
 
@@ -468,7 +388,90 @@ class BottomSheetWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                profileView(),
+                Padding(
+                  padding: EdgeInsets.only(left: 16, top: 14, right: 16, bottom: 15),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                     /* Container(
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(color: AppColor.c142293.withOpacity(0.2)),
+                        ),
+                        child: ClipRRect(
+
+                          clipBehavior: Clip.hardEdge,
+                          borderRadius: BorderRadius.circular(100),
+                          child: ImageView(
+                            radius: 20,
+                            path: rewardController.getOffersByIdModel.value?.offerDetailList?.first.businessImageUrl??"",
+                            fit: BoxFit.fill,
+
+                          *//*  width: 40,
+                            height: 40,*//*
+                          ),
+                        ),
+                      ),*/
+                      ProfileImageView(
+                        radius: 20,
+                        imagePath: rewardController.getOffersByIdModel.value?.offerDetailList?.first.businessImageUrl??"",
+                        isVisibleStack: false,
+
+
+                      ),
+                      5.widthSizeBox,
+                      Container(
+                        padding: EdgeInsets.only(top: 5,),
+                        alignment: Alignment.center,
+                        width: 200,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                        rewardController.getOffersByIdModel.value?.offerDetailList?.first.businessName??"",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: w600_14a(color: AppColor.c2C2A2A),
+                            ),
+
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ImageView(
+                                  path: Assets.iconsIcPlaceMarker,
+                                  height: 18,
+                                  width: 18,
+                                ),
+
+                                Text(
+                                    rewardController.getOffersByIdModel.value?.offerDetailList?.first.businessAddress??"",
+                                  style: w400_10p(color: AppColor.c455A64),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    /// Todo rating is comment
+                    /*  Spacer(),
+                      Container(
+                        width: 50,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            ImageView(path: Assets.iconsIcStar, height: 14, width: 14),
+                            Text("4.5(200)", style: w400_10a(color: AppColor.c455A64)),
+                          ],
+                        ),
+                      ),*/
+                    ],
+                  ),
+                ),
                 DashedLineWidget(),
                 15.heightSizeBox,
                 Padding(
@@ -495,55 +498,6 @@ class BottomSheetWidget extends StatelessWidget {
                             ),
                           ),
 
-                          /// todo show image
-                          /*  Positioned(
-                            bottom: 10,
-                            // left: Get.width/2,
-                            child: GestureDetector(
-                              onTap: () {
-
-                              },
-                              child: CachedNetworkImage(
-                                height: 157,
-                                width: 157,
-                                fit: BoxFit.fitWidth,
-                                imageUrl:
-                                (rewardController
-                                    .getOffersByIdModel
-                                    .value
-                                    ?.data
-                                    ?.first
-                                    .qRCodeUrl
-                                    ?.isNotEmpty ??
-                                    false)
-                                    ? rewardController
-                                    .getOffersByIdModel
-                                    .value!
-                                    .data!
-                                    .first
-                                    .qRCodeUrl!
-                                    : Assets.imagesDemo,
-                                placeholder:
-                                    (context, url) => Center(
-                                  child: SizedBox(
-                                    height: 25,
-                                    width: 25,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                    ),
-                                  ),
-                                ),
-                                errorWidget:
-                                    (context, url, error) => Image.asset(
-                                  Assets.imagesDemo,
-                                  height: 157,
-                                  width: 157,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-
-                            ),
-                          ),*/
 
                           /// base64 image
                           Positioned(
@@ -556,7 +510,7 @@ class BottomSheetWidget extends StatelessWidget {
                                       rewardController
                                           .getOffersByIdModel
                                           .value
-                                          ?.data
+                                          ?.offerDetailList
                                           ?.first
                                           .qRCodeUrl;
 
@@ -570,18 +524,13 @@ class BottomSheetWidget extends StatelessWidget {
                         ],
                       ),
 /// working on later
-                     /* 13.heightSizeBox,
-
-                      rewardController.countdown.isNotEmpty
-                          ? Text("${rewardController.countdown}")
-                          : SizedBox(),
-                      Align(
-                        alignment: Alignment.center,
-                        child: ImageView(
-                          path: Assets.imagesTimeView,
-                          height: 37,
-                        ),
-                      ),*/
+                      CountdownOrDateTimer(
+                        expiryDateStr:      rewardController
+                            .getOffersByIdModel
+                            .value
+                            ?.offerDetailList
+                            ?.first.expiryDate ?? '',
+                      ),
                       28.heightSizeBox,
                       Container(
                         decoration: BoxDecoration(
