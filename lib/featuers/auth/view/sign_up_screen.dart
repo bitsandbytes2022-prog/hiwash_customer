@@ -142,14 +142,16 @@ class SignUpScreen extends StatelessWidget {
 
               35.heightSizeBox,
 
-              Obx(()=>
-                 HiWashButton(
+              Obx(
+                () => HiWashButton(
                   isLoading: authController.isLoading.value,
                   text: "signUp".tr,
                   onTap: () {
-                    String enteredPhone = authController.phoneController.text.trim();
+                    String enteredPhone =
+                        authController.phoneController.text.trim();
 
-                    if (phoneNumberSignUp != null && phoneNumberSignUp != enteredPhone) {
+                    if (phoneNumberSignUp != null &&
+                        phoneNumberSignUp != enteredPhone) {
                       Get.snackbar(
                         "Phone Number Changed",
                         "You have changed the phone number from the original one.",
@@ -171,10 +173,23 @@ class SignUpScreen extends StatelessWidget {
                           )
                           .then((value) {
                             if (value != null) {
-                              Get.toNamed(
-                                RouteStrings.otpScreen,
-                                arguments: enteredPhone,
-                              );
+                              String phoneNumber =
+                                  authController.phoneController.text.trim();
+                              authController
+                                  .sendOtp(phoneNumber)
+                                  .then((otpValue) {
+                                    if (otpValue != null) {
+                                      Get.toNamed(
+                                        RouteStrings.otpScreen,
+                                        arguments: phoneNumber,
+                                      );
+                                      authController.phoneController
+                                          .clear();
+                                    }
+                                  })
+                                  .catchError((error) {
+                                    print("Error during OTP sending: $error");
+                                  });
                             }
                           });
                     }
