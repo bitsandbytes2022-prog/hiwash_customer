@@ -183,8 +183,7 @@ class SignUpScreen extends StatelessWidget {
                                         RouteStrings.otpScreen,
                                         arguments: phoneNumber,
                                       );
-                                      authController.phoneController
-                                          .clear();
+                                      authController.phoneController.clear();
                                     }
                                   })
                                   .catchError((error) {

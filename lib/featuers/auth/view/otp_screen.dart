@@ -31,9 +31,11 @@ class OtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String phoneNumber = Get.arguments as String;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       controller.startTimer();
+    await  controller.getFCMTokenIn();
     });
+
 
     final defaultPinTheme = PinTheme(
       width: 56,

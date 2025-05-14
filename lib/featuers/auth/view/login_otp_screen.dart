@@ -25,8 +25,9 @@ class LoginOtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String phoneNumber = Get.arguments as String;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       controller.startTimer();
+    await  controller.getFCMTokenIn();
     });
 
     final defaultPinTheme = PinTheme(
@@ -132,7 +133,7 @@ class LoginOtpScreen extends StatelessWidget {
                       print("Server OTP: $serverOtp (${serverOtp.runtimeType})");
 
                       if (enteredOtp == serverOtp) {
-                        controller.getToken(phoneNumber).then((value) {
+                        controller.getToken(phoneNumber,).then((value) {
                           if (value != null) {
                             Get.offAllNamed(RouteStrings.dashboardScreen);
                           }
