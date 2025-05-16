@@ -32,6 +32,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     otp = json['otp'];
     otpExpiredDate = json['otpExpiredDate'];
+
     mobileNumber = json['mobileNumber'];
   }
 
