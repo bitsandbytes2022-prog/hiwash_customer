@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:hiwash_customer/featuers/wash_status/model/get_location_model.dart';
+import 'package:hiwash_customer/widgets/components/loader.dart';
 
 import '../../../network_manager/local_storage.dart';
 import '../../../network_manager/repository.dart';
@@ -16,11 +17,12 @@ class WashStatusController extends GetxController {
 
   Future<WashSummaryModel?> getWashSummary() async {
     try {
+     // showLoader();
       washSummaryModel.value = await Repository().washSummary();
+     // hideLoader();
       return washSummaryModel.value;
     } catch (error) {
-      loading = false;
-      update();
+
       print("Error fetching Wash summary: $error");
     }
     return null;
@@ -30,6 +32,7 @@ class WashStatusController extends GetxController {
 
   @override
   void onInit() {
+
     final String? userIdStr = LocalStorage().getUserId();
 
     if (userIdStr != null) {
@@ -44,17 +47,18 @@ class WashStatusController extends GetxController {
     }
     getWashSummary();
 
-    //fetchAndSetLocation();
     fetchCurrentAddress();
   }
 /// Get Customer Data By Id
   Future<GetCustomerData?> getCustomerDataById(int id) async {
     try {
+      //showLoader();
       getCustomerData.value = await Repository().getCustomerData(id);
 
       getCustomerData.value;
       getCustomerData.refresh();
     } catch (error) {
+     // hideLoader();
       print("Error fetching customer data: $error");
       return null;
     }
@@ -123,7 +127,6 @@ class WashStatusController extends GetxController {
         currentAddress.value = "Could not retrieve address details";
       }
 
-      /// 🟢 Ye line add karo - API ko call karo
       await getLocation(position.latitude.toString(), position.longitude.toString());
 
     } catch (e) {
@@ -132,105 +135,4 @@ class WashStatusController extends GetxController {
     }
   }
 
-/*Future<void> fetchCurrentAddress() async {
-    try {
-      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) {
-        currentAddress.value = "Location services are disabled";
-        return;
-      }
-
-      LocationPermission permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          currentAddress.value = "Location permission denied";
-          return;
-        }
-      }
-
-      if (permission == LocationPermission.deniedForever) {
-        currentAddress.value = "Location permission permanently denied";
-        return;
-      }
-
-      Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-        position.latitude,
-        position.longitude,
-      );
-
-      if (placemarks.isNotEmpty) {
-        Placemark place = placemarks.first;
-
-        currentAddress.value =
-        "${place.street ?? ''}, ${place.subLocality ?? ''}, ${place.locality ?? ''}, ${place.postalCode ?? ''}";
-      } else {
-        currentAddress.value = "Could not retrieve address details";
-      }
-    } catch (e) {
-      print("Error fetching current address: $e");
-      currentAddress.value = "Location not available";
-    }
-  }*/
-
-/*
-  Future<void> fetchAndSetLocation() async {
-    try {
-      Position position = await determinePosition();
-      final latitude = position.latitude.toString();
-      final longitude = position.longitude.toString();
-
-      final location = await getLocation(latitude, longitude);
-      if (location != null) {
-        getLocationModel.value = location;
-        update();
-      }
-    } catch (e) {
-      print("Error getting location: $e");
-    }
-  }*/
-
-/*  Future<Position> determinePosition() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error('Location permissions are permanently denied.');
-    }
-
-    return await Geolocator.getCurrentPosition();
-  }*/
-
-
-/*  Rxn<GetLocationModel> getLocationModel = Rxn();
-
-
-  Future<GetLocationModel?>getLocation(String latitude,String longitude) async {
-    try{
-      getLocationModel.value=await Repository().getLocationRepo({
-
-        "latitude":latitude,
-        "longitude":longitude,
-      });
-
-    }catch(e){
-      print("Error fetching location: $e");
-      return null;
-    }
-    return null;
-  }*/
 }

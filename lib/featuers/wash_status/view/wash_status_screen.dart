@@ -65,10 +65,30 @@ class WashStatusScreen extends StatelessWidget {
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(left: 14, top: 12),
-                                    child: Text(
-                                      "${controller.washSummaryModel.value?.data?.summary?.totalWashes ?? ""}",
-                                      style: w700_27a(color: AppColor.white),
-                                    ),
+                                    child:
+                                        controller
+                                                    .getCustomerData
+                                                    .value
+                                                    ?.data
+                                                    ?.subscriptionDetails
+                                                    ?.subscriptionId ==
+                                                1
+                                            ? Text(
+                                              "${controller.washSummaryModel.value?.data?.summary?.totalWashes ?? ""}",
+                                              style: w700_27a(
+                                                color: AppColor.white,
+                                              ),
+                                            )
+                                            : ( controller
+                                            .getCustomerData
+                                            .value
+                                            ?.data
+                                            ?.subscriptionDetails
+                                            ?.subscriptionId ==
+                                            2)?Icon(
+                                              CupertinoIcons.infinite,
+                                              color: Colors.white,
+                                            ):SizedBox(),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
@@ -102,21 +122,32 @@ class WashStatusScreen extends StatelessWidget {
                                         right: 14,
                                         top: 12,
                                       ),
-                                      child: controller
-                                          .washSummaryModel
-                                          .value
-                                          ?.data
-                                          ?.summary
-                                          ?.remainingWashes ==
-                                          1 ?Text(
-                                        "${controller.washSummaryModel.value?.data?.summary?.remainingWashes ?? ""}",
-                                        style:
-                                           
-                                                 w700_27a(
+                                      child:
+                                          controller
+                                                      .getCustomerData
+                                                      .value
+                                                      ?.data
+                                                      ?.subscriptionDetails
+                                                      ?.subscriptionId ==
+                                                  1
+                                              ? Text(
+                                                "${controller.washSummaryModel.value?.data?.summary?.remainingWashes ?? ""}",
+                                                style: w700_27a(
                                                   color: AppColor.white,
-                                                )
-                                               
-                                      ):Icon(CupertinoIcons.infinite,color: Colors.white,),
+                                                ),
+                                              )
+                                              : (controller
+                                                      .getCustomerData
+                                                      .value
+                                                      ?.data
+                                                      ?.subscriptionDetails
+                                                      ?.subscriptionId ==
+                                                  2)
+                                              ? Icon(
+                                                CupertinoIcons.infinite,
+                                                color: Colors.white,
+                                              )
+                                              : SizedBox(),
                                     ),
                                   ),
                                   Padding(
@@ -151,7 +182,7 @@ class WashStatusScreen extends StatelessWidget {
                                 true)
                             ? Container(
                               alignment: Alignment.center,
-                              child: Text("Not Found"),
+                              child: Text(""),
                             )
                             : ListView.separated(
                               padding: EdgeInsets.only(top: 0, bottom: 150),
@@ -323,7 +354,7 @@ class WashStatusScreen extends StatelessWidget {
         controller.washSummaryModel.value?.data?.completedWash![index];
 
     return GestureDetector(
-      onTap: washData?.rating==0 ?onTap:(){},
+      onTap: washData?.rating == 0 ? onTap : () {},
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -433,6 +464,7 @@ class WashStatusScreen extends StatelessWidget {
   }
 
   Widget successDialog(CompletedWash completedWashData) {
+    dashboardController.apiResponse.value = null;
     // controller.washSummaryModel.value=null;
     return Column(
       mainAxisSize: MainAxisSize.min,

@@ -159,7 +159,6 @@ class SignUpScreen extends StatelessWidget {
                         colorText: Colors.white,
                       );
                     }
-                    // Get.toNamed(RouteStrings.dashboardScreen);
                     if (formKey.currentState?.validate() ?? false) {
                       authController
                           .signUp(
@@ -175,11 +174,11 @@ class SignUpScreen extends StatelessWidget {
                             if (value != null) {
                               String phoneNumber =
                                   authController.phoneController.text.trim();
-                            await  authController
-                                  .signUpOtp(phoneNumber)
+                              authController
+                                  .sendOtp(phoneNumber)
                                   .then((otpValue) {
                                     if (otpValue != null) {
-                                      authController.signUpSendOtpModel.value = otpValue;
+                                      authController.sendOtpModel = otpValue;
                                       Get.toNamed(
                                         RouteStrings.otpScreen,
                                         arguments: phoneNumber,

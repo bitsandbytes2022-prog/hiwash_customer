@@ -11,7 +11,6 @@ class LanguageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppHomeBg(
-
       headingText: "Language",
       iconRight:SizedBox(),
       child: Column(
@@ -29,15 +28,18 @@ class LanguageScreen extends StatelessWidget {
   countryRow({required String title}){
     return Column(
       children: [
-        Row(
-        children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+          children: [
 
-          Text(title,style: w400_13p(color: AppColor.c6B6B6B),)
-        ],
+            Text(title,style: w500_18p(color: AppColor.c6B6B6B),)
+          ],
+          ),
         ),
-        12.heightSizeBox,
+        20.heightSizeBox,
         DotedHorizontalLine(),
-        12.heightSizeBox,
+        20.heightSizeBox,
 
       ],
     );

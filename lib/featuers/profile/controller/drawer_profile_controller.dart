@@ -13,7 +13,7 @@ import 'package:image_picker/image_picker.dart';
 class DrawerProfileController extends GetxController {
   var  imageFile = Rx<File?>(null);
   RxBool isLoading = false.obs;
-
+  var isSwitchOn = false.obs;
   Future<void> imagePicker({required ImageSource source}) async {
     var pickedFile = await ImagePicker().pickImage(source: source,imageQuality: 20);
 

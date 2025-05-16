@@ -235,7 +235,7 @@ class AuthController extends GetxController {
       if (sendOtpModel != null) {
         Get.snackbar(
           'Success',
-          "OTP: ${sendOtpModel!.data?.otp}",
+          "TEST OTP: ${sendOtpModel!.data?.otp}",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.green,
           colorText: AppColor.white,

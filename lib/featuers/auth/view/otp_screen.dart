@@ -133,7 +133,7 @@ class OtpScreen extends StatelessWidget {
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
                       final enteredOtp = controller.enteredOtp.value.trim();
-                      final serverOtp =  controller.signUpSendOtpModel.value?.data?.otp;
+                      final serverOtp =  controller.sendOtpModel?.data?.otp;
 
                       print("Server OTP form signup: $serverOtp (${serverOtp})");
 

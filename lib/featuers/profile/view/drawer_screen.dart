@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/chat_screen.dart';
 import 'package:hiwash_customer/featuers/profile/view/subscription_plan_screen.dart';
+import 'package:hiwash_customer/featuers/profile/view/widget/custome_switch.dart';
 import 'package:hiwash_customer/widgets/components/data_formet.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
@@ -236,11 +237,19 @@ class DrawerScreen extends StatelessWidget {
               onTap: () => userData?.subscriptionId==null? Get.toNamed(RouteStrings.subscribeMainScreen):Get.toNamed(RouteStrings.subscriptionPlanScreen),
               title: 'Subscription Plan', image: Assets.iconsIcSubscriptionPlan,
             ),*/
-          drawerRowWidget(
-            onTap: () => drawerController.toggleDrawer('Theme'),
+          Obx(() => drawerRowForTheme(
             title: 'Theme',
             image: Assets.iconsIcTheme,
-          ),
+            switchValue: drawerController.isSwitchOn.value,
+            onSwitchChanged: (bool value) {
+              drawerController.isSwitchOn.value = value;
+
+              // Optional: toggle theme
+              // Get.changeTheme(value ? ThemeData.dark() : ThemeData.light());
+            },
+          )),
+
+
           drawerRowWidget(
             onTap: () => Get.toNamed(RouteStrings.languageScreen),
             title: 'Language',
@@ -607,6 +616,40 @@ class DrawerScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget drawerRowForTheme({
+    required String title,
+    required String image,
+    required bool switchValue,
+    required ValueChanged<bool> onSwitchChanged,
+    bool dashedLineWidget = true,
+  }) {
+    return Column(
+      children: [
+        Container(
+          color: Colors.transparent,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
+            child: Row(
+              children: [
+                ImageView(path: image, height: 20, width: 20),
+                const SizedBox(width: 10),
+                Text(title, style: w500_14a(color: AppColor.c2C2A2A)),
+                const Spacer(),
+                CustomContainerSwitch(
+                  value: switchValue,
+                  onChanged: onSwitchChanged,
+                ),
+              ],
+            ),
+          ),
+        ),
+        dashedLineWidget ? DotedHorizontalLine() : const SizedBox(),
+      ],
+    );
+  }
+
+
 
   /// **Reusable  Row for subscriptionPlanUI Widget**
   Widget subscriptionRowWidget({
