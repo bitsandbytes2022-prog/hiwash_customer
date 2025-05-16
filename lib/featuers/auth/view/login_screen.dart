@@ -77,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                       String phoneNumber = controller.loginPhoneController.text.trim();
                       controller.sendOtp(phoneNumber).then((value) {
                         if (value != null) {
-                          Get.toNamed(
+                           Get.toNamed(
                             RouteStrings.loginOtpScreen,
                             arguments: phoneNumber,
                           );

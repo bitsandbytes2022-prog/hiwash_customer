@@ -17,8 +17,7 @@ import '../model/send_otp_model.dart';
 
 class AuthController extends GetxController {
   var isLoggedIn = false.obs;
-
-  @override
+   @override
   void onInit() {
     pageController.addListener(() {
       onPageChanged(pageController.page!.round());
@@ -229,20 +228,20 @@ class AuthController extends GetxController {
     isLoading.value = true;
 
     try {
-      final sendOtpModel = await Repository().sendOtpRepo(requestBody);
+         sendOtpModel = await Repository().sendOtpRepo(requestBody);
       sendOtpModel?.data?.otp?.toString();
       print("Value received in controller sendOtp: ${sendOtpModel.toString()}");
 
       if (sendOtpModel != null) {
         Get.snackbar(
           'Success',
-          "OTP: ${sendOtpModel.data?.otp}",
+          "OTP: ${sendOtpModel!.data?.otp}",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.green,
           colorText: AppColor.white,
         );
 
-        print("User Type: ${sendOtpModel.toJson().toString()}");
+        print("User Type: ${sendOtpModel!.toJson().toString()}");
         return sendOtpModel;
       } else {
         throw Exception('Failed to generate OTP');

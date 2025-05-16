@@ -38,6 +38,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int _currentIndex = 0;
+  int _lastIndex = 0;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String _currentDrawer = 'first';
@@ -60,6 +61,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } else {
       setState(() {
         _currentIndex = index;
+
       });
     }
   }

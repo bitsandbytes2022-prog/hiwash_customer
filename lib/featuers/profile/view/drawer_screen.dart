@@ -46,31 +46,25 @@ class DrawerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final userData =
         washStatusController.getCustomerData.value?.data?.customerDetails;
-    return SafeArea(
-      bottom: true,
-      top: false,
-      child: Scaffold(
-        body: Obx(() {
-          return Drawer(
-            child: Container(
-              //margin: EdgeInsets.only(bottom: ),
-              decoration: BoxDecoration(
-                color: AppColor.white,
-                borderRadius: BorderRadius.horizontal(
-                  right: Radius.circular(15),
-                ),
-              ),
-              child:
-                  drawerController.currentDrawerSection.value == ''
-                      ? mainDrawerUI()
-                      : sectionDrawerUI(
-                        drawerController.currentDrawerSection.value,
-                      ),
+    return Obx(() {
+      return Drawer(
+        child: Container(
+          //margin: EdgeInsets.only(bottom: ),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.horizontal(
+              right: Radius.circular(15),
             ),
-          );
-        }),
-      ),
-    );
+          ),
+          child:
+          drawerController.currentDrawerSection.value == ''
+              ? mainDrawerUI()
+              : sectionDrawerUI(
+            drawerController.currentDrawerSection.value,
+          ),
+        ),
+      );
+    });
   }
 
   /// **Main Drawer**
