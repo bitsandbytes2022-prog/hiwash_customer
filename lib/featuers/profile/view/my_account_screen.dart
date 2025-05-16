@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -44,36 +43,55 @@ class MyAccountScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Select Image Source",style: w500_20a(color: AppColor.c2C2A2A),),
+          title: Text(
+            "Select Image Source",
+            style: w500_20a(color: AppColor.c2C2A2A),
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
                 leading: Icon(Icons.camera),
-                title: Text("Camera",style: w400_14p(),),
+                title: Text("Camera", style: w400_14p()),
                 onTap: () async {
-                 Get.back();
-                  await drawerProfileController.imagePicker(source: ImageSource.camera);
+                  Get.back();
+                  await drawerProfileController.imagePicker(
+                    source: ImageSource.camera,
+                  );
                   if (drawerProfileController.imageFile.value != null) {
                     await drawerProfileController.uploadProfileImage();
                     await Future.delayed(Duration(seconds: 1));
                     await washStatusController.getCustomerDataById(
-                      washStatusController.getCustomerData.value?.data?.customerDetails?.id ?? 0,
+                      washStatusController
+                              .getCustomerData
+                              .value
+                              ?.data
+                              ?.customerDetails
+                              ?.id ??
+                          0,
                     );
                   }
                 },
               ),
               ListTile(
                 leading: Icon(Icons.photo),
-                title: Text("Gallery",style: w400_14p(),),
+                title: Text("Gallery", style: w400_14p()),
                 onTap: () async {
                   Get.back();
-                  await drawerProfileController.imagePicker(source: ImageSource.gallery);
+                  await drawerProfileController.imagePicker(
+                    source: ImageSource.gallery,
+                  );
                   if (drawerProfileController.imageFile.value != null) {
                     await drawerProfileController.uploadProfileImage();
                     await Future.delayed(Duration(seconds: 1));
                     await washStatusController.getCustomerDataById(
-                      washStatusController.getCustomerData.value?.data?.customerDetails?.id ?? 0,
+                      washStatusController
+                              .getCustomerData
+                              .value
+                              ?.data
+                              ?.customerDetails
+                              ?.id ??
+                          0,
                     );
                   }
                 },
@@ -87,9 +105,10 @@ class MyAccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userData = washStatusController.getCustomerData.value?.data?.customerDetails;
-    final userDataSub = washStatusController.getCustomerData.value?.data?.subscriptionDetails;
-
+    final userData =
+        washStatusController.getCustomerData.value?.data?.customerDetails;
+    final userDataSub =
+        washStatusController.getCustomerData.value?.data?.subscriptionDetails;
     drawerProfileController.nameController.text = userData?.fullName ?? '';
     drawerProfileController.emailController.text = userData?.email ?? '';
     drawerProfileController.phoneController.text = userData?.mobileNumber ?? '';
@@ -97,7 +116,8 @@ class MyAccountScreen extends StatelessWidget {
     drawerProfileController.streetController.text = userData?.street ?? '';
     drawerProfileController.buildingController.text = userData?.building ?? '';
     drawerProfileController.unitController.text = userData?.unit ?? '';
-    drawerProfileController.carNumberController.text = userData?.carNumber ?? '';
+    drawerProfileController.carNumberController.text =
+        userData?.carNumber ?? '';
 
     return AppHomeBg(
       headingText: "My Account",
@@ -131,7 +151,8 @@ class MyAccountScreen extends StatelessWidget {
                                 drawerProfileController.imageFile.value!,
                               ),
                             );
-                          } else if ((userData?.profilePicUrl ?? '').isNotEmpty) {
+                          } else if ((userData?.profilePicUrl ?? '')
+                              .isNotEmpty) {
                             return CircleAvatar(
                               radius: 50,
                               backgroundImage: NetworkImage(
@@ -176,9 +197,14 @@ class MyAccountScreen extends StatelessWidget {
                     ],
                   ),
                   11.heightSizeBox,
-                  Text(
-                    userData?.fullName ?? '',
-                    style: w700_16a(color: AppColor.c2C2A2A),
+
+                  Obx(
+                     () {
+                      return Text(
+                        washStatusController.getCustomerData.value?.data?.customerDetails?.fullName ?? '',
+                        style: w700_16a(color: AppColor.c2C2A2A),textAlign: TextAlign.center,
+                      );
+                    }
                   ),
                   4.heightSizeBox,
                   RichText(
@@ -318,7 +344,13 @@ class MyAccountScreen extends StatelessWidget {
                           );
 
                           washStatusController.getCustomerDataById(
-                            washStatusController.getCustomerData.value?.data?.customerDetails?.id ?? 0,
+                            washStatusController
+                                    .getCustomerData
+                                    .value
+                                    ?.data
+                                    ?.customerDetails
+                                    ?.id ??
+                                0,
                           );
                         } else {
                           Get.snackbar(
@@ -341,9 +373,6 @@ class MyAccountScreen extends StatelessWidget {
     );
   }
 }
-
-
-
 
 /*
 import 'package:flutter/material.dart';

@@ -30,6 +30,7 @@ class AuthController extends GetxController {
   GetTokenModel? getTokenModel;
   SendOtpModel? sendOtpModel;
   SignUpModel? signUpModel;
+  Rxn<SendOtpModel>signUpSendOtpModel=Rxn<SendOtpModel>();
 
   /// login controller
   TextEditingController loginPhoneController = TextEditingController(
@@ -84,7 +85,7 @@ class AuthController extends GetxController {
   final List<String> headingText = [
     "kEcoCleanWalletGreen", "Wash & Win!",
 
-    //"kEcoCleanWalletGreen",
+
   ];
   final List<String> subText = [
     "kExclusiveDealsWithEvery",
@@ -176,12 +177,7 @@ class AuthController extends GetxController {
     return null;
   }
 
-  String? validate(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Required";
-    }
-    return null;
-  }
+
 
   var isLoading = false.obs;
   var enteredOtp = ''.obs;
@@ -204,6 +200,7 @@ class AuthController extends GetxController {
   void resetTimer() {
     startTimer();
   }
+
   @override
   void onClose() {
     _timer?.cancel();
@@ -232,20 +229,20 @@ class AuthController extends GetxController {
     isLoading.value = true;
 
     try {
-      sendOtpModel = await Repository().sendOtpRepo(requestBody);
-      print("Value received in controller sendOtp: $sendOtpModel");
+      final sendOtpModel = await Repository().sendOtpRepo(requestBody);
+      sendOtpModel?.data?.otp?.toString();
+      print("Value received in controller sendOtp: ${sendOtpModel.toString()}");
 
       if (sendOtpModel != null) {
         Get.snackbar(
           'Success',
-          "OTP: ${sendOtpModel?.data?.otp}",
+          "OTP: ${sendOtpModel.data?.otp}",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.green,
           colorText: AppColor.white,
         );
-        print("OTP: ${sendOtpModel?.data?.otp}");
-        print("OTP Expiry Date: ${sendOtpModel?.data?.otpExpiredDate}");
-        print("Mobile Number: ${sendOtpModel?.data?.mobileNumber}");
+
+        print("User Type: ${sendOtpModel.toJson().toString()}");
         return sendOtpModel;
       } else {
         throw Exception('Failed to generate OTP');
@@ -254,7 +251,6 @@ class AuthController extends GetxController {
       print("Error in controller while sending OTP: $error");
 
       if (error.toString().contains('User not found (404)')) {
-
         Get.offAllNamed(RouteStrings.signUpScreen, arguments: phoneNumber);
       }
 
@@ -274,7 +270,7 @@ class AuthController extends GetxController {
     Map<String, dynamic> requestBody = {
       "mobileNumber": phoneNumber,
       "userType": "0",
-      "fcmToken":LocalStorage().getFCMToken()
+      "fcmToken": LocalStorage().getFCMToken(),
     };
     print("Calling getToken with $phoneNumber");
     isLoading.value = true;
@@ -293,7 +289,7 @@ class AuthController extends GetxController {
       getTokenModel = value;
       return value;
     } catch (error) {
-      print(" Error in controller send otp: $error");
+      print(" Error in controller send otp get token: $error");
       return null;
     } finally {
       isLoading.value = false;
@@ -328,11 +324,27 @@ class AuthController extends GetxController {
 
       return signUpModel;
     } catch (error) {
-      print(" Error in controller send otp: $error");
+      print(" Error in controller send signUp: $error");
       return null;
     } finally {
       isLoading.value = false;
     }
+  }
+
+  Future<SendOtpModel?> signUpOtp(String phoneNumber) async {
+    try {
+      Map<String, dynamic> requestBody = {
+        "mobileNumber": phoneNumber,
+        "userType": "0",
+      };
+      print("Request Body: $requestBody");
+      signUpSendOtpModel.value = await Repository().sendOtp(requestBody);
+      print("Received signUpSendOtpModel: ${sendOtpModel?.toJson().toString()}");
+      return sendOtpModel;
+    } catch (e) {
+      print("Error in controller while sending OTP from signup: $e");
+    }
+    return null;
   }
 
   Future<void> logout() async {

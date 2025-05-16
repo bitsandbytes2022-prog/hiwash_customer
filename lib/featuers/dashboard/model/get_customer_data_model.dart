@@ -58,36 +58,7 @@ class Data {
     return subscriptionDetails != null;
   }
 }
-/*
-class Data {
-  CustomerDetails? customerDetails;
-  SubscriptionDetails? subscriptionDetails;
 
-  Data({this.customerDetails, this.subscriptionDetails});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    customerDetails =
-        json['customerDetails'] != null
-            ? new CustomerDetails.fromJson(json['customerDetails'])
-            : null;
-    subscriptionDetails =
-        json['subscriptionDetails'] != null
-            ? new SubscriptionDetails.fromJson(json['subscriptionDetails'])
-            : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.customerDetails != null) {
-      data['customerDetails'] = this.customerDetails!.toJson();
-    }
-    if (this.subscriptionDetails != null) {
-      data['subscriptionDetails'] = this.subscriptionDetails!.toJson();
-    }
-    return data;
-  }
-}
-*/
 
 class CustomerDetails {
   int? id;
@@ -197,6 +168,24 @@ class SubscriptionDetails {
     data['price'] = this.price;
     data['currency'] = this.currency;
     data['qrCodeUrl'] = this.qrCodeUrl;
+    return data;
+  }
+}
+class OfferDetails {
+  int? id;
+  String? title;
+
+  OfferDetails({this.id, this.title});
+
+  OfferDetails.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['title'] = this.title;
     return data;
   }
 }

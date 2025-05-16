@@ -50,17 +50,7 @@ class DrawerProfileController extends GetxController {
     }
   }
 
-/*
-  Future<void> imagePicker() async {
-    var pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    // Check if a file is selected
-    if (pickedFile != null) {
-      imageFile.value = File(pickedFile.path);
-    } else {
-      print("No file selected");
-    }
-  }*/
   var currentDrawerSection = ''.obs;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -124,9 +114,9 @@ class DrawerProfileController extends GetxController {
         "profilePic": profilePic,
         "carNumber": carNumber,
       };
-      showLoader();
+     // showLoader();
       final response = await Repository().uploadProfile(requestBody);
-      hideLoader();
+     // hideLoader();
       return response;
     } catch (e) {
       print("Update profile error: $e");

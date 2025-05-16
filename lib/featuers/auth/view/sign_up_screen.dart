@@ -171,14 +171,15 @@ class SignUpScreen extends StatelessWidget {
                             authController.buildingController.text.trim(),
                             authController.unitController.text.trim(),
                           )
-                          .then((value) {
+                          .then((value) async {
                             if (value != null) {
                               String phoneNumber =
                                   authController.phoneController.text.trim();
-                              authController
-                                  .sendOtp(phoneNumber)
+                            await  authController
+                                  .signUpOtp(phoneNumber)
                                   .then((otpValue) {
                                     if (otpValue != null) {
+                                      authController.signUpSendOtpModel.value = otpValue;
                                       Get.toNamed(
                                         RouteStrings.otpScreen,
                                         arguments: phoneNumber,

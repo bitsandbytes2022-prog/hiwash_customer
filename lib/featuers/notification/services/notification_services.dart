@@ -7,6 +7,8 @@ import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
 import 'dart:convert';
 
+import 'package:hiwash_customer/styling/app_color.dart';
+
 class NotificationServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -85,21 +87,47 @@ class NotificationServices {
     }
   }
 
-  /// Get device FCM token
-  Future<String> getDeviceToken() async {
-    await messaging.requestPermission(
-      announcement: true,
-      alert: true,
-      sound: true,
-      badge: true,
-    );
-    String? token = await messaging.getToken();
-    print("Device Token: $token");
-    return token!;
-  }
+
 
   /// Show local notification (when app is in foreground)
+  /// Show local notification (when app is in foreground)
   void showNotification(RemoteMessage message) async {
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+
+    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+      'high_importance_channel',
+      'High Importance Notifications',
+      importance: Importance.max,
+      priority: Priority.high,
+      icon: '@mipmap/ic_launcher',
+    );
+
+    const NotificationDetails platformDetails = NotificationDetails(android: androidDetails);
+
+    if (notification != null && android != null) {
+      // Show local notification
+      await flutterLocalNotificationsPlugin.show(
+        notification.hashCode,
+        notification.title,
+        notification.body,
+        platformDetails,
+        payload: jsonEncode(message.data),
+      );
+
+      // Show snackbar using GetX
+      Get.snackbar(
+        notification.title ?? "Notification",
+        notification.body ?? "",
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 4),
+        backgroundColor:AppColor.blue,
+        colorText:AppColor.white
+      );
+    }
+  }
+
+  /* void showNotification(RemoteMessage message) async {
     RemoteNotification? notification = message.notification;
     AndroidNotification? android = message.notification?.android;
 
@@ -109,6 +137,7 @@ class NotificationServices {
       'High Importance Notifications',
       importance: Importance.max,
       priority: Priority.high,
+        icon: '@mipmap/ic_launcher'
     );
 
     const NotificationDetails platformDetails =
@@ -123,7 +152,7 @@ class NotificationServices {
         payload: jsonEncode(message.data),
       );
     }
-  }
+  }*/
 
   /// When user taps on notification
   void handlerMessage(RemoteMessage message) {
@@ -161,58 +190,3 @@ Future<void> myBackgroundMessageHandler(RemoteMessage message) async {
   print("Background Message Handler: ${message.messageId}");
 }
 
-/*
-class NotificationServices{
-  FirebaseMessaging messaging =FirebaseMessaging.instance;
-
-  Future<void> requestNotificationPermission() async {
-    try {
-      NotificationSettings settings = await messaging.requestPermission(
-        alert: true,
-        announcement: true,
-        badge: true,
-        carPlay: true,
-        criticalAlert: true,
-        provisional: true,
-        sound: true,
-      );
-
-      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-        print("User  granted permission");
-      } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-        print("User  granted provisional permission");
-        Get.snackbar("Provisional Permission Granted",
-            "You will receive notifications, but they may be limited.",
-            snackPosition: SnackPosition.TOP);
-      } else {
-        Get.snackbar("Notification Permission Denied",
-            "Please allow notifications to receive updates.",
-            snackPosition: SnackPosition.TOP);
-        Future.delayed(Duration(seconds: 2), () {
-          AppSettings.openAppSettings(type: AppSettingsType.notification);
-        });
-      }
-    } catch (e) {
-      print("Error requesting notification permission: $e");
-      Get.snackbar("Error",
-          "An error occurred while requesting notification permission.",
-          snackPosition: SnackPosition.TOP);
-    }
-  }
-  ///get token
-  Future<String> getDeviceToken() async {
-     */
-/*NotificationSettings settings =*//*
- await messaging.requestPermission(
-      announcement: true,
-      alert: true,
-      sound: true,
-      badge: true,
-    );
-    String? token = await messaging.getToken();
-print("Device-Token------->${token}");
-    return token!;
-  }
-
-
-}*/

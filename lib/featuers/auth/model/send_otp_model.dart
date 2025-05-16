@@ -23,21 +23,21 @@ class SendOtpModel {
 }
 
 class Data {
-  int? otp;
+  String? otp;
   String? otpExpiredDate;
   String? mobileNumber;
 
   Data({this.otp, this.otpExpiredDate, this.mobileNumber});
 
   Data.fromJson(Map<String, dynamic> json) {
-    otp = json['otp'] != null ? int.tryParse(json['otp'].toString()) : null;
+    otp = json['otp'];
     otpExpiredDate = json['otpExpiredDate'];
     mobileNumber = json['mobileNumber'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['otp'] = this.otp.toString();
+    data['otp'] = this.otp;
     data['otpExpiredDate'] = this.otpExpiredDate;
     data['mobileNumber'] = this.mobileNumber;
     return data;

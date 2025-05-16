@@ -139,7 +139,7 @@ class BottomSheetWidget extends StatelessWidget {
                                     );
                                     //rewardController.update();
                                     print("0000000000------>");
-                                    // Get.back();
+
                                     showModalBottomSheet(
                                       context: Get.context!,
                                       isScrollControlled: true,
@@ -596,7 +596,14 @@ class BottomSheetWidget extends StatelessWidget {
       },
     );
   }
-
+  bool isOfferExpired(String expiryDateStr) {
+    try {
+      final expiryDate = DateTime.parse(expiryDateStr);
+      return DateTime.now().isAfter(expiryDate);
+    } catch (e) {
+      return false;
+    }
+  }
   Widget profileView() {
     return Padding(
       padding: EdgeInsets.only(left: 16, top: 14, right: 16, bottom: 15),
@@ -762,7 +769,7 @@ class BottomSheetWidget extends StatelessWidget {
       ],
     );
   }
-
+/*
   Widget scanDialog() {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -799,7 +806,7 @@ class BottomSheetWidget extends StatelessWidget {
         46.heightSizeBox,
       ],
     );
-  }
+  }*/
 }
 
 /*

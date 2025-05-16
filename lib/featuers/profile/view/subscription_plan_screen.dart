@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -175,7 +176,21 @@ class SubscriptionPlanScreen extends StatelessWidget {
                     10.heightSizeBox,
                     DashedLineWidget(),
                     10.heightSizeBox,
-                    subscriptionRowWidget(
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Remaining wash", style: w400_12p(color: AppColor.c455A64)),
+            userDataSub?.subscriptionId==1?  Text(     washStatusController
+                .washSummaryModel
+                .value
+                ?.data
+                ?.summary
+                ?.remainingWashes ??
+                ''.tr, style: w500_12p(color: AppColor.c2C2A2A)):Icon(CupertinoIcons.infinite,color: AppColor.c2C2A2A.withOpacity(0.7)),
+            ],
+          )
+                  /*  subscriptionRowWidget(
                       title: 'Remaining wash',
                       packName:
                           washStatusController
@@ -185,8 +200,8 @@ class SubscriptionPlanScreen extends StatelessWidget {
                               ?.summary
                               ?.remainingWashes ??
                           '',
-                    ),
-                    10.heightSizeBox,
+                    ),*/
+                    ,10.heightSizeBox,
                     DashedLineWidget(),
                     10.heightSizeBox,
                     subscriptionRowWidget(

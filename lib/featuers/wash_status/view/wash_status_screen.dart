@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:get/get.dart';
@@ -101,23 +102,21 @@ class WashStatusScreen extends StatelessWidget {
                                         right: 14,
                                         top: 12,
                                       ),
-                                      child: Text(
+                                      child: controller
+                                          .washSummaryModel
+                                          .value
+                                          ?.data
+                                          ?.summary
+                                          ?.remainingWashes ==
+                                          1 ?Text(
                                         "${controller.washSummaryModel.value?.data?.summary?.remainingWashes ?? ""}",
                                         style:
-                                            (controller
-                                                        .washSummaryModel
-                                                        .value
-                                                        ?.data
-                                                        ?.summary
-                                                        ?.remainingWashes ==
-                                                    1)
-                                                ? w700_27a(
+                                           
+                                                 w700_27a(
                                                   color: AppColor.white,
                                                 )
-                                                : w700_15a(
-                                                  color: AppColor.white,
-                                                ),
-                                      ),
+                                               
+                                      ):Icon(CupertinoIcons.infinite,color: Colors.white,),
                                     ),
                                   ),
                                   Padding(
@@ -324,7 +323,7 @@ class WashStatusScreen extends StatelessWidget {
         controller.washSummaryModel.value?.data?.completedWash![index];
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: washData?.rating==0 ?onTap:(){},
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(

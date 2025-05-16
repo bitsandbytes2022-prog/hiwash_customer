@@ -23,7 +23,6 @@ import '../route/route_strings.dart';
 import 'api_constant.dart';
 import 'dio_helper.dart';
 import 'local_storage.dart';
-import 'package:dio/dio.dart' as dio;
 
 class Repository {
   final DioHelper dioHelper = DioHelper();
@@ -34,9 +33,10 @@ class Repository {
 
     try {
       final response = await dio.post(ApiConstant.sendOtp, data: requestBody);
-
+print("------>c${response.data}");
       if (response.statusCode == 200) {
         return SendOtpModel.fromJson(response.data);
+
       } else {
         throw Exception('Failed to send OTP: ${response.statusCode}');
       }
@@ -67,6 +67,19 @@ class Repository {
       throw Exception('Failed to send OTP: $e');
     }
   }
+
+
+  Future<SendOtpModel?> sendOtp(Object requestBody) async {
+    var response = await dioHelper.post(
+      url: ApiConstant.sendOtp,
+      requestBody: requestBody,
+    );
+    print("Response from API: $response"); // Debug print
+    return SendOtpModel.fromJson(response);
+  }
+
+
+
 
   Future<GetTokenModel> getTokens(Object requestBody) async {
     // print("body--->: $requestBody");
@@ -266,4 +279,18 @@ class Repository {
 
     return GetLocationModel.fromJson(response);
   }
+
+
+
+  Future<dynamic> getNotificationRepo(Object requestBody) async {
+    Map<String, dynamic> response = await dioHelper.post(
+      url: ApiConstant.notificationUrl,
+      isAuthRequired: true,
+      requestBody: requestBody,
+    );
+
+    return response;
+  }
+
+
 }

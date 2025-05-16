@@ -17,6 +17,7 @@ import '../../../widgets/components/doted_horizontal_line.dart';
 import '../../../widgets/components/doted_vertical_line.dart';
 import '../../../widgets/components/image_view.dart';
 import '../../../widgets/components/profile_image_container.dart';
+import '../../../widgets/components/qr_not_available_container.dart';
 import '../../../widgets/components/star_rating.dart';
 import '../../auth/auth_controller/auth_controller.dart';
 import '../../notification/view/notification_screen.dart';
@@ -386,29 +387,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
         15.heightSizeBox,
         GestureDetector(
-        /*  onTap: () {
-            Get.back();
-            showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (BuildContext context) {
-                return AppDialog(
-                  padding: EdgeInsets.zero,
-                  bottomVisible: true,
-                  child: successDialog(),
 
-                  remainingTextBottom:
-                      washStatusController
-                          .washSummaryModel
-                          .value
-                          ?.data
-                          ?.summary
-                          ?.remainingWashes ??
-                      '',
-                );
-              },
-            );
-          },*/
           child: Obx(() {
             final qrCodeUrl =
                 washStatusController
@@ -434,63 +413,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ),
                   ),
-              /*     placeholder: (context, url) => SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(
 
-
-                ),
-              ),*/
               errorWidget:
-                  (context, url, error) =>
-                      Image.asset(Assets.imagesImQr, height: 261, width: 261),
-              fit: BoxFit.cover,
+                  (context, url, error) =>QrNotAvailableContainer(
+                    height: 261,
+                    width: 261,
+                  ),
+
             );
           }),
         ),
 
-        /*  GestureDetector(
-          onTap: () {
-            Get.back();
-            showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (BuildContext context) {
-                return AppDialog(
-                  padding: EdgeInsets.zero,
 
-                  bottomVisible: true,
-                  child: successDialog(),
-                  remainingTextBottom:
-                      washStatusController
-                          .washSummaryModel
-                          .value
-                          ?.data
-                          ?.summary
-                          ?.remainingWashes ??
-                      '',
-                );
-              },
-            );
-          },
-
-          child: Obx(() {
-            final qrCodeUrl =
-                dashboardController
-                    .getCustomerData
-                    .value
-                    ?.data
-                    ?.subscriptionDetails
-                    ?.qrCodeUrl;
-            return ImageView(
-              path: qrCodeUrl ?? Assets.imagesImQr,
-              height: 261,
-              width: 261,
-            );
-          }),
-        ),
-*/
         46.heightSizeBox,
       ],
     );
@@ -520,6 +454,5 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
     ).then((value) => value ?? false); 
   }
-  // final TextEditingController commentController = TextEditingController();
 
 }

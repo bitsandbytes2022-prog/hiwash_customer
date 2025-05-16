@@ -123,7 +123,7 @@ class LoginOtpScreen extends StatelessWidget {
                     () => HiWashButton(
                   isLoading: controller.isLoading.value,
                   text: "kVerify".tr,
-                  onTap: () {
+                  onTap: () async {
                     if (formKey.currentState!.validate()) {
                       final enteredOtp = controller.enteredOtp.value.trim();
                       final serverOtp = controller.sendOtpModel?.data?.otp?.toString();
@@ -133,7 +133,7 @@ class LoginOtpScreen extends StatelessWidget {
                       print("Server OTP: $serverOtp (${serverOtp.runtimeType})");
 
                       if (enteredOtp == serverOtp) {
-                        controller.getToken(phoneNumber,).then((value) {
+                     await   controller.getToken(phoneNumber,).then((value) {
                           if (value != null) {
                             Get.offAllNamed(RouteStrings.dashboardScreen);
                           }

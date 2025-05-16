@@ -18,7 +18,7 @@ void main() async{
 
   await  Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
- // name: 'hiwash_customer',
+
 );
   NotificationServices notificationServices = NotificationServices();
 

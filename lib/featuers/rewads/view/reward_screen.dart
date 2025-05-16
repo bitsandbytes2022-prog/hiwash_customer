@@ -121,7 +121,7 @@ class RewardScreen extends StatelessWidget {
               13.heightSizeBox,
               GestureDetector(
                 onTap: () {
-                  print("888888888888------>");
+                 // print("888888888888------>");
                   showModalBottomSheet(
 
                     context: Get.context!,
@@ -332,7 +332,7 @@ class RewardScreen extends StatelessWidget {
       ),
     );
   }*/
-
+/*
   Widget scanDialog() {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -369,7 +369,7 @@ class RewardScreen extends StatelessWidget {
         46.heightSizeBox,
       ],
     );
-  }
+  }*/
 
   Widget successDialog() {
     return Column(

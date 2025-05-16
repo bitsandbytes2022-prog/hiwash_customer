@@ -130,17 +130,15 @@ class OtpScreen extends StatelessWidget {
                     () => HiWashButton(
                   isLoading: controller.isLoading.value,
                   text: "kVerify".tr,
-                  onTap: () {
+                  onTap: () async {
                     if (formKey.currentState!.validate()) {
                       final enteredOtp = controller.enteredOtp.value.trim();
-                      final serverOtp = controller.sendOtpModel?.data?.otp?.toString();
+                      final serverOtp =  controller.signUpSendOtpModel.value?.data?.otp;
 
-                      // Debug logs
-                      print("Entered OTP: $enteredOtp (${enteredOtp.runtimeType})");
-                      print("Server OTP: $serverOtp (${serverOtp.runtimeType})");
+                      print("Server OTP form signup: $serverOtp (${serverOtp})");
 
                       if (enteredOtp == serverOtp) {
-                        controller.getToken(phoneNumber).then((value) {
+                    await    controller.getToken(phoneNumber).then((value) {
                           if (value != null) {
                             Get.offAllNamed(RouteStrings.dashboardScreen);
                           }
@@ -191,50 +189,7 @@ class OtpScreen extends StatelessWidget {
                 },
               ),*/
             ),
-/*
-            Obx(
-                  () => HiWashButton(
-                  isLoading: controller.isLoading.value,
-                  text: "kVerify".tr,
-                  onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      if (controller.enteredOtp.value != "1234") {
-                        Get.snackbar(
-                          "Invalid OTP",
-                          "Please enter the correct OTP",
-                          backgroundColor: Colors.red.withOpacity(0.9),
-                          colorText: Colors.white,
-                          snackPosition: SnackPosition.TOP,
-                          margin: const EdgeInsets.all(16),
-                          borderRadius: 10,
-                        );
-                        return;
-                      }
-                      controller.getToken(phoneNumber).then((value) {
-                        if (value != null) {
-                          Get.offAllNamed(
-                            RouteStrings.dashboardScreen,
-                            *//*arguments: controller.getTokenModel?.data?.id,*//*
-                          );
-                        }
-                      });
-                    }
-                  }
 
-                *//* onTap: () {
-                  if (formKey.currentState!.validate()) {
-                    controller.getToken(phoneNumber).then((value) {
-                      if (value != null) {
-                        Get.offNamed(
-                          RouteStrings.dashboardScreen,
-                          arguments: controller.getTokenModel?.data?.id,
-                        );
-                      }
-                    });
-                  }
-                },*//*
-              ),
-            ),*/
 
             30.heightSizeBox,
           ],

@@ -157,6 +157,14 @@ class RewardController extends GetxController {
     }
   }
 
-
+  bool isOfferExpired(String? expiryDateStr) {
+    if (expiryDateStr == null || expiryDateStr.isEmpty) return false;
+    try {
+      final expiryDate = DateTime.parse(expiryDateStr);
+      return DateTime.now().isAfter(expiryDate);
+    } catch (e) {
+      return false;
+    }
+  }
 
 }

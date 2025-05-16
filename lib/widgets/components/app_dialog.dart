@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -93,7 +94,27 @@ class AppDialog extends StatelessWidget {
                       alignment: Alignment.center,
                       children: [
                         Image.asset(Assets.imagesDialogBottom),
-                        RichText(
+
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                          Text('Remaining Washes: ',style:  w400_14p(color: AppColor.c2C2A2A))
+                          ,
+
+
+                            washStatusController
+                                .getCustomerData
+                                .value
+                                ?.data
+                                ?.subscriptionDetails
+                                ?.subscriptionId ==
+                                1?  Text(remainingTextBottom??'',style:  w400_16p(color: AppColor.cC31848))
+                                :Icon(CupertinoIcons.infinite,color: AppColor.cC31848,)
+
+                        ],)
+                       /* RichText(
                           text: TextSpan(
                             text: 'Remaining Washes: ',
                             style:
@@ -122,11 +143,9 @@ class AppDialog extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ),
-                        /* Text(
-                        remainingTextTop ?? ''.tr,
-                        style: w500_14p(color: AppColor.c2C2A2A),
-                      ),*/
+                        ),*/
+
+
                       ],
                     ),
                   ),
