@@ -63,6 +63,11 @@ class SignUpScreen extends StatelessWidget {
                 keyboardType: TextInputType.name,
                 labelText: "kName".tr,
                 hintText: "kEnterYourFullName".tr,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r"[a-zA-Z ]"),
+                  ),
+                ],
                 validator: (value) {
                   return authController.validateName(value);
                 },
@@ -79,6 +84,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               20.heightSizeBox,
               HiWashTextField(
+                readOnly: true,
                 controller: authController.phoneController,
                 keyboardType: TextInputType.phone,
                 labelText: "kPhone".tr,

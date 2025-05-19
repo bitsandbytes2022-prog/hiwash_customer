@@ -4,12 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../styling/app_color.dart';
+
 showLoader() {
   Get.dialog(
       barrierDismissible: true,
-      const AbsorbPointer(
+       AbsorbPointer(
           child: Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+
+        ),
       )));
 }
 

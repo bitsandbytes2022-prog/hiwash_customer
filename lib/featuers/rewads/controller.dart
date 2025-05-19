@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/rewads/model/get_offer_categories.dart';
 import 'package:hiwash_customer/featuers/rewads/model/offer_response_model.dart';
+import 'package:hiwash_customer/widgets/components/loader.dart';
 import '../../generated/assets.dart';
 import '../../network_manager/repository.dart';
 import 'model/get_offers_by_id_model.dart';
@@ -67,14 +68,14 @@ class RewardController extends GetxController {
   Future<GetOffersByIdModel?> getOffersById(int id) async {
     try {
       //loading.value = true;
-
+showLoader();
       getOffersByIdModel.value = await Repository().getOfferById(id);
 
        getOffersByIdModel.value;
+       hideLoader();
        //update();
     } catch (error) {
-      loading.value = false;
-      //update();
+hideLoader();
       print("Error fetching Offers by Di: $error");
     }
     return null;

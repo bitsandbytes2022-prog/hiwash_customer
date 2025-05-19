@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
@@ -58,14 +59,14 @@ class DrawerProfileController extends GetxController {
   TextEditingController addressController = TextEditingController();
   TextEditingController carNumberController = TextEditingController();
 
-  TextEditingController zoneController = TextEditingController(text: "Zone 50");
+  TextEditingController zoneController = TextEditingController(text:kDebugMode? "Zone 50":"");
   TextEditingController streetController = TextEditingController(
-    text: "al Matar Street",
+    text:kDebugMode?"al Matar Street":"",
   );
   TextEditingController buildingController = TextEditingController(
-    text: 'Abcd',
+    text: kDebugMode?'Abcd':"",
   );
-  TextEditingController unitController = TextEditingController(text: 'Abcd');
+  TextEditingController unitController = TextEditingController(text:kDebugMode? 'Abcd':"");
 
   Rxn<TermsAndConditionsResponseModel> termsAndConditionsResponseModel = Rxn();
 

@@ -100,21 +100,41 @@ class AppDialog extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                          Text('Remaining Washes: ',style:  w400_14p(color: AppColor.c2C2A2A))
-                          ,
-
+                            Text(
+                              'Remaining Washes: ',
+                              style: w400_14p(color: AppColor.c2C2A2A),
+                            ),
 
                             washStatusController
-                                .getCustomerData
-                                .value
-                                ?.data
-                                ?.subscriptionDetails
-                                ?.subscriptionId ==
-                                1?  Text(remainingTextBottom??'',style:  w400_16p(color: AppColor.cC31848))
-                                :Icon(CupertinoIcons.infinite,color: AppColor.cC31848,)
+                                        .getCustomerData
+                                        .value
+                                        ?.data
+                                        ?.subscriptionDetails
+                                        ?.subscriptionId ==
+                                    1
+                                ? Text(
+                                  remainingTextBottom ?? '',
+                                  style: w400_16p(color: AppColor.cC31848),
+                                )
+                                : (washStatusController
+                                        .getCustomerData
+                                        .value
+                                        ?.data
+                                        ?.subscriptionDetails
+                                        ?.subscriptionId ==
+                                    2)
+                                ? Icon(
+                                  CupertinoIcons.infinite,
+                                  color: AppColor.cC31848,
+                                )
+                                : Text(
+                                  '',
+                                  style: w400_16p(color: AppColor.cC31848),
+                                ),
+                          ],
+                        ),
 
-                        ],)
-                       /* RichText(
+                        /* RichText(
                           text: TextSpan(
                             text: 'Remaining Washes: ',
                             style:
@@ -144,8 +164,6 @@ class AppDialog extends StatelessWidget {
                             ],
                           ),
                         ),*/
-
-
                       ],
                     ),
                   ),

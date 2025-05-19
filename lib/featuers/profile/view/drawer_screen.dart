@@ -189,7 +189,7 @@ class DrawerScreen extends StatelessWidget {
             style: w700_16a(color: AppColor.c2C2A2A),
           ),
           4.heightSizeBox,
-          RichText(
+         if(userData!=null) RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
               children: [

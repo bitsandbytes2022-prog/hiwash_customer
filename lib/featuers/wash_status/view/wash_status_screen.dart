@@ -378,10 +378,8 @@ class WashStatusScreen extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: washData?.locationImage ?? '',
                 placeholder:
-                    (context, url) => Image.asset(
-                      Assets.imagesDemoProfile,
-                      fit: BoxFit.fill,
-                      width: 70,
+                    (context, url) => Center(
+                      child: CircularProgressIndicator(strokeWidth: 2,),
                     ),
                 errorWidget:
                     (context, url, error) => Image.asset(
