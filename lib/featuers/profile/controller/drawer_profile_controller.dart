@@ -15,6 +15,8 @@ class DrawerProfileController extends GetxController {
   var  imageFile = Rx<File?>(null);
   RxBool isLoading = false.obs;
   var isSwitchOn = false.obs;
+  RxBool isUploadingProfileImage = false.obs;
+
   Future<void> imagePicker({required ImageSource source}) async {
     var pickedFile = await ImagePicker().pickImage(source: source,imageQuality: 20);
 
@@ -32,14 +34,13 @@ class DrawerProfileController extends GetxController {
     );
     return dio.FormData.fromMap({"file": file});
   }
-
+  /*
   Future<void> uploadProfileImage() async {
     try {
-      showLoader();
+      isLoading.value = true;  // Show loader
       final formData = await getFormDataForUpload();
 
       final response = await Repository().uploadProfilePictureRepo(formData);
-      hideLoader();
       if (response != null) {
         print("Upload successful: $response");
       } else {
@@ -48,9 +49,29 @@ class DrawerProfileController extends GetxController {
     } catch (e) {
       //hideLoader();
       print("Upload error: $e");
+    } finally {
+      isLoading.value = false;  // Hide loader
+    }
+  }*/
+  Future<bool> uploadProfileImage() async {
+    isUploadingProfileImage.value = true;
+    try {
+      final formData = await getFormDataForUpload();
+      final response = await Repository().uploadProfilePicture(formData);
+
+      if (response != null && response['success'] == true) {
+        return true;
+      } else {
+        imageFile.value = null;
+        return false;
+      }
+    } catch (e) {
+      imageFile.value = null;
+      return false;
+    } finally {
+      isUploadingProfileImage.value = false;
     }
   }
-
 
   var currentDrawerSection = ''.obs;
   TextEditingController nameController = TextEditingController();

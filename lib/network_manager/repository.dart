@@ -217,19 +217,7 @@ print("------>c${response.data}");
     return WashSummaryModel.fromJson(response);
   }
 
-  /*  Future<void> uploadProfilePictureRepo(requestBody) async {
-    //print("Request Body Type: ${requestBody.runtimeType}");
-    try {
-      final response = await dioHelper.uploadFile(
-        url: ApiConstant.uploadProfileImage,
-        requestBody: requestBody,
-        isAuthRequired: true,
-      );
-    //  print("Upload success: $response");
-    } catch (e) {
-      print("Upload failed: $e");
-    }
-  }*/
+/*
 
   Future<dynamic> uploadProfilePictureRepo(requestBody) async {
     print("Request Body Type: ${requestBody.runtimeType}");
@@ -245,6 +233,22 @@ print("------>c${response.data}");
       print("Upload failed: $e");
     }
   }
+*/
+  Future<dynamic> uploadProfilePicture(requestBody) async {
+    try {
+      final response = await dioHelper.post(
+        url: ApiConstant.uploadProfileImage,
+        requestBody: requestBody,
+        isAuthRequired: true,
+      );
+      print("Upload success: $response");
+
+      return response;
+    } catch (e) {
+      print("Upload failed: $e");
+    }
+  }
+
 
   Future<dynamic> uploadProfile(Object requestBody) async {
     try {
