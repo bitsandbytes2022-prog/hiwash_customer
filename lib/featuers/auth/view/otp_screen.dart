@@ -21,16 +21,15 @@ class OtpScreen extends StatelessWidget {
   OtpScreen({super.key});
 
 
-  final AuthController controller =
-  Get.isRegistered<AuthController>()
-      ? Get.find<AuthController>()
-      : Get.put(AuthController());
+   AuthController controller =
+ Get.find<AuthController>()
+      ;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final String phoneNumber = Get.arguments as String;
+    final String phoneNumber = (Get.arguments as Map)["phoneNo"];
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       controller.startTimer();
     await  controller.getFCMTokenIn();
@@ -132,8 +131,10 @@ class OtpScreen extends StatelessWidget {
                   text: "kVerify".tr,
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
+
                       final enteredOtp = controller.enteredOtp.value.trim();
-                      final serverOtp =  controller.sendOtpModel?.data?.otp;
+
+                      final serverOtp =  controller.sendOtpModel.value.data?.otp;
 
                       print("Server OTP form signup: $serverOtp (${serverOtp})");
 

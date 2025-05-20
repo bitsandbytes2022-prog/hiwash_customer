@@ -27,7 +27,7 @@ class AuthController extends GetxController {
   }
 
   GetTokenModel? getTokenModel;
-  SendOtpModel? sendOtpModel;
+  Rx<SendOtpModel> sendOtpModel= SendOtpModel().obs;
   SignUpModel? signUpModel;
   Rxn<SendOtpModel>signUpSendOtpModel=Rxn<SendOtpModel>();
 
@@ -229,21 +229,21 @@ class AuthController extends GetxController {
     isLoading.value = true;
 
     try {
-         sendOtpModel = await Repository().sendOtpRepo(requestBody);
-      sendOtpModel?.data?.otp?.toString();
+         sendOtpModel.value = (await Repository().sendOtpRepo(requestBody))!;
+      sendOtpModel.value?.data?.otp?.toString();
       print("Value received in controller sendOtp: ${sendOtpModel.toString()}");
 
       if (sendOtpModel != null) {
         Get.snackbar(
           'Success',
-          "TEST OTP: ${sendOtpModel!.data?.otp}",
+          "TEST OTP: ${sendOtpModel.value.data?.otp}",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.green,
           colorText: AppColor.white,
         );
 
         print("User Type: ${sendOtpModel!.toJson().toString()}");
-        return sendOtpModel;
+        return sendOtpModel.value;
       } else {
         throw Exception('Failed to generate OTP');
       }
@@ -339,8 +339,8 @@ class AuthController extends GetxController {
       };
       print("Request Body: $requestBody");
       signUpSendOtpModel.value = await Repository().sendOtp(requestBody);
-      print("Received signUpSendOtpModel: ${sendOtpModel?.toJson().toString()}");
-      return sendOtpModel;
+      print("Received signUpSendOtpModel: ${sendOtpModel.value.toJson().toString()}");
+      return sendOtpModel.value;
     } catch (e) {
       print("Error in controller while sending OTP from signup: $e");
     }

@@ -5,6 +5,7 @@
   import 'package:hiwash_customer/featuers/subscription/model/get_subscription_model.dart';
   import '../../../network_manager/repository.dart';
   import '../../../network_manager/utils/api_response.dart';
+import '../../wash_status/controller/wash_status_controller.dart';
 
   class SubscriptionController extends GetxController {
     GetSubscriptionModel? getSubscriptionModel;
@@ -38,12 +39,16 @@
 
 
     getSubscription() {
+      WashStatusController washStatusController = Get.find();
+
       loading = true;
       Repository()
           .getSubscription()
           .then((value) {
         loading = false;
         getSubscriptionModel = value;
+           selectedIndex.value=  washStatusController.getCustomerData.value?.data?.subscriptionDetails?.subscriptionId ?? 2;
+
         update();
       })
           .catchError((error) {

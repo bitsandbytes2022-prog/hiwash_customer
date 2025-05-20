@@ -126,7 +126,7 @@ class LoginOtpScreen extends StatelessWidget {
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
                       final enteredOtp = controller.enteredOtp.value.trim();
-                      final serverOtp = controller.sendOtpModel?.data?.otp?.toString();
+                      final serverOtp = controller.sendOtpModel.value.data?.otp?.toString();
 
                       // Debug logs
                       print("Entered OTP: $enteredOtp (${enteredOtp.runtimeType})");

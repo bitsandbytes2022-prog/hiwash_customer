@@ -76,7 +76,12 @@ class PlansContainer extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color:
-                    controller.selectedIndex.value == index
+                    controller.selectedIndex.value == washStatusController
+                        .getCustomerData
+                        .value
+                        ?.data
+                        ?.subscriptionDetails
+                        ?.subscriptionId
                         ? AppColor.cC31848.withOpacity(0.25)
                         : AppColor.c142293.withOpacity(0.1),
                 spreadRadius: 0,

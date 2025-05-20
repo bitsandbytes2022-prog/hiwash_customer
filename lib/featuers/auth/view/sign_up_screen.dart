@@ -19,10 +19,7 @@ import 'auth_widgets/social_media.dart';
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
 
-  AuthController authController =
-      Get.isRegistered<AuthController>()
-          ? Get.find<AuthController>()
-          : Get.put(AuthController());
+  AuthController authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -184,10 +181,10 @@ class SignUpScreen extends StatelessWidget {
                                   .sendOtp(phoneNumber)
                                   .then((otpValue) {
                                     if (otpValue != null) {
-                                      authController.sendOtpModel = otpValue;
+                                      authController.sendOtpModel.value = otpValue;
                                       Get.toNamed(
                                         RouteStrings.otpScreen,
-                                        arguments: phoneNumber,
+                                        arguments: {"phoneNo":phoneNumber,},
                                       );
                                       authController.phoneController.clear();
                                     }
