@@ -303,7 +303,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   backgroundColor: AppColor.c142293.withOpacity(0.2),
                   radius: 20,
               
-                      child:Image.asset(Assets.iconsIcAlert,height: 20,width: 20,color: AppColor.c000000,),
+                      child:Image.asset(item.notificationType==0?Assets.iconsIcAlert:Assets.iconsIcInfo,height: 20,width: 20,color: AppColor.c000000,),
                 )
 
 

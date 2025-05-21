@@ -1,6 +1,7 @@
 
 
-  import 'package:get/get.dart';
+  import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
   import 'package:get_storage/get_storage.dart';
   import 'package:hiwash_customer/featuers/subscription/model/get_subscription_model.dart';
   import '../../../network_manager/repository.dart';
@@ -9,6 +10,7 @@ import '../../wash_status/controller/wash_status_controller.dart';
 
   class SubscriptionController extends GetxController {
     GetSubscriptionModel? getSubscriptionModel;
+    TextEditingController carNumberController = TextEditingController();
     var apiResponse = ApiResponse().obs;
     final box = GetStorage();
 

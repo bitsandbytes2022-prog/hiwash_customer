@@ -8,16 +8,6 @@ import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
-import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
-import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
-import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../../generated/assets.dart';
 import '../../../styling/app_color.dart';
@@ -157,15 +147,26 @@ class MyAccountScreen extends StatelessWidget {
                                     fit: BoxFit.cover,
                                   ),
                                 )
-                                    : (userData?.profilePicUrl ?? '').isNotEmpty
+                                    : (userData?.profilePicUrl != null &&
+                                    userData!.profilePicUrl!.trim().isNotEmpty &&
+                                    Uri.tryParse(userData.profilePicUrl!)?.hasAbsolutePath == true)
                                     ? ClipOval(
                                   child: Image.network(
-                                    userData!.profilePicUrl!,
+                                    userData.profilePicUrl!,
                                     width: 100,
                                     height: 100,
                                     fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        Assets.imagesDemoProfile,
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
                                   ),
                                 )
+
                                     : ClipOval(
                                   child: Image.asset(
                                     Assets.imagesDemoProfile,
@@ -229,77 +230,6 @@ class MyAccountScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-            /*      Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          border: Border.all(
-                            color: AppColor.blue.withOpacity(0.2),
-                          ),
-                        ),
-                        child: Obx(() {
-                          if (drawerProfileController.imageFile.value != null) {
-                            return CircleAvatar(
-                              radius: 50,
-                              backgroundImage: FileImage(
-                                drawerProfileController.imageFile.value!,
-                              ),
-                            );
-                          } else if ((userData?.profilePicUrl ?? '').isNotEmpty  &&
-                              userData!.profilePicUrl != null) {
-                            return CircleAvatar(
-                              radius: 50,
-                              backgroundImage: NetworkImage(
-                                userData.profilePicUrl!,
-                              ),
-                            );
-                          } else {
-                            return  CircleAvatar(
-                              radius: 50,
-                              backgroundColor: Colors.grey[200],
-                              child: ClipOval(
-                                child: Image.asset(
-                                  Assets.imagesDemoProfile,
-                                  fit: BoxFit.cover,
-                                  width: 100,
-                                  height: 100,
-                                ),
-                              ),
-                            );
-
-                          }
-                        }),
-                      ),
-                      GestureDetector(
-                        onTap: () async {
-                          await _showImageSourceDialog(context);
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: AppColor.cC41949,
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(color: AppColor.white, width: 3),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColor.cC41949.withOpacity(0.25),
-                                blurRadius: 10,
-                                offset: Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: ImageView(
-                            path: Assets.iconsIcEdit,
-                            height: 17,
-                            width: 17,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),*/
                   11.heightSizeBox,
 
                   Obx(
@@ -365,6 +295,7 @@ class MyAccountScreen extends StatelessWidget {
                   ),
                   20.heightSizeBox,
                   HiWashTextField(
+                    readOnly: true,
                     controller: drawerProfileController.emailController,
                     keyboardType: TextInputType.emailAddress,
                     hintText: "Email",
@@ -378,6 +309,7 @@ class MyAccountScreen extends StatelessWidget {
                   ),
                   20.heightSizeBox,
                   HiWashTextField(
+                    readOnly: true,
                     keyboardType: TextInputType.phone,
                     controller: drawerProfileController.phoneController,
                     hintText: "Phone",
@@ -446,6 +378,8 @@ class MyAccountScreen extends StatelessWidget {
                       text: 'Save',
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
+                          drawerProfileController.carNumberController.text = drawerProfileController.carNumberController.text;
+
                           await drawerProfileController.uploadProfile(
                             drawerProfileController.nameController.text,
                             drawerProfileController.emailController.text,

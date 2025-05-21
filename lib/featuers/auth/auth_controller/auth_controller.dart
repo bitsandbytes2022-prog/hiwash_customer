@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hiwash_customer/featuers/auth/model/sign_up_model.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
@@ -17,7 +19,8 @@ import '../model/send_otp_model.dart';
 
 class AuthController extends GetxController {
   var isLoggedIn = false.obs;
-   @override
+
+  @override
   void onInit() {
     pageController.addListener(() {
       onPageChanged(pageController.page!.round());
@@ -27,9 +30,8 @@ class AuthController extends GetxController {
   }
 
   GetTokenModel? getTokenModel;
-  Rx<SendOtpModel> sendOtpModel= SendOtpModel().obs;
+  Rx<SendOtpModel> sendOtpModel = SendOtpModel().obs;
   SignUpModel? signUpModel;
-  Rxn<SendOtpModel>signUpSendOtpModel=Rxn<SendOtpModel>();
 
   /// login controller
   TextEditingController loginPhoneController = TextEditingController(
@@ -81,11 +83,7 @@ class AuthController extends GetxController {
     currentPage.value = index;
   }
 
-  final List<String> headingText = [
-    "kEcoCleanWalletGreen", "Wash & Win!",
-
-
-  ];
+  final List<String> headingText = ["kEcoCleanWalletGreen", "Wash & Win!"];
   final List<String> subText = [
     "kExclusiveDealsWithEvery",
     "Get your car washed weekly at 100+\nlocations with exclusive offers.\nMissed washes still deducted.",
@@ -146,7 +144,6 @@ class AuthController extends GetxController {
     return null;
   }
 
-
   /// phone number
   String? validatePhoneNumber(String? value) {
     if (value != null && value.isNotEmpty) {
@@ -176,8 +173,6 @@ class AuthController extends GetxController {
     }
     return null;
   }
-
-
 
   var isLoading = false.obs;
   var enteredOtp = ''.obs;
@@ -229,7 +224,7 @@ class AuthController extends GetxController {
     isLoading.value = true;
 
     try {
-         sendOtpModel.value = (await Repository().sendOtpRepo(requestBody))!;
+      sendOtpModel.value = (await Repository().sendOtpRepo(requestBody))!;
       sendOtpModel.value?.data?.otp?.toString();
       print("Value received in controller sendOtp: ${sendOtpModel.toString()}");
 
@@ -331,25 +326,32 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<SendOtpModel?> signUpOtp(String phoneNumber) async {
+  /// Google Login
+
+  signInWithGoogle() async {
     try {
-      Map<String, dynamic> requestBody = {
-        "mobileNumber": phoneNumber,
-        "userType": "0",
-      };
-      print("Request Body: $requestBody");
-      signUpSendOtpModel.value = await Repository().sendOtp(requestBody);
-      print("Received signUpSendOtpModel: ${sendOtpModel.value.toJson().toString()}");
-      return sendOtpModel.value;
-    } catch (e) {
-      print("Error in controller while sending OTP from signup: $e");
+      final GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth = await googleSignInAccount?.authentication;
+      final credentialUser = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+
+      );
+      Get.offAllNamed(RouteStrings.dashboardScreen);
+      await FirebaseAuth.instance.isSignInWithEmailLink(
+        credentialUser.toString(),
+      );
     }
-    return null;
+    on Exception catch (e) {
+      print("Print google auth ${e}");
+    }
   }
 
   Future<void> logout() async {
     await LocalStorage().removeToken();
     isLoggedIn.value = false;
     Get.offAllNamed(RouteStrings.welcomeScreen);
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
   }
 }

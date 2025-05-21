@@ -30,6 +30,7 @@ class HiWashTextField extends StatelessWidget {
   final bool? isVisible;
   final String obscuringCharacter;
   final Color? fillColor;
+    final String?  initialValue;
 
   const HiWashTextField({
     super.key,
@@ -56,11 +57,12 @@ class HiWashTextField extends StatelessWidget {
     this.maxLength,
     this.textCapitalization,
     this.isVisible = true,
-    this.obscuringCharacter = '*', this.fillColor  });
+    this.obscuringCharacter = '*', this.fillColor,  this.initialValue  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: controller == null ? initialValue : null,
       style: w400_14p(color: AppColor.c2C2A2A),
       focusNode: focusNode,
       textInputAction: TextInputAction.next,

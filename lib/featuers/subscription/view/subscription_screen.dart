@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
+import 'package:hiwash_customer/featuers/profile/controller/drawer_profile_controller.dart';
 import 'package:hiwash_customer/featuers/rewads/controller.dart';
 import 'package:hiwash_customer/featuers/subscription/controller/subscription_controller.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
@@ -34,12 +35,20 @@ class SubscriptionScreen extends StatelessWidget {
   SubscriptionController controller = Get.put(SubscriptionController());
   RewardController rewardController = Get.find();
   WashStatusController washStatusController = Get.find();
+  DrawerProfileController drawerProfileController = Get.find();
+
 
   @override
   Widget build(BuildContext context) {
     final userData =
         washStatusController.getCustomerData.value?.data?.customerDetails;
     controller.getSubscription();
+
+
+    controller.getSubscription();
+
+    final profileCarNumber = userData?.carNumber?.trim() ?? '';
+
     return AppHomeBg(
       centerHeading: Container(
         margin: EdgeInsets.only(left: 60),
@@ -254,7 +263,12 @@ class SubscriptionScreen extends StatelessWidget {
                                 style: w500_12p(color: AppColor.c2C2A2A),
                               ),
                               15.heightSizeBox,
-                              HiWashTextField(hintText: "kEnterCarNumber".tr),
+                              HiWashTextField(
+                                controller: controller.carNumberController,
+                                hintText: "kEnterCarNumber".tr,
+                                initialValue: profileCarNumber.isNotEmpty ? profileCarNumber : '',
+                              ),
+
                             ],
                           ),
                         );
@@ -264,10 +278,116 @@ class SubscriptionScreen extends StatelessWidget {
                     }),
                     40.heightSizeBox,
                     Obx(
+                          () {
+                        return HiWashButton(
+                          isLoading: controller.isLoading.value,
+                          onTap: () async {
+                            final selectedIndex = controller.selectedIndex.value;
+                            final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
+                            final profileCarNumber = customerDetails?.carNumber?.trim() ?? '';
+                            final enteredCarNumber = controller.carNumberController.text.trim();
+
+                            String carNumberToUse = '';
+
+                            if (selectedIndex == 2) {
+                              if (profileCarNumber.isNotEmpty) {
+                                carNumberToUse = profileCarNumber;
+                              } else {
+                                if (enteredCarNumber.isEmpty) {
+                                  Get.snackbar(
+                                    "Validation",
+                                    "Please enter your car number",
+                                    backgroundColor: Colors.redAccent,
+                                    colorText: Colors.white,
+                                  );
+                                  return;
+                                }
+                                carNumberToUse = enteredCarNumber;
+                              }
+                            } else {
+                              carNumberToUse = controller.carNumberController.text.trim();
+                            }
+
+                            await controller.getSubscriptionMembership(
+                              controller.selectedIndex.toString(),
+                              customerDetails?.mobileNumber ?? '',
+                              carNumberToUse,
+                              "Success",
+                            );
+
+                            await washStatusController.getCustomerDataById(customerDetails?.id ?? 0);
+                            washStatusController.getWashSummary();
+                            Get.offNamed(RouteStrings.enterCardDetailScreen);
+                          },
+                          text: "kSubscribe".tr,
+                          margin: EdgeInsets.symmetric(horizontal: 30),
+                        );
+                      },
+                    ),
+                  /// Todo second its working
+                  /*  Obx(
+                            () {
+                          return HiWashButton(
+                            isLoading: controller.isLoading.value,
+                            onTap: () async {
+                              String selectedId = controller.selectedIndex.toString();
+                              final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
+                              final selectedIndex = controller.selectedIndex.value;
+
+                              if (selectedIndex == 2) {
+                                final existingCarNumber = customerDetails?.carNumber?.trim() ?? '';
+
+                                if (existingCarNumber.isNotEmpty) {
+                                  await controller.getSubscriptionMembership(
+                                    selectedId,
+                                    customerDetails?.mobileNumber ?? '',
+                                    existingCarNumber,
+                                    "Success",
+                                  );
+                                } else {
+                                  final enteredCarNumber = controller.carNumberController.text.trim();
+                                  if (enteredCarNumber.isEmpty) {
+                                    Get.snackbar("Validation", "Please enter your car number",
+                                        backgroundColor: Colors.redAccent,
+                                        colorText: Colors.white);
+                                    return;
+                                  }
+
+                                  drawerProfileController.carNumberController.text = enteredCarNumber;
+
+                                  await controller.getSubscriptionMembership(
+                                    selectedId,
+                                    customerDetails?.mobileNumber ?? '',
+                                    enteredCarNumber,
+                                    "Success",
+                                  );
+                                }
+                              } else {
+                                // For any other plan, continue as usual
+                                await controller.getSubscriptionMembership(
+                                  selectedId,
+                                  customerDetails?.mobileNumber ?? '',
+                                  controller.carNumberController.text.trim(),
+                                  "Success",
+                                );
+                              }
+
+                              // Refresh customer data and navigate to next screen
+                              await washStatusController.getCustomerDataById(customerDetails?.id ?? 0);
+                              washStatusController.getWashSummary();
+                              Get.offNamed(RouteStrings.enterCardDetailScreen);
+                            },
+                            text: "kSubscribe".tr,
+                            margin: EdgeInsets.symmetric(horizontal: 30),
+                          );
+                        }
+                    ),*/
+                  /// todo
+                  /*  Obx(
                        () {
                         return HiWashButton(
                           isLoading: controller.isLoading.value,
-                          onTap: () {
+                       *//*   onTap: () {
                             String selectedId =
                                 controller.selectedIndex.toString();
 
@@ -275,8 +395,8 @@ class SubscriptionScreen extends StatelessWidget {
                             //controller.isLoading.value = true;
                             controller.getSubscriptionMembership(
                                   selectedId,
-                                  "7984187154",
-                                  "gJ18",
+                                  washStatusController.getCustomerData.value?.data?.customerDetails?.mobileNumber??'',
+                                  controller.carNumberController.text,
                                   "Success",
                                 )
                                 .then((value) async {
@@ -293,12 +413,63 @@ class SubscriptionScreen extends StatelessWidget {
                                   Get.offNamed(RouteStrings.enterCardDetailScreen);
                                 });
                             print("seclectionId---->${selectedId}");
+                          },*//*
+                          onTap: () async {
+                            String selectedId = controller.selectedIndex.toString();
+                            final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
+                            final selectedIndex = controller.selectedIndex.value;
+
+                            // If selected plan is the second one (index == 2)
+                            if (selectedIndex == 2) {
+                              final existingCarNumber = customerDetails?.carNumber?.trim() ?? '';
+
+                              // If car number is already available in customer profile, use it
+                              if (existingCarNumber.isNotEmpty) {
+                                await controller.getSubscriptionMembership(
+                                  selectedId,
+                                  customerDetails?.mobileNumber ?? '',
+                                  existingCarNumber,
+                                  "Success",
+                                );
+                              } else {
+                                // If user has not entered car number in text field
+                                final enteredCarNumber = controller.carNumberController.text.trim();
+                                if (enteredCarNumber.isEmpty) {
+                                  Get.snackbar("Validation", "Please enter your car number",
+                                      backgroundColor: Colors.redAccent,
+                                      colorText: Colors.white);
+                                  return;
+                                }
+
+                                // Use user-entered car number
+                                await controller.getSubscriptionMembership(
+                                  selectedId,
+                                  customerDetails?.mobileNumber ?? '',
+                                  enteredCarNumber,
+                                  "Success",
+                                );
+                              }
+                            } else {
+                              // For any other plan, continue as usual
+                              await controller.getSubscriptionMembership(
+                                selectedId,
+                                customerDetails?.mobileNumber ?? '',
+                                controller.carNumberController.text.trim(),
+                                "Success",
+                              );
+                            }
+
+                            // Refresh customer data and navigate to next screen
+                            await washStatusController.getCustomerDataById(customerDetails?.id ?? 0);
+                            washStatusController.getWashSummary();
+                            Get.offNamed(RouteStrings.enterCardDetailScreen);
                           },
+
                           text: "kSubscribe".tr,
                           margin: EdgeInsets.symmetric(horizontal: 30),
                         );
                       }
-                    ),
+                    ),*/
 
                     30.heightSizeBox,
                   ],
@@ -333,86 +504,4 @@ class SubscriptionScreen extends StatelessWidget {
     );
   }
 
-  /*  Widget _bottomSheet() {
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            21.heightSizeBox,
-            Text(
-              "See All Exclusive Offers.",
-              style: w700_16a(color: AppColor.c2C2A2A),
-            ),
-
-            27.heightSizeBox,
-            OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 20)),
-            25.heightSizeBox,
-            Container(
-              width: 158,
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-              decoration: BoxDecoration(
-                //color: AppColor.c5C6B72.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(28),
-                border: Border.all(color: AppColor.c5C6B72.withOpacity(0.3)),
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    "Sort by Expiry",
-                    style: w400_12p(color: AppColor.c2C2A2A),
-                  ),
-                  Spacer(),
-                  ImageView(
-                    path: Assets.iconsIcDropDown,
-                    height: 5,
-                    width: 9,
-                    color: AppColor.c2C2A2A,
-                  ),
-                  //Icon(Icons.arrow_drop_down, size: 20),
-                ],
-              ),
-            ),
-            25.heightSizeBox,
-            Obx(() {
-              final List<Offers> data = rewardController.offerResponseModel.value?.data?.offers ?? [];
-
-              if (data == null) {
-                return Center(child: CircularProgressIndicator());
-              }
-
-              return SizedBox(
-                height: Get.height,
-                child:
-                    data.isNotEmpty
-                        ? GridView.builder(
-                          shrinkWrap: true,
-                          clipBehavior: Clip.hardEdge,
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 15,
-                                mainAxisSpacing: 15,
-                              ),
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            return OffersGridContainer(offer: data[index]);
-                          },
-                        )
-                        : Padding(
-                          padding: const EdgeInsets.only(top: 30),
-                          child: Text(
-                            'Data is not found',
-                            style: TextStyle(fontSize: 18, color: Colors.black),
-                          ),
-                        ),
-              );
-            }),
-
-            60.heightSizeBox,
-          ],
-        ),
-      ),
-    );
-  }*/
 }

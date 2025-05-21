@@ -33,6 +33,13 @@ class SubscriptionPlanScreen extends StatelessWidget {
         washStatusController.getCustomerData.value?.data?.customerDetails;
     final userDataSub =
         washStatusController.getCustomerData.value?.data?.subscriptionDetails;
+    final subscriptionEndDate = DateTime.tryParse(userDataSub?.endDate ?? '');
+
+    final isExpired =
+        subscriptionEndDate != null
+            ? subscriptionEndDate.isBefore(DateTime.now())
+            : false;
+
     return AppHomeBg(
       padding: EdgeInsets.zero,
       headingText: "Subscription Plan",
@@ -46,7 +53,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(top: 20, left: 16, right: 16),
                 color: AppColor.white,
-          
+
                 child: Column(
                   children: [
                     Stack(
@@ -56,7 +63,9 @@ class SubscriptionPlanScreen extends StatelessWidget {
                           padding: EdgeInsets.all(6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            border: Border.all(color: AppColor.blue.withOpacity(0.2)),
+                            border: Border.all(
+                              color: AppColor.blue.withOpacity(0.2),
+                            ),
                           ),
                           child: Obx(() {
                             final imageUrl =
@@ -73,96 +82,57 @@ class SubscriptionPlanScreen extends StatelessWidget {
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.cover,
-                                placeholder: (context, url) => SizedBox(
-                                  height: 100,
-                                  width: 100,
-                                  child: Center(
-                                    child: SizedBox(
-                                      height: 24,
-                                      width: 24,
-                                      child: CircularProgressIndicator(strokeWidth: 2),
+                                placeholder:
+                                    (context, url) => SizedBox(
+                                      height: 100,
+                                      width: 100,
+                                      child: Center(
+                                        child: SizedBox(
+                                          height: 24,
+                                          width: 24,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
                                 errorWidget:
                                     (context, url, error) => Image.asset(
-                                  Assets.imagesDemoProfile,
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
+                                      Assets.imagesDemoProfile,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
                               ),
                             );
                           }),
                         ),
-                        /*       Container(
-                padding: EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: AppColor.blue.withOpacity(0.2)),
-                ),
-                child: Obx(() {
-                  final profilePicUrl = washStatusController.getCustomerData.value?.data?.customerDetails?.profilePicUrl??'' ?? '';
-                  final hasImage = profilePicUrl.isNotEmpty;
-                  return CircleAvatar(
-                    radius: 50,
-                    backgroundImage: hasImage
-                        ? CachedNetworkImageProvider(
-                      profilePicUrl,
-                      headers: {'Cache-Control': 'no-cache'},
-                    )
-                        : AssetImage(Assets.imagesImMap),
-                  );
-                }),
-              ),*/
-                        washStatusController.getCustomerData.value?.data?.subscriptionDetails?.subscriptionId==2?
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: AppColor.white,
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(color: AppColor.cE8E9F4),
-                          ),
 
-                          child: ImageView(
-                            path: Assets.iconsIcCrown,
-                            height: 17,
-                            width: 17,
-                          ),
-                        ):SizedBox(),
+                        washStatusController
+                                    .getCustomerData
+                                    .value
+                                    ?.data
+                                    ?.subscriptionDetails
+                                    ?.subscriptionId ==
+                                2
+                            ? Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: AppColor.white,
+                                borderRadius: BorderRadius.circular(100),
+                                border: Border.all(color: AppColor.cE8E9F4),
+                              ),
+
+                              child: ImageView(
+                                path: Assets.iconsIcCrown,
+                                height: 17,
+                                width: 17,
+                              ),
+                            )
+                            : SizedBox(),
                       ],
                     ),
-                   /* Container(
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        border: Border.all(color: AppColor.blue.withOpacity(0.2)),
-                      ),
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage:
-                            (washStatusController
-                                        .getCustomerData
-                                        .value
-                                        ?.data
-                                        ?.customerDetails
-                                        ?.profilePicUrl
-                                        ?.isNotEmpty ??
-                                    false)
-                                ? NetworkImage(
-                              washStatusController
-                                          .getCustomerData
-                                          .value
-                                          ?.data
-                                          ?.customerDetails
-                                          ?.profilePicUrl ??
-                                      "",
-                                )
-                                : AssetImage(Assets.imagesDemoProfile)
-                                    as ImageProvider,
-                      ),
-                    ),*/
-          
+
                     10.heightSizeBox,
                     Text(
                       userData?.fullName ?? "",
@@ -176,32 +146,32 @@ class SubscriptionPlanScreen extends StatelessWidget {
                     10.heightSizeBox,
                     DashedLineWidget(),
                     10.heightSizeBox,
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Remaining wash", style: w400_12p(color: AppColor.c455A64)),
-            userDataSub?.subscriptionId==1?  Text(     washStatusController
-                .washSummaryModel
-                .value
-                ?.data
-                ?.summary
-                ?.remainingWashes ??
-                ''.tr, style: w500_12p(color: AppColor.c2C2A2A)):Icon(CupertinoIcons.infinite,color: AppColor.c2C2A2A.withOpacity(0.7)),
-            ],
-          )
-                  /*  subscriptionRowWidget(
-                      title: 'Remaining wash',
-                      packName:
-                          washStatusController
-                              .washSummaryModel
-                              .value
-                              ?.data
-                              ?.summary
-                              ?.remainingWashes ??
-                          '',
-                    ),*/
-                    ,10.heightSizeBox,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Remaining wash",
+                          style: w400_12p(color: AppColor.c455A64),
+                        ),
+                        userDataSub?.subscriptionId == 1
+                            ? Text(
+                              washStatusController
+                                      .washSummaryModel
+                                      .value
+                                      ?.data
+                                      ?.summary
+                                      ?.remainingWashes ??
+                                  ''.tr,
+                              style: w500_12p(color: AppColor.c2C2A2A),
+                            )
+                            : Icon(
+                              CupertinoIcons.infinite,
+                              color: AppColor.c2C2A2A.withOpacity(0.7),
+                            ),
+                      ],
+                    ),
+                    10.heightSizeBox,
                     DashedLineWidget(),
                     10.heightSizeBox,
                     subscriptionRowWidget(
@@ -213,11 +183,11 @@ class SubscriptionPlanScreen extends StatelessWidget {
                   ],
                 ),
               ),
-          
+
               DashedLineWidget(),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
-          
+
                 width: Get.width,
                 color: AppColor.cF6F7FF,
                 child: Column(
@@ -231,27 +201,28 @@ class SubscriptionPlanScreen extends StatelessWidget {
                     16.heightSizeBox,
                     GetBuilder<SubscriptionController>(
                       builder: (controller) {
-                        final list = controller.getSubscriptionModel?.data ?? [];
-          
+                        final list =
+                            controller.getSubscriptionModel?.data ?? [];
+
                         if (controller.loading) {
                           return Center(child: CircularProgressIndicator());
                         }
-          
+
                         if (list.isEmpty) {
                           return Center(child: Text("No plans available"));
                         }
-          
+
                         return ListView.separated(
                           itemCount: list.length,
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           padding: EdgeInsets.symmetric(horizontal: 16),
-                          separatorBuilder: (context, index) => 15.heightSizeBox,
+                          separatorBuilder:
+                              (context, index) => 15.heightSizeBox,
                           itemBuilder: (context, index) {
                             final subscription = list[index];
-          
-                            return PlansContainer(
 
+                            return PlansContainer(
                               index: index + 1,
                               heading: subscription.name ?? "",
                               subHeading: subscription.description ?? "",
@@ -260,19 +231,25 @@ class SubscriptionPlanScreen extends StatelessWidget {
                               yearText: "/ Year",
                               imageShow: subscription.isPremium ?? false,
 
-                             // subscriptionId: subscription.id?.toString(),
-                             // isViewOnly: false,
+                              // subscriptionId: subscription.id?.toString(),
+                              // isViewOnly: false,
                             );
                           },
                         );
                       },
                     ),
-          
-                    20.heightSizeBox,
+
+                    30.heightSizeBox,
                     GetStartButton(
                       text: "Renew Now",
-                      color: AppColor.c1F9D70,
-                      boxShadowColor: AppColor.c1F9D70.withOpacity(0.30),
+                      color:
+                          isExpired
+                              ? AppColor.c1F9D70
+                              : AppColor.c1F9D70.withOpacity(0.2),
+                      boxShadowColor:
+                          isExpired
+                              ? AppColor.c1F9D70.withOpacity(0.30)
+                              : AppColor.c1F9D70.withOpacity(0.10),
                     ),
                     60.heightSizeBox,
                   ],

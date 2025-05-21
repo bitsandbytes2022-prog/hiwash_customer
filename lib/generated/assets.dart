@@ -33,6 +33,7 @@ class Assets {
   static const String iconsIcGuideBook = 'assets/icons/ic_guide_book.png';
   static const String iconsIcHome = 'assets/icons/ic_home.png';
   static const String iconsIcHomeFill = 'assets/icons/ic_home_fill.png';
+  static const String iconsIcInfo = 'assets/icons/ic_info.png';
   static const String iconsIcLanguage = 'assets/icons/ic_language.png';
   static const String iconsIcLogout = 'assets/icons/ic_logout.png';
   static const String iconsIcMessage = 'assets/icons/ic_message.png';
