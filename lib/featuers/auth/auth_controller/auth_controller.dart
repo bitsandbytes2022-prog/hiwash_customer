@@ -351,7 +351,7 @@ class AuthController extends GetxController {
     await LocalStorage().removeToken();
     isLoggedIn.value = false;
     Get.offAllNamed(RouteStrings.welcomeScreen);
-    await FirebaseAuth.instance.signOut();
+   // await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
   }
 }

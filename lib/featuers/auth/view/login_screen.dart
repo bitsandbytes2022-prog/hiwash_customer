@@ -142,7 +142,7 @@ class LoginScreen extends StatelessWidget {
               SocialMedia(
                 googleTap: (){
 
-                  controller.signInWithGoogle();
+                //  controller.signInWithGoogle();
                 },
               ),
               30.heightSizeBox,

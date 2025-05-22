@@ -32,7 +32,7 @@ class OtpScreen extends StatelessWidget {
     final String phoneNumber = (Get.arguments as Map)["phoneNo"];
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       controller.startTimer();
-    await  controller.getFCMTokenIn();
+      controller.getFCMTokenIn();
     });
 
 
