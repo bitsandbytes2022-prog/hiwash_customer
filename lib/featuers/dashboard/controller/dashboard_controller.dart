@@ -25,7 +25,7 @@ class DashboardController extends GetxController {
       String washId,
       String comment,
       ) async {
-    showLoader();
+    //showLoader();
     Map params = {"rating": rating, "washId": washId, "comment": comment};
     try {
       print("Rating body--->: $params");
@@ -36,7 +36,7 @@ class DashboardController extends GetxController {
       } else {
         // Handle the case where response is null
         print("Received null response from the repository.");
-        hideLoader();
+    //    hideLoader();
         return null;
       }
 

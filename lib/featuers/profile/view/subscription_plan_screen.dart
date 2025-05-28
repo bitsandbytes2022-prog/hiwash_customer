@@ -9,6 +9,7 @@ import 'package:hiwash_customer/widgets/components/data_formet.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../../generated/assets.dart';
+import '../../../route/route_strings.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
 import '../../../styling/app_font_poppins.dart';
@@ -26,6 +27,8 @@ class SubscriptionPlanScreen extends StatelessWidget {
   SubscriptionController controller = Get.find();
   WashStatusController washStatusController = Get.find();
 
+
+
   @override
   Widget build(BuildContext context) {
     controller.getSubscription();
@@ -39,6 +42,9 @@ class SubscriptionPlanScreen extends StatelessWidget {
         subscriptionEndDate != null
             ? subscriptionEndDate.isBefore(DateTime.now())
             : false;
+    final expiryDateStr = washStatusController.getCustomerData.value?.data?.subscriptionDetails?.endDate;
+final daysLeft = controller.getDaysRemaining(expiryDateStr);
+ final showRenewButton = controller.isRenewalAvailable(expiryDateStr);
 
     return AppHomeBg(
       padding: EdgeInsets.zero,
@@ -230,6 +236,20 @@ class SubscriptionPlanScreen extends StatelessWidget {
                               numberText: subscription.price?.toString() ?? '',
                               yearText: "/ Year",
                               imageShow: subscription.isPremium ?? false,
+                                onTap: () {
+                                  if (daysLeft <= 7) {
+                                    controller.setPremiumStatus(subscription.isPremium ?? false);
+                                    controller.selectedIndex.value = index + 1;
+                                    print("99------>${controller.selectedIndex.value}");
+                                  } else {
+                                    Get.snackbar(
+                                      "Renewal Not Available",
+                                      "You can renew your subscription only within 7 days of expiry.",
+                                      backgroundColor: Colors.red,
+                                      colorText: Colors.white,
+                                    );
+                                  }
+                                }
 
                               // subscriptionId: subscription.id?.toString(),
                               // isViewOnly: false,
@@ -242,6 +262,44 @@ class SubscriptionPlanScreen extends StatelessWidget {
                     30.heightSizeBox,
                     GetStartButton(
                       text: "Renew Now",
+                      color: showRenewButton
+                          ? AppColor.c1F9D70
+                          : AppColor.c1F9D70.withOpacity(0.2),
+                      boxShadowColor: showRenewButton
+                          ? AppColor.c1F9D70.withOpacity(0.30)
+                          : AppColor.c1F9D70.withOpacity(0.10),
+                      onTap: () {
+                        if (showRenewButton) {
+                          final selectedSub = controller.getSubscriptionModel?.data
+                              ?.elementAt(controller.selectedIndex.value - 1);
+
+                          if (selectedSub == null) {
+                            Get.snackbar("Plan Error", "No plan selected.",
+                                backgroundColor: Colors.red, colorText: Colors.white);
+                            return;
+                          }
+                          //Get.offNamed(RouteStrings.enterCardDetailScreen);
+                        /*  controller.getSubscriptionMembership(
+                            selectedSub.id.toString(),
+                            "demo_transaction_id",
+                            controller.carNumberController.text,
+                            "success",
+                          );*/
+                          Get.toNamed(
+                            RouteStrings.enterCardDetailScreen,
+                            arguments: {
+                              'carNumber': controller.carNumberController.text,
+                              'subscriptionId': selectedSub.id.toString(),
+                              'source': 'SubscriptionPlanScreen'
+                            },
+                          );
+
+                        }
+                      },
+                    ),
+
+                    /*  GetStartButton(
+                      text: "Renew Now",
                       color:
                           isExpired
                               ? AppColor.c1F9D70
@@ -250,7 +308,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
                           isExpired
                               ? AppColor.c1F9D70.withOpacity(0.30)
                               : AppColor.c1F9D70.withOpacity(0.10),
-                    ),
+                    ),*/
                     60.heightSizeBox,
                   ],
                 ),

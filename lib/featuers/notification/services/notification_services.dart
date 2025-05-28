@@ -115,7 +115,6 @@ class NotificationServices {
         payload: jsonEncode(message.data),
       );
 
-      // Show snackbar using GetX
       Get.snackbar(
         notification.title ?? "Notification",
         notification.body ?? "",
@@ -158,7 +157,7 @@ class NotificationServices {
   void handlerMessage(RemoteMessage message) {
     if (message.data.containsKey('route')) {
       String route = message.data['route'];
-      Get.toNamed(route); // Navigate using GetX
+      Get.toNamed(route);
     } else {
       Get.snackbar("Notification Clicked", "No route found in notification.");
     }

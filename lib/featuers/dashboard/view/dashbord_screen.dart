@@ -82,6 +82,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final List<Widget> filledImages = [
       fillNavigationImage(image: Assets.iconsIcHomeFill),
       fillNavigationImage(image: Assets.iconsIcRewardFill),

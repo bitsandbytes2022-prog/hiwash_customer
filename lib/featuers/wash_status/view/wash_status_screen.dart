@@ -30,6 +30,7 @@ class WashStatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    controller.getWashSummary();
     return Obx(
       () =>
           controller.isWashSelected.value

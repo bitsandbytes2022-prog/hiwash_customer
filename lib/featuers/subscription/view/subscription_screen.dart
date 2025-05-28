@@ -308,168 +308,34 @@ class SubscriptionScreen extends StatelessWidget {
                               carNumberToUse = controller.carNumberController.text.trim();
                             }
 
-                            await controller.getSubscriptionMembership(
+                        /*    await controller.getSubscriptionMembership(
                               controller.selectedIndex.toString(),
                               customerDetails?.mobileNumber ?? '',
                               carNumberToUse,
                               "Success",
+                            );*/
+
+                          //  await washStatusController.getCustomerDataById(customerDetails?.id ?? 0);
+                          //  washStatusController.getWashSummary();
+                           // Get.offNamed(RouteStrings.enterCardDetailScreen);
+
+                            Get.offNamed(
+                              RouteStrings.enterCardDetailScreen,
+                              arguments: {
+                                'subscriptionIndex': controller.selectedIndex.toString(),
+                                'carNumber': carNumberToUse,
+                                'source': 'SubscriptionScreen',
+                                'customerId': customerDetails?.id ?? 0,
+                              },
                             );
 
-                            await washStatusController.getCustomerDataById(customerDetails?.id ?? 0);
-                            washStatusController.getWashSummary();
-                            Get.offNamed(RouteStrings.enterCardDetailScreen);
                           },
                           text: "kSubscribe".tr,
                           margin: EdgeInsets.symmetric(horizontal: 30),
                         );
                       },
                     ),
-                  /// Todo second its working
-                  /*  Obx(
-                            () {
-                          return HiWashButton(
-                            isLoading: controller.isLoading.value,
-                            onTap: () async {
-                              String selectedId = controller.selectedIndex.toString();
-                              final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
-                              final selectedIndex = controller.selectedIndex.value;
 
-                              if (selectedIndex == 2) {
-                                final existingCarNumber = customerDetails?.carNumber?.trim() ?? '';
-
-                                if (existingCarNumber.isNotEmpty) {
-                                  await controller.getSubscriptionMembership(
-                                    selectedId,
-                                    customerDetails?.mobileNumber ?? '',
-                                    existingCarNumber,
-                                    "Success",
-                                  );
-                                } else {
-                                  final enteredCarNumber = controller.carNumberController.text.trim();
-                                  if (enteredCarNumber.isEmpty) {
-                                    Get.snackbar("Validation", "Please enter your car number",
-                                        backgroundColor: Colors.redAccent,
-                                        colorText: Colors.white);
-                                    return;
-                                  }
-
-                                  drawerProfileController.carNumberController.text = enteredCarNumber;
-
-                                  await controller.getSubscriptionMembership(
-                                    selectedId,
-                                    customerDetails?.mobileNumber ?? '',
-                                    enteredCarNumber,
-                                    "Success",
-                                  );
-                                }
-                              } else {
-                                // For any other plan, continue as usual
-                                await controller.getSubscriptionMembership(
-                                  selectedId,
-                                  customerDetails?.mobileNumber ?? '',
-                                  controller.carNumberController.text.trim(),
-                                  "Success",
-                                );
-                              }
-
-                              // Refresh customer data and navigate to next screen
-                              await washStatusController.getCustomerDataById(customerDetails?.id ?? 0);
-                              washStatusController.getWashSummary();
-                              Get.offNamed(RouteStrings.enterCardDetailScreen);
-                            },
-                            text: "kSubscribe".tr,
-                            margin: EdgeInsets.symmetric(horizontal: 30),
-                          );
-                        }
-                    ),*/
-                  /// todo
-                  /*  Obx(
-                       () {
-                        return HiWashButton(
-                          isLoading: controller.isLoading.value,
-                       *//*   onTap: () {
-                            String selectedId =
-                                controller.selectedIndex.toString();
-
-                            print("====p>${selectedId}");
-                            //controller.isLoading.value = true;
-                            controller.getSubscriptionMembership(
-                                  selectedId,
-                                  washStatusController.getCustomerData.value?.data?.customerDetails?.mobileNumber??'',
-                                  controller.carNumberController.text,
-                                  "Success",
-                                )
-                                .then((value) async {
-                                  await washStatusController.getCustomerDataById(
-                                    washStatusController
-                                            .getCustomerData
-                                            .value
-                                            ?.data
-                                            ?.customerDetails
-                                            ?.id ??
-                                        0,
-                                  );
-                                  washStatusController.getWashSummary();
-                                  Get.offNamed(RouteStrings.enterCardDetailScreen);
-                                });
-                            print("seclectionId---->${selectedId}");
-                          },*//*
-                          onTap: () async {
-                            String selectedId = controller.selectedIndex.toString();
-                            final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
-                            final selectedIndex = controller.selectedIndex.value;
-
-                            // If selected plan is the second one (index == 2)
-                            if (selectedIndex == 2) {
-                              final existingCarNumber = customerDetails?.carNumber?.trim() ?? '';
-
-                              // If car number is already available in customer profile, use it
-                              if (existingCarNumber.isNotEmpty) {
-                                await controller.getSubscriptionMembership(
-                                  selectedId,
-                                  customerDetails?.mobileNumber ?? '',
-                                  existingCarNumber,
-                                  "Success",
-                                );
-                              } else {
-                                // If user has not entered car number in text field
-                                final enteredCarNumber = controller.carNumberController.text.trim();
-                                if (enteredCarNumber.isEmpty) {
-                                  Get.snackbar("Validation", "Please enter your car number",
-                                      backgroundColor: Colors.redAccent,
-                                      colorText: Colors.white);
-                                  return;
-                                }
-
-                                // Use user-entered car number
-                                await controller.getSubscriptionMembership(
-                                  selectedId,
-                                  customerDetails?.mobileNumber ?? '',
-                                  enteredCarNumber,
-                                  "Success",
-                                );
-                              }
-                            } else {
-                              // For any other plan, continue as usual
-                              await controller.getSubscriptionMembership(
-                                selectedId,
-                                customerDetails?.mobileNumber ?? '',
-                                controller.carNumberController.text.trim(),
-                                "Success",
-                              );
-                            }
-
-                            // Refresh customer data and navigate to next screen
-                            await washStatusController.getCustomerDataById(customerDetails?.id ?? 0);
-                            washStatusController.getWashSummary();
-                            Get.offNamed(RouteStrings.enterCardDetailScreen);
-                          },
-
-                          text: "kSubscribe".tr,
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                        );
-                      }
-                    ),*/
 
                     30.heightSizeBox,
                   ],
