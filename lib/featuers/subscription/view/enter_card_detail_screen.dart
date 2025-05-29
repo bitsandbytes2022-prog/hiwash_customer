@@ -242,7 +242,7 @@ class EnterCardDetailScreen extends StatelessWidget {
                                 await washStatusController.getWashSummary();
                                 await washStatusController.getCustomerDataById(customerId);
 
-                                Get.toNamed(RouteStrings.paymentSuccessScreen);
+                                Get.offAllNamed(RouteStrings.paymentSuccessScreen);
                               } else {
                                 Get.snackbar("Error", "Missing subscription details (SubscriptionScreen)");
                               }
@@ -258,7 +258,7 @@ class EnterCardDetailScreen extends StatelessWidget {
                                 await washStatusController.getWashSummary();
                                 await washStatusController.getCustomerDataById(customerId);
 
-                                Get.toNamed(RouteStrings.paymentSuccessScreen);
+                                Get.offAllNamed(RouteStrings.paymentSuccessScreen);
                               } else {
                                 Get.snackbar("Error", "Missing subscription details (PlanScreen)");
                               }

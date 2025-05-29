@@ -62,6 +62,7 @@ class DrawerProfileController extends GetxController {
 
       if (response != null && response['success'] == true) {
         appSnackBar(
+          title: "Success",
           backgroundColor: Colors.green,
           message: response['message'] ?? 'Profile updated successfully',
         );
@@ -125,7 +126,7 @@ class DrawerProfileController extends GetxController {
       String street,
       String building,
       String unit,
-      String profilePic,
+   /*   String profilePic,*/
       String carNumber,
       ) async {
     isLoading.value = true;
@@ -138,12 +139,13 @@ class DrawerProfileController extends GetxController {
         "street": street,
         "building": building,
         "unit": unit,
-        "profilePic": profilePic,
+      /*  "profilePic": profilePic,*/
         "carNumber": carNumber,
       };
       final response = await Repository().uploadProfile(requestBody);
       if (response != null && response['success'] == true) {
         appSnackBar(
+          title: "Success",
           backgroundColor: Colors.green,
           message: response['message'] ?? 'Profile updated successfully',
         );
