@@ -263,6 +263,7 @@ class EnterCardDetailScreen extends StatelessWidget {
                                 Get.snackbar("Error", "Missing subscription details (PlanScreen)");
                               }
                             } else {
+
                               Get.snackbar("Error", "Unknown source");
                             }
                           }
