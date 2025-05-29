@@ -256,7 +256,7 @@ class DrawerScreen extends StatelessWidget {
             image: Assets.iconsIcLanguage,
           ),
           drawerRowWidget(
-            onTap: () => drawerController.toggleDrawer('Privacy Settings'),
+            onTap: () => Get.toNamed(RouteStrings.privacySettingScreen),
             title: 'Privacy Settings',
             image: Assets.iconsIcPrivacy,
           ),

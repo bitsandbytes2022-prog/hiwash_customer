@@ -347,7 +347,7 @@ class BottomSheetWidget extends StatelessWidget {
                                 .offerDetailList!
                                 .first.businessName??""),
                             13.heightSizeBox,
-                            Text(
+                           /* Text(
                               "${rewardController.getOffersByIdModel.value?.offerDetailList?.first.title ?? ""}",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.rumRaisin(
@@ -355,14 +355,14 @@ class BottomSheetWidget extends StatelessWidget {
                                 fontSize: 24,
                                 color: AppColor.white,
                               ),
-                            ),
+                            ),*/
 
                           ],
                         ),
                       ),
 
-
-                      Positioned(
+                /// Right side image
+                    /*  Positioned(
                         right: 16,
                         top: 17,
 
@@ -384,7 +384,7 @@ class BottomSheetWidget extends StatelessWidget {
                             },
                           ),
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
@@ -752,241 +752,7 @@ class BottomSheetWidget extends StatelessWidget {
       ],
     );
   }
-/*
-  Widget scanDialog() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        37.heightSizeBox,
 
-        Text("Redeem Wash!", style: w700_22a(color: AppColor.c2C2A2A)),
-        Text(
-          "Scan Your QR Code to\nEnjoy Your Wash.",
-          style: w400_16p(color: AppColor.c455A64),
-          textAlign: TextAlign.center,
-        ),
-
-        15.heightSizeBox,
-        GestureDetector(
-          onTap: () {
-            Get.back();
-            showDialog(
-              barrierDismissible: false,
-              context: Get.context!,
-              builder: (BuildContext context) {
-                return AppDialog(
-                  padding: EdgeInsets.zero,
-
-                  child: successDialog(),
-                );
-              },
-            );
-          },
-          child: Image.asset(Assets.imagesImQr, height: 261, width: 261),
-        ),
-
-        46.heightSizeBox,
-      ],
-    );
-  }*/
 }
 
-/*
-Widget bottomSheet() {
-  return Expanded(
-    child: SingleChildScrollView(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(Get.context!).viewInsets.bottom,
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
-            children: [
-              Text(
-                "See All Exclusive Offers.",
-                style: w700_16a(color: AppColor.c2C2A2A),
-              ),
 
-              27.heightSizeBox,
-              OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 20)),
-              25.heightSizeBox,
-              GestureDetector(
-                onTap: () {
-                  rewardController.isVisible.value =
-                  !rewardController.isVisible.value;
-                },
-                child: Container(
-                  width: 158,
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-                  decoration: BoxDecoration(
-                    //color: AppColor.c5C6B72.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(28),
-                    border: Border.all(
-                      color: AppColor.c5C6B72.withOpacity(0.3),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Obx(
-                            () => Text(
-                          rewardController.sortByText.value,
-                          style: w400_12p(color: AppColor.c2C2A2A),
-                        ),
-                      ),
-
-                      Spacer(),
-                      ImageView(
-                        path: Assets.iconsIcDropDown,
-                        height: 5,
-                        width: 9,
-                        color: AppColor.c2C2A2A,
-                      ),
-                      //Icon(Icons.arrow_drop_down, size: 20),
-                    ],
-                  ),
-                ),
-              ),
-              25.heightSizeBox,
-              Column(
-                children: [
-                  Obx(() {
-                    final List<Offers> data =
-                        rewardController
-                            .offerResponseModel
-                            .value
-                            ?.data
-                            ?.offers ??
-                            [];
-
-                    if (data == null) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-
-                    return data.isNotEmpty
-                        ? GridView.builder(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.only(
-                          left: 16,
-                          right: 15,
-                          bottom: 60
-                      ),
-                      clipBehavior: Clip.hardEdge,
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 15,
-                        mainAxisSpacing: 15,
-                      ),
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Get.back();
-                            rewardController.getOffersById(
-                              data[index].id!,
-                            );
-                            showModalBottomSheet(
-                              context: Get.context!,
-                              isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  topRight: Radius.circular(15),
-                                ),
-                              ),
-                              builder: (BuildContext context) {
-                                return CustomBottomSheet(
-                                  child:
-                                  viewOfferDetailBottomSheet(),
-                                );
-                              },
-                            );
-                          },
-                          child: OffersGridContainer(
-                            offer: data[index],
-                          ),
-                        );
-                      },
-                    )
-                        : Padding(
-                      padding: const EdgeInsets.only(top: 30),
-                      child: Text(
-                        'Data is not found',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),
-                      ),
-                    );
-                  }),
-                ],
-              ),
-            ],
-          ),
-          Obx(
-                () =>
-            rewardController.isVisible.value
-                ? Positioned(
-              top: Get.height / 2.99,
-              child: Container(
-                alignment: Alignment.center,
-
-                width: 180,
-                height: 110,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.deepPurple.withOpacity(0.3),
-                      blurRadius: 10,
-                      offset: Offset(0, 10),
-                    ),
-                  ],
-                ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 15,
-                ),
-                //   color: Colors.white,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        rewardController.toggleSortOrder();
-                        rewardController.isVisible.value =
-                        false; // Hide popup
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: Text("Ascending order"),
-                      ),
-                    ),
-
-                    GestureDetector(
-                      onTap: () {
-                        rewardController.toggleSortOrder();
-                        rewardController.isVisible.value =
-                        false; // Hide popup
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: Text("Descending order"),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-                : Container(),
-          ),
-        ],
-      ),
-    ),
-  );
-}*/

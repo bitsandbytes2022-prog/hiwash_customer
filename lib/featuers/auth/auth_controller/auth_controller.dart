@@ -255,10 +255,27 @@ class AuthController extends GetxController {
     }
   }
 
+/*
   Future getFCMTokenIn() async {
     var token = await FirebaseMessaging.instance.getToken();
     LocalStorage().saveFCMToken(token: token);
     debugPrint("fcmTokenSet------> $token");
+  }
+*/
+
+  Future<void> getFCMTokenIn() async {
+    try {
+      var token = await FirebaseMessaging.instance.getToken();
+      if (token != null) {
+        LocalStorage().saveFCMToken(token: token);
+        debugPrint("FCM Token set: $token");
+      } else {
+        debugPrint("️FCM token is null.");
+      }
+    } catch (e, stackTrace) {
+      debugPrint(" Error while fetching FCM token: $e");
+      debugPrint("StackTrace: $stackTrace");
+    }
   }
 
   Future<GetTokenModel?> getToken(String phoneNumber) async {

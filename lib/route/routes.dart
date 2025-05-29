@@ -23,6 +23,7 @@ import '../featuers/dashboard/view/second_drawer/help_desk_ticket_screen.dart';
 import '../featuers/dashboard/view/second_drawer/step_by_step_guide_detail_screen.dart';
 import '../featuers/dashboard/view/second_drawer/step_by_step_guide_screen.dart';
 import '../featuers/dashboard/view/second_drawer/chat_screen.dart';
+import '../featuers/profile/view/privacy_setting_screen.dart';
 import 'route_strings.dart';
 
 class Routes {
@@ -123,6 +124,11 @@ class Routes {
     GetPage(
       name: RouteStrings.helpDeskTicketScreen,
       page: () => HelpDeskTicketScreen(),
+    ),
+
+    GetPage(
+      name: RouteStrings.privacySettingScreen,
+      page: () => PrivacySettingScreen(),
     ),
 
 

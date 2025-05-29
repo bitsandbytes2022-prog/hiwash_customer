@@ -8,6 +8,7 @@ import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:hiwash_customer/widgets/components/loader.dart';
 import '../../../network_manager/repository.dart';
+import '../../../widgets/components/app_snack_bar.dart';
 import '../model/terms_and_conditions_response_model.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -60,6 +61,10 @@ class DrawerProfileController extends GetxController {
       final response = await Repository().uploadProfilePicture(formData);
 
       if (response != null && response['success'] == true) {
+        appSnackBar(
+          backgroundColor: Colors.green,
+          message: response['message'] ?? 'Profile updated successfully',
+        );
         return true;
       } else {
         imageFile.value = null;
@@ -113,6 +118,50 @@ class DrawerProfileController extends GetxController {
   }
 
   Future<dynamic> uploadProfile(
+      String fullName,
+      String email,
+      String mobileNumber,
+      String zone,
+      String street,
+      String building,
+      String unit,
+      String profilePic,
+      String carNumber,
+      ) async {
+    isLoading.value = true;
+    try {
+      Map<String, dynamic> requestBody = {
+        "fullName": fullName,
+        "email": email,
+        "mobileNumber": mobileNumber,
+        "zone": zone,
+        "street": street,
+        "building": building,
+        "unit": unit,
+        "profilePic": profilePic,
+        "carNumber": carNumber,
+      };
+      final response = await Repository().uploadProfile(requestBody);
+      if (response != null && response['success'] == true) {
+        appSnackBar(
+          backgroundColor: Colors.green,
+          message: response['message'] ?? 'Profile updated successfully',
+        );
+      }
+      return response;
+    } catch (e) {
+      print("Update profile error: $e");
+      appSnackBar(
+        message: "Something went wrong while updating profile",
+      );
+      return null;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+
+/*  Future<dynamic> uploadProfile(
     String fullName,
     String email,
     String mobileNumber,
@@ -136,23 +185,17 @@ class DrawerProfileController extends GetxController {
         "profilePic": profilePic,
         "carNumber": carNumber,
       };
-     // showLoader();
       final response = await Repository().uploadProfile(requestBody);
-     // hideLoader();
       return response;
     } catch (e) {
       print("Update profile error: $e");
-
-      Get.snackbar(
-        "Error",
-        "Something went wrong while updating profile",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+      appSnackBar(
+        message: "Something went wrong while updating profile",
       );
+
       return null;
     } finally {
       isLoading.value = false;
     }
-  }
+  }*/
 }
