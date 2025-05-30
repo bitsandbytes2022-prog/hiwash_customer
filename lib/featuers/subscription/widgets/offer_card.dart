@@ -20,7 +20,7 @@ class OfferCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    rewardController.getOfferCategoriesMethod();
+   // rewardController.getOfferCategoriesMethod();
 
     return Container(
       padding: padding,
@@ -30,7 +30,6 @@ class OfferCardWidget extends StatelessWidget {
 
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Left Image
           Expanded(
             child: GestureDetector(
               onTap: onTapOne,

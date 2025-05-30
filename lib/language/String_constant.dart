@@ -1,4 +1,5 @@
 class StringConstant{
+  ///Splash Screen
   static const kWelcomeToThe="kWelcomeToThe";
   static const kHiWASH="kHiWASH";
   static const kWeComeToYouTo="kWeComeToYouTo";
@@ -13,6 +14,8 @@ static const kEcoCleanWalletGreen="kEcoCleanWalletGreen";
 static const kExclusiveDealsWithEvery="kExclusiveDealsWithEvery";
 static const  kWashWin="kWashWin";
 static const kGetYourCarWashed="kGetYourCarWashed";
+static const kMissedWashesStillDeducted="Missed washes still deducted.";
+
 
 
 }

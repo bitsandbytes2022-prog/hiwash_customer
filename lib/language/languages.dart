@@ -21,7 +21,7 @@ class Languages extends Translations {
       "kWashWin": "Wash & Win!",
       "kGetYourCarWashed":
           "Get your car washed weekly at 100+ locations with exclusive offers.",
-
+          "kMissedWashesStillDeducted":"Missed washes still deducted.",
       ///  Login screen
       "kLogin": "Log In!",
       "kWelcomeBack": "Welcome Back,",

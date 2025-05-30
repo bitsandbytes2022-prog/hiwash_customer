@@ -101,7 +101,7 @@ class WelcomeScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        "Missed washes still deducted.",
+                                        StringConstant.kMissedWashesStillDeducted,
                                         textAlign: TextAlign.center,
                                         style: w400_16p(
                                           color: AppColor.c2C2A2A,
