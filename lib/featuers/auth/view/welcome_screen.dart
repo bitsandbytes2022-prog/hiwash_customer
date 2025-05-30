@@ -131,7 +131,7 @@ class WelcomeScreen extends StatelessWidget {
 
                           GetStartButton(
                             width: 193,
-                            text: "kGetStarted".tr,
+                            text: StringConstant.kGetStarted.tr,
                             onTap: () {
                               Get.toNamed(RouteStrings.loginScreen);
 
@@ -147,7 +147,7 @@ class WelcomeScreen extends StatelessWidget {
                               //Get.toNamed(StringConstant.kTermsAndConditions);
                             },
                             child: Text(
-                              "kTermsAndConditions".tr,
+                              StringConstant.kTermsAndConditions.tr,
                               style: w500_14a(color: AppColor.red),
                             ),
                           ),

@@ -32,6 +32,9 @@ class Languages extends Translations {
       "kDontAaveAccount": "Don’t have account? ",
       "SIGNUP": "SIGN UP",
       "kOR": "OR",
+          "kHaveAnAccount": "Have an account? ",
+          "LOGIN":"LOGIN",
+
 
       /// SIgn up screen
       "kHello": "Hello,",
@@ -43,6 +46,10 @@ class Languages extends Translations {
       "kEnterYourFullName": "Enter your full name",
       "kEnterYourEmail": "Enter your email",
       "kEnterPhoneNumber": "Enter phone number",
+          "kZone":"Zone",
+          "kStreet":"Street",
+          "kBuilding":"Building",
+          "kUnit":"Unit",
 
       /// forgot password screen
       "kForgot": "Forgot",

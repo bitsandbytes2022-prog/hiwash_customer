@@ -20,7 +20,7 @@ class OfferCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   // rewardController.getOfferCategoriesMethod();
+   //rewardController.getOfferCategoriesMethod();
 
     return Container(
       padding: padding,

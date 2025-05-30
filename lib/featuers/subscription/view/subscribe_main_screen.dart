@@ -11,7 +11,6 @@ import 'package:hiwash_customer/styling/app_font_poppins.dart';
 import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
-
 import '../../../widgets/components/image_view.dart';
 import '../../dashboard/controller/dashboard_controller.dart';
 import '../../rewads/controller.dart';
@@ -24,8 +23,9 @@ class SubscribeMainScreen extends StatelessWidget {
 
    @override
   Widget build(BuildContext context) {
-    final userData =
-        washStatusController.getCustomerData.value?.data?.customerDetails;
+     rewardController.getOfferCategoriesMethod();
+
+     final userData = washStatusController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
       padding: EdgeInsets.zero,
 

@@ -135,7 +135,7 @@ class AuthController extends GetxController {
   String? validateName(String? value) {
     value = value?.trim();
     if (value == null || value.isEmpty) {
-      return "First Name is required";
+      return "Name is required";
     } else if (value.length < 3) {
       return "Name must be at least 3 characters";
     } else if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {

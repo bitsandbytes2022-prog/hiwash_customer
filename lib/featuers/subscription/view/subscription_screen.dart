@@ -40,6 +40,7 @@ class SubscriptionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final userData =
         washStatusController.getCustomerData.value?.data?.customerDetails;
     controller.getSubscription();
@@ -48,6 +49,8 @@ class SubscriptionScreen extends StatelessWidget {
     controller.getSubscription();
 
     final profileCarNumber = userData?.carNumber?.trim() ?? '';
+
+    rewardController.getOfferCategoriesMethod();
 
     return AppHomeBg(
       centerHeading: Container(

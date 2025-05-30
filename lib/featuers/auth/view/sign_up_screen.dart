@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/widgets/components/app_bg.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
@@ -42,8 +43,8 @@ class SignUpScreen extends StatelessWidget {
     }
     return Scaffold(
       body: AppBg(
-        headingText: "kHello".tr,
-        subText: "SignUp".tr,
+        headingText: StringConstant.kHello.tr,
+        subText: StringConstant.kSignUp.tr,
         showBackButton: false,
         heading: false,
         child: Form(
@@ -58,8 +59,8 @@ class SignUpScreen extends StatelessWidget {
 
                 controller: authController.nameController,
                 keyboardType: TextInputType.name,
-                labelText: "kName".tr,
-                hintText: "kEnterYourFullName".tr,
+                labelText: StringConstant.kName.tr,
+                hintText: StringConstant.kEnterYourFullName.tr,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                     RegExp(r"[a-zA-Z ]"),
@@ -73,8 +74,8 @@ class SignUpScreen extends StatelessWidget {
               HiWashTextField(
                 controller: authController.emailSignUpController,
                 keyboardType: TextInputType.emailAddress,
-                labelText: "kEmail".tr,
-                hintText: "kEnterYourEmail".tr,
+                labelText: StringConstant.kEmail.tr,
+                hintText: StringConstant.kEnterYourEmail.tr,
                 validator: (value) {
                   return authController.validateEmail(value);
                 },
@@ -84,8 +85,8 @@ class SignUpScreen extends StatelessWidget {
                 readOnly: true,
                 controller: authController.phoneController,
                 keyboardType: TextInputType.phone,
-                labelText: "kPhone".tr,
-                hintText: "kEnterPhoneNumber".tr,
+                labelText: StringConstant.kPhone.tr,
+                hintText: StringConstant.kEnterPhoneNumber.tr,
                 validator: (value) {
                   return authController.validatePhoneNumber(value);
                 },
@@ -99,8 +100,8 @@ class SignUpScreen extends StatelessWidget {
                 ],
                 keyboardType: TextInputType.text,
                 controller: authController.zoneController,
-                hintText: "Zone".tr,
-                labelText: "Zone".tr,
+                hintText: StringConstant.kZone.tr,
+                labelText: StringConstant.kZone.tr,
                 /*   obscure: true,
                 obscuringCharacter: "*",
                 validator: (value) {
@@ -116,8 +117,8 @@ class SignUpScreen extends StatelessWidget {
                 ],
                 keyboardType: TextInputType.text,
                 controller: authController.streetController,
-                hintText: "Street".tr,
-                labelText: "Street".tr,
+                hintText: StringConstant.kStreet.tr,
+                labelText: StringConstant.kStreet.tr,
               ),
               20.heightSizeBox,
               HiWashTextField(
@@ -128,8 +129,8 @@ class SignUpScreen extends StatelessWidget {
                 ],
                 keyboardType: TextInputType.text,
                 controller: authController.buildingController,
-                hintText: "Building".tr,
-                labelText: "Building".tr,
+                hintText: StringConstant.kBuilding.tr,
+                labelText: StringConstant.kBuilding.tr,
               ),
               20.heightSizeBox,
               HiWashTextField(
@@ -139,8 +140,8 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ],
                 controller: authController.unitController,
-                hintText: "Unit".tr,
-                labelText: "Unit".tr,
+                hintText: StringConstant.kUnit.tr,
+                labelText: StringConstant.kUnit.tr,
               ),
 
               35.heightSizeBox,
@@ -148,19 +149,19 @@ class SignUpScreen extends StatelessWidget {
               Obx(
                 () => HiWashButton(
                   isLoading: authController.isLoading.value,
-                  text: "signUp".tr,
+                  text: StringConstant.signUp.tr,
                   onTap: () {
                     String enteredPhone =
                         authController.phoneController.text.trim();
 
                     if (phoneNumberSignUp != null &&
                         phoneNumberSignUp != enteredPhone) {
-                      Get.snackbar(
+                   /*   Get.snackbar(
                         "Phone Number Changed",
                         "You have changed the phone number from the original one.",
                         backgroundColor: Colors.orangeAccent,
                         colorText: Colors.white,
-                      );
+                      );*/
                     }
                     if (formKey.currentState?.validate() ?? false) {
                       authController
@@ -204,11 +205,11 @@ class SignUpScreen extends StatelessWidget {
                   text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                        text: "Have an account? ",
+                        text: StringConstant.kHaveAnAccount,
                         style: w400_12a(color: AppColor.c455A64),
                       ),
                       TextSpan(
-                        text: 'LOGIN',
+                        text: StringConstant.LOGIN,
                         style: w500_14a(color: AppColor.red),
                         recognizer:
                             TapGestureRecognizer()
