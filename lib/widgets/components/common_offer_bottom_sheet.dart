@@ -60,7 +60,13 @@ class BottomSheetWidget extends StatelessWidget {
               ),
 
               27.heightSizeBox,
-              OfferCardWidget(padding: EdgeInsets.symmetric(horizontal: 20)),
+              OfferCardWidget(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                onTapOne: () => rewardController.filterByCategory(0),
+                onTapTwo: () => rewardController.filterByCategory(1),
+                onTapThree: () => rewardController.filterByCategory(2),
+              ),
+
               25.heightSizeBox,
               GestureDetector(
                 onTap: () {
@@ -103,12 +109,10 @@ class BottomSheetWidget extends StatelessWidget {
               Expanded(
                 child: Obx(() {
                   final List<Offers> data =
-                      rewardController
-                          .offerResponseModel
-                          .value
-                          ?.data
-                          ?.offers ??
-                          [];
+                  rewardController.filteredOffers.isNotEmpty
+                      ? rewardController.filteredOffers
+                      : rewardController.offerResponseModel.value?.data?.offers ?? [];
+
 
                   return data.isNotEmpty
                       ? GridView.builder(
@@ -166,103 +170,115 @@ class BottomSheetWidget extends StatelessWidget {
                           /// key to force rebuild
                             key: ValueKey(data[index].expiryDate),
 
-                            offer: data[index]),
-                      );
-                    },
-                  )
-                      : Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: Text(
-                      'Data is not found',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                      ),
-                    ),
-                  );
-                }),
-              ),
-            ],
-          ),
-          Obx(
-            () =>
-                rewardController.isVisible.value
-                    ? Positioned(
-                      top: Get.height / 2.99,
-                      child: Container(
-                        alignment: Alignment.center,
-
-                        width: 180,
-                        height: 110,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.deepPurple.withOpacity(0.3),
-                              blurRadius: 10,
-                              offset: Offset(0, 10),
-                            ),
-                          ],
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 15,
-                        ),
-                        //   color: Colors.white,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                rewardController.toggleSortOrder();
-                                rewardController.isVisible.value =
-                                    false; // Hide popup
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Text("Ascending order"),
-                              ),
-                            ),
-
-                            GestureDetector(
-                              onTap: () {
-                                rewardController.toggleSortOrder();
-                                rewardController.isVisible.value =
-                                    false; // Hide popup
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Text("Descending order"),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                              offer: data[index]),
+                        );
+                      },
                     )
-                    : Container(),
-          ),
-          Positioned(
-            top: 5,
-            right: 0,
-            child: GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Container(
-                padding: EdgeInsets.only(right: 10, top: 6),
-                child: ImageView(
-                  path: Assets.iconsIcClose,
-                  height: 28,
-                  width: 32,
+                        : Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: Text(
+                        'Data is not found',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ],
+            ),
+            Obx(
+                  () =>
+              rewardController.isVisible.value
+                  ? Positioned(
+                top: Get.height / 2.99,
+                child: Container(
+                  alignment: Alignment.center,
+
+                  width: 180,
+                  height: 110,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.deepPurple.withOpacity(0.3),
+                        blurRadius: 10,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 15,
+                  ),
+                  //   color: Colors.white,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          rewardController.toggleSortOrder();
+                          rewardController.isVisible.value =
+                          false; // Hide popup
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: Text("Ascending order"),
+                        ),
+                      ),
+
+                      GestureDetector(
+                        onTap: () {
+                          rewardController.toggleSortOrder();
+                          rewardController.isVisible.value =
+                          false; // Hide popup
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: Text("Descending order"),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+                  : Container(),
+            ),
+            Positioned(
+              top: 5,
+              right: 0,
+              child: GestureDetector(
+                  onTap: () {
+                    rewardController.sortByText.value = "Sort by Expiry";
+
+                    rewardController.isAscending.value = true;
+
+                    rewardController.applySortingToCurrentData();
+                    rewardController.clearCategoryFilter();
+
+                    Get.back();
+                  }
+,
+                  /* onTap: () {
+                  Get.back();
+                  rewardController.clearCategoryFilter();
+                },*/
+                child: Container(
+                  padding: EdgeInsets.only(right: 10, top: 6),
+                  child: ImageView(
+                    path: Assets.iconsIcClose,
+                    height: 28,
+                    width: 32,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
 
 
   }
@@ -298,38 +314,38 @@ class BottomSheetWidget extends StatelessWidget {
                           width: Get.width,
                           fit: BoxFit.fitWidth,
                           imageUrl:
-                              (rewardController
-                                          .getOffersByIdModel
-                                          .value
-                                          ?.offerDetailList
-                                          ?.first
-                                          .bannerImageUrl
-                                          ?.isNotEmpty ??
-                                      false)
-                                  ? rewardController
-                                      .getOffersByIdModel
-                                      .value!
-                                      .offerDetailList!
-                                      .first
-                                      .bannerImageUrl!
-                                  : Assets.imagesImOffer,
+                          (rewardController
+                              .getOffersByIdModel
+                              .value
+                              ?.offerDetailList
+                              ?.first
+                              .bannerImageUrl
+                              ?.isNotEmpty ??
+                              false)
+                              ? rewardController
+                              .getOffersByIdModel
+                              .value!
+                              .offerDetailList!
+                              .first
+                              .bannerImageUrl!
+                              : Assets.imagesImOffer,
                           placeholder:
                               (context, url) => Center(
-                                child: SizedBox(
-                                  height: 30,
-                                  width: 30,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                ),
+                            child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
                               ),
+                            ),
+                          ),
                           errorWidget:
                               (context, url, error) => Image.asset(
-                                Assets.imagesImOffer,
-                                height: 187,
-                                width: Get.width,
-                                fit: BoxFit.fitWidth,
-                              ),
+                            Assets.imagesImOffer,
+                            height: 187,
+                            width: Get.width,
+                            fit: BoxFit.fitWidth,
+                          ),
                         ),
                       ),
 
@@ -347,7 +363,7 @@ class BottomSheetWidget extends StatelessWidget {
                                 .offerDetailList!
                                 .first.businessName??""),
                             13.heightSizeBox,
-                           /* Text(
+                            /* Text(
                               "${rewardController.getOffersByIdModel.value?.offerDetailList?.first.title ?? ""}",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.rumRaisin(
@@ -361,8 +377,8 @@ class BottomSheetWidget extends StatelessWidget {
                         ),
                       ),
 
-                /// Right side image
-                    /*  Positioned(
+                      /// Right side image
+                      /*  Positioned(
                         right: 16,
                         top: 17,
 
@@ -411,7 +427,7 @@ class BottomSheetWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                        rewardController.getOffersByIdModel.value?.offerDetailList?.first.businessName??"",
+                              rewardController.getOffersByIdModel.value?.offerDetailList?.first.businessName??"",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: w600_14a(color: AppColor.c2C2A2A),
@@ -429,7 +445,7 @@ class BottomSheetWidget extends StatelessWidget {
 
                                 Expanded(
                                   child: Text(
-                                      rewardController.getOffersByIdModel.value?.offerDetailList?.first.businessAddress??"",
+                                    rewardController.getOffersByIdModel.value?.offerDetailList?.first.businessAddress??"",
                                     style: w400_10p(color: AppColor.c455A64),
                                   ),
                                 ),
@@ -439,8 +455,8 @@ class BottomSheetWidget extends StatelessWidget {
                         ),
                       ),
 
-                    /// Todo rating is comment
-                    /*  Spacer(),
+                      /// Todo rating is comment
+                      /*  Spacer(),
                       Container(
                         width: 50,
                         child: Column(
@@ -506,7 +522,7 @@ class BottomSheetWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-/// working on later
+                      /// working on later
                       CountdownOrDateTimer(
                         expiryDateStr:      rewardController
                             .getOffersByIdModel
@@ -671,7 +687,7 @@ class BottomSheetWidget extends StatelessWidget {
       return GestureDetector(
         onTap: () {
           rewardController.selectedDropDownIndex.value =
-              isExpanded ? -1 : index; // Toggle
+          isExpanded ? -1 : index; // Toggle
         },
         child: Container(
           color: Colors.transparent,
@@ -687,9 +703,9 @@ class BottomSheetWidget extends StatelessWidget {
                     Text(title ?? "", style: w600_12a(color: AppColor.c2C2A2A)),
                     ImageView(
                       path:
-                          isExpanded
-                              ? Assets.iconsIcUpWardArrow
-                              : Assets.iconsIcDropDown,
+                      isExpanded
+                          ? Assets.iconsIcUpWardArrow
+                          : Assets.iconsIcDropDown,
                       height: 6,
                       width: 10,
                     ),

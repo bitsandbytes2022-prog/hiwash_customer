@@ -200,7 +200,7 @@ print("------>c${response.data}");
   Future<GetOfferCategoriesModel> getOfferCategories() async {
     // print("url--->:${ApiConstant.offerCategories}");
     Map<String, dynamic> response = await dioHelper.get(
-      url: ApiConstant.getOffers,
+      url: ApiConstant.offerCategories,
       isAuthRequired: true,
     );
     // print("Response--->: $response");

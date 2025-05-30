@@ -10,11 +10,134 @@ import 'model/get_offers_by_id_model.dart';
 
 class RewardController extends GetxController {
   final RxBool isVisible = false.obs;
+  RxString selectedCategory = ''.obs;
 
   Rxn<GetOfferResponseModel> offerResponseModel = Rxn();
   Rxn<GetOffersByIdModel> getOffersByIdModel = Rxn();
   Rxn<GetOfferCategoriesModel> getOfferCategoriesModel = Rxn();
   RxInt selectedDropDownIndex = (-1).obs;
+  // In RewardController
+  RxString selectedCategoryName = ''.obs;
+  RxString selectedCategoryNameFilter = ''.obs;
+  RxList<Offers> filteredOffers = <Offers>[].obs;
+
+
+  var selectedCategoryIndex = 0.obs;
+
+
+  void clearCategoryFilter() {
+    selectedCategoryIndex.value = 0;
+  filteredOffers.clear();
+  }
+
+
+  final List<String> images = [
+    Assets.imagesDemoProfile,
+    Assets.imagesDemoProfile,
+    Assets.imagesDemoProfile,
+  ];
+
+  RxBool isAscending = true.obs;
+  RxString sortByText = "Sort by Expiry".obs;
+  void applySortingToCurrentData() {
+    List<Offers> data;
+
+    if (filteredOffers.isNotEmpty) {
+      data = [...filteredOffers];
+    } else {
+      data = [...(offerResponseModel.value?.data?.offers ?? [])];
+    }
+
+    data.sort((a, b) {
+      final aDate = DateTime.tryParse(a.expiryDate ?? "") ?? DateTime.now();
+      final bDate = DateTime.tryParse(b.expiryDate ?? "") ?? DateTime.now();
+      return isAscending.value ? aDate.compareTo(bDate) : bDate.compareTo(aDate);
+    });
+
+    if (filteredOffers.isNotEmpty) {
+      filteredOffers.value = data;
+    } else {
+      offerResponseModel.update((val) {
+        val?.data?.offers = data;
+      });
+    }
+
+    print("Applied sorting - Ascending: ${isAscending.value}");
+  }
+
+  void toggleSortOrder() {
+    isAscending.value = !isAscending.value;
+    sortByText.value =
+    isAscending.value ? 'Ascending Order' : 'Descending Order';
+    applySortingToCurrentData();
+  }
+
+  void filterByCategory(int index) {
+    selectedCategoryIndex.value = index;
+
+    final selectedCategoryName =
+    getOfferCategoriesModel.value?.data?[index].name?.toLowerCase().trim();
+
+    final allOffers = offerResponseModel.value?.data?.offers ?? [];
+
+    final matchedOffers = allOffers.where((offer) {
+      final offerCategory = offer.categoryName?.toLowerCase().trim();
+      return offerCategory == selectedCategoryName;
+    }).toList();
+
+    matchedOffers.sort((a, b) {
+      final aDate = DateTime.tryParse(a.expiryDate ?? "") ?? DateTime.now();
+      final bDate = DateTime.tryParse(b.expiryDate ?? "") ?? DateTime.now();
+      return isAscending.value ? aDate.compareTo(bDate) : bDate.compareTo(aDate);
+    });
+
+    filteredOffers.value = matchedOffers;
+
+    print("Filtered by category: $selectedCategoryName, Sorted: ${matchedOffers.length}");
+  }
+
+
+  String timeUntilExpiry(String? expiryDate) {
+    if (expiryDate == null || expiryDate.isEmpty) {
+      return "No Expiry";
+    }
+
+    try {
+      DateTime expiry = DateTime.parse(expiryDate);
+      DateTime now = DateTime.now();
+      Duration difference = expiry.difference(now);
+
+      if (difference.isNegative) {
+        return "Expired";
+      } else if (difference.inDays > 365) {
+        return "${(difference.inDays / 365).floor()} years";
+      } else if (difference.inDays > 30) {
+        return "${(difference.inDays / 30).floor()} months";
+      } else if (difference.inDays > 0) {
+        return "${difference.inDays} days";
+      } else if (difference.inHours > 0) {
+        return "${difference.inHours} hours";
+      } else if (difference.inMinutes > 0) {
+        return "${difference.inMinutes} minutes";
+      } else {
+        return "${difference.inSeconds} seconds";
+      }
+    } catch (e) {
+      return "Invalid date";
+    }
+  }
+
+  bool isOfferExpired(String? expiryDateStr) {
+    if (expiryDateStr == null || expiryDateStr.isEmpty) return false;
+    try {
+      final expiryDate = DateTime.parse(expiryDateStr);
+      return DateTime.now().isAfter(expiryDate);
+    } catch (e) {
+      return false;
+    }
+  }
+
+
   Timer? _timer;
   String countdown = "";
 
@@ -83,89 +206,17 @@ hideLoader();
 
   Future<GetOfferCategoriesModel?> getOfferCategoriesMethod() async {
     try {
-      loading.value = true;
-      update();
+
       getOfferCategoriesModel.value = await Repository().getOfferCategories();
+
+      print(" ppppp----->${getOfferCategoriesModel.toJson().toString()}");
       return getOfferCategoriesModel.value;
     } catch (error) {
-      loading.value = false;
-      update();
+
       print("Error fetching Offers Categories: $error");
     }
     return null;
   }
 
-  final List<String> images = [
-    Assets.demoOffer1,
-    Assets.demoOffer2,
-    Assets.demoOffer3,
-  ];
-
-  RxBool isAscending = true.obs;
-  RxString sortByText = "Sort by Expiry".obs;
-
-  void toggleSortOrder() {
-    if (sortByText.value == "Sort by Expiry") {
-      isAscending.value = true;
-    } else {
-      isAscending.value = !isAscending.value;
-    }
-
-    final offers = offerResponseModel.value?.data?.offers ?? [];
-    offers.sort((a, b) {
-      final aDate = DateTime.tryParse(a.expiryDate ?? "") ?? DateTime.now();
-      final bDate = DateTime.tryParse(b.expiryDate ?? "") ?? DateTime.now();
-      return isAscending.value
-          ? aDate.compareTo(bDate)
-          : bDate.compareTo(aDate);
-    });
-
-    sortByText.value =
-        isAscending.value ? "Ascending order" : "Descending order";
-
-    offerResponseModel.update((val) {
-      val?.data?.offers = offers;
-    });
-  }
-
-  String timeUntilExpiry(String? expiryDate) {
-    if (expiryDate == null || expiryDate.isEmpty) {
-      return "No Expiry";
-    }
-
-    try {
-      DateTime expiry = DateTime.parse(expiryDate);
-      DateTime now = DateTime.now();
-      Duration difference = expiry.difference(now);
-
-      if (difference.isNegative) {
-        return "Expired";
-      } else if (difference.inDays > 365) {
-        return "${(difference.inDays / 365).floor()} years";
-      } else if (difference.inDays > 30) {
-        return "${(difference.inDays / 30).floor()} months";
-      } else if (difference.inDays > 0) {
-        return "${difference.inDays} days";
-      } else if (difference.inHours > 0) {
-        return "${difference.inHours} hours";
-      } else if (difference.inMinutes > 0) {
-        return "${difference.inMinutes} minutes";
-      } else {
-        return "${difference.inSeconds} seconds";
-      }
-    } catch (e) {
-      return "Invalid date";
-    }
-  }
-
-  bool isOfferExpired(String? expiryDateStr) {
-    if (expiryDateStr == null || expiryDateStr.isEmpty) return false;
-    try {
-      final expiryDate = DateTime.parse(expiryDateStr);
-      return DateTime.now().isAfter(expiryDate);
-    } catch (e) {
-      return false;
-    }
-  }
 
 }

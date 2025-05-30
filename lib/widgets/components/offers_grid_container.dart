@@ -8,7 +8,7 @@ import '../../styling/app_color.dart';
 import '../../styling/app_font_anybody.dart';
 import '../../widgets/sized_box_extension.dart';
 import 'countdown_else_full_date.dart';
-class OffersGridContainer extends StatelessWidget {
+  class OffersGridContainer extends StatelessWidget {
   final Offers offer;
 
   OffersGridContainer({super.key, required this.offer});
