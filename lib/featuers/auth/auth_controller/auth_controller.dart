@@ -307,7 +307,33 @@ class AuthController extends GetxController {
       isLoading.value = false;
     }
   }
+  Future<GetTokenModel?> refreshToken() async {
+    Map<String, dynamic> requestBody = {
+      "refreshToken": LocalStorage().getToken(),
+    };
+    print("Calling getToken with ");
+    isLoading.value = true;
 
+    try {
+      final value = await Repository().refreshToken(requestBody);
+      print(" Value received in controller token: $value");
+      if (value.data?.token != null && value.data!.token!.isNotEmpty) {
+        LocalStorage tokenStorage = LocalStorage();
+        await tokenStorage.saveToken(value.data!.token!);
+        await tokenStorage.saveUserId(value.data!.id.toString());
+
+        isLoggedIn.value = true;
+      }
+
+      getTokenModel = value;
+      return value;
+    } catch (error) {
+      print(" Error in controller send otp get token: $error");
+      return null;
+    } finally {
+      isLoading.value = false;
+    }
+  }
   Future<SignUpModel?> signUp(
     String fullName,
     String phoneNumber,

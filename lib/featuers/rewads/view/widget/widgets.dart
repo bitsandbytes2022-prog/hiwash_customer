@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../language/String_constant.dart';
 
 class Base64ImageWidget extends StatelessWidget {
   final String? base64String;
@@ -45,7 +48,7 @@ class Base64ImageWidget extends StatelessWidget {
             ),
             SizedBox(height: 4),
             Text(
-              'Image not available',
+             StringConstant.kImageNotAvailable.tr,
               style: TextStyle(
                 color: Colors.grey[600],
                 fontSize: height * 0.15,
@@ -87,7 +90,7 @@ class Base64ImageWidget extends StatelessWidget {
               ),
               SizedBox(height: 4),
               Text(
-                'Invalid image',
+                StringConstant.kInvalidImage.tr,
                 style: TextStyle(
                   color: Colors.grey[600],
                   fontSize: height * 0.15,
@@ -107,44 +110,4 @@ class Base64ImageWidget extends StatelessWidget {
   }
 }
 
-/*
 
-import 'dart:convert';
-import 'dart:typed_data';
-
-import 'package:flutter/material.dart';
-import 'package:hiwash_customer/generated/assets.dart';
-
-Widget buildQRCodeWidget(String? base64String) {
-  if (base64String == null || base64String.isEmpty) {
-    return Image.asset(
-      Assets.imagesDemo,
-      height: 157,
-      width: 157,
-      fit: BoxFit.fitWidth,
-    );
-  }
-
-  try {
-    final cleanedBase64 = base64String.contains(',')
-        ? base64String.split(',').last
-        : base64String;
-
-    final Uint8List imageBytes = base64Decode(cleanedBase64);
-    return Image.memory(
-      imageBytes,
-      height: 157,
-      width: 157,
-      fit: BoxFit.fitWidth,
-    );
-  } catch (e) {
-    print("Base64 decode error: $e");
-    return Image.asset(
-      Assets.imagesDemo,
-      height: 157,
-      width: 157,
-      fit: BoxFit.fitWidth,
-    );
-  }
-}
-*/

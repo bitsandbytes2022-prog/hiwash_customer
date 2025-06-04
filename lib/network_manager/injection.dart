@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/instance_manager.dart';
+import 'package:hiwash_customer/featuers/auth/auth_controller/auth_controller.dart';
 import 'package:hiwash_customer/network_manager/utils/print_value.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 
@@ -66,7 +68,9 @@ Dio getDio() {
             colorText: Colors.white,
             backgroundColor: Colors.red,
           );
-          Get.offAllNamed(RouteStrings.welcomeScreen);
+         // AuthController authController=Get.find();
+         // authController.refreshToken();
+         // Get.offAllNamed(RouteStrings.welcomeScreen);
         } else if (e.response?.statusCode == 404) {
           Get.snackbar(
             "Error 404",

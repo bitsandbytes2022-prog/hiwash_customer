@@ -94,6 +94,19 @@ print("------>c${response.data}");
     return GetTokenModel.fromJson(response);
   }
 
+  Future<GetTokenModel> refreshToken(Object requestBody) async {
+    // print("body--->: $requestBody");
+    //  print("url--->: ${ApiConstant.getToken}");
+
+    var response = await dioHelper.post(
+      url: ApiConstant.refreshToken,
+      requestBody: requestBody,
+    );
+    //   print("Response--->: $response");
+
+    return GetTokenModel.fromJson(response);
+  }
+
   Future<SignUpModel> signUp(Object requestBody) async {
     var response = await dioHelper.post(
       url: ApiConstant.signUp,

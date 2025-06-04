@@ -47,6 +47,54 @@ static const kWelcomeBack="kWelcomeBack";
   static const kEnterPhoneNumber="kEnterPhoneNumber";
   static const kHaveAnAccount="kHaveAnAccount";
 
+  /// Otp screen
+  static const kAuthentication="kAuthentication";
+  static const kOTP="kOTP";
+  static const kVerifyPhone="kVerifyPhone";
+  static const kCodeHasBeenSentTo="kCodeHasBeenSentTo";
+  static const kDidGetOTPCode="kDidGetOTPCode";
+  static const kResendCode="KResendCode";
+  static const kVerify="kVerify";
+  static const kInvalidOTP="kInvalidOTP";
+  static const kError="kError";
+  static const kSomethingWentWrong="kSomethingWentWrong";
+  static const kPleaseEnterTheCorrectOTP="kPleaseEnterTheCorrectOTP";
+  static const kEnterValidOTP="kEnterValidOTP";
+
+  /// Wash location screen
+ static const kYourCurrentLocation="kYourCurrentLocation";
+ static const kFetchingLocation="kFetchingLocation";
+ static const kNoNearbyLocationsFound="kNoNearbyLocationsFound";
+ static const kTotalWashes="kTotalWashes";
+ static const kRemaining="kRemaining";
+ static const kCompleteWash="kCompleteWash";
+ static const kWashComplete="kWashComplete";
+ static const kShareYourFeedback="kShareYourFeedback";
+ static const kEnterYourCommentHere="kEnterYourCommentHere";
+ static const kSubmit="kSubmit";
+ static const kLocationServicesAreDisabled="kLocationServicesAreDisabled";
+ static const kLocationPermissionDenied="kLocationPermissionDenied";
+ static const kLocationPermissionPermanentlyDenied="kLocationPermissionPermanentlyDenied";
+ static const kCouldNotRetrieveAddressDetails="kCouldNotRetrieveAddressDetails";
+ static const kLocationNotAvailable="kLocationNotAvailable";
+ static const kImageNotAvailable="kImageNotAvailable";
+ static const kInvalidImage="kInvalidImage";
+ static const kCheckNow="kCheckNow";
+ static const kCongratulations="kCongratulations";
+ static const kYourRewardHasBeenSuccessfullyRedeemed="kYourRewardHasBeenSuccessfullyRedeemed";
+/// Reward screen
+static const kSortByExpiry="kSortByExpiry";
+static const kAscendingOrder="kAscendingOrder";
+static const kDescendingOrder="kDescendingOrder";
+static const kNoExpiry="kNoExpiry";
+static const kExpired="kExpired";
+static const kYears="kYears";
+static const kMonths="kMonths";
+static const kDays="kDays";
+static const kHours="kHours";
+static const kMinutes="kMinutes";
+static const kSeconds="kSeconds";
+static const kInvalidDate="kInvalidDate";
 
 
 

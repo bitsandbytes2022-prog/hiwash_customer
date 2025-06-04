@@ -11,6 +11,7 @@ import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
+import '../../../language/String_constant.dart';
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/app_dialog.dart';
 import '../../../widgets/components/common_offer_bottom_sheet.dart';
@@ -109,7 +110,7 @@ class RewardScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Text(
-                  "Explore All Exclusive Offers",
+                  StringConstant.kExclusiveDealsWithEvery.tr,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.rumRaisin(
                     fontWeight: FontWeight.w400,
@@ -154,7 +155,7 @@ class RewardScreen extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "Check Now",
+                    StringConstant.kCheckNow.tr,
                     style: w600_14a(color: AppColor.white),
                   ),
                 ),
@@ -180,78 +181,7 @@ class RewardScreen extends StatelessWidget {
 
 
 
-  Widget profileView() {
-    return Padding(
-      padding: EdgeInsets.only(left: 16, top: 14, right: 16, bottom: 15),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              border: Border.all(color: AppColor.c142293.withOpacity(0.2)),
-            ),
-            child: ClipRRect(
-              clipBehavior: Clip.hardEdge,
-              borderRadius: BorderRadius.circular(100),
-              child: ImageView(
-                path: Assets.imagesDemoProfile,
-                fit: BoxFit.fill,
 
-                width: 40,
-                height: 40,
-              ),
-            ),
-          ),
-          5.widthSizeBox,
-          Container(
-            width: 200,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Elite car wash service Elite car wash service Elite car wash service",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: w600_14a(color: AppColor.c2C2A2A),
-                ),
-
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    ImageView(
-                      path: Assets.iconsIcPlaceMarker,
-                      height: 18,
-                      width: 18,
-                    ),
-
-                    Text(
-                      "2847 Poling Farm Road",
-                      style: w400_10p(color: AppColor.c455A64),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Spacer(),
-          Container(
-            width: 50,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                ImageView(path: Assets.iconsIcStar, height: 14, width: 14),
-                Text("4.5(200)", style: w400_10a(color: AppColor.c455A64)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget dropDownRow({
     required int index,
@@ -399,11 +329,11 @@ class RewardScreen extends StatelessWidget {
               ),
               21.heightSizeBox,
               Text(
-                "Congratulations!",
+                StringConstant.kCongratulations.tr,
                 style: w700_22a(color: AppColor.c2C2A2A),
               ),
               Text(
-                "Your Reward Has Been\nSuccessfully Redeemed!",
+                StringConstant.kYourRewardHasBeenSuccessfullyRedeemed.tr,
                 textAlign: TextAlign.center,
                 style: w400_16p(),
               ),

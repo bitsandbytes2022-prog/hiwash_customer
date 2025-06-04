@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/rewads/model/get_offer_categories.dart';
 import 'package:hiwash_customer/featuers/rewads/model/offer_response_model.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/loader.dart';
 import '../../generated/assets.dart';
 import '../../network_manager/repository.dart';
@@ -38,7 +39,7 @@ class RewardController extends GetxController {
   ];
 
   RxBool isAscending = true.obs;
-  RxString sortByText = "Sort by Expiry".obs;
+  RxString sortByText = StringConstant.kSortByExpiry.obs;
   void applySortingToCurrentData() {
     List<Offers> data;
 
@@ -68,7 +69,7 @@ class RewardController extends GetxController {
   void toggleSortOrder() {
     isAscending.value = !isAscending.value;
     sortByText.value =
-    isAscending.value ? 'Ascending Order' : 'Descending Order';
+    isAscending.value ? StringConstant.kAscendingOrder : StringConstant.kDescendingOrder;
     applySortingToCurrentData();
   }
 
@@ -99,7 +100,7 @@ class RewardController extends GetxController {
 
   String timeUntilExpiry(String? expiryDate) {
     if (expiryDate == null || expiryDate.isEmpty) {
-      return "No Expiry";
+      return StringConstant.kNoExpiry;
     }
 
     try {
@@ -108,22 +109,22 @@ class RewardController extends GetxController {
       Duration difference = expiry.difference(now);
 
       if (difference.isNegative) {
-        return "Expired";
+        return StringConstant.kExpired;
       } else if (difference.inDays > 365) {
-        return "${(difference.inDays / 365).floor()} years";
+        return "${(difference.inDays / 365).floor()} ${StringConstant.kYears}";
       } else if (difference.inDays > 30) {
-        return "${(difference.inDays / 30).floor()} months";
+        return "${(difference.inDays / 30).floor()} ${StringConstant.kMonths}";
       } else if (difference.inDays > 0) {
-        return "${difference.inDays} days";
+        return "${difference.inDays} ${StringConstant.kDays}";
       } else if (difference.inHours > 0) {
-        return "${difference.inHours} hours";
+        return "${difference.inHours} ${StringConstant.kHours}";
       } else if (difference.inMinutes > 0) {
-        return "${difference.inMinutes} minutes";
+        return "${difference.inMinutes} ${StringConstant.kMinutes}";
       } else {
-        return "${difference.inSeconds} seconds";
+        return "${difference.inSeconds} ${StringConstant.kSeconds}";
       }
     } catch (e) {
-      return "Invalid date";
+      return StringConstant.kInvalidDate;
     }
   }
 

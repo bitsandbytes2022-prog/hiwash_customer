@@ -65,8 +65,13 @@ class Languages extends Translations {
       "kVerifyPhone": "Verify Phone",
       "kCodeHasBeenSentTo": 'Code has been sent to ',
       "kDidGetOTPCode": "Didn't get OTP Code ?",
-      "resendCode": "RESEND CODE",
+      "KResendCode": "RESEND CODE",
       "kVerify": "Verify",
+      "kInvalidOTP": "Invalid OTP",
+      "kError": "Error",
+      "kSomethingWentWrong": "Something went wrong",
+      "kPleaseEnterTheCorrectOTP": "Please enter the correct OTP",
+      "kEnterValidOTP":"Enter valid OTP",
 
       /// Reset password screen
       "kReset": "Reset",
@@ -105,7 +110,42 @@ class Languages extends Translations {
       "kWash": "Wash",
       "kLocations": "Locations",
       "kRemaining":"Remaining",
-      "kYourCurrentLocation":"Your current location"
+      "kYourCurrentLocation":"Your current location",
+      "kFetchingLocation":"Fetching location...",
+      "kNoNearbyLocationsFound":"No nearby locations found",
+      "kWashComplete":"Wash Complete!",
+      "kShareYourFeedback":"Share your feedback and\nrate the Customer.",
+      "kEnterYourCommentHere":"Enter your comment here..."
+      ,
+      "kSubmit":"Submit",
+      "kLocationServicesAreDisabled":"Location services are disabled",
+      "kLocationPermissionDenied":"Location permission denied",
+      "kLocationPermissionPermanentlyDenied":"Location permission permanently denied",
+      "kCouldNotRetrieveAddressDetails":"Could not retrieve address details",
+      "kLocationNotAvailable":"Location not available",
+      "kImageNotAvailable":"Image not available",
+      "kInvalidImage":"Invalid image",
+      "kExploreAllExclusiveOffers":"Explore All Exclusive Offers",
+      "kCheckNow":"Check Now",
+      "kCongratulations":"Congratulations!",
+      "kYourRewardHasBeenSuccessfullyRedeemed":"Your Reward Has Been\nSuccessfully Redeemed!",
+
+          ///Reward screen
+          "kSortByExpiry":"Sort by Expiry",
+          "kAscendingOrder":"Ascending Order",
+          "kDescendingOrder":"Descending Order",
+      "kNoExpiry":"No Expiry",
+      "kExpired":"Expired",
+      "kYears":"years",
+      "kMonths":"months",
+      "kDays":"days",
+      "kHours":"hours",
+      "kMinutes":"minutes",
+      "kSeconds":"seconds",
+      "kInvalidDate":"Invalid date",
+
+
+
     },
 
     'hi_IN': {

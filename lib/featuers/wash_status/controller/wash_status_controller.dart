@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:hiwash_customer/featuers/wash_status/model/get_location_model.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/loader.dart';
 
 import '../../../network_manager/local_storage.dart';
@@ -92,7 +93,7 @@ class WashStatusController extends GetxController {
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        currentAddress.value = "Location services are disabled";
+        currentAddress.value = StringConstant.kLocationServicesAreDisabled.tr;
         return;
       }
 
@@ -100,13 +101,13 @@ class WashStatusController extends GetxController {
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          currentAddress.value = "Location permission denied";
+          currentAddress.value = StringConstant.kLocationPermissionDenied.tr;
           return;
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
-        currentAddress.value = "Location permission permanently denied";
+        currentAddress.value = StringConstant.kLocationPermissionPermanentlyDenied.tr;
         return;
       }
 
@@ -124,14 +125,14 @@ class WashStatusController extends GetxController {
         currentAddress.value =
         "${place.street ?? ''}, ${place.subLocality ?? ''}, ${place.locality ?? ''}, ${place.postalCode ?? ''}";
       } else {
-        currentAddress.value = "Could not retrieve address details";
+        currentAddress.value = StringConstant.kCouldNotRetrieveAddressDetails.tr;
       }
 
       await getLocation(position.latitude.toString(), position.longitude.toString());
 
     } catch (e) {
       print("Error fetching current address: $e");
-      currentAddress.value = "Location not available";
+      currentAddress.value = StringConstant.kLocationNotAvailable.tr;
     }
   }
 

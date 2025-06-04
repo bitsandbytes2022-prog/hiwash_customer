@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/auth/model/get_token_model.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../generated/assets.dart';
+import '../../../language/String_constant.dart';
 import '../../../route/route_strings.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
@@ -52,18 +54,18 @@ class OtpScreen extends StatelessWidget {
 
     return Scaffold(
       body: AppBg(
-        headingText: "kAuthentication".tr,
-        subText: "kOTP".tr,
+        headingText: StringConstant.kAuthentication.tr,
+        subText: StringConstant.kOTP.tr,
         child: Column(
           children: [
             110.heightSizeBox,
-            Text("kVerifyPhone".tr, style: w700_22a(color: AppColor.c2C2A2A)),
+            Text(StringConstant.kVerifyPhone.tr, style: w700_22a(color: AppColor.c2C2A2A)),
             14.heightSizeBox,
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "kCodeHasBeenSentTo".tr,
+                    text: StringConstant.kCodeHasBeenSentTo.tr,
                     style: w400_12p(color: AppColor.c455A64),
                   ),
                   TextSpan(
@@ -86,7 +88,7 @@ class OtpScreen extends StatelessWidget {
                 onCompleted: (pin) => controller.enteredOtp.value = pin,
                 validator: (value) {
                   if (value == null || value.length != 4) {
-                    return 'Enter valid OTP';
+                    return StringConstant.kEnterValidOTP;
                   }
                   return null;
                 },
@@ -102,7 +104,7 @@ class OtpScreen extends StatelessWidget {
               return Text(formatted, style: w400_12p(color: AppColor.red));
             }),
             52.heightSizeBox,
-            Text("kDidGetOTPCode".tr, style: w400_12p(color: AppColor.c455A64)),
+            Text(StringConstant.kDidGetOTPCode.tr, style: w400_12p(color: AppColor.c455A64)),
             5.heightSizeBox,
 
             Obx(() {
@@ -117,7 +119,7 @@ class OtpScreen extends StatelessWidget {
                 }
                     : null,
                 child: Text(
-                  "resendCode".tr,
+                  StringConstant.kResendCode.tr,
                   style: w400_12p(
                     color: isActive ? AppColor.red : AppColor.c5C6B72,
                   ),
@@ -128,7 +130,7 @@ class OtpScreen extends StatelessWidget {
             Obx(
                     () => HiWashButton(
                   isLoading: controller.isLoading.value,
-                  text: "kVerify".tr,
+                  text: StringConstant.kVerify.tr,
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
 
@@ -145,50 +147,17 @@ class OtpScreen extends StatelessWidget {
                           }
                         });
                       } else {
-                        Get.snackbar(
-                          "Invalid OTP",
-                          "Please enter the correct OTP",
-                          backgroundColor: Colors.red.withOpacity(0.9),
-                          colorText: Colors.white,
-                          snackPosition: SnackPosition.TOP,
-                          margin: const EdgeInsets.all(16),
-                          borderRadius: 10,
+
+                        appSnackBar(
+                          title: StringConstant.kInvalidOTP,
+                          message: StringConstant.kPleaseEnterTheCorrectOTP,
+
                         );
+
                       }
                     }
                   },
                 )
-
-              /*HiWashButton(
-                isLoading: controller.isLoading.value,
-                text: "kVerify".tr,
-                onTap: () {
-                  if (formKey.currentState!.validate()) {
-                    if (controller.enteredOtp.value.trim() == controller.sendOtpModel?.data?.otp.toString()) {
-                      print("otp---->${controller.enteredOtp.value}---${controller.sendOtpModel?.data?.otp}");
-
-                      controller.getToken(phoneNumber).then((value) {
-                        if (value != null) {
-                          Get.offAllNamed(
-                            RouteStrings.dashboardScreen,
-                          );
-                        }
-                      });
-                    } else {
-                      print("Else_otp---->${controller.enteredOtp.value}---${controller.sendOtpModel?.data?.otp}");
-                      Get.snackbar(
-                        "Invalid OTP",
-                        "Please enter the correct OTP",
-                        backgroundColor: Colors.red.withOpacity(0.9),
-                        colorText: Colors.white,
-                        snackPosition: SnackPosition.TOP,
-                        margin: const EdgeInsets.all(16),
-                        borderRadius: 10,
-                      );
-                    }
-                  }
-                },
-              ),*/
             ),
 
 

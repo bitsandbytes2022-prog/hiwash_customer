@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:pinput/pinput.dart';
 
@@ -46,18 +48,18 @@ class LoginOtpScreen extends StatelessWidget {
 
     return Scaffold(
       body: AppBg(
-        headingText: "kAuthentication".tr,
-        subText: "kOTP".tr,
+        headingText: StringConstant.kAuthentication.tr,
+        subText: StringConstant.kOTP.tr,
         child: Column(
           children: [
             110.heightSizeBox,
-            Text("kVerifyPhone".tr, style: w700_22a(color: AppColor.c2C2A2A)),
+            Text(StringConstant.kVerifyPhone.tr, style: w700_22a(color: AppColor.c2C2A2A)),
             14.heightSizeBox,
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "kCodeHasBeenSentTo".tr,
+                    text: StringConstant.kCodeHasBeenSentTo.tr,
                     style: w400_12p(color: AppColor.c455A64),
                   ),
                   TextSpan(
@@ -80,7 +82,7 @@ class LoginOtpScreen extends StatelessWidget {
                 onCompleted: (pin) => controller.enteredOtp.value = pin,
                 validator: (value) {
                   if (value == null || value.length != 4) {
-                    return 'Enter valid OTP';
+                    return StringConstant.kEnterValidOTP;
                   }
                   return null;
                 },
@@ -96,7 +98,7 @@ class LoginOtpScreen extends StatelessWidget {
               return Text(formatted, style: w400_12p(color: AppColor.red));
             }),
             52.heightSizeBox,
-            Text("kDidGetOTPCode".tr, style: w400_12p(color: AppColor.c455A64)),
+            Text(StringConstant.kDidGetOTPCode.tr, style: w400_12p(color: AppColor.c455A64)),
             5.heightSizeBox,
 
             Obx(() {
@@ -111,7 +113,7 @@ class LoginOtpScreen extends StatelessWidget {
                 }
                     : null,
                 child: Text(
-                  "resendCode".tr,
+                  StringConstant.kResendCode.tr,
                   style: w400_12p(
                     color: isActive ? AppColor.red : AppColor.c5C6B72,
                   ),
@@ -122,7 +124,7 @@ class LoginOtpScreen extends StatelessWidget {
             Obx(
                     () => HiWashButton(
                   isLoading: controller.isLoading.value,
-                  text: "kVerify".tr,
+                  text: StringConstant.kVerify.tr,
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
                       final enteredOtp = controller.enteredOtp.value.trim();
@@ -139,15 +141,11 @@ class LoginOtpScreen extends StatelessWidget {
                           }
                         });
                       } else {
-                        Get.snackbar(
-                          "Invalid OTP",
-                          "Please enter the correct OTP",
-                          backgroundColor: Colors.red.withOpacity(0.9),
-                          colorText: Colors.white,
-                          snackPosition: SnackPosition.TOP,
-                          margin: const EdgeInsets.all(16),
-                          borderRadius: 10,
-                        );
+                      appSnackBar(
+                        title: StringConstant.kInvalidOTP,
+                        message: StringConstant.kPleaseEnterTheCorrectOTP,
+
+                      );
                       }
                     }
                   },

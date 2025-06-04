@@ -5,6 +5,7 @@ import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
 import 'package:hiwash_customer/featuers/wash_status/model/get_location_model.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/widgets/components/data_formet.dart';
@@ -97,7 +98,7 @@ class WashStatusScreen extends StatelessWidget {
                                       bottom: 9,
                                     ),
                                     child: Text(
-                                      "kTotalWashes".tr,
+                                      StringConstant.kTotalWashes.tr,
                                       style: w500_12p(
                                         color: AppColor.white.withOpacity(0.7),
                                       ),
@@ -157,7 +158,7 @@ class WashStatusScreen extends StatelessWidget {
                                       bottom: 9,
                                     ),
                                     child: Text(
-                                      "kRemaining".tr,
+                                      StringConstant.kRemaining.tr,
                                       style: w500_12p(
                                         color: AppColor.white.withOpacity(0.7),
                                       ),
@@ -170,7 +171,7 @@ class WashStatusScreen extends StatelessWidget {
                         ),
                         24.heightSizeBox,
                         Text(
-                          "kCompleteWash".tr,
+                          StringConstant.kCompleteWash.tr,
                           style: w500_14a(color: AppColor.c2C2A2A),
                         ),
                         18.heightSizeBox,
@@ -292,7 +293,7 @@ class WashStatusScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "kYourCurrentLocation".tr,
+                                          StringConstant.kYourCurrentLocation.tr,
                                           style: w400_12a(
                                             color: AppColor.c455A64,
                                           ),
@@ -303,7 +304,7 @@ class WashStatusScreen extends StatelessWidget {
                                                     .currentAddress
                                                     .value
                                                     .isEmpty
-                                                ? "Fetching location..."
+                                                ? StringConstant.kFetchingLocation.tr
                                                 : controller
                                                     .currentAddress
                                                     .value,
@@ -318,9 +319,11 @@ class WashStatusScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            15.heightSizeBox,
+
                             Obx(() {
                               if (controller.locationList.isEmpty) {
-                                return Text("No nearby locations found");
+                                return Text(StringConstant.kNoNearbyLocationsFound.tr);
                               }
 
                               return ListView.builder(
@@ -462,7 +465,7 @@ class WashStatusScreen extends StatelessWidget {
     );
   }
 
-  Widget successDialog(CompletedWash completedWashData) {
+   Widget successDialog(CompletedWash completedWashData) {
     dashboardController.apiResponse.value = null;
     // controller.washSummaryModel.value=null;
     return Column(
@@ -491,9 +494,9 @@ class WashStatusScreen extends StatelessWidget {
                 ),
               ),
               21.heightSizeBox,
-              Text("Wash Complete!", style: w700_22a(color: AppColor.c2C2A2A)),
+              Text(StringConstant.kWashComplete, style: w700_22a(color: AppColor.c2C2A2A)),
               Text(
-                "Share your feedback and\nrate the Customer.",
+                StringConstant.kShareYourFeedback.tr,
                 textAlign: TextAlign.center,
                 style: w400_16p(),
               ),
@@ -529,7 +532,7 @@ class WashStatusScreen extends StatelessWidget {
                 style: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.9)),
                 decoration: InputDecoration(
                   fillColor: AppColor.white,
-                  hintText: "Enter your comment here...",
+                  hintText: StringConstant.kEnterYourCommentHere.tr,
                   filled: true,
                   labelStyle: w400_13a(color: AppColor.c455A64),
                   hintStyle: w400_14p(
@@ -591,7 +594,7 @@ class WashStatusScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Text("Submit", style: w500_14a(color: AppColor.white)),
+                  child: Text(StringConstant.kSubmit.tr, style: w500_14a(color: AppColor.white)),
                 ),
               ),
 
