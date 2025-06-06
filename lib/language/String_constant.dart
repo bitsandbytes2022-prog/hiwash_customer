@@ -95,6 +95,7 @@ static const kHours="kHours";
 static const kMinutes="kMinutes";
 static const kSeconds="kSeconds";
 static const kInvalidDate="kInvalidDate";
+static const kExploreAllExclusiveOffers="kExploreAllExclusiveOffers";
 
 
 

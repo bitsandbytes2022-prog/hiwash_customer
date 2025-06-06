@@ -110,7 +110,7 @@ class RewardScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Text(
-                  StringConstant.kExclusiveDealsWithEvery.tr,
+                  StringConstant.kExploreAllExclusiveOffers.tr,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.rumRaisin(
                     fontWeight: FontWeight.w400,

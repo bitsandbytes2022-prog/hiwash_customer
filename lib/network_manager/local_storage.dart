@@ -6,6 +6,7 @@ class LocalStorage {
   final String _tokenKey = 'auth_token';
   final String _userIdKey = 'user_id';
  final  String _fcmToken = "fcmToken";
+  final String _refreshTokenKey = 'refresh_token';
 
 
   Future<void> saveToken(String token) async {
@@ -24,9 +25,22 @@ class LocalStorage {
   }
 
 
+
+
+  // Refresh Token
+  Future<void> saveRefreshToken(String token) async {
+    await _storage.write(_refreshTokenKey, token);
+  }
+
+  String? getRefreshToken() {
+    return _storage.read(_refreshTokenKey);
+  }
+
+
   Future<void> removeToken() async {
     await _storage.remove(_tokenKey);
     await _storage.remove(_userIdKey);
+    await _storage.remove(_refreshTokenKey);
   }
   Future<void> saveUserId(String id) async {
     await _storage.write(_userIdKey, id);

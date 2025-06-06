@@ -8,6 +8,9 @@ import 'package:hiwash_customer/featuers/auth/auth_controller/auth_controller.da
 import 'package:hiwash_customer/network_manager/utils/print_value.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 
+import 'api_constant.dart';
+import 'local_storage.dart';
+
 Dio getDio() {
   Dio dio = Dio();
 
@@ -60,18 +63,23 @@ Dio getDio() {
             backgroundColor: Colors.red,
           );
         }
-       else if (e.response?.statusCode == 401) {
-          Get.snackbar(
+
+
+     else if (e.response?.statusCode == 401) {
+        /*  Get.snackbar(
             "Error",
             e.response?.data["error"]["message"] ??
                 "Something went wrong".toString(),
             colorText: Colors.white,
             backgroundColor: Colors.red,
-          );
-         // AuthController authController=Get.find();
-         // authController.refreshToken();
+          );*/
+     AuthController   authController=Get.find();
+          print("000000000");
+          authController.refreshToken();
          // Get.offAllNamed(RouteStrings.welcomeScreen);
-        } else if (e.response?.statusCode == 404) {
+        }
+
+       else if (e.response?.statusCode == 404) {
           Get.snackbar(
             "Error 404",
             e.response?.data["error"]["message"] ??
