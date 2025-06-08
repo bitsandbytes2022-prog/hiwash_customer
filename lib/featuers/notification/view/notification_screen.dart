@@ -121,11 +121,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
             child: Obx(() {
               if (controller.isLoading.value &&
                   controller.notifications.isEmpty) {
-                return _buildLoadingIndicator();
+                return _buildPaginationLoader();
               }
 
               if (controller.errorMessage.value.isNotEmpty) {
-                return _buildErrorMessage();
+                return _buildPaginationLoader();
               }
 
               if (controller.notifications.isNotEmpty) {
@@ -155,21 +155,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  Widget _buildLoadingIndicator() {
+/*  Widget _buildLoadingIndicator() {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 16),
       child: Center(child: CircularProgressIndicator()),
     );
-  }
+  }*/
 
   Widget _buildPaginationLoader() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 16),
-      child: Center(child: CircularProgressIndicator()),
-    );
+    return Center(child: CircularProgressIndicator());
   }
 
-  Widget _buildErrorMessage() {
+/*  Widget _buildErrorMessage() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
@@ -187,7 +184,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ],
       ),
     );
-  }
+  }*/
 
   Widget _buildNotificationHeader() {
     return Container(

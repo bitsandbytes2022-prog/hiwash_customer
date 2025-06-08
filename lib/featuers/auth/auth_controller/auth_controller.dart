@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hiwash_customer/featuers/auth/model/get_refresh_token.dart';
 import 'package:hiwash_customer/featuers/auth/model/sign_up_model.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
@@ -309,32 +310,77 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<GetTokenModel?> refreshToken() async {
+  Future<GetRefreshToken?> refreshToken() async {
     final storedRefreshToken = LocalStorage().getRefreshToken();
+    print("Stored refresh token before calling API: $storedRefreshToken");
 
     if (storedRefreshToken == null || storedRefreshToken.isEmpty) {
-      print("No refresh token found, user needs to login again.");
+      print("No refresh token found. Logging out.");
+      await LocalStorage().removeToken();
       Get.offAllNamed(RouteStrings.welcomeScreen);
       return null;
     }
 
-    Map<String, dynamic> requestBody = {
+    final Map<String, dynamic> requestBody = {
       "refreshToken": storedRefreshToken,
     };
 
-    print("Calling refreshToken API");
+    try {
+      var response = await Repository().refreshToken(requestBody);
+      print("Refresh token API response: ${response.toJson()}");
+
+      if (response.success == true &&
+          response.data?.token != null &&
+          response.data!.token!.isNotEmpty) {
+        await LocalStorage().saveToken(response.data!.token!);
+        await LocalStorage().saveRefreshToken(response.data!.refreshToken!);
+        return response;
+      }
+
+      print("Refresh token failed");
+      return null;
+    } catch (e) {
+      print("Error refreshing token: $e");
+      return null;
+    }
+  }
+
+/*  Future<GetRefreshToken?> refreshToken() async {
+    final storedRefreshToken = LocalStorage().getRefreshToken();
+
+    print("Stored refresh token before calling API: $storedRefreshToken");
+
+    if (storedRefreshToken == null || storedRefreshToken.isEmpty) {
+      print("No refresh token found. Logging out.");
+      await LocalStorage().removeToken();
+      Get.offAllNamed(RouteStrings.welcomeScreen);
+      return null;
+    }
+
+    final Map<String, dynamic> requestBody = {
+      "refreshToken": storedRefreshToken,
+    };
+
+    print("Calling refreshToken API with body: $requestBody");
     isLoading.value = true;
 
     try {
       final response = await Repository().refreshToken(requestBody);
-      print("Refresh token response: $response");
+      print("Refresh token API response: ${response.toJson()}");
 
-      if (response.data?.token != null && response.data!.token!.isNotEmpty) {
+      if (response.success == true &&
+          response.data?.token != null &&
+          response.data!.token!.isNotEmpty) {
         await LocalStorage().saveToken(response.data!.token!);
+       // await LocalStorage().saveUserId(response.data!.id.toString());
+
       }
 
-      if (response.data?.refreshToken != null && response.data!.refreshToken!.isNotEmpty) {
+      if (response.data?.refreshToken != null &&
+          response.data!.refreshToken!.isNotEmpty) {
         await LocalStorage().saveRefreshToken(response.data!.refreshToken!);
+        //await LocalStorage().saveUserId(response.data!.id.toString());
+
       }
 
       isLoggedIn.value = true;
@@ -347,7 +393,8 @@ class AuthController extends GetxController {
     } finally {
       isLoading.value = false;
     }
-  }
+  }*/
+
 
 
 

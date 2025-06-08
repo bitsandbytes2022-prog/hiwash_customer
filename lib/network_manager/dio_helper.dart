@@ -7,8 +7,8 @@ class DioHelper {
   Dio dio = getDio();
 
   Future<Map<String, dynamic>> _getHeaders(bool isAuthRequired) async {
-    final storage = LocalStorage();
-    final token = storage.getToken();
+    var storage = LocalStorage();
+    var token =storage.getToken();
     //print( "First------>${token}");
     if (isAuthRequired && token != null) {
       return {

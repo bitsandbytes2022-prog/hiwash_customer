@@ -69,7 +69,7 @@ class RewardController extends GetxController {
   void toggleSortOrder() {
     isAscending.value = !isAscending.value;
     sortByText.value =
-    isAscending.value ? StringConstant.kAscendingOrder : StringConstant.kDescendingOrder;
+    isAscending.value ? 'Ascending Order' : 'Descending Order';
     applySortingToCurrentData();
   }
 

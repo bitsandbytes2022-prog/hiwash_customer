@@ -40,7 +40,7 @@ class DrawerScreen extends StatelessWidget {
           ? Get.find<SubscriptionController>()
           : Get.put(SubscriptionController());
   DashboardController dashboardController = Get.find();
-  AuthController authController = Get.find();
+  AuthController authController = Get.isRegistered<AuthController>()?Get.find<AuthController>():Get.put(AuthController());
   WashStatusController washStatusController = Get.find();
 
   @override

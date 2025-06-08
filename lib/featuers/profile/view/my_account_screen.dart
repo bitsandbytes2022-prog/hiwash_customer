@@ -95,10 +95,8 @@ class MyAccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userData =
-        washStatusController.getCustomerData.value?.data?.customerDetails;
-    final userDataSub =
-        washStatusController.getCustomerData.value?.data?.subscriptionDetails;
+    final userData = washStatusController.getCustomerData.value?.data?.customerDetails;
+    final userDataSub = washStatusController.getCustomerData.value?.data?.subscriptionDetails;
     drawerProfileController.nameController.text = userData?.fullName ?? '';
     drawerProfileController.emailController.text = userData?.email ?? '';
     drawerProfileController.phoneController.text = userData?.mobileNumber ?? '';
@@ -295,6 +293,7 @@ class MyAccountScreen extends StatelessWidget {
                   ),
                   20.heightSizeBox,
                   HiWashTextField(
+
                     readOnly: true,
                     controller: drawerProfileController.emailController,
                     keyboardType: TextInputType.emailAddress,

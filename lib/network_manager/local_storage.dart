@@ -10,18 +10,27 @@ class LocalStorage {
 
 
   Future<void> saveToken(String token) async {
+
     await _storage.write(_tokenKey, token);
+    print("saveToken---->1${ token}");
   }
 
   String? getToken() {
-    return _storage.read(_tokenKey);
+    final token = _storage.read(_tokenKey);
+    print("Getting access token1: $token");
+    return token;
   }
+
+
   saveFCMToken({var token}) {
     _storage.write(_fcmToken, token);
+
   }
 
    String getFCMToken() {
     return _storage.read(_fcmToken) ?? '';
+
+
   }
 
 
@@ -30,18 +39,32 @@ class LocalStorage {
   // Refresh Token
   Future<void> saveRefreshToken(String token) async {
     await _storage.write(_refreshTokenKey, token);
+    print("Saving refresh token: $token");
   }
 
   String? getRefreshToken() {
-    return _storage.read(_refreshTokenKey);
+
+    final token = _storage.read(_refreshTokenKey);
+    print("Getting refresh token: $token");
+    return token;
   }
+
+
+
+
+
+
+
+
 
 
   Future<void> removeToken() async {
     await _storage.remove(_tokenKey);
     await _storage.remove(_userIdKey);
     await _storage.remove(_refreshTokenKey);
+    print("All tokens removed from local storage.");
   }
+
   Future<void> saveUserId(String id) async {
     await _storage.write(_userIdKey, id);
   }

@@ -12,6 +12,7 @@ import 'package:hiwash_customer/featuers/dashboard/model/get_customer_data_model
 import 'package:hiwash_customer/featuers/wash_status/model/wash_summry.dart';
 import 'package:hiwash_customer/network_manager/utils/api_response.dart';
 
+import '../featuers/auth/model/get_refresh_token.dart';
 import '../featuers/auth/model/get_token_model.dart';
 import '../featuers/auth/model/send_otp_model.dart';
 import '../featuers/auth/model/sign_up_model.dart';
@@ -94,8 +95,8 @@ print("------>c${response.data}");
     return GetTokenModel.fromJson(response);
   }
 
-  Future<GetTokenModel> refreshToken(Object requestBody) async {
-    // print("body--->: $requestBody");
+  Future<GetRefreshToken> refreshToken(Object requestBody) async {
+     print("body--->: $requestBody");
     //  print("url--->: ${ApiConstant.getToken}");
 
     var response = await dioHelper.post(
@@ -104,7 +105,7 @@ print("------>c${response.data}");
     );
     //   print("Response--->: $response");
 
-    return GetTokenModel.fromJson(response);
+    return GetRefreshToken.fromJson(response);
   }
 
   Future<SignUpModel> signUp(Object requestBody) async {
@@ -299,14 +300,14 @@ print("------>c${response.data}");
 
 
 
-  Future<dynamic> getNotificationRepo(Object requestBody) async {
+  Future<NotificationModel> getNotificationRepo(Object requestBody) async {
     Map<String, dynamic> response = await dioHelper.post(
       url: ApiConstant.notificationUrl,
       isAuthRequired: true,
       requestBody: requestBody,
     );
 
-    return response;
+    return NotificationModel.fromJson( response);
   }
 
 
