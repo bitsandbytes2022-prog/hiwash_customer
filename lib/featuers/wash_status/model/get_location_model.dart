@@ -32,11 +32,11 @@ class LocationData {
   String? name;
   String? lattitude;
   String? longitude;
-  Null? address;
-  Null? city;
-  Null? state;
-  Null? country;
-  double? distanceInKm;
+  dynamic address;
+  dynamic city;
+  dynamic state;
+  dynamic country;
+  dynamic distanceInKm;
 
   LocationData(
       {this.id,

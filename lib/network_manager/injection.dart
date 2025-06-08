@@ -72,7 +72,7 @@ Dio getDio() {
             backgroundColor: Colors.red,
           );
         }
-        else if (e.response?.statusCode == 401) {
+         else if (e.response?.statusCode == 401) {
           AuthController authController = Get.find();
           RewardController rewardController = Get.find();
           WashStatusController washStatusController =
@@ -102,6 +102,65 @@ Dio getDio() {
           });
           // Get.offAllNamed(RouteStrings.welcomeScreen);
         }
+   /*     else if (e.response?.statusCode == 401) {
+          print(" Token expired. Attempting refresh...");
+
+          final authController = Get.find<AuthController>();
+          RewardController rewardController = Get.find();
+          WashStatusController washStatusController =
+          Get.isRegistered<WashStatusController>()
+              ? Get.find<WashStatusController>()
+              : Get.put(WashStatusController());
+          NotificationController notificationController =
+          Get.isRegistered<NotificationController>()
+              ? Get.find<NotificationController>()
+              : Get.put(NotificationController());
+          final oldToken = LocalStorage().getToken();
+          print(" Old Access Token: $oldToken");
+
+          final newTokenResponse = await authController.refreshToken();
+
+          if (newTokenResponse != null && newTokenResponse.data?.token != null) {
+
+            final newToken = newTokenResponse.data!.token!;
+            print("New Access Token received: $newToken");
+
+            final updatedOptions = e.requestOptions;
+
+            // Replace old token with new one in the headers
+            updatedOptions.headers["Authorization"] = "Bearer $newToken";
+            washStatusController.getCustomerDataById(washStatusController.getCustomerData.value?.data?.customerDetails?.id??0);
+            notificationController.getNotification();
+            notificationController.fetchInitialNotifications();
+            // notificationController.scrollListener();
+            washStatusController.getWashSummary();
+            rewardController.getAllOffers();
+            rewardController.getOfferCategoriesMethod();
+            if (washStatusController.locationList.isNotEmpty) {
+            await  washStatusController.getLocation(
+                  washStatusController.locationList.first.lattitude.toString(),
+                  washStatusController.locationList.first.longitude.toString());
+            } else {
+              print("Location list is empty. Cannot get location.");
+            }
+
+            try {
+              final clonedResponse = await dio.fetch(updatedOptions);
+              return handler.resolve(clonedResponse);
+            } catch (retryError) {
+              print("Retry request failed: $retryError");
+              return handler.reject(retryError as DioException);
+            }
+          } else {
+            print("Token refresh failed. Logging out...");
+            await LocalStorage().removeToken();
+            Get.offAllNamed(RouteStrings.welcomeScreen);
+            return handler.reject(e);
+          }
+        }*/
+
+
+
         else if (e.response?.statusCode == 404) {
           Get.snackbar(
             "Error 404",
