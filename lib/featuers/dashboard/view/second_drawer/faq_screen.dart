@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/generated/assets.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/styling/app_font_poppins.dart';
@@ -20,7 +21,7 @@ class FaqScreen extends StatelessWidget {
     secondDrawerController.getFaq();
 
     return AppHomeBg(
-      headingText: "FAQ’s",
+      headingText: StringConstant.kFAQ.tr,
       iconRight: SizedBox(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -28,7 +29,7 @@ class FaqScreen extends StatelessWidget {
           children: [
             15.heightSizeBox,
 
-            // 🔍 Search bar
+
             Container(
               decoration: BoxDecoration(
                 color: AppColor.white,
@@ -44,7 +45,7 @@ class FaqScreen extends StatelessWidget {
               ),
               child: TextFormField(
                 onChanged: (value) {
-                  secondDrawerController.searchQuery.value = value.toLowerCase();
+                  secondDrawerController.searchQuery.value = value.toLowerCase().tr;
                 },
                 style: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.9)),
                 decoration: InputDecoration(
@@ -56,7 +57,7 @@ class FaqScreen extends StatelessWidget {
                       width: 20,
                     ),
                   ),
-                  hintText: "Search...",
+                  hintText: StringConstant.kSearch.tr,
                   filled: true,
                   fillColor: AppColor.white,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -81,7 +82,6 @@ class FaqScreen extends StatelessWidget {
 
             20.heightSizeBox,
 
-            // 📋 FAQ List
             Obx(() {
               if (secondDrawerController.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
@@ -98,7 +98,7 @@ class FaqScreen extends StatelessWidget {
               }).toList();
 
               if (filteredFaqs.isEmpty) {
-                return const Center(child: Text("No FAQs found"));
+                return  Center(child: Text(StringConstant.kNoFAQsFound.tr));
               }
 
               return Container(
@@ -141,13 +141,13 @@ class FaqScreen extends StatelessWidget {
                           children: [
                             // Question Row
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              padding:  EdgeInsets.symmetric(horizontal: 20),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      faqItem.question ?? '',
+                                      faqItem.question?.tr ?? '',
                                       style: w600_12a(color: AppColor.c2C2A2A),
                                     ),
                                   ),
@@ -166,7 +166,7 @@ class FaqScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
-                                  faqItem.answer ?? '',
+                                  faqItem.answer?.tr ?? '',
                                   style: w400_12p(),
                                 ),
                               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/second_drawer_controller/second_drawer_controller.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -43,7 +44,7 @@ class SecondDrawer extends StatelessWidget {
           ),
           ImageView(path: Assets.imagesHelpSupport, height: 180),
           31.heightSizeBox,
-          Text("Get Help?", style: w700_22a()),
+          Text(StringConstant.kGetHelp, style: w700_22a()),
           40.heightSizeBox,
 
           /// **Drawer Options**
@@ -52,15 +53,15 @@ class SecondDrawer extends StatelessWidget {
               String url =
                   "https://tawk.to/chat/68066e7b2db46a190e068251/1ipchv5dp";
               if (!await launchUrl(Uri.parse(url))) {
-                throw Exception('Could not launch $url');
+                throw Exception('${StringConstant.kCouldNotLaunch.tr} $url');
               }
             },
-            title: 'Chat with Support',
+            title: StringConstant.kChatWithSupport.tr,
             image: Assets.iconsIcChat,
           ),
           drawerRowWidget(
             onTap: () => Get.toNamed(RouteStrings.helpDeskTicketScreen),
-            title: 'Help Desk Ticket',
+            title: StringConstant.kHelpDeskTicket.tr,
             image: Assets.iconsIcTicket,
           ),
           drawerRowWidget(
@@ -68,7 +69,7 @@ class SecondDrawer extends StatelessWidget {
               //await controller.getFaq();
               Get.toNamed(RouteStrings.faqScreen);
             },
-            title: 'FAQ’s',
+            title: StringConstant.kFAQ.tr,
             image: Assets.iconsIcFaq,
           ),
           /*   drawerRowWidget(
@@ -80,7 +81,7 @@ class SecondDrawer extends StatelessWidget {
             onTap: () {
               Get.toNamed(RouteStrings.stepByStepGuideScreen);
             },
-            title: 'Step-by-Step Guide',
+            title: StringConstant.kStepByStep.tr,
             dashedLineWidget: false,
             image: Assets.iconsIcGuideBook,
           ),
@@ -141,7 +142,7 @@ class SecondDrawer extends StatelessWidget {
               children: [
                 ImageView(path: image, height: 20, width: 20),
                 10.widthSizeBox,
-                Text(title, style: w500_14a(color: AppColor.c2C2A2A)),
+                Text(title.tr, style: w500_14a(color: AppColor.c2C2A2A)),
                 Spacer(),
                 ImageView(
                   path: Assets.iconsBlackForwardArrow,

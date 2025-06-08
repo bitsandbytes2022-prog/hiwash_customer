@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/components/data_formet.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
@@ -48,7 +50,7 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
 
     return AppHomeBg(
       padding: EdgeInsets.zero,
-      headingText: "Subscription Plan",
+      headingText: StringConstant.kSubscriptionPlan.tr,
       iconRight: SizedBox(),
       child: Expanded(
         child: SingleChildScrollView(
@@ -146,7 +148,7 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                     ),
                     42.heightSizeBox,
                     subscriptionRowWidget(
-                      title: 'Pack Name ',
+                      title: StringConstant.kPackName.tr,
                       packName: userDataSub?.subscriptionName ?? '',
                     ),
                     10.heightSizeBox,
@@ -157,7 +159,7 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Remaining wash",
+                   StringConstant. kRemainingWash.tr,
                           style: w400_12p(color: AppColor.c455A64),
                         ),
                         userDataSub?.subscriptionId == 1
@@ -181,7 +183,7 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                     DashedLineWidget(),
                     10.heightSizeBox,
                     subscriptionRowWidget(
-                      title: 'Expiry date ',
+                      title: StringConstant.kExpiryDate.tr,
                       packName: formatDate(userDataSub?.endDate ?? ''),
                       color: AppColor.cC41949,
                     ),
@@ -200,8 +202,8 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     26.heightSizeBox,
-                    Text(
-                      "upgrade your Plan now",
+                    Text(StringConstant.kUpgradeYourPlanNow.tr
+,
                       style: w600_14a(color: AppColor.c2C2A2A),
                     ),
                     16.heightSizeBox,
@@ -215,7 +217,7 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                         }
 
                         if (list.isEmpty) {
-                          return Center(child: Text("No plans available"));
+                          return Center(child: Text(StringConstant.kNoPlansAvailable.tr));
                         }
 
                         return ListView.separated(
@@ -234,7 +236,7 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                               subHeading: subscription.description ?? "",
                               qarText: subscription.currency?.trim() ?? "",
                               numberText: subscription.price?.toString() ?? '',
-                              yearText: "/ Year",
+                              yearText: StringConstant.kYear.tr,
                               imageShow: subscription.isPremium ?? false,
                                 onTap: () {
                                   if (daysLeft <= 7) {
@@ -242,11 +244,10 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                                     controller.selectedIndex.value = index + 1;
                                     print("99------>${controller.selectedIndex.value}");
                                   } else {
-                                    Get.snackbar(
-                                      "Renewal Not Available",
-                                      "You can renew your subscription only within 7 days of expiry.",
-                                      backgroundColor: Colors.red,
-                                      colorText: Colors.white,
+                                    appSnackBar(
+                                     title:  StringConstant.kRenewalNotAvailable.tr,
+                                     message: StringConstant. kYouCanRenewYourSubscriptionOnlyWithin7DaysOfExpiry.tr,
+
                                     );
                                   }
                                 }
@@ -261,7 +262,7 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
 
                     30.heightSizeBox,
                     GetStartButton(
-                      text: "Renew Now",
+                      text: StringConstant.kRenewNow.tr,
                       color: showRenewButton
                           ? AppColor.c1F9D70
                           : AppColor.c1F9D70.withOpacity(0.2),
@@ -274,8 +275,9 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                               ?.elementAt(controller.selectedIndex.value - 1);
 
                           if (selectedSub == null) {
-                            Get.snackbar("Plan Error", "No plan selected.",
-                                backgroundColor: Colors.red, colorText: Colors.white);
+                       appSnackBar(
+                         message: StringConstant.kNoPlanSelected.tr
+                       );
                             return;
                           }
                           //Get.offNamed(RouteStrings.enterCardDetailScreen);

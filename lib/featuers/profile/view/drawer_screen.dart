@@ -8,6 +8,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/chat_screen.dart';
 import 'package:hiwash_customer/featuers/profile/view/subscription_plan_screen.dart';
 import 'package:hiwash_customer/featuers/profile/view/widget/custome_switch.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/data_formet.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
@@ -194,7 +195,7 @@ class DrawerScreen extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: 'Your ',
+                  text: StringConstant.kYour.tr,
                   style: w400_12p(color: AppColor.c455A64),
                 ),
                 TextSpan(
@@ -202,7 +203,7 @@ class DrawerScreen extends StatelessWidget {
                   style: w600_14p(color: AppColor.cC31848),
                 ),
                 TextSpan(
-                  text: ' pack\nexpiring in ',
+                  text: StringConstant.kPackExpiringIn.tr,
                   style: w400_12p(color: AppColor.c455A64),
                 ),
                 TextSpan(
@@ -217,7 +218,7 @@ class DrawerScreen extends StatelessWidget {
           /// **Drawer Options**
           drawerRowWidget(
             onTap: () => Get.toNamed(RouteStrings.myAccountScreen),
-            title: 'My Account',
+            title: StringConstant.kMyAccount.tr,
             image: Assets.iconsIcAccount,
           ),
           drawerRowWidget(
@@ -229,7 +230,7 @@ class DrawerScreen extends StatelessWidget {
                 Get.toNamed(RouteStrings.subscriptionPlanScreen);
               }
             },
-            title: 'Subscription Plan',
+            title: StringConstant.kSubscriptionPlan.tr,
             image: Assets.iconsIcSubscriptionPlan,
           ),
 
@@ -238,7 +239,7 @@ class DrawerScreen extends StatelessWidget {
               title: 'Subscription Plan', image: Assets.iconsIcSubscriptionPlan,
             ),*/
           Obx(() => drawerRowForTheme(
-            title: 'Theme',
+            title: StringConstant.kTheme.tr,
             image: Assets.iconsIcTheme,
             switchValue: drawerController.isSwitchOn.value,
             onSwitchChanged: (bool value) {
@@ -252,17 +253,17 @@ class DrawerScreen extends StatelessWidget {
 
           drawerRowWidget(
             onTap: () => Get.toNamed(RouteStrings.languageScreen),
-            title: 'Language',
+            title: StringConstant.kLanguage.tr,
             image: Assets.iconsIcLanguage,
           ),
           drawerRowWidget(
             onTap: () => Get.toNamed(RouteStrings.privacySettingScreen),
-            title: 'Privacy Settings',
+            title: StringConstant.kPrivacySettings.tr,
             image: Assets.iconsIcPrivacy,
           ),
           drawerRowWidget(
             onTap: () => Get.to(TermsAndConditionScreen()),
-            title: 'Terms and Condition',
+            title: StringConstant.kTermsAndCondition.tr,
             image: Assets.iconsIcTermscondition,
           ),
           80.heightSizeBox,
@@ -286,7 +287,7 @@ class DrawerScreen extends StatelessWidget {
                 children: [
                   ImageView(path: Assets.iconsIcLogout, height: 20, width: 20),
                   5.widthSizeBox,
-                  Text("Logout", style: w500_14a(color: AppColor.c142293)),
+                  Text(StringConstant.kLogout.tr, style: w500_14a(color: AppColor.c142293)),
                 ],
               ),
             ),

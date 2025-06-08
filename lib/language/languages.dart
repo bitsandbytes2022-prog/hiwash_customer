@@ -5,11 +5,12 @@ class Languages extends Translations {
   // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
     'en_US': {
-          'kHellos': 'Hello hello',
-"kDemoText":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      'kHellos': 'Hello hello',
+      "kDemoText":
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       "kWelcomeToThe": "Welcome to the",
-      "kHiWASH":"HI WASH",
-      "kWeComeToYouTo":"We come to you to\nwash your car...!!",
+      "kHiWASH": "HI WASH",
+      "kWeComeToYouTo": "We come to you to\nwash your car...!!",
 
       ///  welcome screen
       "kEcoCleanWalletGreen": "Eco Clean, Wallet Green!",
@@ -21,7 +22,8 @@ class Languages extends Translations {
       "kWashWin": "Wash & Win!",
       "kGetYourCarWashed":
           "Get your car washed weekly at 100+ locations with exclusive offers.",
-          "kMissedWashesStillDeducted":"Missed washes still deducted.",
+      "kMissedWashesStillDeducted": "Missed washes still deducted.",
+
       ///  Login screen
       "kLogin": "Log In!",
       "kWelcomeBack": "Welcome Back,",
@@ -32,9 +34,8 @@ class Languages extends Translations {
       "kDontAaveAccount": "Don’t have account? ",
       "SIGNUP": "SIGN UP",
       "kOR": "OR",
-          "kHaveAnAccount": "Have an account? ",
-          "LOGIN":"LOGIN",
-
+      "kHaveAnAccount": "Have an account? ",
+      "LOGIN": "LOGIN",
 
       /// SIgn up screen
       "kHello": "Hello,",
@@ -46,10 +47,10 @@ class Languages extends Translations {
       "kEnterYourFullName": "Enter your full name",
       "kEnterYourEmail": "Enter your email",
       "kEnterPhoneNumber": "Enter phone number",
-          "kZone":"Zone",
-          "kStreet":"Street",
-          "kBuilding":"Building",
-          "kUnit":"Unit",
+      "kZone": "Zone",
+      "kStreet": "Street",
+      "kBuilding": "Building",
+      "kUnit": "Unit",
 
       /// forgot password screen
       "kForgot": "Forgot",
@@ -71,7 +72,7 @@ class Languages extends Translations {
       "kError": "Error",
       "kSomethingWentWrong": "Something went wrong",
       "kPleaseEnterTheCorrectOTP": "Please enter the correct OTP",
-      "kEnterValidOTP":"Enter valid OTP",
+      "kEnterValidOTP": "Enter valid OTP",
 
       /// Reset password screen
       "kReset": "Reset",
@@ -109,43 +110,114 @@ class Languages extends Translations {
       "kTotalWashes": "Total Washes",
       "kWash": "Wash",
       "kLocations": "Locations",
-      "kRemaining":"Remaining",
-      "kYourCurrentLocation":"Your current location",
-      "kFetchingLocation":"Fetching location...",
-      "kNoNearbyLocationsFound":"No nearby locations found",
-      "kWashComplete":"Wash Complete!",
-      "kShareYourFeedback":"Share your feedback and\nrate the Customer.",
-      "kEnterYourCommentHere":"Enter your comment here..."
-      ,
-      "kSubmit":"Submit",
-      "kLocationServicesAreDisabled":"Location services are disabled",
-      "kLocationPermissionDenied":"Location permission denied",
-      "kLocationPermissionPermanentlyDenied":"Location permission permanently denied",
-      "kCouldNotRetrieveAddressDetails":"Could not retrieve address details",
-      "kLocationNotAvailable":"Location not available",
-      "kImageNotAvailable":"Image not available",
-      "kInvalidImage":"Invalid image",
-      "kExploreAllExclusiveOffers":"Explore All Exclusive Offers",
-      "kCheckNow":"Check Now",
-      "kCongratulations":"Congratulations!",
-      "kYourRewardHasBeenSuccessfullyRedeemed":"Your Reward Has Been\nSuccessfully Redeemed!",
+      "kRemaining": "Remaining",
+      "kYourCurrentLocation": "Your current location",
+      "kFetchingLocation": "Fetching location...",
+      "kNoNearbyLocationsFound": "No nearby locations found",
+      "kWashComplete": "Wash Complete!",
+      "kShareYourFeedback": "Share your feedback and\nrate the Customer.",
+      "kEnterYourCommentHere": "Enter your comment here...",
+      "kSubmit": "Submit",
+      "kLocationServicesAreDisabled": "Location services are disabled",
+      "kLocationPermissionDenied": "Location permission denied",
+      "kLocationPermissionPermanentlyDenied":
+          "Location permission permanently denied",
+      "kCouldNotRetrieveAddressDetails": "Could not retrieve address details",
+      "kLocationNotAvailable": "Location not available",
+      "kImageNotAvailable": "Image not available",
+      "kInvalidImage": "Invalid image",
+      "kExploreAllExclusiveOffers": "Explore All Exclusive Offers",
+      "kCheckNow": "Check Now",
+      "kCongratulations": "Congratulations!",
+      "kYourRewardHasBeenSuccessfullyRedeemed":
+          "Your Reward Has Been\nSuccessfully Redeemed!",
 
-          ///Reward screen
-          "kSortByExpiry":"Sort by Expiry",
-          "kAscendingOrder":"Ascending Order",
-          "kDescendingOrder":"Descending Order",
-      "kNoExpiry":"No Expiry",
-      "kExpired":"Expired",
-      "kYears":"years",
-      "kMonths":"months",
-      "kDays":"days",
-      "kHours":"hours",
-      "kMinutes":"minutes",
-      "kSeconds":"seconds",
-      "kInvalidDate":"Invalid date",
+      ///Reward screen
+      "kSortByExpiry": "Sort by Expiry",
+      "kAscendingOrder": "Ascending Order",
+      "kDescendingOrder": "Descending Order",
+      "kNoExpiry": "No Expiry",
+      "kExpired": "Expired",
+      "kYears": "years",
+      "kMonths": "months",
+      "kDays": "days",
+      "kHours": "hours",
+      "kMinutes": "minutes",
+      "kSeconds": "seconds",
+      "kInvalidDate": "Invalid date",
 
+      /// faq screen
+      "kFAQ": "FAQ’s",
+      "kSearch": "Search...",
+      "kNoFAQsFound": "No FAQs found",
 
+      /// Second Drawer
+      "kGetHelp": "Get Help?",
+      "kCouldNotLaunch": "Could not launch",
+      "kChatWithSupport": 'Chat with Support',
+      "kHelpDeskTicket": 'Help Desk Ticket',
+      "kStepByStep": 'Step-by-Step Guide',
 
+      /// step by step screen
+      "kNoTitle": 'No Title',
+      "kNoDescription": 'No Description',
+      "kStepByStepGuideDetail": "Step-by-Step Guide - Detail",
+      "kStepByStepGuide": "Step-by-Step Guide",
+
+      /// Dashboard screen
+      "kOffersForYou": "Offers For You",
+      "kNotification": "Notification’s",
+      "kRedeemWash": "Redeem Wash!",
+      "kScanYourQR": "Scan Your QR Code to\nEnjoy Your Wash.",
+      "kConfirmExit": "Confirm Exit",
+      "kDoYouReally": "Do you really want to close the app?",
+      "kNo": "No",
+      "kYes": "Yes",
+
+      /// Notification screen
+      "kProvisionalPermissionGranted": "Provisional Permission Granted",
+      "kYouWillReceive":
+          "You will receive notifications, but they may be limited.",
+      "kNotificationPermissionDenied": "Notification Permission Denied",
+      "kPleaseAllow": "Please allow notifications to receive updates.",
+      "kFailedToRequest": "Failed to request notification permission.",
+      "kNotificationClicked": "Notification Clicked",
+      "kNoRouteFound": "No route found in notification.",
+      "kNoNotificationFound": "No Notifications Found",
+      "kYour": 'Your ',
+      "kPackHasBeenOverdueSince": ' Pack Has\n Been Overdue Since',
+
+      /// Profile Screen
+      "kSuccess": "Success",
+      "kProfileUpdatedSuccessfully": 'Profile updated successfully',
+      "kPackExpiringIn": ' pack\nexpiring in ',
+      "kMyAccount": 'My Account',
+      "kSubscriptionPlan": 'Subscription Plan',
+      "kTheme": 'Theme',
+      "kLanguage": 'Language',
+      "kPrivacySettings": 'Privacy Settings',
+      "kTermsAndCondition": 'Terms & Conditions',
+      "kLogout": "Logout",
+      "kArabic": "Arabic",
+      "kEnglish": "English",
+      "kSelectImageSource": "Select Image Source",
+      "kCamera": "Camera", "kGallery": "Gallery",
+      "kPleaseEnterYourName": 'Please enter your name',
+      "kPleaseEnterYourEmail": 'Please enter your email',
+      "kPleaseEnterYourPhone": 'Please enter your phone',
+      "kCarNumber": "Car Number",
+      'kPackName': 'Pack Name ',
+
+      "kRemainingWash": "Remaining wash",
+      'kExpiryDate': 'Expiry date ',
+      "kUpgradeYourPlanNow": "upgrade your Plan now",
+      "kNoPlansAvailable": "No plans available",
+      "kYouCanRenewYourSubscriptionOnlyWithin7DaysOfExpiry":
+          "You can renew your subscription only within 7 days of expiry.",
+      "kRenewNow": "Renew Now",
+      "kYear": "/ Year",
+      "kRenewalNotAvailable": "Renewal Not Available",
+      "kNoPlanSelected.": "No plan selected.",
     },
 
     'hi_IN': {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_poppins.dart';
 import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
@@ -11,13 +13,13 @@ class LanguageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppHomeBg(
-      headingText: "Language",
+      headingText: StringConstant.kLanguage.toString(),
       iconRight:SizedBox(),
       child: Column(
         children: [
           15.heightSizeBox,
-          countryRow(title: '🇸🇦 Arabic'),
-          countryRow(title: '🇬🇧 English'),
+          countryRow(title: '🇸🇦 ${StringConstant.kArabic.tr}'),
+          countryRow(title: '🇬🇧 ${StringConstant.kEnglish.tr}'),
 
 
         ],

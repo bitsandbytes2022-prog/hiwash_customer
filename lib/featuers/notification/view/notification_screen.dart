@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/doted_horizontal_line.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
@@ -146,7 +147,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   },
                 );
               } else {
-                return const Center(child: Text("No Notifications Found"));
+                return  Center(child: Text(StringConstant.kNoNotificationFound.tr));
               }
             }),
           ),
@@ -155,36 +156,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-/*  Widget _buildLoadingIndicator() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 16),
-      child: Center(child: CircularProgressIndicator()),
-    );
-  }*/
+
 
   Widget _buildPaginationLoader() {
     return Center(child: CircularProgressIndicator());
   }
 
-/*  Widget _buildErrorMessage() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Column(
-        children: [
-          Text(
-            controller.errorMessage.value,
-            style: const TextStyle(color: Colors.red),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              controller.fetchInitialNotifications();
-            },
-            child: const Text("Retry"),
-          ),
-        ],
-      ),
-    );
-  }*/
+
 
   Widget _buildNotificationHeader() {
     return Container(
@@ -228,7 +206,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     style: TextStyle(color: Colors.black, fontSize: 16),
                     children: <TextSpan>[
                       TextSpan(
-                        text: 'Your ',
+                        text: StringConstant.kYour.tr,
                         style: w500_12p(
                           color: AppColor.white.withOpacity(0.70),
                         ),
@@ -246,7 +224,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       ),
                       TextSpan(
                         text:
-                            ' Pack Has\n Been Overdue Since ${formatDate(washStatusController.getCustomerData.value?.data?.subscriptionDetails?.endDate)}!',
+                           "${StringConstant.kPackHasBeenOverdueSince.tr} ${formatDate(washStatusController.getCustomerData.value?.data?.subscriptionDetails?.endDate)}!",
                         style: w500_12p(
                           color: AppColor.white.withOpacity(0.70),
                         ),
@@ -305,12 +283,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
 
             ),
-          /*  ProfileImageView(
-              radiusStack: 5,
-              isVisibleStack: false,
-              radius: 20,
-              imagePath: item.notificationType == 1 ? Assets.iconsIcAlert : null
-            ),*/
+
             const SizedBox(width: 10),
             Expanded(
               child: Column(

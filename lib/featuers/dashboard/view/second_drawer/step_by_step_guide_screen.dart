@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/second_drawer_controller/second_drawer_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_poppins.dart';
@@ -23,7 +24,7 @@ class StepByStepGuideScreen extends StatelessWidget {
 
     return AppHomeBg(
         padding: EdgeInsets.zero,
-        headingText: "Step-by-Step Guide",
+        headingText: StringConstant.kStepByStepGuide.tr,
         iconRight: SizedBox(),
         child: Column(
           children: [
@@ -74,7 +75,7 @@ class StepByStepGuideScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
 
-              Text(title, style: w500_14p(color: AppColor.c2C2A2A),),
+              Text(title.tr, style: w500_14p(color: AppColor.c2C2A2A),),
               ImageView(
 
                 path: Assets.iconsBlackForwardArrow,

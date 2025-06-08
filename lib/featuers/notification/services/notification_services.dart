@@ -4,10 +4,12 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 
 import 'dart:convert';
 
 import 'package:hiwash_customer/styling/app_color.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 
 class NotificationServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -44,7 +46,7 @@ class NotificationServices {
     await requestNotificationPermission();
 
     // Initialize local notifications
-   // initLocalNotification();
+    // initLocalNotification();
   }
 
   /// Ask user for notification permission
@@ -65,16 +67,17 @@ class NotificationServices {
       } else if (settings.authorizationStatus ==
           AuthorizationStatus.provisional) {
         print("User granted provisional permission");
-        Get.snackbar(
-          "Provisional Permission Granted",
-          "You will receive notifications, but they may be limited.",
-          snackPosition: SnackPosition.TOP,
+
+        appSnackBar(
+          title: StringConstant.kProvisionalPermissionGranted.tr,
+          message: StringConstant.kYouWillReceive.tr,
+
         );
       } else {
-        Get.snackbar(
-          "Notification Permission Denied",
-          "Please allow notifications to receive updates.",
-          snackPosition: SnackPosition.TOP,
+        appSnackBar(
+          title: StringConstant.kNotificationPermissionDenied.tr,
+          message: StringConstant.kPleaseAllow.tr,
+
         );
         Future.delayed(Duration(seconds: 2), () {
           AppSettings.openAppSettings(type: AppSettingsType.notification);
@@ -82,11 +85,12 @@ class NotificationServices {
       }
     } catch (e) {
       print("Error requesting notification permission: $e");
-      Get.snackbar("Error", "Failed to request notification permission.",
-          snackPosition: SnackPosition.TOP);
+      appSnackBar(
+        message: StringConstant.kFailedToRequest.tr,
+
+      );
     }
   }
-
 
 
   /// Show local notification (when app is in foreground)
@@ -103,7 +107,8 @@ class NotificationServices {
       icon: '@mipmap/ic_launcher',
     );
 
-    const NotificationDetails platformDetails = NotificationDetails(android: androidDetails);
+    const NotificationDetails platformDetails = NotificationDetails(
+        android: androidDetails);
 
     if (notification != null && android != null) {
       // Show local notification
@@ -116,12 +121,12 @@ class NotificationServices {
       );
 
       Get.snackbar(
-        notification.title ?? "Notification",
-        notification.body ?? "",
-        snackPosition: SnackPosition.TOP,
-        duration: Duration(seconds: 4),
-        backgroundColor:AppColor.blue,
-        colorText:AppColor.white
+          notification.title ?? "Notification",
+          notification.body ?? "",
+          snackPosition: SnackPosition.TOP,
+          duration: Duration(seconds: 4),
+          backgroundColor: AppColor.blue,
+          colorText: AppColor.white
       );
     }
   }
@@ -159,7 +164,10 @@ class NotificationServices {
       String route = message.data['route'];
       Get.toNamed(route);
     } else {
-      Get.snackbar("Notification Clicked", "No route found in notification.");
+appSnackBar(
+  title: StringConstant.kNotificationClicked,
+  message: StringConstant.kNoRouteFound,
+);
     }
   }
 

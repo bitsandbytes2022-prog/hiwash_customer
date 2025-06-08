@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/loader.dart';
 import '../../../network_manager/repository.dart';
 import '../../../widgets/components/app_snack_bar.dart';
@@ -145,16 +146,16 @@ class DrawerProfileController extends GetxController {
       final response = await Repository().uploadProfile(requestBody);
       if (response != null && response['success'] == true) {
         appSnackBar(
-          title: "Success",
+          title: StringConstant.kSuccess.tr,
           backgroundColor: Colors.green,
-          message: response['message'] ?? 'Profile updated successfully',
+          message: response['message'] ?? StringConstant.kProfileUpdatedSuccessfully.tr,
         );
       }
       return response;
     } catch (e) {
       print("Update profile error: $e");
       appSnackBar(
-        message: "Something went wrong while updating profile",
+        message: StringConstant.kSomethingWentWrong.tr,
       );
       return null;
     } finally {
@@ -163,41 +164,5 @@ class DrawerProfileController extends GetxController {
   }
 
 
-/*  Future<dynamic> uploadProfile(
-    String fullName,
-    String email,
-    String mobileNumber,
-    String zone,
-    String street,
-    String building,
-    String unit,
-    String profilePic,
-    String carNumber,
-  ) async {
-    isLoading.value = true;
-    try {
-      Map<String, dynamic> requestBody = {
-        "fullName": fullName,
-        "email": email,
-        "mobileNumber": mobileNumber,
-        "zone": zone,
-        "street": street,
-        "building": building,
-        "unit": unit,
-        "profilePic": profilePic,
-        "carNumber": carNumber,
-      };
-      final response = await Repository().uploadProfile(requestBody);
-      return response;
-    } catch (e) {
-      print("Update profile error: $e");
-      appSnackBar(
-        message: "Something went wrong while updating profile",
-      );
 
-      return null;
-    } finally {
-      isLoading.value = false;
-    }
-  }*/
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
@@ -13,13 +14,13 @@ class StepByStepGuideDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args = Get.arguments ?? {};
-    final String title = args['title'] ?? 'No Title';
-    final String description = args['description'] ?? 'No Description';
+    final String title = args['title'] ?? StringConstant.kNoTitle.tr;
+    final String description = args['description'] ?? StringConstant.kNoDescription.tr;
 
     return AppHomeBg(
 
 
-      headingText: "Step-by-Step Guide - Detail",
+      headingText: StringConstant.kStepByStepGuideDetail.tr,
       iconRight: SizedBox(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -28,9 +29,9 @@ class StepByStepGuideDetailScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             15.heightSizeBox,
-            Text(title.trim(), style: w600_16p()),
+            Text(title.trim().tr, style: w600_16p()),
             10.heightSizeBox,
-            Text(description.trim(), style: w400_14p()),
+            Text(description.trim().tr, style: w400_14p()),
           ],
         ),
       ),

@@ -97,6 +97,78 @@ static const kSeconds="kSeconds";
 static const kInvalidDate="kInvalidDate";
 static const kExploreAllExclusiveOffers="kExploreAllExclusiveOffers";
 
+/// faq screen
+static const kFAQ="kFAQ";
+static const kSearch="kSearch";
+static const kNoFAQsFound="kNoFAQsFound";
+
+/// Second drawer
+static const kGetHelp="kGetHelp";
+static const kCouldNotLaunch="kCouldNotLaunch";
+static const kChatWithSupport="kChatWithSupport";
+static const kHelpDeskTicket="kHelpDeskTicket";
+static const kStepByStep="kStepByStep";
+/// step by step screen
+static const kNoTitle="kNoTitle";
+static const kNoDescription="kNoDescription";
+static const kStepByStepGuideDetail="kStepByStepGuideDetail";
+static const kStepByStepGuide="kStepByStepGuide";
+
+/// Dashboard screen
+static const kOffersForYou="kOffersForYou";
+static const kNotification="kNotification";
+static const kWash="kWash";
+static const kLocations="kLocations";
+static const kRedeemWash="kRedeemWash";
+static const kScanYourQR="kScanYourQR";
+static const kConfirmExit="kConfirmExit";
+static const kDoYouReally="kDoYouReally";
+static const kNo="kNo";
+static const kYes="kYes";
+
+/// notification screen
+static const kProvisionalPermissionGranted="kProvisionalPermissionGranted";
+static const kYouWillReceive="kYouWillReceive";
+static const kNotificationPermissionDenied="kNotificationPermissionDenied";
+static const kPleaseAllow="kPleaseAllow";
+static const kFailedToRequest="kFailedToRequest";
+static const kNotificationClicked="kNotificationClicked";
+static const kNoRouteFound="kNoRouteFound";
+static const kNoNotificationFound="kNoNotificationFound";
+static const kYour="kYour";
+static const kPackHasBeenOverdueSince="kPackHasBeenOverdueSince";
+/// Profile screens
+static const kSuccess="kSuccess";
+static const kProfileUpdatedSuccessfully="kProfileUpdatedSuccessfully";
+static const kPackExpiringIn="kPackExpiringIn";
+static const kMyAccount="kMyAccount";
+static const kSubscriptionPlan="kSubscriptionPlan";
+static const kTheme="kTheme";
+static const kLanguage="kLanguage";
+static const kPrivacySettings="kPrivacySettings";
+static const kTermsAndCondition="kTermsAndCondition";
+static const kLogout="kLogout";
+static const kArabic="kArabic";
+static const kEnglish="kEnglish";
+static const kSelectImageSource="kSelectImageSource";
+static const kCamera="kCamera";
+static const kGallery="kGallery";
+static const kPleaseEnterYourName="kPleaseEnterYourName";
+static const kPleaseEnterYourEmail="kPleaseEnterYourEmail";
+static const kPleaseEnterYourPhone="kPleaseEnterYourPhone";
+static const kCarNumber="kCarNumber";
+static const kSave="kSave";
+static const kPackName="kPackName";
+static const kRemainingWash="kRemainingWash";
+static const kExpiryDate="kExpiryDate";
+static const kUpgradeYourPlanNow="kUpgradeYourPlanNow";
+static const kNoPlansAvailable="kNoPlansAvailable";
+static const kYear="kYear";
+static const kRenewalNotAvailable="kRenewalNotAvailable";
+static const kYouCanRenewYourSubscriptionOnlyWithin7DaysOfExpiry="kYouCanRenewYourSubscriptionOnlyWithin7DaysOfExpiry";
+static const kRenewNow="kRenewNow";
+static const kNoPlanSelected="kNoPlanSelected";
+
 
 
 }

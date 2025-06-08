@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/second_drawer.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/app_dialog.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
@@ -53,7 +54,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     NotificationScreen(),
   ];
 
-  final List<String> _headings = ["", "Offers For You", "Notification’s"];
+  final List<String> _headings = ["", StringConstant.kOffersForYou, StringConstant.kNotification];
 
   void _onItemTapped(int index) {
     if (index == 3) {
@@ -222,7 +223,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   ),
                                   child: Text(
-                                    "kWash".tr,
+                                    StringConstant.kWash.tr,
                                     style: w700_16a(
                                       color:
                                           washStatusController
@@ -256,7 +257,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   ),
                                   child: Text(
-                                    "kLocations".tr,
+                                    StringConstant.kLocations.tr,
                                     style: w700_16a(
                                       color:
                                           !washStatusController
@@ -381,9 +382,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       children: [
         37.heightSizeBox,
 
-        Text("Redeem Wash!", style: w700_22a(color: AppColor.c2C2A2A)),
+        Text(StringConstant.kRedeemWash.tr, style: w700_22a(color: AppColor.c2C2A2A)),
         Text(
-          "Scan Your QR Code to\nEnjoy Your Wash.",
+          StringConstant.kScanYourQR.tr,
           style: w400_16p(color: AppColor.c455A64),
           textAlign: TextAlign.center,
         ),
@@ -437,20 +438,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Confirm Exit",style: w700_22a(color: AppColor.c2C2A2A),),
-          content: Text("Do you really want to close the app?",style: w400_16p(),),
+          title: Text(StringConstant.kConfirmExit.tr,style: w700_22a(color: AppColor.c2C2A2A),),
+          content: Text(StringConstant.kDoYouReally.tr,style: w400_16p(),),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: Text("No"),
+              child: Text(StringConstant.kNo.tr),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: Text("Yes"),
+              child: Text(StringConstant.kYes.tr),
             ),
           ],
         );

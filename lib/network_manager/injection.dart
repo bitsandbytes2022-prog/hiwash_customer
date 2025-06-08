@@ -86,16 +86,16 @@ Dio getDio() {
 
 
           print("000000000");
-          authController.refreshToken().then((value) {
+          authController.refreshToken().then((value) async {
             if (value != null) {
-              washStatusController.getCustomerDataById(value.data!.id!);
-              notificationController.getNotification();
-              notificationController.fetchInitialNotifications();
+              await   washStatusController.getCustomerDataById(value.data!.id!);
+              await notificationController.getNotification();
+                notificationController.fetchInitialNotifications();
               // notificationController.scrollListener();
-              washStatusController.getWashSummary();
-              rewardController.getAllOffers();
-              rewardController.getOfferCategoriesMethod();
-              washStatusController.getLocation(
+       await       washStatusController.getWashSummary();
+        await      rewardController.getAllOffers();
+         await     rewardController.getOfferCategoriesMethod();
+         await     washStatusController.getLocation(
                   washStatusController.locationList.first.lattitude.toString(),
                   washStatusController.locationList.first.longitude.toString());
             }
