@@ -29,7 +29,6 @@ class WelcomeScreen extends StatelessWidget {
         body: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            /* BgWidget(imagePath: Assets.imagesWelcomeBg),*/
             Obx(() {
               return BgWidget(
                 imagePath:
@@ -101,7 +100,7 @@ class WelcomeScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        StringConstant.kMissedWashesStillDeducted,
+                                        StringConstant.kMissedWashesStillDeducted.tr,
                                         textAlign: TextAlign.center,
                                         style: w400_16p(
                                           color: AppColor.c2C2A2A,
@@ -134,11 +133,6 @@ class WelcomeScreen extends StatelessWidget {
                             text: StringConstant.kGetStarted.tr,
                             onTap: () {
                               Get.toNamed(RouteStrings.loginScreen);
-
-                              /// Todo Get notification
-                            /*  NotificationServices notificationServices =NotificationServices();
-                              notificationServices.requestNotificationPermission();
-                              notificationServices.getDeviceToken();*/
                             },
                           ),
                           40.heightSizeBox,

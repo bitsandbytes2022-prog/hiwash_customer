@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
@@ -37,7 +38,7 @@ class SubscribeMainScreen extends StatelessWidget {
           children: [
             Text( userData?.fullName ?? '', style: w400_16a(color: AppColor.white)),
             Text(
-              "Full access subscription",
+              StringConstant.kFullAccessSubscription.tr,
               style: w400_12a(color: AppColor.white.withOpacity(0.5)),
             ),
           ],
@@ -114,26 +115,26 @@ class SubscribeMainScreen extends StatelessWidget {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("Wash & Win!",style: w700_22a(color: AppColor.c2C2A2A),),
+                  Text(StringConstant.kWashWin.tr,style: w700_22a(color: AppColor.c2C2A2A),),
                  15.heightSizeBox,
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: 'Get your car washed at ',
+                          text: StringConstant.kGetYourCarWashed.tr,
                           style: w400_16p(color: AppColor.c455A64),
                         ),
                         TextSpan(
-                          text: '100+\nlocations ',
+                          text: StringConstant.k100locations.tr,
                           style: w400_16p(color: AppColor.c2C2A2A),
                         ),
                         TextSpan(
-                          text: '& unlock',
+                          text: StringConstant.kUnlock.tr,
                           style: w400_16p(color: AppColor.c455A64),
                         ),
                         TextSpan(
-                          text: ' exclusive offers.',
+                          text: StringConstant.kExclusiveOffers.tr,
                           style: w400_16p(color: AppColor.c2C2A2A),
                         ),
                       ],
@@ -142,7 +143,7 @@ class SubscribeMainScreen extends StatelessWidget {
                   24.heightSizeBox,
                   HiWashButton(
                     margin: EdgeInsets.symmetric(horizontal: 30),
-                    text: 'subscribe Now',
+                    text: StringConstant.kSubscribeNow,
                     onTap: (){
                       Get.toNamed(RouteStrings.subscriptionScreen);
                     },

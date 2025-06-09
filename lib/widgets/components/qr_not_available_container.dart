@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../language/String_constant.dart';
 import '../../styling/app_color.dart';
 
 class QrNotAvailableContainer extends StatelessWidget {
@@ -22,7 +24,7 @@ class QrNotAvailableContainer extends StatelessWidget {
             spreadRadius: 0,
           )]
       ),
-      child: Center(child: Text(text??"Qr Not\nGenerated",
+      child: Center(child: Text(text?.tr??"${StringConstant.kQrNotGenerated.tr}",
         textAlign: TextAlign.center,
       )),
     );

@@ -116,7 +116,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
       child: Column(
         children: [
           15.heightSizeBox,
-          _buildNotificationHeader(),
+          washStatusController
+                      .getCustomerData
+                      .value
+                      ?.data
+                      ?.subscriptionDetails ==
+                  null
+              ? SizedBox()
+              : _buildNotificationHeader(),
           21.heightSizeBox,
           Expanded(
             child: Obx(() {
@@ -147,7 +154,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   },
                 );
               } else {
-                return  Center(child: Text(StringConstant.kNoNotificationFound.tr));
+                return Center(
+                  child: Text(StringConstant.kNoNotificationFound.tr),
+                );
               }
             }),
           ),
@@ -156,13 +165,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-
-
   Widget _buildPaginationLoader() {
     return Center(child: CircularProgressIndicator());
   }
-
-
 
   Widget _buildNotificationHeader() {
     return Container(
@@ -223,11 +228,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         style: w600_12p(color: AppColor.white),
                       ),
                       TextSpan(
-                        text:
-                           "${StringConstant.kPackHasBeenOverdueSince.tr} ${formatDate(washStatusController.getCustomerData.value?.data?.subscriptionDetails?.endDate)}!",
+                        text: "${StringConstant.kPackHasBeenOverdueSince.tr} ",
                         style: w500_12p(
                           color: AppColor.white.withOpacity(0.70),
                         ),
+                      ),
+                      TextSpan(
+                        text:
+                            "${formatDate(washStatusController.getCustomerData.value?.data?.subscriptionDetails?.endDate)}!",
+                        style: w500_12p(color: AppColor.white),
                       ),
                     ],
                   ),
@@ -266,22 +275,24 @@ class _NotificationScreenState extends State<NotificationScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
+              padding: EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(color: AppColor.blue.withOpacity(0.2)),
+              ),
+              child: CircleAvatar(
+                backgroundColor: AppColor.c142293.withOpacity(0.2),
+                radius: 20,
 
-                padding: EdgeInsets.all(4),
-                decoration: BoxDecoration(
-
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: AppColor.blue.withOpacity(0.2)),
+                child: Image.asset(
+                  item.notificationType == 0
+                      ? Assets.iconsIcAlert
+                      : Assets.iconsIcInfo,
+                  height: 20,
+                  width: 20,
+                  color: AppColor.c000000,
                 ),
-                child:CircleAvatar(
-
-                  backgroundColor: AppColor.c142293.withOpacity(0.2),
-                  radius: 20,
-              
-                      child:Image.asset(item.notificationType==0?Assets.iconsIcAlert:Assets.iconsIcInfo,height: 20,width: 20,color: AppColor.c000000,),
-                )
-
-
+              ),
             ),
 
             const SizedBox(width: 10),

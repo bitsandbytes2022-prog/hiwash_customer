@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import '../../styling/app_font_anybody.dart';
 
@@ -72,7 +73,7 @@ class HiWashButton extends StatelessWidget {
             : Center(
 
           child: Text(
-            text,
+            text.tr,
             style: textStyle ?? w600_16a(color: AppColor.white),
           ),
         ),

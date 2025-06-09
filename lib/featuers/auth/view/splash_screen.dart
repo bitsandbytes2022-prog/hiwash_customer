@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/auth/auth_controller/auth_controller.dart';
 import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
@@ -28,16 +29,19 @@ class _SplashScreenState extends State<SplashScreen> {
     _checkLoginStatus();
   }
 
-
+AuthController authController=Get.put(AuthController());
 
   void _checkLoginStatus() async {
     final LocalStorage localStorage = LocalStorage();
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
 
     final token = localStorage.getToken();
     print("Token retrieved: $token");
 
     if (token != null && token.isNotEmpty) {
+      //localStorage.getToken();
+      authController.refreshToken();
+
       Get.offNamed(RouteStrings.dashboardScreen);
     } else {
       Get.offNamed(RouteStrings.welcomeScreen);

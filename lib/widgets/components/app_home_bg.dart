@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/chat_screen.dart';
 import 'package:hiwash_customer/generated/assets.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
@@ -71,28 +73,28 @@ class AppHomeBg extends StatelessWidget {
               ),
               ImageView(path: Assets.imagesHelpSupport, height: 180),
               31.heightSizeBox,
-              Text("Get Help?", style: w700_22a()),
+              Text(StringConstant.kGetHelp.tr, style: w700_22a()),
               40.heightSizeBox,
 
               /// **Drawer Options**
               drawerRowWidget(
                 onTap: () => {Get.to(ChatScreen())},
-                title: 'Chat with Support',
+                title: StringConstant.kChatWithSupport.tr,
                 image: Assets.iconsIcChat,
               ),
               drawerRowWidget(
                 onTap: () => {},
-                title: 'Help Desk Ticket',
+                title: StringConstant.kHelpDeskTicket.tr,
                 image: Assets.iconsIcTicket,
               ),
               drawerRowWidget(
                 onTap: () => {},
-                title: 'FAQ’s',
+                title: StringConstant.kFAQ.tr,
                 image: Assets.iconsIcFaq,
               ),
               drawerRowWidget(
                 onTap: () => {},
-                title: 'Step-by-Step Guide',
+                title: StringConstant.kStepByStepGuide.tr,
                 dashedLineWidget: false,
                 image: Assets.iconsIcGuideBook,
               ),

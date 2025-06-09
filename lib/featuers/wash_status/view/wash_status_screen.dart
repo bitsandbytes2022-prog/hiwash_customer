@@ -715,7 +715,7 @@ class WashStatusScreen extends StatelessWidget {
                         ),
 
                         Text(
-                          "${locationList.distanceInKm?.toStringAsFixed(2) ?? "0.00"} km",
+                          "${locationList.distanceInKm?.toStringAsFixed(2) ?? "0.00"} ${StringConstant.kKm.tr}",
                           style: w400_12a(color: AppColor.c455A64),
                         ),
                       ],

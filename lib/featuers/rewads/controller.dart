@@ -39,7 +39,7 @@ class RewardController extends GetxController {
   ];
 
   RxBool isAscending = true.obs;
-  RxString sortByText = StringConstant.kSortByExpiry.obs;
+  RxString sortByText = StringConstant.kSortByExpiry.tr.obs;
   void applySortingToCurrentData() {
     List<Offers> data;
 
@@ -69,7 +69,7 @@ class RewardController extends GetxController {
   void toggleSortOrder() {
     isAscending.value = !isAscending.value;
     sortByText.value =
-    isAscending.value ? 'Ascending Order' : 'Descending Order';
+    isAscending.value ? StringConstant.kAscendingOrder.tr : StringConstant.kDescendingOrder.tr;
     applySortingToCurrentData();
   }
 

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
@@ -41,7 +42,7 @@ class PaymentSuccessScreen extends StatelessWidget {
               style: w400_16a(color: AppColor.white),
             ),
             Text(
-              "Full access subscription",
+              StringConstant.kFullAccessSubscription.tr,
               style: w400_12a(color: AppColor.white.withOpacity(0.5)),
             ),
           ],
@@ -114,7 +115,7 @@ class PaymentSuccessScreen extends StatelessWidget {
                   QrDialog(),
                   30.heightSizeBox,
                   GetStartButton(
-                    text: "kGetStarted",
+                    text: "kGetStarted".tr,
           
                     onTap: () {
                       Get.toNamed(RouteStrings.dashboardScreen);

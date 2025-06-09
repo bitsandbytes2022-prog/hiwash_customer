@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 
 import '../../generated/assets.dart';
 import '../../styling/app_color.dart';
@@ -101,7 +102,7 @@ class AppDialog extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Remaining Washes: ',
+                              StringConstant.kRemainingWashes.tr,
                               style: w400_14p(color: AppColor.c2C2A2A),
                             ),
 
@@ -181,7 +182,7 @@ class AppDialog extends StatelessWidget {
 
                     RichText(
                       text: TextSpan(
-                        text: 'Remaining Washes: ',
+                        text: StringConstant.kRemainingWashes.tr,
                         style: w500_14p(color: AppColor.c2C2A2A),
                         children: <TextSpan>[
                           TextSpan(

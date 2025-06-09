@@ -9,9 +9,11 @@ import 'package:hiwash_customer/featuers/rewads/controller.dart';
 import 'package:hiwash_customer/featuers/subscription/controller/subscription_controller.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/components/custom_bottomsheet.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
@@ -64,7 +66,7 @@ class SubscriptionScreen extends StatelessWidget {
               style: w400_16a(color: AppColor.white),
             ),
             Text(
-              "Full access subscription",
+              StringConstant.kFullAccessSubscription.tr,
               style: w400_12a(color: AppColor.white.withOpacity(0.5)),
             ),
           ],
@@ -179,7 +181,7 @@ class SubscriptionScreen extends StatelessWidget {
                         }
 
                         if (list.isEmpty) {
-                          return Center(child: Text("No plans available"));
+                          return Center(child: Text(StringConstant.kNoPlansAvailable.tr));
                         }
 
                         return ListView.separated(
@@ -197,7 +199,7 @@ class SubscriptionScreen extends StatelessWidget {
                               subHeading: subscription.description ?? "",
                               qarText: subscription.currency?.trim() ?? "",
                               numberText: subscription.price?.toString() ?? '',
-                              yearText: "/ Year",
+                              yearText: StringConstant.kYear.tr,
 
                               imageShow: subscription.isPremium ?? false,
                               subscriptionId: subscription.id?.toString(),
@@ -297,12 +299,7 @@ class SubscriptionScreen extends StatelessWidget {
                                 carNumberToUse = profileCarNumber;
                               } else {
                                 if (enteredCarNumber.isEmpty) {
-                                  Get.snackbar(
-                                    "Validation",
-                                    "Please enter your car number",
-                                    backgroundColor: Colors.redAccent,
-                                    colorText: Colors.white,
-                                  );
+                                appSnackBar(message: StringConstant.kPleaseEnterYourCarNumber.tr);
                                   return;
                                 }
                                 carNumberToUse = enteredCarNumber;
@@ -368,7 +365,7 @@ class SubscriptionScreen extends StatelessWidget {
             ),
           ],
         ),
-        child: Text("View All Offers", style: w600_14a(color: AppColor.white)),
+        child: Text(StringConstant.kViewAllOffers.tr, style: w600_14a(color: AppColor.white)),
       ),
     );
   }

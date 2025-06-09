@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/profile_image_container.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
@@ -55,7 +56,7 @@ class BottomSheetWidget extends StatelessWidget {
             children: [
               21.heightSizeBox,
               Text(
-                "See All Exclusive Offers.",
+                StringConstant.kSeeAllExclusiveOffers.tr,
                 style: w700_16a(color: AppColor.c2C2A2A),
               ),
 
@@ -87,7 +88,7 @@ class BottomSheetWidget extends StatelessWidget {
                     children: [
                       Obx(
                         () => Text(
-                          rewardController.sortByText.value,
+                          rewardController.sortByText.value.tr,
                           style: w400_12p(color: AppColor.c2C2A2A),
                         ),
                       ),
@@ -177,7 +178,7 @@ class BottomSheetWidget extends StatelessWidget {
                         : Padding(
                       padding: const EdgeInsets.only(top: 30),
                       child: Text(
-                        'Data is not found',
+                        StringConstant.kDateIsNotFound.tr,
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
@@ -226,7 +227,7 @@ class BottomSheetWidget extends StatelessWidget {
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Text("Ascending order"),
+                          child: Text(StringConstant.kAscendingOrder.tr),
                         ),
                       ),
 
@@ -238,7 +239,7 @@ class BottomSheetWidget extends StatelessWidget {
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Text("Descending order"),
+                          child: Text(StringConstant.kDescendingOrder.tr),
                         ),
                       ),
                     ],
@@ -252,7 +253,7 @@ class BottomSheetWidget extends StatelessWidget {
               right: 0,
               child: GestureDetector(
                   onTap: () {
-                    rewardController.sortByText.value = "Sort by Expiry";
+                    rewardController.sortByText.value = StringConstant.kSortByExpiry.tr;
 
                     rewardController.isAscending.value = true;
 
@@ -546,21 +547,21 @@ class BottomSheetWidget extends StatelessWidget {
                             5.heightSizeBox,
                             dropDownRow(
                               index: 0,
-                              title: "Offer Details",
+                              title: StringConstant.kOfferDetails.tr,
                               content: rewardDetail?.offerDetails ?? '',
                             ),
                             Divider(color: AppColor.c142293.withOpacity(0.20)),
 
                             dropDownRow(
                               index: 1,
-                              title: "How to redeem",
+                              title: StringConstant.kHowToRedeem.tr,
                               content: rewardDetail?.howToRedeem ?? '',
                             ),
                             Divider(color: AppColor.c142293.withOpacity(0.20)),
 
                             dropDownRow(
                               index: 2,
-                              title: "Terms & conditions",
+                              title: StringConstant.kTermsAndCondition.tr,
                               content: rewardDetail?.termsAndConditions ?? '',
                             ),
 
@@ -579,7 +580,7 @@ class BottomSheetWidget extends StatelessWidget {
                           ),
                           3.widthSizeBox,
                           Text(
-                            "Report an issue",
+                            StringConstant.kReportAnIssue.tr,
                             style: w600_12a(color: AppColor.c142293),
                           ),
                         ],
@@ -753,11 +754,11 @@ class BottomSheetWidget extends StatelessWidget {
               ),
               21.heightSizeBox,
               Text(
-                "Congratulations!",
+               StringConstant.kCongratulations.tr,
                 style: w700_22a(color: AppColor.c2C2A2A),
               ),
               Text(
-                "Your Reward Has Been\nSuccessfully Redeemed!",
+                StringConstant.kYourRewardHasBeen.tr,
                 textAlign: TextAlign.center,
                 style: w400_16p(),
               ),

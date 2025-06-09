@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/styling/app_font_poppins.dart';
@@ -57,14 +58,14 @@ class QrDialog extends StatelessWidget {
                   40.heightSizeBox,
                   Image.asset(Assets.iconsIcCrown, height: 25, width: 27),
                   7.heightSizeBox,
-                  Text("Success!", style: w700_22a(color: AppColor.c2C2A2A)),
+                  Text(StringConstant.kSuccesss.tr, style: w700_22a(color: AppColor.c2C2A2A)),
 
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Your payment is complete, and your\n",
+                          text: StringConstant.kYourPaymentIsComplete.tr,
                           style: w400_12p(color: AppColor.c455A64),
                         ),
                         TextSpan(
@@ -79,7 +80,7 @@ class QrDialog extends StatelessWidget {
                           style: w500_12p(color: AppColor.c2C2A2A),
                         ),
                         TextSpan(
-                          text: " plan is now activated.",
+                          text:StringConstant.kPlanIsNowActivated.tr,
                           style: w400_12p(color: AppColor.c455A64),
                         ),
                       ],
@@ -127,7 +128,7 @@ class QrDialog extends StatelessWidget {
                               spreadRadius: 0,
                             )]
                         ),
-                        child: Center(child: Text("Qr Not\nGenerated",
+                        child: Center(child: Text(StringConstant.kQrNotGenerated.tr,
                           textAlign: TextAlign.center,
                         )),
                       ),
@@ -183,12 +184,12 @@ class QrDialog extends StatelessWidget {
                   // Image.asset(Assets.imagesImQr, height: 215, width: 215),
                   31.heightSizeBox,
                   Text(
-                    "Congratulations!",
+                   StringConstant.kCongratulations.tr,
                     style: w600_14a(color: AppColor.c2C2A2A),
                   ),
                   9.heightSizeBox,
                   Text(
-                    "Scan to unlock weekly washes,\nexclusive offers, and amazing deals!",
+                   StringConstant.kScanToUnlockWeekly.tr,
                     textAlign: TextAlign.center,
                     style: w400_12p(color: AppColor.c455A64),
                   ),

@@ -10,8 +10,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hiwash_customer/featuers/auth/model/get_refresh_token.dart';
 import 'package:hiwash_customer/featuers/auth/model/sign_up_model.dart';
 import 'package:hiwash_customer/generated/assets.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 
 import '../../../network_manager/local_storage.dart';
 import '../../../network_manager/repository.dart';
@@ -101,33 +103,33 @@ class AuthController extends GetxController {
 
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return "E-mail is required";
+      return StringConstant.kEMailIsRequired.tr;
     } else if (!RegExp(
       r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$',
     ).hasMatch(value)) {
-      return "Please Enter A Valid Email";
+      return StringConstant.kPLeaseEnterValid.tr;
     }
     return null;
   }
 
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Password is required';
+      return StringConstant.kPasswordIsRequired.tr;
     }
     if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
+      return StringConstant.kPasswordMustBeAtLeast.tr;
     }
     if (!RegExp(r'[A-Z]').hasMatch(value)) {
-      return 'Password must contain at least one uppercase letter';
+      return StringConstant.kPasswordMustContainAtLeastOneUpperCaseLetter.tr;
     }
     if (!RegExp(r'[a-z]').hasMatch(value)) {
-      return 'Password must contain at least one lowercase letter';
+      return StringConstant.kPasswordMustContainAtLeastOneLowerCaseLetter.tr;
     }
     if (!RegExp(r'[0-9]').hasMatch(value)) {
-      return 'Password must contain at least one digit';
+      return StringConstant.kPasswordMustContainAtLeastOneDigit.tr;
     }
     if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
-      return 'Password must contain at least one special character';
+      return StringConstant.PasswordMustContainAtLeastOneSpecialCharacter.tr;
     }
     return null;
   }
@@ -136,11 +138,11 @@ class AuthController extends GetxController {
   String? validateName(String? value) {
     value = value?.trim();
     if (value == null || value.isEmpty) {
-      return "Name is required";
+      return StringConstant.kNameIsRequired.tr;
     } else if (value.length < 3) {
-      return "Name must be at least 3 characters";
+      return StringConstant.kNameMustBeAtLeast.tr;
     } else if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
-      return "Name must only contain alphabets and spaces";
+      return StringConstant.kNameMustOnlyContainAlphabetsAndSpaces.tr;
     }
     return null;
   }
@@ -150,7 +152,7 @@ class AuthController extends GetxController {
     if (value != null && value.isNotEmpty) {
       value = value.trim();
       if (!RegExp(r'^\d{8,15}$').hasMatch(value)) {
-        return "Please Enter Valid Phone Number";
+        return StringConstant.kPleaseEnterYourPhoneNumber.tr;
       }
     }
     return null;
@@ -160,17 +162,17 @@ class AuthController extends GetxController {
     if (value != null && value.isNotEmpty) {
       value = value.trim();
       if (!RegExp(r'^\d{8,15}$').hasMatch(value)) {
-        return "Please Enter Valid Phone Number";
+        return StringConstant.kPleaseEnterYourPhoneNumber.tr;
       }
     } else {
-      return "Phone number cannot be empty";
+      return StringConstant.kPhoneNumberCannotBeEmpty.tr;
     }
     return null;
   }
 
   String? validateConfirmPassword(String? value) {
     if (value == null || value.isEmpty) {
-      return "Confirm password is required";
+      return StringConstant.kConfirmPassword.tr;
     }
     return null;
   }
@@ -230,12 +232,11 @@ class AuthController extends GetxController {
       print("Value received in controller sendOtp: ${sendOtpModel.toString()}");
 
       if (sendOtpModel != null) {
-        Get.snackbar(
-          'Success',
-          "TEST OTP: ${sendOtpModel.value.data?.otp}",
-          snackPosition: SnackPosition.TOP,
+        appSnackBar(
+          title: StringConstant.kSuccess,
+          message:
+              "${StringConstant.kTestOTP.tr} ${sendOtpModel.value.data?.otp}",
           backgroundColor: Colors.green,
-          colorText: AppColor.white,
         );
 
         print("User Type: ${sendOtpModel!.toJson().toString()}");
@@ -256,7 +257,7 @@ class AuthController extends GetxController {
     }
   }
 
-/*
+  /*
   Future getFCMTokenIn() async {
     var token = await FirebaseMessaging.instance.getToken();
     LocalStorage().saveFCMToken(token: token);
@@ -345,59 +346,6 @@ class AuthController extends GetxController {
     }
   }
 
-/*  Future<GetRefreshToken?> refreshToken() async {
-    final storedRefreshToken = LocalStorage().getRefreshToken();
-
-    print("Stored refresh token before calling API: $storedRefreshToken");
-
-    if (storedRefreshToken == null || storedRefreshToken.isEmpty) {
-      print("No refresh token found. Logging out.");
-      await LocalStorage().removeToken();
-      Get.offAllNamed(RouteStrings.welcomeScreen);
-      return null;
-    }
-
-    final Map<String, dynamic> requestBody = {
-      "refreshToken": storedRefreshToken,
-    };
-
-    print("Calling refreshToken API with body: $requestBody");
-    isLoading.value = true;
-
-    try {
-      final response = await Repository().refreshToken(requestBody);
-      print("Refresh token API response: ${response.toJson()}");
-
-      if (response.success == true &&
-          response.data?.token != null &&
-          response.data!.token!.isNotEmpty) {
-        await LocalStorage().saveToken(response.data!.token!);
-       // await LocalStorage().saveUserId(response.data!.id.toString());
-
-      }
-
-      if (response.data?.refreshToken != null &&
-          response.data!.refreshToken!.isNotEmpty) {
-        await LocalStorage().saveRefreshToken(response.data!.refreshToken!);
-        //await LocalStorage().saveUserId(response.data!.id.toString());
-
-      }
-
-      isLoggedIn.value = true;
-      return response;
-    } catch (error) {
-      print("Error refreshing token: $error");
-      await LocalStorage().removeToken();
-      Get.offAllNamed(RouteStrings.welcomeScreen);
-      return null;
-    } finally {
-      isLoading.value = false;
-    }
-  }*/
-
-
-
-
   Future<SignUpModel?> signUp(
     String fullName,
     String phoneNumber,
@@ -437,19 +385,19 @@ class AuthController extends GetxController {
 
   signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleSignInAccount?.authentication;
+      final GoogleSignInAccount? googleSignInAccount =
+          await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleSignInAccount?.authentication;
       final credentialUser = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
-
       );
       Get.offAllNamed(RouteStrings.dashboardScreen);
       await FirebaseAuth.instance.isSignInWithEmailLink(
         credentialUser.toString(),
       );
-    }
-    on Exception catch (e) {
+    } on Exception catch (e) {
       print("Print google auth ${e}");
     }
   }
@@ -458,7 +406,7 @@ class AuthController extends GetxController {
     await LocalStorage().removeToken();
     isLoggedIn.value = false;
     Get.offAllNamed(RouteStrings.welcomeScreen);
-   // await FirebaseAuth.instance.signOut();
+    // await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
   }
 }

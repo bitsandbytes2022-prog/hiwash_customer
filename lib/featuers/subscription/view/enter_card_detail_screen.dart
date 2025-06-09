@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
@@ -48,7 +50,7 @@ class EnterCardDetailScreen extends StatelessWidget {
               style: w400_16a(color: AppColor.white),
             ),
             Text(
-              "Full access subscription",
+              StringConstant.kFullAccessSubscription.tr,
               style: w400_12a(color: AppColor.white.withOpacity(0.5)),
             ),
           ],
@@ -244,7 +246,9 @@ class EnterCardDetailScreen extends StatelessWidget {
 
                                 Get.offAllNamed(RouteStrings.paymentSuccessScreen);
                               } else {
-                                Get.snackbar("Error", "Missing subscription details (SubscriptionScreen)");
+                                appSnackBar(
+                                  message:StringConstant. kMissingSubscription.tr
+                                );
                               }
                             } else if (source == 'SubscriptionPlanScreen') {
                               if (subscriptionId != null && carNumber != null) {
@@ -260,11 +264,11 @@ class EnterCardDetailScreen extends StatelessWidget {
 
                                 Get.offAllNamed(RouteStrings.paymentSuccessScreen);
                               } else {
-                                Get.snackbar("Error", "Missing subscription details (PlanScreen)");
+                               // Get.snackbar("Error", "Missing subscription details (PlanScreen)");
                               }
                             } else {
 
-                              Get.snackbar("Error", "Unknown source");
+                             // Get.snackbar("Error", "Unknown source");
                             }
                           }
 

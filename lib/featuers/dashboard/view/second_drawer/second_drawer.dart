@@ -44,7 +44,7 @@ class SecondDrawer extends StatelessWidget {
           ),
           ImageView(path: Assets.imagesHelpSupport, height: 180),
           31.heightSizeBox,
-          Text(StringConstant.kGetHelp, style: w700_22a()),
+          Text(StringConstant.kGetHelp.tr, style: w700_22a()),
           40.heightSizeBox,
 
           /// **Drawer Options**

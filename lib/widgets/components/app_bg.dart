@@ -74,8 +74,8 @@ class AppBg extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            if(heading)Text(headingText, style: w400_22a(color: AppColor.white)),
-                            Text(subText, style: w800_24a(color: AppColor.white)),
+                            if(heading)Text(headingText.tr, style: w400_22a(color: AppColor.white)),
+                            Text(subText.tr, style: w800_24a(color: AppColor.white)),
                           ],
                         ),
                       ],

@@ -5,9 +5,8 @@ class Languages extends Translations {
   // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
     'en_US': {
+
       'kHellos': 'Hello hello',
-      "kDemoText":
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       "kWelcomeToThe": "Welcome to the",
       "kHiWASH": "HI WASH",
       "kWeComeToYouTo": "We come to you to\nwash your car...!!",
@@ -36,6 +35,22 @@ class Languages extends Translations {
       "kOR": "OR",
       "kHaveAnAccount": "Have an account? ",
       "LOGIN": "LOGIN",
+  "kEMailIsRequired":"E-mail is required",
+      "kPLeaseEnterValid":"Please Enter A Valid Email",
+      'kPasswordIsRequired':'Password is required',
+      "kPasswordMustBeAtLeast":'Password must be at least 8 characters long',
+      "kPasswordMustContainAtLeastOneUpperCaseLetter":'Password must contain at least one uppercase letter',
+"kPasswordMustContainAtLeastOneLowerCaseLetter":'Password must contain at least one lowercase letter',
+    "kPasswordMustContainAtLeastOneDigit":'Password must contain at least one digit',
+    "PasswordMustContainAtLeastOneSpecialCharacter":'Password must contain at least one special character'
+ , "kNameIsRequired":"Name is required",
+      "kNameMustBeAtLeast":"Name must be at least 3 characters",
+      "kNameMustOnlyContainAlphabetsAndSpaces":"Name must only contain alphabets and spaces",
+      "kPleaseEnterYourPhoneNumber":"Please Enter Valid Phone Number",
+      "kPhoneNumberCannotBeEmpty":"Phone number cannot be empty",
+      "kConfirmPassword":"Confirm password is required",
+      "kTestOTP":"TEST OTP: ",
+
 
       /// SIgn up screen
       "kHello": "Hello,",
@@ -142,8 +157,11 @@ class Languages extends Translations {
       "kMonths": "months",
       "kDays": "days",
       "kHours": "hours",
+      "kHour": "hour",
       "kMinutes": "minutes",
+      "kMinute": "minute",
       "kSeconds": "seconds",
+      "kSecond": "second",
       "kInvalidDate": "Invalid date",
 
       /// faq screen
@@ -218,6 +236,35 @@ class Languages extends Translations {
       "kYear": "/ Year",
       "kRenewalNotAvailable": "Renewal Not Available",
       "kNoPlanSelected.": "No plan selected.",
+
+      ///subscription Screen
+      "kMissingSubscription":
+          "Missing subscription details (SubscriptionScreen)",
+      'k100locations ': '100+\nlocations ',
+      'kUnlock': '& unlock',
+      'kExclusiveOffers.': ' exclusive offers.',
+      'kSubscribeNow': 'subscribe Now',
+      "kPleaseEnterYourCarNumber": "Please enter your car number",
+      "kViewAllOffers": "View All Offers",
+      "kKm": "km",
+      "kSeeAllExclusiveOffers": "See All Exclusive Offers.",
+
+      /// app component
+      'kRemainingWashes': 'Remaining Washes: ',
+      "kDateIsNotFound": 'Data is not found',
+      "kOfferDetails": "Offer Details",
+      "kHowToRedeem": "How to redeem",
+      "kReportAnIssue": "Report an issue",
+      "kYourRewardHasBeen": "Your Reward Has Been\nSuccessfully Redeemed!",
+      "kDay": "Day",
+      "kHRS": "HRS",
+      "kMINS": "MINS",
+      "kQrNotGenerated": "Qr Not\nGenerated",
+      "kSuccesss": "Success!",
+      "kPlanIsNowActivated": " plan is now activated.",
+      "kScanToUnlockWeekly":
+      "Scan to unlock weekly washes,\nexclusive offers, and amazing deals!",
+      "kYourPaymentIsComplete":"Your payment is complete, and your\n"
     },
 
     'hi_IN': {
@@ -226,5 +273,13 @@ class Languages extends Translations {
           "हर शाइन फ्री कूपन, BOGO ऑफर, छूट और विशेष सुविधाओं के साथ विशेष सौदे!",
       " kGetStarted": "शुरू हो जाओ",
     },
+    'ar_SA': {
+      'kHellos': 'مرحباً مرحباً',
+      'kEcoCleanWalletGreen': 'إيكو كلين، المحفظة خضراء!',
+      'kLanguage': 'اللغة',
+      'kArabic': 'العربية',
+      'kEnglish': 'الإنجليزية',
+    },
+
   };
 }

@@ -116,7 +116,7 @@ class PlansContainer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          heading ?? "One wash per week",
+                          heading ?? "",
                           style: w600_14a(color: AppColor.c2C2A2A),
                         ),
                         5.widthSizeBox,
@@ -132,7 +132,7 @@ class PlansContainer extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      subHeading ?? "One wash per week",
+                      subHeading ?? "",
                       style: w400_12a(color: AppColor.c455A64),
                     ),
                     SizedBox(height: 17),
@@ -140,7 +140,7 @@ class PlansContainer extends StatelessWidget {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: qarText ?? 'QAR ',
+                            text: qarText ?? '',
                             style: w400_24a(color: AppColor.c455A64),
                           ),
                           TextSpan(
@@ -148,7 +148,7 @@ class PlansContainer extends StatelessWidget {
                             style: w400_24a(color: AppColor.c455A64),
                           ),
                           TextSpan(
-                            text: numberText ?? '900 ',
+                            text: numberText ?? '',
                             style: w800_24a(color: AppColor.c455A64),
                           ),
                           TextSpan(
@@ -156,7 +156,7 @@ class PlansContainer extends StatelessWidget {
                             style: w400_24a(color: AppColor.c455A64),
                           ),
                           TextSpan(
-                            text: yearText ?? '/ Year',
+                            text: yearText ?? '',
                             style: w400_14a(color: AppColor.c455A64),
                           ),
                         ],
