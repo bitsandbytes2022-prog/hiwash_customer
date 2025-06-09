@@ -59,6 +59,7 @@ class LocalStorage {
     await _storage.remove(_userIdKey);
     await _storage.remove(_refreshTokenKey);
     await _storage.remove(_tokenKey);
+    await _storage.remove(_localeKey);
     //await _storage.remove(_fcmToken);
     print("All tokens removed from local storage.");
   }
