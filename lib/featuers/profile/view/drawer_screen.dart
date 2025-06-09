@@ -246,12 +246,10 @@ class DrawerScreen extends StatelessWidget {
           80.heightSizeBox,
           GestureDetector(
             onTap: () async {
-              print("Token before logout: ${LocalStorage().getToken()}");
-
-              authController.logout();
-              Get.updateLocale(Get.deviceLocale ?? const Locale('en', 'US'));
-              print("Token after logout: ${LocalStorage().getToken()}");
-              //Get.offAllNamed(RouteStrings.welcomeScreen);
+              await LocalStorage().removeToken();
+              final deviceLocale = Get.deviceLocale ?? const Locale('en', 'US');
+              Get.updateLocale(deviceLocale);
+              Get.offAllNamed(RouteStrings.welcomeScreen);
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 31, vertical: 10),

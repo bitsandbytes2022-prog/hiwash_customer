@@ -41,11 +41,7 @@ import 'countdown_else_full_date.dart';
             alignment: Alignment.topRight,
             child: CountdownElseFullDate(expiryDateStr: offer.expiryDate ?? ''),
           ),
-       /*   Spacer(),
-          Text(
-            "${offer.discountValue ?? 0}% Off",
-            style: w900_14a(color: AppColor.c2C2A2A),
-          ),*/
+
         ],
       ),
     );

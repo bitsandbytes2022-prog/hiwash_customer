@@ -307,17 +307,7 @@ class SubscriptionScreen extends StatelessWidget {
                             } else {
                               carNumberToUse = controller.carNumberController.text.trim();
                             }
-
-                        /*    await controller.getSubscriptionMembership(
-                              controller.selectedIndex.toString(),
-                              customerDetails?.mobileNumber ?? '',
-                              carNumberToUse,
-                              "Success",
-                            );*/
-
-                          //  await washStatusController.getCustomerDataById(customerDetails?.id ?? 0);
-                          //  washStatusController.getWashSummary();
-                           // Get.offNamed(RouteStrings.enterCardDetailScreen);
+                            ;
 
                             Get.offNamed(
                               RouteStrings.enterCardDetailScreen,

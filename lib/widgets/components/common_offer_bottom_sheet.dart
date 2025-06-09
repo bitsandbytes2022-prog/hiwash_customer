@@ -364,44 +364,12 @@ class BottomSheetWidget extends StatelessWidget {
                                 .offerDetailList!
                                 .first.businessName??""),
                             13.heightSizeBox,
-                            /* Text(
-                              "${rewardController.getOffersByIdModel.value?.offerDetailList?.first.title ?? ""}",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.rumRaisin(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 24,
-                                color: AppColor.white,
-                              ),
-                            ),*/
+
 
                           ],
                         ),
                       ),
 
-                      /// Right side image
-                      /*  Positioned(
-                        right: 16,
-                        top: 17,
-
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Builder(
-                            builder: (_) {
-                              final base64String =
-                                  rewardController
-                                      .getOffersByIdModel
-                                      .value
-                                      ?.offerDetailList
-                                      ?.first
-                                      .qRCodeUrl;
-
-                              print("QR BASE64 big image: $base64String");
-
-                              return Base64ImageWidget( base64String:base64String, height: 40, width: 40,);
-                            },
-                          ),
-                        ),
-                      ),*/
                     ],
                   ),
                 ),
@@ -456,19 +424,6 @@ class BottomSheetWidget extends StatelessWidget {
                         ),
                       ),
 
-                      /// Todo rating is comment
-                      /*  Spacer(),
-                      Container(
-                        width: 50,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            ImageView(path: Assets.iconsIcStar, height: 14, width: 14),
-                            Text("4.5(200)", style: w400_10a(color: AppColor.c455A64)),
-                          ],
-                        ),
-                      ),*/
                     ],
                   ),
                 ),

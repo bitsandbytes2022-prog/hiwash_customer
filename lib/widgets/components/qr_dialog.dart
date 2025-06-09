@@ -17,13 +17,7 @@ class QrDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   /* washStatusController.getCustomerDataById(     washStatusController
-        .getCustomerData
-        .value
-        ?.data
-        ?.customerDetails
-        ?.id ??
-        0,);*/
+
     return Center(
       child: Stack(
         alignment: Alignment.topCenter,
@@ -135,53 +129,7 @@ class QrDialog extends StatelessWidget {
                     );
                   }
                 ),
-                /*  Obx(() {
-                    return CachedNetworkImage(
-                      imageUrl:
-                          washStatusController
-                              .getCustomerData
-                              .value
-                              ?.data
-                              ?.subscriptionDetails
-                              ?.subscriptionName ??
-                          "",
-                      height: 215,
-                      width: 215,
-                      placeholder:
-                          (context, url) => SizedBox(
-                            height: 215,
-                            width: 215,
-                            child: Center(
-                              child: SizedBox(
-                                height: 24,
-                                width: 24,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              ),
-                            ),
-                          ),
 
-                      errorWidget:
-                          (context, url, error) => Container(
-                            width: 216,
-                            height: 261,
-                            decoration: BoxDecoration(
-                              color: AppColor.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [BoxShadow(
-                                color: AppColor.c142293.withOpacity(0.25),
-                                blurRadius: 25,
-                                spreadRadius: 0,
-                              )]
-                            ),
-                            child: Center(child: Text("Qr Not\nGenerated",
-                            textAlign: TextAlign.center,
-                            )),
-                          ),
-                    );
-                  }),*/
-                  // Image.asset(Assets.imagesImQr, height: 215, width: 215),
                   31.heightSizeBox,
                   Text(
                    StringConstant.kCongratulations.tr,

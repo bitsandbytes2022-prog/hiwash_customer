@@ -205,7 +205,7 @@ class SignUpScreen extends StatelessWidget {
                   text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                        text: StringConstant.kHaveAnAccount,
+                        text: StringConstant.kHaveAnAccount.tr,
                         style: w400_12a(color: AppColor.c455A64),
                       ),
                       TextSpan(

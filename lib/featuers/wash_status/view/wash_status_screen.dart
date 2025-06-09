@@ -743,29 +743,7 @@ class WashStatusScreen extends StatelessWidget {
               ],
             ),
           ),
-          /*  Container(
-                                  width: 50,
-                                  child:
-                                  washData?.rating == 0
-                                      ? SizedBox()
-                                      : Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      ImageView(
-                                        path: Assets.iconsIcStar,
-                                        height: 14,
-                                        width: 14,
-                                      ),
-                                      Text(
-                                       " washData?.rating.toString() ?? ''",
-                                        style: w400_10a(color: AppColor.c455A64),
-                                      ),
-                                      13.heightSizeBox,
 
-                                    ],
-                                  ),
-                                ),*/
         ],
       ),
     );

@@ -118,10 +118,7 @@ class AppHomeBg extends StatelessWidget {
 
             5.heightSizeBox,
      child??SizedBox()
-     /*    child1??   Padding(
-           padding: padding ?? EdgeInsets.symmetric(horizontal: 16),
-           child: child,
-         ),*/
+
           ],
         ),
       ),

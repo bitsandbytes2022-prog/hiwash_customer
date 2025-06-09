@@ -45,22 +45,7 @@ class PlansContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-   /*     if (washStatusController
-                    .getCustomerData
-                    .value
-                    ?.data
-                    ?.subscriptionDetails
-                    ?.subscriptionId ==
-                1 ||
-            washStatusController
-                    .getCustomerData
-                    .value
-                    ?.data
-                    ?.subscriptionDetails
-                    ?.subscriptionId ==
-                2) {
-          return;
-        }*/
+
 
         if (subscriptionSelection) {
           controller.selectPlan(index, subscriptionId ?? "");

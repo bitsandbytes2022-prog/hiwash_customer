@@ -39,12 +39,10 @@ class PaymentMethods extends StatelessWidget {
        if(checkBoxShow) Container(
           height: 26,
           width: 26,
-          //margin: EdgeInsets.only(right: 11, top: 11),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
             border: Border.all(
               color: AppColor.c1F9D70,
-              // color:controller.selectedIndex.value == index ? Colors.green : AppColor.c5C6B72.withOpacity(0.4),
             ),
           ),
           child: Container(

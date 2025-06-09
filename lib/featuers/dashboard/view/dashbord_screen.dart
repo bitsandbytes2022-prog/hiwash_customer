@@ -47,13 +47,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ? Get.find()
           : Get.put(WashStatusController());
 
-  final List<Widget> _pages = [
+  final List<Widget>  _pages = [
     WashStatusScreen(),
     RewardScreen(),
     NotificationScreen(),
   ];
 
-  final List<String> _headings = ["", StringConstant.kOffersForYou.tr, StringConstant.kNotification.tr];
+   List<String> get _headings => ["", StringConstant.kOffersForYou.tr, StringConstant.kNotification.tr];
 
   void _onItemTapped(int index) {
     if (index == 3) {
