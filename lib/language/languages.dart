@@ -5,10 +5,10 @@ class Languages extends Translations {
   // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
     'en_US': {
-
       'kHellos': 'Hello hello',
       "kWelcomeToThe": "Welcome to the",
       "kHiWASH": "HI WASH",
+      "kSkip":"Skip",
       "kWeComeToYouTo": "We come to you to\nwash your car...!!",
 
       ///  welcome screen
@@ -35,22 +35,26 @@ class Languages extends Translations {
       "kOR": "OR",
       "kHaveAnAccount": "Have an account? ",
       "LOGIN": "LOGIN",
-  "kEMailIsRequired":"E-mail is required",
-      "kPLeaseEnterValid":"Please Enter A Valid Email",
-      'kPasswordIsRequired':'Password is required',
-      "kPasswordMustBeAtLeast":'Password must be at least 8 characters long',
-      "kPasswordMustContainAtLeastOneUpperCaseLetter":'Password must contain at least one uppercase letter',
-"kPasswordMustContainAtLeastOneLowerCaseLetter":'Password must contain at least one lowercase letter',
-    "kPasswordMustContainAtLeastOneDigit":'Password must contain at least one digit',
-    "PasswordMustContainAtLeastOneSpecialCharacter":'Password must contain at least one special character'
- , "kNameIsRequired":"Name is required",
-      "kNameMustBeAtLeast":"Name must be at least 3 characters",
-      "kNameMustOnlyContainAlphabetsAndSpaces":"Name must only contain alphabets and spaces",
-      "kPleaseEnterYourPhoneNumber":"Please Enter Valid Phone Number",
-      "kPhoneNumberCannotBeEmpty":"Phone number cannot be empty",
-      "kConfirmPassword":"Confirm password is required",
-      "kTestOTP":"TEST OTP: ",
-
+      "kEMailIsRequired": "E-mail is required",
+      "kPLeaseEnterValid": "Please Enter A Valid Email",
+      'kPasswordIsRequired': 'Password is required',
+      "kPasswordMustBeAtLeast": 'Password must be at least 8 characters long',
+      "kPasswordMustContainAtLeastOneUpperCaseLetter":
+          'Password must contain at least one uppercase letter',
+      "kPasswordMustContainAtLeastOneLowerCaseLetter":
+          'Password must contain at least one lowercase letter',
+      "kPasswordMustContainAtLeastOneDigit":
+          'Password must contain at least one digit',
+      "PasswordMustContainAtLeastOneSpecialCharacter":
+          'Password must contain at least one special character',
+      "kNameIsRequired": "Name is required",
+      "kNameMustBeAtLeast": "Name must be at least 3 characters",
+      "kNameMustOnlyContainAlphabetsAndSpaces":
+          "Name must only contain alphabets and spaces",
+      "kPleaseEnterYourPhoneNumber": "Please Enter Valid Phone Number",
+      "kPhoneNumberCannotBeEmpty": "Phone number cannot be empty",
+      "kConfirmPassword": "Confirm password is required",
+      "kTestOTP": "TEST OTP: ",
 
       /// SIgn up screen
       "kHello": "Hello,",
@@ -263,8 +267,8 @@ class Languages extends Translations {
       "kSuccesss": "Success!",
       "kPlanIsNowActivated": " plan is now activated.",
       "kScanToUnlockWeekly":
-      "Scan to unlock weekly washes,\nexclusive offers, and amazing deals!",
-      "kYourPaymentIsComplete":"Your payment is complete, and your\n"
+          "Scan to unlock weekly washes,\nexclusive offers, and amazing deals!",
+      "kYourPaymentIsComplete": "Your payment is complete, and your\n",
     },
 
     'hi_IN': {
@@ -280,6 +284,5 @@ class Languages extends Translations {
       'kArabic': 'العربية',
       'kEnglish': 'الإنجليزية',
     },
-
   };
 }

@@ -280,13 +280,7 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                        );
                             return;
                           }
-                          //Get.offNamed(RouteStrings.enterCardDetailScreen);
-                        /*  controller.getSubscriptionMembership(
-                            selectedSub.id.toString(),
-                            "demo_transaction_id",
-                            controller.carNumberController.text,
-                            "success",
-                          );*/
+
                           Get.toNamed(
                             RouteStrings.enterCardDetailScreen,
                             arguments: {
@@ -300,17 +294,6 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                       },
                     ),
 
-                    /*  GetStartButton(
-                      text: "Renew Now",
-                      color:
-                          isExpired
-                              ? AppColor.c1F9D70
-                              : AppColor.c1F9D70.withOpacity(0.2),
-                      boxShadowColor:
-                          isExpired
-                              ? AppColor.c1F9D70.withOpacity(0.30)
-                              : AppColor.c1F9D70.withOpacity(0.10),
-                    ),*/
                     60.heightSizeBox,
                   ],
                 ),

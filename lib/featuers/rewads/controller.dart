@@ -191,13 +191,11 @@ class RewardController extends GetxController {
 
   Future<GetOffersByIdModel?> getOffersById(int id) async {
     try {
-      //loading.value = true;
 showLoader();
       getOffersByIdModel.value = await Repository().getOfferById(id);
 
        getOffersByIdModel.value;
        hideLoader();
-       //update();
     } catch (error) {
 hideLoader();
       print("Error fetching Offers by Di: $error");
@@ -210,7 +208,6 @@ hideLoader();
 
       getOfferCategoriesModel.value = await Repository().getOfferCategories();
 
-      print(" ppppp----->${getOfferCategoriesModel.toJson().toString()}");
       return getOfferCategoriesModel.value;
     } catch (error) {
 

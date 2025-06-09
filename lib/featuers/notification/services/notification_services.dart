@@ -120,13 +120,11 @@ class NotificationServices {
         payload: jsonEncode(message.data),
       );
 
-      Get.snackbar(
-          notification.title ?? "Notification",
-          notification.body ?? "",
-          snackPosition: SnackPosition.TOP,
-          duration: Duration(seconds: 4),
-          backgroundColor: AppColor.blue,
-          colorText: AppColor.white
+      appSnackBar(
+        title: notification.title ?? StringConstant.kNotification.tr,
+        message:  notification.body ?? "",
+        backgroundColor:AppColor.blue,
+
       );
     }
   }
@@ -165,8 +163,8 @@ class NotificationServices {
       Get.toNamed(route);
     } else {
 appSnackBar(
-  title: StringConstant.kNotificationClicked,
-  message: StringConstant.kNoRouteFound,
+  title: StringConstant.kNotificationClicked.tr,
+  message: StringConstant.kNoRouteFound.tr,
 );
     }
   }

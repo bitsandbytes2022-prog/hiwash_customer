@@ -72,11 +72,7 @@ class SecondDrawer extends StatelessWidget {
             title: StringConstant.kFAQ.tr,
             image: Assets.iconsIcFaq,
           ),
-          /*   drawerRowWidget(
-            onTap: () => Get.toNamed(RouteStrings.faqScreen),
-            title: 'FAQ’s',
-            image: Assets.iconsIcFaq,
-          ),*/
+
           drawerRowWidget(
             onTap: () {
               Get.toNamed(RouteStrings.stepByStepGuideScreen);

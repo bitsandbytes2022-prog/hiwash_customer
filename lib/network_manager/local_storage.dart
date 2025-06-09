@@ -40,6 +40,12 @@ class LocalStorage {
     return token;
   }
 
+  Future<void> saveUserId(String id) async {
+    await _storage.write(_userIdKey, id);
+  }
+
+  String? getUserId() => _storage.read(_userIdKey);
+
   /// Language
 
   // Store selected locale
@@ -63,10 +69,4 @@ class LocalStorage {
     //await _storage.remove(_fcmToken);
     print("All tokens removed from local storage.");
   }
-
-  Future<void> saveUserId(String id) async {
-    await _storage.write(_userIdKey, id);
-  }
-
-  String? getUserId() => _storage.read(_userIdKey);
 }

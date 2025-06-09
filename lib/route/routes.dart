@@ -109,10 +109,10 @@ class Routes {
       name: RouteStrings.faqScreen,
       page: () => FaqScreen(),
     ),
-    GetPage(
+ /*   GetPage(
       name: RouteStrings.chatScreen,
       page: () => ChatScreen(),
-    ),
+    ),*/
     GetPage(
       name: RouteStrings.stepByStepGuideScreen,
       page: () => StepByStepGuideScreen(),

@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:image_picker/image_picker.dart';
@@ -402,12 +403,10 @@ class MyAccountScreen extends StatelessWidget {
                                 0,
                           );
                         } else {
-                         /* Get.snackbar(
-                            'Invalid Input',
-                            'Please fix the errors in the form',
-                            backgroundColor: Colors.red,
-                            colorText: Colors.white,
-                          );*/
+                          appSnackBar(
+                            message: StringConstant.kSomethingWentWrong.tr
+                          );
+
                         }
                       },
                     );

@@ -23,66 +23,67 @@ class StepByStepGuideScreen extends StatelessWidget {
     secondDrawerController.getGuides();
 
     return AppHomeBg(
-        padding: EdgeInsets.zero,
-        headingText: StringConstant.kStepByStepGuide.tr,
-        iconRight: SizedBox(),
-        child: Column(
-          children: [
-            15.heightSizeBox,
-            ListView.separated(
-              padding: EdgeInsets.zero,
-              physics: NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      headingText: StringConstant.kStepByStepGuide.tr,
+      iconRight: SizedBox(),
+      child: Column(
+        children: [
+          15.heightSizeBox,
+          ListView.separated(
+            padding: EdgeInsets.zero,
+            physics: NeverScrollableScrollPhysics(),
 
-              shrinkWrap: true,
-              itemCount: secondDrawerController.guidesResponseModel.value?.data
-                  ?.length ?? 0,
+            shrinkWrap: true,
+            itemCount:
+                secondDrawerController
+                    .guidesResponseModel
+                    .value
+                    ?.data
+                    ?.length ??
+                0,
 
-              separatorBuilder: (context, index) {
-                print("hjgjh=====>${secondDrawerController.guidesResponseModel.value?.data
-                    ?.length ?? 0}");
-                return  DotedHorizontalLine();
-              },
-              itemBuilder: (context, index) {
-                final item = secondDrawerController.guidesResponseModel.value?.data?[index];
-                return countryRow(
-                  title: item?.category ?? "",
-                  description: item?.description ?? "",
-                );
-              },
-            )
-
-
-
-          ],
-        )
+            separatorBuilder: (context, index) {
+              return DotedHorizontalLine();
+            },
+            itemBuilder: (context, index) {
+              final item =
+                  secondDrawerController
+                      .guidesResponseModel
+                      .value
+                      ?.data?[index];
+              return countryRow(
+                title: item?.category ?? "",
+                description: item?.description ?? "",
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 
-  countryRow({required String title,required String description}) {
+  countryRow({required String title, required String description}) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(RouteStrings.stepByStepGuideDetailScreen, arguments: {
-          'title': title,
-          'description': description,
-        });
+        Get.toNamed(
+          RouteStrings.stepByStepGuideDetailScreen,
+          arguments: {'title': title, 'description': description},
+        );
       },
       child: Container(
-        margin: EdgeInsets.only(top: 5,bottom: 5),
+        margin: EdgeInsets.only(top: 5, bottom: 5),
         color: Colors.transparent,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
-              Text(title.tr, style: w500_14p(color: AppColor.c2C2A2A),),
+              Text(title.tr, style: w500_14p(color: AppColor.c2C2A2A)),
               ImageView(
-
                 path: Assets.iconsBlackForwardArrow,
                 height: 10,
                 width: 8,
-              )
-
+              ),
             ],
           ),
         ),

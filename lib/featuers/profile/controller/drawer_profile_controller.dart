@@ -4,10 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:hiwash_customer/language/String_constant.dart';
-import 'package:hiwash_customer/widgets/components/loader.dart';
 import '../../../network_manager/repository.dart';
 import '../../../widgets/components/app_snack_bar.dart';
 import '../model/terms_and_conditions_response_model.dart';
@@ -36,25 +34,7 @@ class DrawerProfileController extends GetxController {
     );
     return dio.FormData.fromMap({"file": file});
   }
-  /*
-  Future<void> uploadProfileImage() async {
-    try {
-      isLoading.value = true;  // Show loader
-      final formData = await getFormDataForUpload();
 
-      final response = await Repository().uploadProfilePictureRepo(formData);
-      if (response != null) {
-        print("Upload successful: $response");
-      } else {
-        print("Failed to upload image");
-      }
-    } catch (e) {
-      //hideLoader();
-      print("Upload error: $e");
-    } finally {
-      isLoading.value = false;  // Hide loader
-    }
-  }*/
   Future<bool> uploadProfileImage() async {
     isUploadingProfileImage.value = true;
     try {
@@ -63,9 +43,9 @@ class DrawerProfileController extends GetxController {
 
       if (response != null && response['success'] == true) {
         appSnackBar(
-          title: "Success",
+          title: StringConstant.kSuccess.tr,
           backgroundColor: Colors.green,
-          message: response['message'] ?? 'Profile updated successfully',
+          message: response['message'] ?? StringConstant.kProfileUpdatedSuccessfully.tr,
         );
         return true;
       } else {

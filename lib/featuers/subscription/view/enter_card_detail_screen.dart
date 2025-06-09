@@ -196,41 +196,7 @@ class EnterCardDetailScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                     /*   onSwipe: () {
-                          if (source == 'SubscriptionScreen') {
-                            if (subscriptionIndex != null && carNumber != null) {
-                              subscriptionController.getSubscriptionMembership(
-                                subscriptionIndex.toString(),
-                                "demo_transaction_id",
-                                carNumber,
-                                "success",
-                              ).then((value){
-                                washStatusController.getWashSummary();
-                                washStatusController.getCustomerDataById(customerId);
-                              });
-                              Get.toNamed(RouteStrings.paymentSuccessScreen);
-                            } else {
-                              Get.snackbar("Error", "Missing subscription details (SubscriptionScreen)");
-                            }
-                          } else if (source == 'SubscriptionPlanScreen') {
-                            if (subscriptionId != null && carNumber != null) {
-                              subscriptionController.getSubscriptionMembership(
-                                subscriptionId.toString(),
-                                "demo_transaction_id",
-                                carNumber,
-                                "success",
-                              ).then((value){
-                                washStatusController.getWashSummary();
-                                washStatusController.getCustomerDataById(customerId);
-                              });
-                              Get.toNamed(RouteStrings.paymentSuccessScreen);
-                            } else {
-                              Get.snackbar("Error", "Missing subscription details (PlanScreen)");
-                            }
-                          } else {
-                            Get.snackbar("Error", "Unknown source");
-                          }
-                        },*/
+
                           onSwipe: () async {
                             if (source == 'SubscriptionScreen') {
                               if (subscriptionIndex != null && carNumber != null) {
@@ -264,11 +230,9 @@ class EnterCardDetailScreen extends StatelessWidget {
 
                                 Get.offAllNamed(RouteStrings.paymentSuccessScreen);
                               } else {
-                               // Get.snackbar("Error", "Missing subscription details (PlanScreen)");
                               }
                             } else {
 
-                             // Get.snackbar("Error", "Unknown source");
                             }
                           }
 

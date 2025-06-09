@@ -142,8 +142,8 @@ class LoginOtpScreen extends StatelessWidget {
                         });
                       } else {
                       appSnackBar(
-                        title: StringConstant.kInvalidOTP,
-                        message: StringConstant.kPleaseEnterTheCorrectOTP,
+                        title: StringConstant.kInvalidOTP.tr,
+                        message: StringConstant.kPleaseEnterTheCorrectOTP.tr,
 
                       );
                       }

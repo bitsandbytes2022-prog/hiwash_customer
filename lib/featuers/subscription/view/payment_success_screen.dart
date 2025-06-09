@@ -131,33 +131,4 @@ class PaymentSuccessScreen extends StatelessWidget {
   }
 }
 
-/*Stack(
-                children: [
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    child: Lottie.network(
-                      'https://assets1.lottiefiles.com/private_files/lf30_QLsD8M.json',
-                      height: 200,
-                      fit: BoxFit.cover,
-                      repeat: true,
-                      reverse: false,
-                      animate: true,
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      19.heightSizeBox,
-                      QrDialog(),
-                      20.heightSizeBox,
-                      GetStartButton(text: "kGetStarted",
 
-                      onTap: (){
-                        Get.toNamed(RouteStrings.dashboardScreen);
-                      },
-                      ),
-                    ],
-                  ),
-                ],
-              ),*/

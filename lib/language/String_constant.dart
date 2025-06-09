@@ -1,6 +1,7 @@
 class StringConstant {
   ///Splash Screen
   static const kWelcomeToThe = "kWelcomeToThe";
+  static const kSkip = "kSkip";
   static const kHiWASH = "kHiWASH";
   static const kWeComeToYouTo = "kWeComeToYouTo";
   static const kGetStarted = "kGetStarted";

@@ -81,12 +81,7 @@ class ResetPasswordScreen extends StatelessWidget {
                     RouteStrings.loginScreen,
                         (route) => false,
                   );
-               /*   if (_formKey.currentState?.validate() ?? false) {
-                    Get.offNamedUntil(
-                      RouteStrings.loginScreen,
-                      (route) => false,
-                    );
-                  }*/
+
                 },
               ),
 

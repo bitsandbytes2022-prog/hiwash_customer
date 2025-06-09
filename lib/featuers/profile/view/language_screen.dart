@@ -8,8 +8,6 @@ import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
 import 'package:hiwash_customer/widgets/components/doted_horizontal_line.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
-
-
 class LanguageScreen extends StatelessWidget {
   const LanguageScreen({super.key});
 

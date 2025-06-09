@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 
 import '../../../../styling/app_color.dart';
@@ -30,7 +31,7 @@ class BgWidget extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(RouteStrings.signUpScreen);
                   },
-                  child: Text("skip", style: w400_16a(color: AppColor.white)),
+                  child: Text(StringConstant.kSkip.tr, style: w400_16a(color: AppColor.white)),
                 ),
               ),
             ],

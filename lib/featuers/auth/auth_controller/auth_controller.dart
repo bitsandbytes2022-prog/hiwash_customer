@@ -12,7 +12,6 @@ import 'package:hiwash_customer/featuers/auth/model/sign_up_model.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
-import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 
 import '../../../network_manager/local_storage.dart';
@@ -257,13 +256,7 @@ class AuthController extends GetxController {
     }
   }
 
-  /*
-  Future getFCMTokenIn() async {
-    var token = await FirebaseMessaging.instance.getToken();
-    LocalStorage().saveFCMToken(token: token);
-    debugPrint("fcmTokenSet------> $token");
-  }
-*/
+
 
   Future<void> getFCMTokenIn() async {
     try {

@@ -46,12 +46,10 @@ class DrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userData =
-        washStatusController.getCustomerData.value?.data?.customerDetails;
+
     return Obx(() {
       return Drawer(
         child: Container(
-          //margin: EdgeInsets.only(bottom: ),
           decoration: BoxDecoration(
             color: AppColor.white,
             borderRadius: BorderRadius.horizontal(
@@ -59,11 +57,9 @@ class DrawerScreen extends StatelessWidget {
             ),
           ),
           child:
-          drawerController.currentDrawerSection.value == ''
-              ? mainDrawerUI()
-              : sectionDrawerUI(
-            drawerController.currentDrawerSection.value,
-          ),
+               mainDrawerUI()
+
+
         ),
       );
     });
@@ -141,26 +137,7 @@ class DrawerScreen extends StatelessWidget {
                   );
                 }),
               ),
-              /*       Container(
-                padding: EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: AppColor.blue.withOpacity(0.2)),
-                ),
-                child: Obx(() {
-                  final profilePicUrl = washStatusController.getCustomerData.value?.data?.customerDetails?.profilePicUrl??'' ?? '';
-                  final hasImage = profilePicUrl.isNotEmpty;
-                  return CircleAvatar(
-                    radius: 50,
-                    backgroundImage: hasImage
-                        ? CachedNetworkImageProvider(
-                      profilePicUrl,
-                      headers: {'Cache-Control': 'no-cache'},
-                    )
-                        : AssetImage(Assets.imagesImMap),
-                  );
-                }),
-              ),*/
+
           washStatusController.getCustomerData.value?.data?.subscriptionDetails?.subscriptionId==2?
           Container(
                 padding: EdgeInsets.all(5),
@@ -272,6 +249,7 @@ class DrawerScreen extends StatelessWidget {
               print("Token before logout: ${LocalStorage().getToken()}");
 
               authController.logout();
+              Get.updateLocale(Get.deviceLocale ?? const Locale('en', 'US'));
               print("Token after logout: ${LocalStorage().getToken()}");
               //Get.offAllNamed(RouteStrings.welcomeScreen);
             },
@@ -298,281 +276,6 @@ class DrawerScreen extends StatelessWidget {
     );
   }
 
-  /// **Dynamic Section UI**
-  Widget sectionDrawerUI(String section) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          40.heightSizeBox,
-
-          Align(
-            alignment: Alignment.topLeft,
-            child: GestureDetector(
-              onTap: () {
-                drawerController.toggleDrawer('');
-                print("object");
-              },
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    ImageView(
-                      path: Assets.iconsIcArrow,
-                      height: 15,
-                      width: 15,
-                      color: AppColor.c455A64,
-                    ),
-                    10.widthSizeBox,
-                    Text(section, style: w500_14a(color: AppColor.c2C2A2A)),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          // Text(section, style: w600_18p(color: AppColor.c142293)),
-          // 20.heightSizeBox,
-
-          /// **Content According to Section**
-          if (section == 'My Account') myAccountUI(),
-          if (section == 'Subscription Plan') subscriptionPlanUI(),
-          if (section == 'Theme') themeUI(),
-          if (section == 'Language') languageUI(),
-          if (section == 'Privacy Settings') privacySettingsUI(),
-
-          20.heightSizeBox,
-        ],
-      ),
-    );
-  }
-
-  /// **Individual Section UIs**
-  Widget myAccountUI() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Stack(
-            alignment: Alignment.bottomRight,
-            children: [
-              Container(
-                padding: EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: AppColor.blue.withOpacity(0.2)),
-                ),
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage(Assets.imagesDemoProfile),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: AppColor.cC41949,
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: AppColor.white, width: 3),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.cC41949.withOpacity(0.25),
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-
-                child: ImageView(
-                  path: Assets.iconsIcEdit,
-                  height: 17,
-                  width: 17,
-                ),
-              ),
-            ],
-          ),
-          11.heightSizeBox,
-          Text("Ibrahim Bafqia"),
-          4.heightSizeBox,
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: 'Your ',
-                  style: w400_12p(color: AppColor.c455A64),
-                ),
-                TextSpan(
-                  text: 'Unlimited Washes',
-                  style: w600_14p(color: AppColor.cC31848),
-                ),
-                TextSpan(
-                  text: ' pack\nexpiring in ',
-                  style: w400_12p(color: AppColor.c455A64),
-                ),
-                TextSpan(
-                  text: '15-oct-2025',
-                  style: w600_12p(color: AppColor.c455A64),
-                ),
-              ],
-            ),
-          ),
-          31.heightSizeBox,
-          HiWashTextField(hintText: "Name", labelText: "Name"),
-          20.heightSizeBox,
-          HiWashTextField(hintText: "Email", labelText: "Email"),
-          20.heightSizeBox,
-          HiWashTextField(hintText: "Phone", labelText: "Phone"),
-          20.heightSizeBox,
-
-          TextFormField(
-            maxLines: 3,
-
-            style: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.9)),
-            decoration: InputDecoration(
-              fillColor: AppColor.cF6F7FF,
-              // hintText: "Address",
-              //labelText: "Address",
-              label: Text("Address"),
-              filled: true,
-              // suffixIcon: ImageView(path: Assets.iconsMyLocation,height: 5,width: 10,),
-              labelStyle: w400_13a(color: AppColor.c455A64),
-              hintStyle: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.40)),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 12,
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColor.cEAE8E8.withOpacity(0.5),
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColor.c5C6B72.withOpacity(0.5),
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColor.c5C6B72.withOpacity(0.5),
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColor.c5C6B72.withOpacity(0.5),
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              disabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColor.c5C6B72.withOpacity(0.5),
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              border: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColor.c5C6B72.withOpacity(0.5),
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-          ),
-
-          20.heightSizeBox,
-          HiWashTextField(hintText: "Car Number", labelText: "Car Number"),
-          20.heightSizeBox,
-        ],
-      ),
-    );
-  }
-
-  Widget subscriptionPlanUI() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          color: AppColor.white,
-
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: AppColor.blue.withOpacity(0.2)),
-                ),
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage(Assets.imagesDemoProfile),
-                ),
-              ),
-
-              10.heightSizeBox,
-              Text("Ibrahim Bafqia"),
-              42.heightSizeBox,
-              subscriptionRowWidget(
-                title: 'Pack Name',
-                packName: ' Unlimited Washes',
-              ),
-              10.heightSizeBox,
-              DashedLineWidget(),
-              10.heightSizeBox,
-              subscriptionRowWidget(title: 'Remaining wash', packName: '1'),
-              10.heightSizeBox,
-              DashedLineWidget(),
-              10.heightSizeBox,
-              subscriptionRowWidget(
-                title: 'Expiry date ',
-                packName: '02 Apr 2025',
-                color: AppColor.cC41949,
-              ),
-              63.heightSizeBox,
-            ],
-          ),
-        ),
-
-        DashedLineWidget(),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          height: Get.height,
-          width: Get.width,
-          color: AppColor.cF6F7FF,
-          child: Column(
-            children: [
-              26.heightSizeBox,
-              Text(
-                "upgrade your Plan now",
-                style: w600_14a(color: AppColor.c2C2A2A),
-              ),
-              16.heightSizeBox,
-
-              PlansContainer(index: 1),
-              15.heightSizeBox,
-              PlansContainer(index: 2),
-              20.heightSizeBox,
-              GetStartButton(text: "Renew Now", color: AppColor.c1F9D70),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget themeUI() {
-    return Column(children: [Text("Select Theme"), 10.heightSizeBox]);
-  }
-
-  Widget languageUI() {
-    return Column(children: [Text("Select Language")]);
-  }
-
-  Widget privacySettingsUI() {
-    return Column(children: [Text("Privacy Settings")]);
-  }
 
   /// **Reusable Row Widget**
   Widget drawerRowWidget({
@@ -650,21 +353,4 @@ class DrawerScreen extends StatelessWidget {
     );
   }
 
-
-
-  /// **Reusable  Row for subscriptionPlanUI Widget**
-  Widget subscriptionRowWidget({
-    required String title,
-    Color? color,
-    required String packName,
-  }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(title.tr, style: w400_12p(color: AppColor.c455A64)),
-        Text(packName.tr, style: w500_12p(color: color ?? AppColor.c2C2A2A)),
-      ],
-    );
-  }
 }
