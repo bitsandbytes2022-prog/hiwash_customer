@@ -242,9 +242,9 @@ class Languages extends Translations {
       ///subscription Screen
       "kMissingSubscription":
           "Missing subscription details (SubscriptionScreen)",
-      'k100locations ': '100+\nlocations ',
+      'k100locations': '100+\nlocations ',
       'kUnlock': '& unlock',
-      'kExclusiveOffers.': ' exclusive offers.',
+      'kExclusiveOffers': ' exclusive offers.',
       'kSubscribeNow': 'subscribe Now',
       "kPleaseEnterYourCarNumber": "Please enter your car number",
       "kViewAllOffers": "View All Offers",
@@ -267,6 +267,9 @@ class Languages extends Translations {
       "kScanToUnlockWeekly":
           "Scan to unlock weekly washes,\nexclusive offers, and amazing deals!",
       "kYourPaymentIsComplete": "Your payment is complete, and your\n",
+      "kPaymentSuccessfully": "Payment Successfully",
+      "kYouHaveCompletedYourPayment":"You have completed your payment",
+      "kOk":"Ok"
     },
 
     'ar_SA': {
@@ -507,9 +510,9 @@ class Languages extends Translations {
       ///subscription Screen
       "kMissingSubscription":
       "تفاصيل الاشتراك مفقودة (شاشة الاشتراك)",
-      'k100locations ': 'أكثر من 100\nموقع ',
+      'k100locations': 'أكثر من 100\nموقع ',
       'kUnlock': 'وافتح',
-      'kExclusiveOffers.': ' العروض الحصرية.',
+      'kExclusiveOffers': ' العروض الحصرية.',
       'kSubscribeNow': 'اشترك الآن',
       "kPleaseEnterYourCarNumber": "يرجى إدخال رقم سيارتك",
       "kViewAllOffers": "عرض جميع العروض",
@@ -532,6 +535,9 @@ class Languages extends Translations {
       "kScanToUnlockWeekly":
       "امسح لفتح الغسلات الأسبوعية،\nالعروض الحصرية، والصفقات المذهلة!",
       "kYourPaymentIsComplete": "اكتملت عمليتك، و\n",
+      "kPaymentSuccessfully": "تم الدفع بنجاح",
+      "kYouHaveCompletedYourPayment": "لقد أكملت عملية الدفع",
+      "kOk": "موافق"
     },
   };
 }

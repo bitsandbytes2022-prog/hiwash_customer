@@ -33,12 +33,12 @@ class EnterCardDetailScreen extends StatelessWidget {
     final subscriptionId = args?["subscriptionId"];
     final subscriptionIndex = args?["subscriptionIndex"];
     final source = args?["source"];
-    final customerId=args?["customerId"];
+    final customerId = args?["customerId"];
 
     final userData =
         washStatusController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
-      iconLeft: SizedBox(width: 50,),
+      iconLeft: SizedBox(width: 50),
       centerHeading: Container(
         margin: EdgeInsets.only(left: 60),
         child: Column(
@@ -129,7 +129,7 @@ class EnterCardDetailScreen extends StatelessWidget {
               20.heightSizeBox,
               HiWashTextField(
                 hintText: "**** **** **** 1234",
-                labelText: "kCardNumber",
+                labelText: "kCardNumber".tr,
               ),
               20.heightSizeBox,
               Row(
@@ -153,7 +153,10 @@ class EnterCardDetailScreen extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: HiWashTextField(hintText: "kCVC".tr, labelText: "123"),
+                    child: HiWashTextField(
+                      hintText: "kCVC".tr,
+                      labelText: "123",
+                    ),
                   ),
                   40.widthSizeBox,
                   Expanded(
@@ -175,74 +178,84 @@ class EnterCardDetailScreen extends StatelessWidget {
                 ],
               ),
               71.heightSizeBox,
-              Obx(
-                 () {
-                   return subscriptionController.isLoading.value
-                       ? Center(child: CircularProgressIndicator())
-                       :  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: CustomSwipeButton(
-                        thumbPadding: EdgeInsets.all(3),
-                        activeThumbColor: AppColor.c1F9D70,
-                        thumb: Icon(Icons.chevron_right, color: Colors.white),
-                        elevationThumb: 2,
-                        elevationTrack: 2,
-                        child: Text(
-                          "Swipe to confirm".toUpperCase(),
-                          style: TextStyle(
-                            color: AppColor.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
+              Obx(() {
+                return subscriptionController.isLoading.value
+                    ? Center(child: CircularProgressIndicator())
+                    : Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: CustomSwipeButton(
+                          thumbPadding: EdgeInsets.all(3),
+                          activeThumbColor: AppColor.c1F9D70,
+                          thumb: Icon(Icons.chevron_right, color: Colors.white),
+                          elevationThumb: 2,
+                          elevationTrack: 2,
+                          child: Text(
+                           "${StringConstant.kSwipeToConfirm.tr}".toUpperCase(),
+                            style: TextStyle(
+                              color: AppColor.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
 
                           onSwipe: () async {
+                            bool isSuccess = false;
+
                             if (source == 'SubscriptionScreen') {
-                              if (subscriptionIndex != null && carNumber != null) {
-                                await subscriptionController.getSubscriptionMembership(
-                                  subscriptionIndex.toString(),
-                                  "demo_transaction_id",
-                                  carNumber,
-                                  "success",
-                                );
+                              if (subscriptionIndex != null &&
+                                  carNumber != null) {
+                                await subscriptionController
+                                    .getSubscriptionMembership(
+                                      subscriptionIndex.toString(),
+                                      "demo_transaction_id",
+                                      carNumber,
+                                      "success",
+                                    );
 
+                                isSuccess = true;
                                 await washStatusController.getWashSummary();
-                                await washStatusController.getCustomerDataById(customerId);
-
-                                Get.offAllNamed(RouteStrings.paymentSuccessScreen);
+                                await washStatusController.getCustomerDataById(
+                                  customerId,
+                                );
                               } else {
                                 appSnackBar(
-                                  message:StringConstant. kMissingSubscription.tr
+                                  message:
+                                      StringConstant.kMissingSubscription.tr,
                                 );
                               }
                             } else if (source == 'SubscriptionPlanScreen') {
                               if (subscriptionId != null && carNumber != null) {
-                                await subscriptionController.getSubscriptionMembership(
-                                  subscriptionId.toString(),
-                                  "demo_transaction_id",
-                                  carNumber,
-                                  "success",
-                                );
+                                await subscriptionController
+                                    .getSubscriptionMembership(
+                                      subscriptionId.toString(),
+                                      "demo_transaction_id",
+                                      carNumber,
+                                      "success",
+                                    );
 
+                                isSuccess = true;
                                 await washStatusController.getWashSummary();
-                                await washStatusController.getCustomerDataById(customerId);
+                                await washStatusController.getCustomerDataById(
+                                  customerId,
+                                );
+                              } else {}
+                            } else {}
 
-                                Get.offAllNamed(RouteStrings.paymentSuccessScreen);
-                              } else {
+                            if (isSuccess) {
+                              bool dialogResult =
+                                  await paymentConfirmationDialog();
+                              if (dialogResult) {
+                                Get.offAllNamed(
+                                  RouteStrings.paymentSuccessScreen,
+                                );
                               }
-                            } else {
-
                             }
-                          }
-
-
-
+                          },
+                        ),
                       ),
-                    ),
-                  );
-                }
-              ),
+                    );
+              }),
 
               71.heightSizeBox,
             ],
@@ -251,6 +264,34 @@ class EnterCardDetailScreen extends StatelessWidget {
       ),
     );
   }
+
+  Future<bool> paymentConfirmationDialog() async {
+    return showDialog<bool>(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.green,
+          title: Text(
+            StringConstant.kPaymentSuccessfully.tr,
+            style: w500_18p(color: AppColor.white),
+          ),
+          content: Text(
+            StringConstant.kYouHaveCompletedYourPayment.tr,
+            style: w400_16p(color: Colors.white),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Get.offAllNamed(RouteStrings.paymentSuccessScreen);
+              },
+              child: Text(
+                StringConstant.kOk.tr,
+                style: w700_16p(color: Colors.white),
+              ),
+            ),
+          ],
+        );
+      },
+    ).then((value) => value ?? false);
+  }
 }
-
-

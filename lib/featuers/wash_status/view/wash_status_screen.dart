@@ -170,9 +170,14 @@ class WashStatusScreen extends StatelessWidget {
                           ),
                         ),
                         24.heightSizeBox,
-                        Text(
-                          StringConstant.kCompleteWash.tr,
-                          style: w500_14a(color: AppColor.c2C2A2A),
+                        InkWell(
+                          onTap: (){
+                            paymentConfirmationDialog();
+                          },
+                          child: Text(
+                            StringConstant.kCompleteWash.tr,
+                            style: w500_14a(color: AppColor.c2C2A2A),
+                          ),
                         ),
                         18.heightSizeBox,
                         (controller
@@ -352,7 +357,28 @@ class WashStatusScreen extends StatelessWidget {
               ),
     );
   }
+  Future<bool> paymentConfirmationDialog() async {
+    return showDialog<bool>(
 
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.green,
+          title: Text(StringConstant.kPaymentSuccessfully.tr,style: w500_22p(color: AppColor.white),),
+          content: Text(StringConstant.kYouHaveCompletedYourPayment.tr,style: w400_16p(color: Colors.white),),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Get.back();
+              },
+              child: Text(StringConstant.kOk,style: w700_16p(color: Colors.white),),
+            ),
+
+          ],
+        );
+      },
+    ).then((value) => value ?? false);
+  }
   Widget servicesContainer(int index, VoidCallback? onTap) {
     var washData =
         controller.washSummaryModel.value?.data?.completedWash![index];

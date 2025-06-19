@@ -6,6 +6,7 @@ import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controll
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
+import 'package:hiwash_customer/styling/app_font_poppins.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
@@ -129,6 +130,7 @@ class PaymentSuccessScreen extends StatelessWidget {
       ),
     );
   }
+
 }
 
 

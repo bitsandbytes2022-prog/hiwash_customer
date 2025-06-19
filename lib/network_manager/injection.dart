@@ -3,12 +3,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_utils/src/extensions/export.dart';
 import 'package:get/instance_manager.dart';
 import 'package:hiwash_customer/featuers/auth/auth_controller/auth_controller.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
+import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/network_manager/dio_helper.dart';
 import 'package:hiwash_customer/network_manager/utils/print_value.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 
 import '../featuers/notification/controller/notification_controller.dart';
 import '../featuers/rewads/controller.dart';
@@ -64,21 +67,17 @@ Dio getDio() {
         );
         print("999----->${e.message}");
         if (e.response?.statusCode == 400) {
-          Get.snackbar(
-            "Error",
+          appSnackBar(
+            message:
             e.response?.data["error"]["message"] ??
-                "Something went wrong".toString(),
-            colorText: Colors.white,
-            backgroundColor: Colors.red,
+                StringConstant.kSomethingWentWrong.tr.toString(),
           );
         }
          else if (e.response?.statusCode == 401) {
-          Get.snackbar(
-            "Error",
+          appSnackBar(
+            message:
             e.response?.data["error"]["message"] ??
-                "Something went wrong".toString(),
-            colorText: Colors.white,
-            backgroundColor: Colors.red,
+                StringConstant.kSomethingWentWrong.tr.toString(),
           );
 
         }
@@ -87,21 +86,17 @@ Dio getDio() {
 
 
         else if (e.response?.statusCode == 404) {
-          Get.snackbar(
-            "Error",
+          appSnackBar(
+            message:
             e.response?.data["error"]["message"] ??
-                "Something went wrong".toString(),
-            colorText: Colors.white,
-            backgroundColor: Colors.red,
+                StringConstant.kSomethingWentWrong.tr.toString(),
           );
         } else if (e.response?.statusCode == 500) {
           //print("object${e.response?.data.toString()}");
-          Get.snackbar(
-            "Error",
+          appSnackBar(
+            message:
             e.response?.data["error"]["message"] ??
-                "Something went wrong".toString(),
-            colorText: Colors.white,
-            backgroundColor: Colors.red,
+                StringConstant.kSomethingWentWrong.tr.toString(),
           );
         }
 

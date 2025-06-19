@@ -165,7 +165,9 @@ class SubscriptionScreen extends StatelessWidget {
                           ),
                         ),
                         builder: (BuildContext context) {
-                          return BottomSheetWidget();
+                          return BottomSheetWidget(
+                            isVisible: true,
+                          );
                         },
                       );
                     }),

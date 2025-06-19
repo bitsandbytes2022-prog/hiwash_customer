@@ -9,7 +9,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/route/routes.dart';
 import 'package:hiwash_customer/styling/app_theam.dart';
-
 import 'featuers/notification/services/notification_services.dart';
 import 'firebase_options.dart';
 import 'language/languages.dart';

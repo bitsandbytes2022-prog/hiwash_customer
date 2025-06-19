@@ -220,4 +220,8 @@ class StringConstant {
   static const kPlanIsNowActivated = "kPlanIsNowActivated";
   static const kScanToUnlockWeekly = "kScanToUnlockWeekly";
   static const kYourPaymentIsComplete = "kYourPaymentIsComplete";
+  static const kPaymentSuccessfully = "kPaymentSuccessfully";
+  static const kYouHaveCompletedYourPayment = "kYouHaveCompletedYourPayment";
+  static const kOk = "kOk";
+  static const kSwipeToConfirm = "kSwipeToConfirm";
 }

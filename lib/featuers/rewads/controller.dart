@@ -33,9 +33,9 @@ class RewardController extends GetxController {
 
 
   final List<String> images = [
-    Assets.imagesDemoProfile,
-    Assets.imagesDemoProfile,
-    Assets.imagesDemoProfile,
+    Assets.demoOffer1,
+    Assets.demoOffer2,
+    Assets.demoOffer3,
   ];
 
   RxBool isAscending = true.obs;

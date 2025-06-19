@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hiwash_customer/featuers/rewads/view/widget/view_offer_detail_widget.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
@@ -52,7 +53,9 @@ class RewardScreen extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     )
                     : data.isNotEmpty
-                    ? GridView.builder(
+                    ?
+
+                GridView.builder(
                       padding: EdgeInsets.only(bottom: 40),
                       shrinkWrap: true,
                       clipBehavior: Clip.hardEdge,
@@ -64,7 +67,29 @@ class RewardScreen extends StatelessWidget {
                       ),
                       itemCount: data.length,
                       itemBuilder: (context, index) {
-                        return OffersGridContainer(offer: data[index]);
+                        return GestureDetector(
+                            onTap: () async {
+
+                              await rewardController.getOffersById(
+                                data[index].id!,
+                              );
+                              showModalBottomSheet(
+                                context: Get.context!,
+                                isScrollControlled: true,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    topRight: Radius.circular(15),
+                                  ),
+                                ),
+                                builder: (BuildContext context) {
+                                  return CustomBottomSheet(
+                                    child: OfferDetailBottomSheet(),
+                                  );
+                                },
+                              );
+                            },
+                            child: OffersGridContainer(offer: data[index],));
                       },
                     )
                     : Padding(

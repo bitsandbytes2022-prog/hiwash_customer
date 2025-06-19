@@ -27,7 +27,7 @@ import 'local_storage.dart';
 
 class Repository {
   final DioHelper dioHelper = DioHelper();
-  final LocalStorage localStorage = LocalStorage();
+   LocalStorage localStorage = LocalStorage();
 
   Future<SendOtpModel?> sendOtpRepo(Map<String, dynamic> requestBody) async {
     final dio = Dio();
