@@ -247,7 +247,7 @@ class DrawerScreen extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               await LocalStorage().removeToken();
-              final deviceLocale = Get.deviceLocale ?? const Locale('en', 'US');
+              var deviceLocale = Get.deviceLocale ?? const Locale('en', 'US');
               Get.updateLocale(deviceLocale);
               Get.offAllNamed(RouteStrings.welcomeScreen);
             },

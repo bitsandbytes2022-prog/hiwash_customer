@@ -19,7 +19,12 @@ class LocalStorage {
     print("Getting access token1: $token");
     return token;
   }
-
+/*  Future<String?> getToken() async {
+    await Future.delayed(Duration(milliseconds: 50));
+    final token = _storage.read(_tokenKey);
+    print("Getting access token1: $token");
+    return token;
+  }*/
   saveFCMToken({var token}) {
     _storage.write(_fcmToken, token);
   }

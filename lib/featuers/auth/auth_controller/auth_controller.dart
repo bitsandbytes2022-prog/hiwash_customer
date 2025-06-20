@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hiwash_customer/featuers/auth/model/get_refresh_token.dart';
 import 'package:hiwash_customer/featuers/auth/model/sign_up_model.dart';
@@ -24,12 +25,15 @@ class AuthController extends GetxController {
 
   @override
   void onInit() {
+    globalToken.value = LocalStorage().getToken() ?? '';
+
     pageController.addListener(() {
       onPageChanged(pageController.page!.round());
     });
     checkLoginStatus();
     super.onInit();
   }
+  RxString globalToken = ''.obs;
 
   GetTokenModel? getTokenModel;
   Rx<SendOtpModel> sendOtpModel = SendOtpModel().obs;
@@ -204,8 +208,8 @@ class AuthController extends GetxController {
     super.onClose();
   }
 
-  void checkLoginStatus() {
-    String? token = LocalStorage().getToken();
+  Future<void> checkLoginStatus() async {
+    String? token =  LocalStorage().getToken();
     if (token != null && token.isNotEmpty) {
       isLoggedIn.value = true;
       print("User already logged in ");
@@ -291,6 +295,7 @@ class AuthController extends GetxController {
         await tokenStorage.saveRefreshToken(value.data!.refreshToken!);
         await tokenStorage.saveUserId(value.data!.id.toString());
 
+
         isLoggedIn.value = true;
       }
 
@@ -303,9 +308,38 @@ class AuthController extends GetxController {
       isLoading.value = false;
     }
   }
+/*  Future<GetRefreshToken?> refreshToken() async {
+    final storedRefreshToken = LocalStorage().getRefreshToken();
+
+    if (storedRefreshToken == null || storedRefreshToken.isEmpty) {
+      await LocalStorage().removeToken();
+      Get.offAllNamed(RouteStrings.welcomeScreen);
+      return null;
+    }
+
+    final requestBody = {"refreshToken": storedRefreshToken};
+
+    try {
+      final response = await Repository().refreshToken(requestBody);
+
+      if (response.success == true &&
+          response.data?.token != null &&
+          response.data!.token!.isNotEmpty) {
+        await LocalStorage().saveToken(response.data!.token!);
+        await LocalStorage().saveRefreshToken(response.data!.refreshToken!);
+
+        // ✅ Update globalToken
+        globalToken.value = response.data!.token!;
+        return response;
+      }
+    } catch (e) {
+      print("Refresh error: $e");
+    }
+    return null;
+  }*/
 
   Future<GetRefreshToken?> refreshToken() async {
-    final storedRefreshToken = LocalStorage().getRefreshToken();
+    var storedRefreshToken = LocalStorage().getRefreshToken();
     print("Stored refresh token before calling API: $storedRefreshToken");
 
     if (storedRefreshToken == null || storedRefreshToken.isEmpty) {
@@ -328,6 +362,8 @@ class AuthController extends GetxController {
           response.data!.token!.isNotEmpty) {
         await LocalStorage().saveToken(response.data!.token!);
         await LocalStorage().saveRefreshToken(response.data!.refreshToken!);
+        await GetStorage.init();
+
         return response;
       }
 

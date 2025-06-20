@@ -14,6 +14,7 @@ import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
 import '../../../network_manager/local_storage.dart';
 
+
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
 
@@ -38,9 +39,11 @@ AuthController authController=Get.put(AuthController());
     final token = localStorage.getToken();
     print("Token retrieved: $token");
 
-    if (token != null && token.isNotEmpty) {
-      //localStorage.getToken();
-      authController.refreshToken();
+    if (token != null && token.isNotEmpty)
+
+    {
+      localStorage.getToken();
+     // authController.refreshToken();
 
       Get.offNamed(RouteStrings.dashboardScreen);
     } else {
@@ -48,7 +51,7 @@ AuthController authController=Get.put(AuthController());
     }
   }
   @override
-  Widget build(BuildContext context) {  
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [

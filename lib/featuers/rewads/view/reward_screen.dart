@@ -53,9 +53,7 @@ class RewardScreen extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     )
                     : data.isNotEmpty
-                    ?
-
-                GridView.builder(
+                    ? GridView.builder(
                       padding: EdgeInsets.only(bottom: 40),
                       shrinkWrap: true,
                       clipBehavior: Clip.hardEdge,
@@ -66,31 +64,60 @@ class RewardScreen extends StatelessWidget {
                         mainAxisSpacing: 15,
                       ),
                       itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                            onTap: () async {
+                    itemBuilder: (context, index) {
+                      final offer = data[index];
 
-                              await rewardController.getOffersById(
-                                data[index].id!,
-                              );
-                              showModalBottomSheet(
-                                context: Get.context!,
-                                isScrollControlled: true,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    topRight: Radius.circular(15),
-                                  ),
+                      return AbsorbPointer(
+                        absorbing: offer.isUsed == 1, // Disable tap if used
+                        child: GestureDetector(
+                          onTap: () async {
+                            await rewardController.getOffersById(offer.id!);
+                            showModalBottomSheet(
+                              context: Get.context!,
+                              isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
                                 ),
-                                builder: (BuildContext context) {
-                                  return CustomBottomSheet(
-                                    child: OfferDetailBottomSheet(),
-                                  );
-                                },
-                              );
-                            },
-                            child: OffersGridContainer(offer: data[index],));
-                      },
+                              ),
+                              builder: (BuildContext context) {
+                                return CustomBottomSheet(
+                                  child: OfferDetailBottomSheet(),
+                                );
+                              },
+                            );
+                          },
+                          child: OffersGridContainer(offer: offer),
+                        ),
+                      );
+                    }
+
+                  /*     itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () async {
+                            await rewardController.getOffersById(
+                              data[index].id!,
+                            );
+                            showModalBottomSheet(
+                              context: Get.context!,
+                              isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
+                                ),
+                              ),
+                              builder: (BuildContext context) {
+                                return CustomBottomSheet(
+                                  child: OfferDetailBottomSheet(),
+                                );
+                              },
+                            );
+                          },
+                          child: OffersGridContainer(offer: data[index]),
+                        );
+                      },*/
                     )
                     : Padding(
                       padding: const EdgeInsets.only(top: 30),
@@ -147,9 +174,8 @@ class RewardScreen extends StatelessWidget {
               13.heightSizeBox,
               GestureDetector(
                 onTap: () {
-                 // print("888888888888------>");
+                  // print("888888888888------>");
                   showModalBottomSheet(
-
                     context: Get.context!,
                     isScrollControlled: true,
 
@@ -160,14 +186,10 @@ class RewardScreen extends StatelessWidget {
                       ),
                     ),
                     builder: (BuildContext context) {
-                      return  BottomSheetWidget(
-                        isVisible: true,
-
-                      );
+                      return BottomSheetWidget(isVisible: true);
                     },
-
                   );
-               // Get.back();
+                  // Get.back();
                 },
                 child: Container(
                   padding: EdgeInsets.all(14),
@@ -203,10 +225,6 @@ class RewardScreen extends StatelessWidget {
       ],
     );
   }
-
-
-
-
 
   Widget dropDownRow({
     required int index,
@@ -256,75 +274,6 @@ class RewardScreen extends StatelessWidget {
       );
     });
   }
-
-  /*  Widget dropDownRow(String? title, VoidCallback onTap) {
-    RxInt select = 0.obs;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        color: Colors.transparent,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            10.heightSizeBox,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(title ?? "".tr, style: w600_12a(color: AppColor.c2C2A2A)),
-                  ImageView(path: Assets.iconsIcDropDown, height: 6, width: 10),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10,right: 10),
-              child: Text(" hjjsfdg guwejfguwj biewutyruywjh bvdujewgdjws gvdhwegfuw gwde7uwegje. nedbuewgdjen. egdujebnh eguejg egdvefnqew bvdwhefv "),
-            ),
-            10.heightSizeBox,
-          ],
-        ),
-      ),
-    );
-  }*/
-/*
-  Widget scanDialog() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        37.heightSizeBox,
-
-        Text("Redeem Wash!", style: w700_22a(color: AppColor.c2C2A2A)),
-        Text(
-          "Scan Your QR Code to\nEnjoy Your Wash.",
-          style: w400_16p(color: AppColor.c455A64),
-          textAlign: TextAlign.center,
-        ),
-
-        15.heightSizeBox,
-        GestureDetector(
-          onTap: () {
-            Get.back();
-            showDialog(
-              barrierDismissible: false,
-              context: Get.context!,
-              builder: (BuildContext context) {
-                return AppDialog(
-                  padding: EdgeInsets.zero,
-
-                  child: successDialog(),
-                );
-              },
-            );
-          },
-          child: Image.asset(Assets.imagesImQr, height: 261, width: 261),
-        ),
-
-        46.heightSizeBox,
-      ],
-    );
-  }*/
 
   Widget successDialog() {
     return Column(

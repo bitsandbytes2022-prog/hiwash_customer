@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_utils/src/extensions/export.dart';
 import 'package:get/instance_manager.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hiwash_customer/featuers/auth/auth_controller/auth_controller.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
@@ -74,11 +75,14 @@ Dio getDio() {
           );
         }
          else if (e.response?.statusCode == 401) {
-          appSnackBar(
+        /*  appSnackBar(
             message:
             e.response?.data["error"]["message"] ??
                 StringConstant.kSomethingWentWrong.tr.toString(),
-          );
+          );*/
+          AuthController authController=Get.find();
+          authController.refreshToken();
+
 
         }
 
