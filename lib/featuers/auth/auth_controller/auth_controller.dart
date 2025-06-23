@@ -85,23 +85,21 @@ class AuthController extends GetxController {
 
   var currentPage = 0.obs;
 
+  var isLoading = false.obs;
+  var enteredOtp = ''.obs;
+  var secondsRemaining = 60.obs;
+  Timer? _timer;
+
   void onPageChanged(int index) {
     currentPage.value = index;
   }
 
   final List<String> headingText = ["kEcoCleanWalletGreen", "Wash & Win!"];
-  final List<String> subText = [
-    "kExclusiveDealsWithEvery",
-    "Get your car washed weekly at 100+\nlocations with exclusive offers.\nMissed washes still deducted.",
 
-    // "kExclusiveDealsWithEvery",
-  ];
 
   final List<String> backgroundImages = [
     Assets.imagesWelcomeBg,
     Assets.imagesWelcomMapBg,
-
-    // Assets.imagesWelcomMapBg,
   ];
 
   String? validateEmail(String? value) {
@@ -180,13 +178,9 @@ class AuthController extends GetxController {
     return null;
   }
 
-  var isLoading = false.obs;
-  var enteredOtp = ''.obs;
-  var secondsRemaining = 30.obs;
-  Timer? _timer;
 
   void startTimer() {
-    secondsRemaining.value = 30;
+    secondsRemaining.value = 60;
 
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -308,35 +302,6 @@ class AuthController extends GetxController {
       isLoading.value = false;
     }
   }
-/*  Future<GetRefreshToken?> refreshToken() async {
-    final storedRefreshToken = LocalStorage().getRefreshToken();
-
-    if (storedRefreshToken == null || storedRefreshToken.isEmpty) {
-      await LocalStorage().removeToken();
-      Get.offAllNamed(RouteStrings.welcomeScreen);
-      return null;
-    }
-
-    final requestBody = {"refreshToken": storedRefreshToken};
-
-    try {
-      final response = await Repository().refreshToken(requestBody);
-
-      if (response.success == true &&
-          response.data?.token != null &&
-          response.data!.token!.isNotEmpty) {
-        await LocalStorage().saveToken(response.data!.token!);
-        await LocalStorage().saveRefreshToken(response.data!.refreshToken!);
-
-        // ✅ Update globalToken
-        globalToken.value = response.data!.token!;
-        return response;
-      }
-    } catch (e) {
-      print("Refresh error: $e");
-    }
-    return null;
-  }*/
 
   Future<GetRefreshToken?> refreshToken() async {
     var storedRefreshToken = LocalStorage().getRefreshToken();
@@ -362,7 +327,6 @@ class AuthController extends GetxController {
           response.data!.token!.isNotEmpty) {
         await LocalStorage().saveToken(response.data!.token!);
         await LocalStorage().saveRefreshToken(response.data!.refreshToken!);
-        await GetStorage.init();
         return response;
       }
 
