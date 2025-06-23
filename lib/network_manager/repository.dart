@@ -102,8 +102,7 @@ print("------>c${response.data}");
     var response = await dioHelper.post(
       url: ApiConstant.refreshToken,
       requestBody: requestBody,
-
-      isAuthRequired: true
+      isAuthRequired: false
     );
     //   print("Response--->: $response");
 

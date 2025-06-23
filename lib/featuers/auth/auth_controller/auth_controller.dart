@@ -363,7 +363,6 @@ class AuthController extends GetxController {
         await LocalStorage().saveToken(response.data!.token!);
         await LocalStorage().saveRefreshToken(response.data!.refreshToken!);
         await GetStorage.init();
-
         return response;
       }
 
