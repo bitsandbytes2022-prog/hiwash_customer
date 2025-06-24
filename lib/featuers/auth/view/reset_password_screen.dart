@@ -77,11 +77,7 @@ class ResetPasswordScreen extends StatelessWidget {
               HiWashButton(
                 text: 'kSave'.tr,
                 onTap: () {
-                  Get.offNamedUntil(
-                    RouteStrings.loginScreen,
-                        (route) => false,
-                  );
-
+                  Get.offNamedUntil(RouteStrings.loginScreen, (route) => false);
                 },
               ),
 

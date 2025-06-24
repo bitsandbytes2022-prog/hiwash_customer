@@ -10,8 +10,8 @@ class TicketService {
   // Singleton pattern
   TicketService._internal() {
     _apiService = TawkToApiService(
-      apiKey: 'YOUR_API_KEY', // Replace with your actual API key
-      propertyId: 'YOUR_PROPERTY_ID', // Replace with your property ID
+      apiKey: 'a1bdbd3729b6f6aa9839c7ceb23830e58ee32fab', // Replace with your actual API key
+      propertyId: '68066e7b2db46a190e068251', // Replace with your property ID
     );
   }
 

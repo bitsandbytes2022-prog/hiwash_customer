@@ -62,9 +62,7 @@ class SignUpScreen extends StatelessWidget {
                 labelText: StringConstant.kName.tr,
                 hintText: StringConstant.kEnterYourFullName.tr,
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(
-                    RegExp(r"[a-zA-Z ]"),
-                  ),
+                  FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z ]")),
                 ],
                 validator: (value) {
                   return authController.validateName(value);
@@ -102,11 +100,6 @@ class SignUpScreen extends StatelessWidget {
                 controller: authController.zoneController,
                 hintText: StringConstant.kZone.tr,
                 labelText: StringConstant.kZone.tr,
-                /*   obscure: true,
-                obscuringCharacter: "*",
-                validator: (value) {
-                  return authController.validatePassword(value);
-                },*/
               ),
               20.heightSizeBox,
               HiWashTextField(
@@ -155,14 +148,7 @@ class SignUpScreen extends StatelessWidget {
                         authController.phoneController.text.trim();
 
                     if (phoneNumberSignUp != null &&
-                        phoneNumberSignUp != enteredPhone) {
-                   /*   Get.snackbar(
-                        "Phone Number Changed",
-                        "You have changed the phone number from the original one.",
-                        backgroundColor: Colors.orangeAccent,
-                        colorText: Colors.white,
-                      );*/
-                    }
+                        phoneNumberSignUp != enteredPhone) {}
                     if (formKey.currentState?.validate() ?? false) {
                       authController
                           .signUp(
@@ -182,10 +168,11 @@ class SignUpScreen extends StatelessWidget {
                                   .sendOtp(phoneNumber)
                                   .then((otpValue) {
                                     if (otpValue != null) {
-                                      authController.sendOtpModel.value = otpValue;
+                                      authController.sendOtpModel.value =
+                                          otpValue;
                                       Get.toNamed(
                                         RouteStrings.otpScreen,
-                                        arguments: {"phoneNo":phoneNumber,},
+                                        arguments: {"phoneNo": phoneNumber},
                                       );
                                       authController.phoneController.clear();
                                     }

@@ -99,10 +99,8 @@ import '../../wash_status/controller/wash_status_controller.dart';
         isLoading.value = true;
         final response = await Repository().getSubscriptionMembership(params);
         apiResponse.value = response;
-       // isLoading.value = false;
         return response;
       } catch (error) {
-       // isLoading.value = false;
         print("Error --> ${error.toString()}");
         return ApiResponse(success: false, message: error.toString());
       } finally {

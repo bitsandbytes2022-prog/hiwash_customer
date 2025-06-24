@@ -52,21 +52,7 @@ class LoginScreen extends StatelessWidget {
                   return controller.validatePhoneNumberLogin(value);
                 },
               ),
-         /*     12.heightSizeBox,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(RouteStrings.forgotPasswordScreen);
-                    },
-                    child: Text(
-                      "kForgotPassword".tr,
-                      style: w500_14a(color: AppColor.red),
-                    ),
-                  ),
-                ],
-              ),*/
+
               54.heightSizeBox,
               Obx(() {
                 return HiWashButton(
@@ -90,53 +76,10 @@ class LoginScreen extends StatelessWidget {
                   },
                 );
               }),
-          /*    Obx(() {
-               return HiWashButton(
-                  isLoading: controller.isLoading.value,
-                  text: "kLogIn".tr,
-                  onTap: () {
-                    if (formKey.currentState?.validate() ?? false) {
-                      String phoneNumber = controller.loginPhoneController.text.trim();
-                      controller.sendOtp(phoneNumber).then((value) {
-                        if (value != null) {
-                          Get.toNamed(
-                            RouteStrings.loginOtpScreen,
-                            arguments: phoneNumber,
-                          );
-                          controller.loginPhoneController.clear();
-                        }
-                      });
-                    }
-                  },
-                );
-              }),*/
+
 
               54.heightSizeBox,
 
-            /*  Center(
-                child: RichText(
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "kDontAaveAccount".tr,
-                        style: w400_12a(color: AppColor.c455A64),
-                      ),
-                      TextSpan(
-                        text: "SIGNUP".tr,
-                        style: w500_14a(color: AppColor.red),
-                        recognizer:
-                            TapGestureRecognizer()
-                              ..onTap = () {
-                                // Get.back();
-                                Get.toNamed(RouteStrings.signUpScreen);
-                                print("Sign Up tapped");
-                              },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              18.heightSizeBox,*/
               OrDivider(),
               18.heightSizeBox,
               SocialMedia(

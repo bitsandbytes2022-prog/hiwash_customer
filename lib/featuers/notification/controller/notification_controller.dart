@@ -55,7 +55,6 @@ class NotificationController extends GetxController {
         "pageSize": pageSize.value.toString(),
       });
 
-     // final NotificationModel model = NotificationModel.fromJson(response);
       NotificationModel model=response;
       if (model.success == true) {
         final newNotifications = model.notificationData ?? [];

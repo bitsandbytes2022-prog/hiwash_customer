@@ -151,81 +151,9 @@ class LoginOtpScreen extends StatelessWidget {
                   },
                 )
 
-              /*HiWashButton(
-                isLoading: controller.isLoading.value,
-                text: "kVerify".tr,
-                onTap: () {
-                  if (formKey.currentState!.validate()) {
-                    if (controller.enteredOtp.value.trim() == controller.sendOtpModel?.data?.otp.toString()) {
-                      print("otp---->${controller.enteredOtp.value}---${controller.sendOtpModel?.data?.otp}");
-
-                      controller.getToken(phoneNumber).then((value) {
-                        if (value != null) {
-                          Get.offAllNamed(
-                            RouteStrings.dashboardScreen,
-                          );
-                        }
-                      });
-                    } else {
-                      print("Else_otp---->${controller.enteredOtp.value}---${controller.sendOtpModel?.data?.otp}");
-                      Get.snackbar(
-                        "Invalid OTP",
-                        "Please enter the correct OTP",
-                        backgroundColor: Colors.red.withOpacity(0.9),
-                        colorText: Colors.white,
-                        snackPosition: SnackPosition.TOP,
-                        margin: const EdgeInsets.all(16),
-                        borderRadius: 10,
-                      );
-                    }
-                  }
-                },
-              ),*/
             ),
 
-          /*  Obx(
-                  () => HiWashButton(
-                isLoading: controller.isLoading.value,
-                text: "kVerify".tr,
-                      onTap: () {
-                        if (formKey.currentState!.validate()) {
-                          if (controller.enteredOtp.value != "1234") {
-                            Get.snackbar(
-                              "Invalid OTP",
-                              "Please enter the correct OTP",
-                              backgroundColor: Colors.red.withOpacity(0.9),
-                              colorText: Colors.white,
-                              snackPosition: SnackPosition.TOP,
-                              margin: const EdgeInsets.all(16),
-                              borderRadius: 10,
-                            );
-                            return;
-                          }
-                          controller.getToken(phoneNumber).then((value) {
-                            if (value != null) {
-                              Get.offAllNamed(
-                                RouteStrings.dashboardScreen,
-                              *//*  arguments: controller.getTokenModel?.data?.id,*//*
-                              );
-                            }
-                          });
-                        }
-                      }
 
-                    *//* onTap: () {
-                  if (formKey.currentState!.validate()) {
-                    controller.getToken(phoneNumber).then((value) {
-                      if (value != null) {
-                        Get.offNamed(
-                          RouteStrings.dashboardScreen,
-                          arguments: controller.getTokenModel?.data?.id,
-                        );
-                      }
-                    });
-                  }
-                },*//*
-              ),
-            ),*/
 
             30.heightSizeBox,
           ],

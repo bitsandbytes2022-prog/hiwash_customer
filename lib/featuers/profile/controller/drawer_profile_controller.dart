@@ -107,7 +107,6 @@ class DrawerProfileController extends GetxController {
       String street,
       String building,
       String unit,
-   /*   String profilePic,*/
       String carNumber,
       ) async {
     isLoading.value = true;
@@ -120,7 +119,6 @@ class DrawerProfileController extends GetxController {
         "street": street,
         "building": building,
         "unit": unit,
-      /*  "profilePic": profilePic,*/
         "carNumber": carNumber,
       };
       final response = await Repository().uploadProfile(requestBody);

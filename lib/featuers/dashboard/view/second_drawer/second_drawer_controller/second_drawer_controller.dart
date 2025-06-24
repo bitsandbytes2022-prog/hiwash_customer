@@ -1,7 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/model/guides_response_model.dart';
-import 'package:hiwash_customer/featuers/profile/model/terms_and_conditions_response_model.dart';
 import 'package:hiwash_customer/network_manager/repository.dart';
+import 'package:image_picker/image_picker.dart';
 import '../model/faq_response_model.dart';
 
 class SecondDrawerController extends GetxController {
@@ -11,6 +14,8 @@ class SecondDrawerController extends GetxController {
   RxBool isLoading = true.obs;
   RxList<bool> isExpanded = <bool>[].obs;
   RxString searchQuery = ''.obs;
+  TextEditingController subjectController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   void toggleCheckbox(int index) {
     for (int i = 0; i < isChecked.length; i++) {
@@ -25,8 +30,29 @@ class SecondDrawerController extends GetxController {
     getGuides();
   }
 
+  Rx<File?> selectedImage = Rx<File?>(null);
+
+  Future<void> pickImage({required ImageSource source}) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: source, imageQuality: 70);
+    if (pickedFile != null) {
+      selectedImage.value = File(pickedFile.path);
+    }
+  }
+
+  void clearImage() {
+    selectedImage.value = null;
+  }
+
   void toggleExpand(int index) {
     isExpanded[index] = !isExpanded[index];
+  }
+
+  void resetAll() {
+    subjectController.clear();
+    descriptionController.clear();
+    clearImage();
+    isChecked.value = [false, false, false];
   }
 
   Future<FaqResponseModel?> getFaq() async {

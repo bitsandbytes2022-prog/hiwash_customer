@@ -18,15 +18,10 @@ import 'package:hiwash_customer/widgets/components/custom_bottomsheet.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
-import 'package:hiwash_customer/widgets/components/qr_dialog.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
-
 import '../../../route/route_strings.dart';
 import '../../../styling/app_font_poppins.dart';
-import '../../../widgets/components/app_dialog.dart';
 import '../../../widgets/components/common_offer_bottom_sheet.dart';
-import '../../../widgets/components/offers_grid_container.dart';
-import '../../rewads/model/offer_response_model.dart';
 import '../widgets/offer_card.dart';
 import '../widgets/plan_container.dart';
 

@@ -478,10 +478,7 @@ class WashStatusScreen extends StatelessWidget {
                             style: w400_10a(color: AppColor.c455A64),
                           ),
                           13.heightSizeBox,
-                          /* Text(
-                    "Buy 1 Get 1 Free",
-                    style: w500_10a(color: AppColor.cC31848),
-                  ),*/
+
                         ],
                       ),
             ),

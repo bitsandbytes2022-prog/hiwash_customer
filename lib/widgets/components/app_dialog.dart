@@ -135,36 +135,7 @@ class AppDialog extends StatelessWidget {
                           ],
                         ),
 
-                        /* RichText(
-                          text: TextSpan(
-                            text: 'Remaining Washes: ',
-                            style:
-                                washStatusController
-                                            .getCustomerData
-                                            .value
-                                            ?.data
-                                            ?.subscriptionDetails
-                                            ?.subscriptionId ==
-                                        1
-                                    ? w400_14p(color: AppColor.c2C2A2A)
-                                    : w400_13p(color: AppColor.c2C2A2A),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: remainingTextBottom,
-                                style:
-                                    washStatusController
-                                                .getCustomerData
-                                                .value
-                                                ?.data
-                                                ?.subscriptionDetails
-                                                ?.subscriptionId ==
-                                            1
-                                        ? w400_16p(color: AppColor.cC31848)
-                                        : w600_12p(color: AppColor.cC31848),
-                              ),
-                            ],
-                          ),
-                        ),*/
+
                       ],
                     ),
                   ),

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-class AppColor{
+class AppColor {
   static const c5C6B72 = Color(0xFF5C6B72); //#5C6B72
   static const white = Color(0xFFFFFFFF); //
   static const c2C2A2A = Color(0xFF2C2A2A); //#2C2A2A
@@ -17,17 +17,13 @@ class AppColor{
   static const c000000 = Color(0xFF000000); //#000000
   static const c666666 = Color(0xFF666666); //#666666
   static const cC41948 = Color(0xFFC41948); //#C41948
-  static const cD83030 = Color(0xFFD83030);//#D83030
-  static const cE8E9F4 = Color(0xFFE8E9F4);//#E8E9F4
-  static const cC41949 = Color(0xFFC41949);//#C41949
-  static const c101D8D = Color(0xFF101D8D);//#101D8D
-  static const c323247 = Color(0xFF323247);//#323247
-  static const c6B6B6B = Color(0xFF6B6B6B);//#6B6B6B
-  static const cFFC200 = Color(0xFFcFFC200);//#FFC200
-  static const cFFC727 = Color(0xFFFFC727);//#FFC727
-  static const cC7F6E5 = Color(0xFFC7F6E5);//#C7F6E5
-
-
-
-
+  static const cD83030 = Color(0xFFD83030); //#D83030
+  static const cE8E9F4 = Color(0xFFE8E9F4); //#E8E9F4
+  static const cC41949 = Color(0xFFC41949); //#C41949
+  static const c101D8D = Color(0xFF101D8D); //#101D8D
+  static const c323247 = Color(0xFF323247); //#323247
+  static const c6B6B6B = Color(0xFF6B6B6B); //#6B6B6B
+  static const cFFC200 = Color(0xFFcFFC200); //#FFC200
+  static const cFFC727 = Color(0xFFFFC727); //#FFC727
+  static const cC7F6E5 = Color(0xFFC7F6E5); //#C7F6E5
 }

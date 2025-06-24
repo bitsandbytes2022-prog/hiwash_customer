@@ -93,31 +93,7 @@ class RewardScreen extends StatelessWidget {
                       );
                     }
 
-                  /*     itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () async {
-                            await rewardController.getOffersById(
-                              data[index].id!,
-                            );
-                            showModalBottomSheet(
-                              context: Get.context!,
-                              isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  topRight: Radius.circular(15),
-                                ),
-                              ),
-                              builder: (BuildContext context) {
-                                return CustomBottomSheet(
-                                  child: OfferDetailBottomSheet(),
-                                );
-                              },
-                            );
-                          },
-                          child: OffersGridContainer(offer: data[index]),
-                        );
-                      },*/
+
                     )
                     : Padding(
                       padding: const EdgeInsets.only(top: 30),

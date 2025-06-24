@@ -200,7 +200,6 @@ class DrawerScreen extends StatelessWidget {
           ),
           drawerRowWidget(
             onTap: () {
-              print("profile----->${userData?.subscriptionId}");
               if (userData?.subscriptionId == null) {
                 Get.toNamed(RouteStrings.subscribeMainScreen);
               } else {
@@ -211,10 +210,7 @@ class DrawerScreen extends StatelessWidget {
             image: Assets.iconsIcSubscriptionPlan,
           ),
 
-          /* drawerRowWidget(
-              onTap: () => userData?.subscriptionId==null? Get.toNamed(RouteStrings.subscribeMainScreen):Get.toNamed(RouteStrings.subscriptionPlanScreen),
-              title: 'Subscription Plan', image: Assets.iconsIcSubscriptionPlan,
-            ),*/
+
           Obx(() => drawerRowForTheme(
             title: StringConstant.kTheme.tr,
             image: Assets.iconsIcTheme,
@@ -222,8 +218,7 @@ class DrawerScreen extends StatelessWidget {
             onSwitchChanged: (bool value) {
               drawerController.isSwitchOn.value = value;
 
-              // Optional: toggle theme
-              // Get.changeTheme(value ? ThemeData.dark() : ThemeData.light());
+
             },
           )),
 

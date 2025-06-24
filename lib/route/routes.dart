@@ -28,88 +28,58 @@ import 'route_strings.dart';
 
 class Routes {
   static final GlobalKey<NavigatorState> navigatorKey =
-  GlobalKey<NavigatorState>();
+      GlobalKey<NavigatorState>();
 
   static final pages = [
-  GetPage(
-  name: RouteStrings.splashScreen,
-  page: () => SplashScreen(),
- ),
+    GetPage(name: RouteStrings.splashScreen, page: () => SplashScreen()),
+    GetPage(name: RouteStrings.welcomeScreen, page: () => WelcomeScreen()),
     GetPage(
-  name: RouteStrings.welcomeScreen,
-  page: () => WelcomeScreen(),
- ),
-    GetPage(
-  name: RouteStrings.subscriptionScreen,
-  page: () => SubscriptionScreen(),
- ),
+      name: RouteStrings.subscriptionScreen,
+      page: () => SubscriptionScreen(),
+    ),
+
+    GetPage(name: RouteStrings.loginScreen, page: () => LoginScreen()),
+    GetPage(name: RouteStrings.loginOtpScreen, page: () => LoginOtpScreen()),
+    GetPage(name: RouteStrings.signUpScreen, page: () => SignUpScreen()),
 
     GetPage(
-  name: RouteStrings.loginScreen,
-  page: () => LoginScreen(),
- ),
-    GetPage(
-  name: RouteStrings.loginOtpScreen,
-  page: () => LoginOtpScreen(),
- ),
-    GetPage(
-  name: RouteStrings.signUpScreen,
-  page: () => SignUpScreen(),
- ),
+      name: RouteStrings.forgotPasswordScreen,
+      page: () => ForgotPasswordScreen(),
+    ),
+    GetPage(name: RouteStrings.otpScreen, page: () => OtpScreen()),
 
     GetPage(
-  name: RouteStrings.forgotPasswordScreen,
-  page: () => ForgotPasswordScreen(),
- ),
-    GetPage(
-  name: RouteStrings.otpScreen,
-  page: () => OtpScreen(),
- ),
+      name: RouteStrings.resetPasswordScreen,
+      page: () => ResetPasswordScreen(),
+    ),
 
     GetPage(
-  name: RouteStrings.resetPasswordScreen,
-  page: () => ResetPasswordScreen(),
- ),
+      name: RouteStrings.enterCardDetailScreen,
+      page: () => EnterCardDetailScreen(),
+    ),
+    GetPage(
+      name: RouteStrings.paymentSuccessScreen,
+      page: () => PaymentSuccessScreen(),
+    ),
+    GetPage(
+      name: RouteStrings.washStatusScreen,
+      page: () => WashStatusScreen(),
+    ),
 
-    GetPage(
-  name: RouteStrings.enterCardDetailScreen,
-  page: () => EnterCardDetailScreen(),
- ),
-    GetPage(
-  name: RouteStrings.paymentSuccessScreen,
-  page: () => PaymentSuccessScreen(),
- ),
-  GetPage(
-  name: RouteStrings.washStatusScreen,
-  page: () => WashStatusScreen(),
- ),
-
-    GetPage(
-  name: RouteStrings.dashboardScreen,
-  page: () => DashboardScreen(),
- ),
+    GetPage(name: RouteStrings.dashboardScreen, page: () => DashboardScreen()),
 
     GetPage(
       name: RouteStrings.subscribeMainScreen,
       page: () => SubscribeMainScreen(),
     ),
-    GetPage(
-      name: RouteStrings.myAccountScreen,
-      page: () => MyAccountScreen(),
-    ),
+    GetPage(name: RouteStrings.myAccountScreen, page: () => MyAccountScreen()),
     GetPage(
       name: RouteStrings.subscriptionPlanScreen,
       page: () => SubscriptionPlanScreen(),
     ),
-    GetPage(
-      name: RouteStrings.languageScreen,
-      page: () => LanguageScreen(),
-    ),
-    GetPage(
-      name: RouteStrings.faqScreen,
-      page: () => FaqScreen(),
-    ),
- /*   GetPage(
+    GetPage(name: RouteStrings.languageScreen, page: () => LanguageScreen()),
+    GetPage(name: RouteStrings.faqScreen, page: () => FaqScreen()),
+    /*   GetPage(
       name: RouteStrings.chatScreen,
       page: () => ChatScreen(),
     ),*/
@@ -130,11 +100,5 @@ class Routes {
       name: RouteStrings.privacySettingScreen,
       page: () => PrivacySettingScreen(),
     ),
-
-
-
   ];
-
-
-
 }

@@ -132,7 +132,7 @@ class SecondDrawer extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 18, right: 12,top: 15,bottom: 15),
+            padding: EdgeInsets.only(left: 18, right: 12, top: 15, bottom: 15),
 
             child: Row(
               children: [
@@ -150,7 +150,6 @@ class SecondDrawer extends StatelessWidget {
           ),
 
           dashedLineWidget ? DotedHorizontalLine() : SizedBox(),
-
         ],
       ),
     );

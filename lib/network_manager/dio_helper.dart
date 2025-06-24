@@ -8,17 +8,15 @@ class DioHelper {
 
   Future<Map<String, dynamic>> _getHeaders(bool isAuthRequired) async {
     var storage = LocalStorage();
-    var token =await storage.getToken();
+    var token = await storage.getToken();
     //print( "First------>${token}");
     if (isAuthRequired && token != null) {
       return {
         'Authorization': 'Bearer $token',
-       // 'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       };
     } else {
-      return {
-        'Content-Type': 'application/json',
-      };
+      return {'Content-Type': 'application/json'};
     }
   }
 
@@ -33,9 +31,15 @@ class DioHelper {
   }
 
   /// GET API
-  Future<dynamic> get({required String url, bool isAuthRequired = false}) async {
+  Future<dynamic> get({
+    required String url,
+    bool isAuthRequired = false,
+  }) async {
     try {
-      Response response = await dio.get(url, options: await options(isAuthRequired));
+      Response response = await dio.get(
+        url,
+        options: await options(isAuthRequired),
+      );
       return response.data;
     } catch (error) {
       return null;
@@ -43,13 +47,21 @@ class DioHelper {
   }
 
   /// POST API
-  Future<dynamic> post({required String url, Object? requestBody, bool isAuthRequired = false}) async {
+  Future<dynamic> post({
+    required String url,
+    Object? requestBody,
+    bool isAuthRequired = false,
+  }) async {
     try {
       Response response;
       if (requestBody == null) {
         response = await dio.post(url, options: await options(isAuthRequired));
       } else {
-        response = await dio.post(url, data: requestBody, options: await options(isAuthRequired));
+        response = await dio.post(
+          url,
+          data: requestBody,
+          options: await options(isAuthRequired),
+        );
       }
       return response.data;
     } catch (error) {
@@ -58,13 +70,21 @@ class DioHelper {
   }
 
   /// PUT API
-  Future<dynamic> put({required String url, Object? requestBody, bool isAuthRequired = false}) async {
+  Future<dynamic> put({
+    required String url,
+    Object? requestBody,
+    bool isAuthRequired = false,
+  }) async {
     try {
       Response response;
       if (requestBody == null) {
         response = await dio.put(url, options: await options(isAuthRequired));
       } else {
-        response = await dio.put(url, data: requestBody, options: await options(isAuthRequired));
+        response = await dio.put(
+          url,
+          data: requestBody,
+          options: await options(isAuthRequired),
+        );
       }
       return response.data;
     } catch (error) {
@@ -73,13 +93,21 @@ class DioHelper {
   }
 
   /// PATCH API
-  Future<dynamic> patch({required String url, Object? requestBody, bool isAuthRequired = false}) async {
+  Future<dynamic> patch({
+    required String url,
+    Object? requestBody,
+    bool isAuthRequired = false,
+  }) async {
     try {
       Response response;
       if (requestBody == null) {
         response = await dio.patch(url, options: await options(isAuthRequired));
       } else {
-        response = await dio.patch(url, data: requestBody, options: await options(isAuthRequired));
+        response = await dio.patch(
+          url,
+          data: requestBody,
+          options: await options(isAuthRequired),
+        );
       }
       return response.data;
     } catch (error) {
@@ -88,13 +116,24 @@ class DioHelper {
   }
 
   /// DELETE API
-  Future<dynamic> delete({required String url, Object? requestBody, bool isAuthRequired = false}) async {
+  Future<dynamic> delete({
+    required String url,
+    Object? requestBody,
+    bool isAuthRequired = false,
+  }) async {
     try {
       Response response;
       if (requestBody == null) {
-        response = await dio.delete(url, options: await options(isAuthRequired));
+        response = await dio.delete(
+          url,
+          options: await options(isAuthRequired),
+        );
       } else {
-        response = await dio.delete(url, data: requestBody, options: await options(isAuthRequired));
+        response = await dio.delete(
+          url,
+          data: requestBody,
+          options: await options(isAuthRequired),
+        );
       }
       return response.data;
     } catch (error) {
@@ -111,13 +150,16 @@ class DioHelper {
     try {
       final fullOptions = await options(isAuthRequired);
 
-
       if (requestBody.files.isEmpty) {
         print("FormData is empty");
         return null;
       }
 
-      Response response = await dio.post(url, data: requestBody, options: fullOptions);
+      Response response = await dio.post(
+        url,
+        data: requestBody,
+        options: fullOptions,
+      );
       print("Upload response: ${response.data}");
       return response.data;
     } catch (error) {
@@ -125,8 +167,4 @@ class DioHelper {
       return null;
     }
   }
-
-
 }
-
-

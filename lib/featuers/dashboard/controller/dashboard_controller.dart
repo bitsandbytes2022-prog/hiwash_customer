@@ -27,13 +27,11 @@ class DashboardController extends GetxController {
   ) async {
     Map params = {"rating": rating, "washId": washId, "comment": comment};
     try {
-      print("Rating body--->: $params");
 
       final response = await Repository().rating(params);
       if (response != null) {
         apiResponse.value = response;
       } else {
-        print("Received null response from the repository.");
         return null;
       }
 

@@ -17,20 +17,18 @@ class RewardController extends GetxController {
   Rxn<GetOffersByIdModel> getOffersByIdModel = Rxn();
   Rxn<GetOfferCategoriesModel> getOfferCategoriesModel = Rxn();
   RxInt selectedDropDownIndex = (-1).obs;
+
   // In RewardController
   RxString selectedCategoryName = ''.obs;
   RxString selectedCategoryNameFilter = ''.obs;
   RxList<Offers> filteredOffers = <Offers>[].obs;
 
-
   var selectedCategoryIndex = 0.obs;
-
 
   void clearCategoryFilter() {
     selectedCategoryIndex.value = 0;
-  filteredOffers.clear();
+    filteredOffers.clear();
   }
-
 
   final List<String> images = [
     Assets.demoOffer1,
@@ -40,6 +38,7 @@ class RewardController extends GetxController {
 
   RxBool isAscending = true.obs;
   RxString sortByText = StringConstant.kSortByExpiry.tr.obs;
+
   void applySortingToCurrentData() {
     List<Offers> data;
 
@@ -52,7 +51,9 @@ class RewardController extends GetxController {
     data.sort((a, b) {
       final aDate = DateTime.tryParse(a.expiryDate ?? "") ?? DateTime.now();
       final bDate = DateTime.tryParse(b.expiryDate ?? "") ?? DateTime.now();
-      return isAscending.value ? aDate.compareTo(bDate) : bDate.compareTo(aDate);
+      return isAscending.value
+          ? aDate.compareTo(bDate)
+          : bDate.compareTo(aDate);
     });
 
     if (filteredOffers.isNotEmpty) {
@@ -69,7 +70,9 @@ class RewardController extends GetxController {
   void toggleSortOrder() {
     isAscending.value = !isAscending.value;
     sortByText.value =
-    isAscending.value ? StringConstant.kAscendingOrder.tr : StringConstant.kDescendingOrder.tr;
+        isAscending.value
+            ? StringConstant.kAscendingOrder.tr
+            : StringConstant.kDescendingOrder.tr;
     applySortingToCurrentData();
   }
 
@@ -77,26 +80,30 @@ class RewardController extends GetxController {
     selectedCategoryIndex.value = index;
 
     final selectedCategoryName =
-    getOfferCategoriesModel.value?.data?[index].name?.toLowerCase().trim();
+        getOfferCategoriesModel.value?.data?[index].name?.toLowerCase().trim();
 
     final allOffers = offerResponseModel.value?.data?.offers ?? [];
 
-    final matchedOffers = allOffers.where((offer) {
-      final offerCategory = offer.categoryName?.toLowerCase().trim();
-      return offerCategory == selectedCategoryName;
-    }).toList();
+    final matchedOffers =
+        allOffers.where((offer) {
+          final offerCategory = offer.categoryName?.toLowerCase().trim();
+          return offerCategory == selectedCategoryName;
+        }).toList();
 
     matchedOffers.sort((a, b) {
       final aDate = DateTime.tryParse(a.expiryDate ?? "") ?? DateTime.now();
       final bDate = DateTime.tryParse(b.expiryDate ?? "") ?? DateTime.now();
-      return isAscending.value ? aDate.compareTo(bDate) : bDate.compareTo(aDate);
+      return isAscending.value
+          ? aDate.compareTo(bDate)
+          : bDate.compareTo(aDate);
     });
 
     filteredOffers.value = matchedOffers;
 
-    print("Filtered by category: $selectedCategoryName, Sorted: ${matchedOffers.length}");
+    print(
+      "Filtered by category: $selectedCategoryName, Sorted: ${matchedOffers.length}",
+    );
   }
-
 
   String timeUntilExpiry(String? expiryDate) {
     if (expiryDate == null || expiryDate.isEmpty) {
@@ -138,12 +145,12 @@ class RewardController extends GetxController {
     }
   }
 
-
   Timer? _timer;
   String countdown = "";
 
   void startCountdown() {
-    final expiryDate = getOffersByIdModel.value?.offerDetailList?.first.expiryDate;
+    final expiryDate =
+        getOffersByIdModel.value?.offerDetailList?.first.expiryDate;
     if (expiryDate != null) {
       final expiryDateTime = DateTime.parse(expiryDate);
       final now = DateTime.now();
@@ -155,13 +162,12 @@ class RewardController extends GetxController {
           if (remaining.isNegative) {
             _timer?.cancel();
 
-              countdown = "Expired";
-              update();
+            countdown = "Expired";
+            update();
           } else {
-
-              countdown = "${remaining.inHours.toString().padLeft(2, '0')}:${(remaining.inMinutes % 60).toString().padLeft(2, '0')}:${(remaining.inSeconds % 60).toString().padLeft(2, '0')}";
-        update()
-              ;
+            countdown =
+                "${remaining.inHours.toString().padLeft(2, '0')}:${(remaining.inMinutes % 60).toString().padLeft(2, '0')}:${(remaining.inSeconds % 60).toString().padLeft(2, '0')}";
+            update();
           }
         });
       }
@@ -173,6 +179,7 @@ class RewardController extends GetxController {
     _timer?.cancel();
     super.dispose();
   }
+
   RxBool loading = false.obs;
 
   Future<GetOfferResponseModel?> getAllOffers() async {
@@ -191,13 +198,13 @@ class RewardController extends GetxController {
 
   Future<GetOffersByIdModel?> getOffersById(int id) async {
     try {
-showLoader();
+      showLoader();
       getOffersByIdModel.value = await Repository().getOfferById(id);
 
-       getOffersByIdModel.value;
-       hideLoader();
+      getOffersByIdModel.value;
+      hideLoader();
     } catch (error) {
-hideLoader();
+      hideLoader();
       print("Error fetching Offers by Di: $error");
     }
     return null;
@@ -205,16 +212,12 @@ hideLoader();
 
   Future<GetOfferCategoriesModel?> getOfferCategoriesMethod() async {
     try {
-
       getOfferCategoriesModel.value = await Repository().getOfferCategories();
 
       return getOfferCategoriesModel.value;
     } catch (error) {
-
       print("Error fetching Offers Categories: $error");
     }
     return null;
   }
-
-
 }

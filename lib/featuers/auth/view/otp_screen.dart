@@ -22,10 +22,7 @@ import '../auth_controller/auth_controller.dart';
 class OtpScreen extends StatelessWidget {
   OtpScreen({super.key});
 
-
-   AuthController controller =
- Get.find<AuthController>()
-      ;
+  AuthController controller = Get.find<AuthController>();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -36,7 +33,6 @@ class OtpScreen extends StatelessWidget {
       controller.startTimer();
       controller.getFCMTokenIn();
     });
-
 
     final defaultPinTheme = PinTheme(
       width: 56,
@@ -59,7 +55,10 @@ class OtpScreen extends StatelessWidget {
         child: Column(
           children: [
             110.heightSizeBox,
-            Text(StringConstant.kVerifyPhone.tr, style: w700_22a(color: AppColor.c2C2A2A)),
+            Text(
+              StringConstant.kVerifyPhone.tr,
+              style: w700_22a(color: AppColor.c2C2A2A),
+            ),
             14.heightSizeBox,
             RichText(
               text: TextSpan(
@@ -104,7 +103,10 @@ class OtpScreen extends StatelessWidget {
               return Text(formatted, style: w400_12p(color: AppColor.red));
             }),
             52.heightSizeBox,
-            Text(StringConstant.kDidGetOTPCode.tr, style: w400_12p(color: AppColor.c455A64)),
+            Text(
+              StringConstant.kDidGetOTPCode.tr,
+              style: w400_12p(color: AppColor.c455A64),
+            ),
             5.heightSizeBox,
 
             Obx(() {
@@ -112,12 +114,13 @@ class OtpScreen extends StatelessWidget {
               final isActive = seconds == 0;
 
               return GestureDetector(
-                onTap: isActive
-                    ? () {
-                  controller.sendOtp(phoneNumber);
-                  controller.resetTimer();
-                }
-                    : null,
+                onTap:
+                    isActive
+                        ? () {
+                          controller.sendOtp(phoneNumber);
+                          controller.resetTimer();
+                        }
+                        : null,
                 child: Text(
                   StringConstant.kResendCode.tr,
                   style: w400_12p(
@@ -128,38 +131,31 @@ class OtpScreen extends StatelessWidget {
             }),
             26.heightSizeBox,
             Obx(
-                    () => HiWashButton(
-                  isLoading: controller.isLoading.value,
-                  text: StringConstant.kVerify.tr,
-                  onTap: () async {
-                    if (formKey.currentState!.validate()) {
+              () => HiWashButton(
+                isLoading: controller.isLoading.value,
+                text: StringConstant.kVerify.tr,
+                onTap: () async {
+                  if (formKey.currentState!.validate()) {
+                    final enteredOtp = controller.enteredOtp.value.trim();
 
-                      final enteredOtp = controller.enteredOtp.value.trim();
+                    final serverOtp = controller.sendOtpModel.value.data?.otp;
 
-                      final serverOtp =  controller.sendOtpModel.value.data?.otp;
-
-                      print("Server OTP form signup: $serverOtp (${serverOtp})");
-
-                      if (enteredOtp == serverOtp) {
-                    await    controller.getToken(phoneNumber).then((value) {
-                          if (value != null) {
-                            Get.offAllNamed(RouteStrings.dashboardScreen);
-                          }
-                        });
-                      } else {
-
-                        appSnackBar(
-                          title: StringConstant.kInvalidOTP,
-                          message: StringConstant.kPleaseEnterTheCorrectOTP,
-
-                        );
-
-                      }
+                    if (enteredOtp == serverOtp) {
+                      await controller.getToken(phoneNumber).then((value) {
+                        if (value != null) {
+                          Get.offAllNamed(RouteStrings.dashboardScreen);
+                        }
+                      });
+                    } else {
+                      appSnackBar(
+                        title: StringConstant.kInvalidOTP.tr,
+                        message: StringConstant.kPleaseEnterTheCorrectOTP.tr,
+                      );
                     }
-                  },
-                )
+                  }
+                },
+              ),
             ),
-
 
             30.heightSizeBox,
           ],

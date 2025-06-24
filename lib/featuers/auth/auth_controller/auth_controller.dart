@@ -33,6 +33,7 @@ class AuthController extends GetxController {
     checkLoginStatus();
     super.onInit();
   }
+
   RxString globalToken = ''.obs;
 
   GetTokenModel? getTokenModel;
@@ -95,7 +96,6 @@ class AuthController extends GetxController {
   }
 
   final List<String> headingText = ["kEcoCleanWalletGreen", "Wash & Win!"];
-
 
   final List<String> backgroundImages = [
     Assets.imagesWelcomeBg,
@@ -178,7 +178,6 @@ class AuthController extends GetxController {
     return null;
   }
 
-
   void startTimer() {
     secondsRemaining.value = 60;
 
@@ -203,10 +202,10 @@ class AuthController extends GetxController {
   }
 
   Future<void> checkLoginStatus() async {
-    String? token =  LocalStorage().getToken();
+    String? token = LocalStorage().getToken();
     if (token != null && token.isNotEmpty) {
       isLoggedIn.value = true;
-      print("User already logged in ");
+      print("User already logged in");
     } else {
       isLoggedIn.value = false;
       print("User not logged in ");
@@ -219,24 +218,20 @@ class AuthController extends GetxController {
       "mobileNumber": phoneNumber,
       "userType": "0",
     };
-
-    print("Calling sendOtp with $phoneNumber");
     isLoading.value = true;
 
     try {
       sendOtpModel.value = (await Repository().sendOtpRepo(requestBody))!;
       sendOtpModel.value?.data?.otp?.toString();
-      print("Value received in controller sendOtp: ${sendOtpModel.toString()}");
 
       if (sendOtpModel != null) {
         appSnackBar(
-          title: StringConstant.kSuccess,
+          title: StringConstant.kSuccess.tr,
           message:
               "${StringConstant.kTestOTP.tr} ${sendOtpModel.value.data?.otp}",
           backgroundColor: Colors.green,
         );
 
-        print("User Type: ${sendOtpModel!.toJson().toString()}");
         return sendOtpModel.value;
       } else {
         throw Exception('Failed to generate OTP');
@@ -254,14 +249,11 @@ class AuthController extends GetxController {
     }
   }
 
-
-
   Future<void> getFCMTokenIn() async {
     try {
       var token = await FirebaseMessaging.instance.getToken();
       if (token != null) {
         LocalStorage().saveFCMToken(token: token);
-        debugPrint("FCM Token set: $token");
       } else {
         debugPrint("️FCM token is null.");
       }
@@ -277,18 +269,15 @@ class AuthController extends GetxController {
       "userType": "0",
       "fcmToken": LocalStorage().getFCMToken(),
     };
-    print("Calling getToken with $phoneNumber");
     isLoading.value = true;
 
     try {
       final value = await Repository().getTokens(requestBody);
-      print(" Value received in controller token: $value");
       if (value.data?.token != null && value.data!.token!.isNotEmpty) {
         LocalStorage tokenStorage = LocalStorage();
         await tokenStorage.saveToken(value.data!.token!);
         await tokenStorage.saveRefreshToken(value.data!.refreshToken!);
         await tokenStorage.saveUserId(value.data!.id.toString());
-
 
         isLoggedIn.value = true;
       }
@@ -303,12 +292,12 @@ class AuthController extends GetxController {
     }
   }
 
+
+
   Future<GetRefreshToken?> refreshToken() async {
     var storedRefreshToken = LocalStorage().getRefreshToken();
-    print("Stored refresh token before calling API: $storedRefreshToken");
 
     if (storedRefreshToken == null || storedRefreshToken.isEmpty) {
-      print("No refresh token found. Logging out.");
       await LocalStorage().removeToken();
       Get.offAllNamed(RouteStrings.welcomeScreen);
       return null;
@@ -320,7 +309,6 @@ class AuthController extends GetxController {
 
     try {
       var response = await Repository().refreshToken(requestBody);
-      print("Refresh token API response: ${response.toJson()}");
 
       if (response.success == true &&
           response.data?.token != null &&
@@ -330,7 +318,6 @@ class AuthController extends GetxController {
         return response;
       }
 
-      print("Refresh token failed");
       return null;
     } catch (e) {
       print("Error refreshing token: $e");
@@ -357,12 +344,10 @@ class AuthController extends GetxController {
       "unit": unit,
       "userType": "0",
     };
-    print("Calling getToken with $phoneNumber");
     isLoading.value = true;
 
     try {
       signUpModel = await Repository().signUp(requestBody);
-      print(" Value received in controller: $signUpModel");
 
       return signUpModel;
     } catch (error) {
