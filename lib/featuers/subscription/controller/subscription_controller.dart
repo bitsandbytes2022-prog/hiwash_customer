@@ -1,8 +1,11 @@
 
 
   import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
   import 'package:get_storage/get_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
   import 'package:hiwash_customer/featuers/subscription/model/get_subscription_model.dart';
   import '../../../network_manager/repository.dart';
   import '../../../network_manager/utils/api_response.dart';
@@ -19,12 +22,15 @@ import '../../wash_status/controller/wash_status_controller.dart';
 
     bool loading = false;
     RxBool isLoading = false.obs;
+    Rx<LatLng?> currentLatLng = Rx<LatLng?>(null);
+    late GoogleMapController mapController;
 
     @override
     void onInit() {
       super.onInit();
       selectedIndex.value = 2;
       update();
+      _fetchCurrentLocation();
     }
 
 
@@ -109,5 +115,21 @@ import '../../wash_status/controller/wash_status_controller.dart';
 
       }
     }
+
+    Future<void> _fetchCurrentLocation() async {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) return;
+
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) return;
+      }
+      if (permission == LocationPermission.deniedForever) return;
+
+      Position pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      currentLatLng.value = LatLng(pos.latitude, pos.longitude);
+    }
   }
+
 

@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hiwash_customer/featuers/auth/model/get_refresh_token.dart';
 import 'package:hiwash_customer/featuers/auth/model/sign_up_model.dart';

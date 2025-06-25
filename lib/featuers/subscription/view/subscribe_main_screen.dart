@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hiwash_customer/featuers/subscription/controller/subscription_controller.dart';
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
@@ -21,6 +23,7 @@ class SubscribeMainScreen extends StatelessWidget {
   DashboardController dashboardController = Get.find();
   WashStatusController washStatusController = Get.find();
     RewardController rewardController = Get.find<RewardController>();
+   final SubscriptionController subscriptionController =Get.find();
 
    @override
   Widget build(BuildContext context) {
@@ -97,12 +100,39 @@ class SubscribeMainScreen extends StatelessWidget {
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          ImageView(
+        /*  ImageView(
             path: Assets.imagesImMap,
             width: Get.width,
             height:Get.height/1.4,
             fit: BoxFit.cover,
-          ),
+          ),*/
+          Obx(() {
+            final latLng = subscriptionController.currentLatLng.value;
+            if (latLng == null) {
+              return SizedBox(
+                width: Get.width,
+                height: Get.height / 1.4,
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+            return SizedBox(
+              width: Get.width,
+              height: Get.height / 1.4,
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(target: latLng, zoom: 15),
+                onMapCreated: (gmc) {
+                  subscriptionController.mapController = gmc;
+                },
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                markers: {
+                  Marker(markerId: MarkerId('me'), position: latLng),
+                },
+              ),
+            );
+          }),
+
+
           Stack(
             alignment: Alignment.bottomCenter,
             children: [

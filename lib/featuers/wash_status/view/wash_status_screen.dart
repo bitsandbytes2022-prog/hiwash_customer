@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
 import 'package:hiwash_customer/featuers/wash_status/model/get_location_model.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
@@ -170,14 +171,9 @@ class WashStatusScreen extends StatelessWidget {
                           ),
                         ),
                         24.heightSizeBox,
-                        InkWell(
-                          onTap: (){
-                            paymentConfirmationDialog();
-                          },
-                          child: Text(
-                            StringConstant.kCompleteWash.tr,
-                            style: w500_14a(color: AppColor.c2C2A2A),
-                          ),
+                        Text(
+                          StringConstant.kCompleteWash.tr,
+                          style: w500_14a(color: AppColor.c2C2A2A),
                         ),
                         18.heightSizeBox,
                         (controller
@@ -243,12 +239,40 @@ class WashStatusScreen extends StatelessWidget {
               )
               : Stack(
                 children: [
-                  ImageView(
+              /*    ImageView(
                     path: Assets.imagesImMap,
                     width: Get.width,
                     height: Get.height / 1.5,
                     fit: BoxFit.cover,
-                  ),
+                  ),*/
+                  Obx(() {
+                    if (controller.currentLatLng.value == null) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+
+                    return SizedBox(
+                      width: Get.width,
+                      height: Get.height / 1.5,
+                      child: GoogleMap(
+                        initialCameraPosition: CameraPosition(
+                          target: controller.currentLatLng.value!,
+                          zoom: 14,
+                        ),
+                        markers: controller.markers,
+                        polylines: controller.polylines,
+                        myLocationEnabled: true,
+                        myLocationButtonEnabled: true,
+                        onMapCreated: (mapController) {
+                          controller.googleMapController = mapController;
+                          mapController.animateCamera(
+                            CameraUpdate.newLatLng(controller.currentLatLng.value!),
+                          );
+                        },
+                      ),
+                    );
+                  }),
+
+
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
@@ -357,28 +381,97 @@ class WashStatusScreen extends StatelessWidget {
               ),
     );
   }
-  Future<bool> paymentConfirmationDialog() async {
-    return showDialog<bool>(
-
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.green,
-          title: Text(StringConstant.kPaymentSuccessfully.tr,style: w500_22p(color: AppColor.white),),
-          content: Text(StringConstant.kYouHaveCompletedYourPayment.tr,style: w400_16p(color: Colors.white),),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Get.back();
-              },
-              child: Text(StringConstant.kOk,style: w700_16p(color: Colors.white),),
+  Widget locationContainer(LocationData locationList) {
+    return Container(
+      margin: EdgeInsets.only(top: 200),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: AppColor.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.c142293.withOpacity(0.15),
+            spreadRadius: 0,
+            blurRadius: 7,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            clipBehavior: Clip.hardEdge,
+            borderRadius: BorderRadius.circular(15),
+            child: Image.asset(
+              Assets.imagesImMap,
+              fit: BoxFit.fill,
+              width: 70,
+              height: 70,
             ),
+          ),
 
-          ],
-        );
-      },
-    ).then((value) => value ?? false);
+          15.widthSizeBox,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          locationList.name ?? '',
+                          style: w600_14a(color: AppColor.c2C2A2A),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ImageView(
+                          path: Assets.iconsIcPlaceMarker,
+                          height: 18,
+                          width: 18,
+                        ),
+
+                        Text(
+                          "${locationList.distanceInKm?.toStringAsFixed(2) ?? "0.00"} ${StringConstant.kKm.tr}",
+                          style: w400_12a(color: AppColor.c455A64),
+                        ),
+                      ],
+                    ),
+
+                    13.heightSizeBox,
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ImageView(
+                      path: Assets.iconsIcTimeMachine,
+                      height: 18,
+                      width: 18,
+                    ),
+                    5.widthSizeBox,
+                    Text(
+                      "Open 9:00 AM to 8:00 PM Static",
+                      style: w400_10p(color: AppColor.c455A64),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+        ],
+      ),
+    );
   }
+
   Widget servicesContainer(int index, VoidCallback? onTap) {
     var washData =
         controller.washSummaryModel.value?.data?.completedWash![index];
@@ -682,93 +775,5 @@ class WashStatusScreen extends StatelessWidget {
     );
   }
 
-  Widget locationContainer(LocationData locationList) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColor.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.c142293.withOpacity(0.15),
-            spreadRadius: 0,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            clipBehavior: Clip.hardEdge,
-            borderRadius: BorderRadius.circular(15),
-            child: Image.asset(
-              Assets.imagesImMap,
-              fit: BoxFit.fill,
-              width: 70,
-              height: 70,
-            ),
-          ),
 
-          15.widthSizeBox,
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          locationList.name ?? '',
-                          style: w600_14a(color: AppColor.c2C2A2A),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ImageView(
-                          path: Assets.iconsIcPlaceMarker,
-                          height: 18,
-                          width: 18,
-                        ),
-
-                        Text(
-                          "${locationList.distanceInKm?.toStringAsFixed(2) ?? "0.00"} ${StringConstant.kKm.tr}",
-                          style: w400_12a(color: AppColor.c455A64),
-                        ),
-                      ],
-                    ),
-
-                    13.heightSizeBox,
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    ImageView(
-                      path: Assets.iconsIcTimeMachine,
-                      height: 18,
-                      width: 18,
-                    ),
-                    5.widthSizeBox,
-                    Text(
-                      "Open 9:00 AM to 8:00 PM Static",
-                      style: w400_10p(color: AppColor.c455A64),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-
-        ],
-      ),
-    );
-  }
 }
