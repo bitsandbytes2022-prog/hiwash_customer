@@ -15,10 +15,6 @@ class DashboardController extends GetxController {
 
   final String? userId = LocalStorage().getUserId();
 
-  @override
-  Future<void> onInit() async {
-    super.onInit();
-  }
 
   Future<ApiResponse?> getRating(
     String rating,

@@ -82,16 +82,18 @@ class WashStatusScreen extends StatelessWidget {
                                                 color: AppColor.white,
                                               ),
                                             )
-                                            : ( controller
-                                            .getCustomerData
-                                            .value
-                                            ?.data
-                                            ?.subscriptionDetails
-                                            ?.subscriptionId ==
-                                            2)?Icon(
+                                            : (controller
+                                                    .getCustomerData
+                                                    .value
+                                                    ?.data
+                                                    ?.subscriptionDetails
+                                                    ?.subscriptionId ==
+                                                2)
+                                            ? Icon(
                                               CupertinoIcons.infinite,
                                               color: Colors.white,
-                                            ):SizedBox(),
+                                            )
+                                            : SizedBox(),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
@@ -239,149 +241,115 @@ class WashStatusScreen extends StatelessWidget {
               )
               : Stack(
                 children: [
-              /*    ImageView(
-                    path: Assets.imagesImMap,
-                    width: Get.width,
-                    height: Get.height / 1.5,
-                    fit: BoxFit.cover,
-                  ),*/
                   Obx(() {
-                    if (controller.currentLatLng.value == null) {
+                    final currentLatLng = controller.currentLatLng.value;
+                    if (currentLatLng == null) {
                       return Center(child: CircularProgressIndicator());
                     }
 
                     return SizedBox(
                       width: Get.width,
-                      height: Get.height / 1.5,
+                      height: Get.height / 1.44,
                       child: GoogleMap(
                         initialCameraPosition: CameraPosition(
-                          target: controller.currentLatLng.value!,
+                          target: currentLatLng,
                           zoom: 14,
                         ),
-                        markers: controller.markers,
-                        polylines: controller.polylines,
+                        markers: controller.markers.toSet(),
+                        polylines: controller.polylines.toSet(),
                         myLocationEnabled: true,
                         myLocationButtonEnabled: true,
-                        onMapCreated: (mapController) {
+                        onMapCreated: (mapController) async {
                           controller.googleMapController = mapController;
-                          mapController.animateCamera(
-                            CameraUpdate.newLatLng(controller.currentLatLng.value!),
-                          );
+
+                          if (controller.currentLatLng.value != null) {
+                            mapController.animateCamera(
+                              CameraUpdate.newLatLng(
+                                controller.currentLatLng.value!,
+                              ),
+                            );
+                          } else {
+                            await Future.delayed(Duration(milliseconds: 500));
+                            if (controller.currentLatLng.value != null) {
+                              mapController.animateCamera(
+                                CameraUpdate.newLatLng(
+                                  controller.currentLatLng.value!,
+                                ),
+                              );
+                            }
+                          }
                         },
                       ),
                     );
                   }),
-
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Container(
-                      height: Get.height / 1.38,
-                      child: SingleChildScrollView(
-                        // Wrap with SingleChildScrollView
-                        child: Column(
-                          children: [
-                            15.heightSizeBox,
-                            Container(
-                              padding: EdgeInsets.only(
-                                top: 8,
-                                left: 8,
-                                bottom: 7,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColor.white,
-                                borderRadius: BorderRadius.circular(15),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColor.c142293.withOpacity(0.20),
-                                    spreadRadius: 0,
-                                    blurRadius: 15,
-                                    offset: Offset(0, 5),
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      color: AppColor.cC41948.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: ImageView(
-                                      path: Assets.iconsMyLocation,
-                                      height: 24,
-                                      width: 24,
-                                    ),
-                                  ),
-                                  10.widthSizeBox,
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          StringConstant.kYourCurrentLocation.tr,
-                                          style: w400_12a(
-                                            color: AppColor.c455A64,
-                                          ),
-                                        ),
-                                        Obx(
-                                          () => Text(
-                                            controller
-                                                    .currentAddress
-                                                    .value
-                                                    .isEmpty
-                                                ? StringConstant.kFetchingLocation.tr
-                                                : controller
-                                                    .currentAddress
-                                                    .value,
-                                            style: w500_14p(
-                                              color: AppColor.c000000,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            15.heightSizeBox,
-
-                            Obx(() {
-                              if (controller.locationList.isEmpty) {
-                                return Text(StringConstant.kNoNearbyLocationsFound.tr);
-                              }
-
-                              return ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                // Prevents scroll conflict
-                                itemCount: controller.locationList.length,
-                                itemBuilder: (context, index) {
-                                  final location =
-                                      controller.locationList[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 8.0,
-                                    ),
-                                    child: locationContainer(location),
-                                  );
-                                },
-                              );
-                            }),
-                          ],
+                  Container(
+                    margin: EdgeInsets.only(top: 10, left: 16, right: 16),
+                    padding: EdgeInsets.only(top: 15, left: 8, bottom: 7),
+                    decoration: BoxDecoration(
+                      color: AppColor.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColor.c142293.withOpacity(0.20),
+                          spreadRadius: 0,
+                          blurRadius: 15,
+                          offset: Offset(0, 5),
                         ),
-                      ),
+                      ],
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: AppColor.cC41948.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: ImageView(
+                            path: Assets.iconsMyLocation,
+                            height: 24,
+                            width: 24,
+                          ),
+                        ),
+                        10.widthSizeBox,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                StringConstant.kYourCurrentLocation.tr,
+                                style: w400_12a(color: AppColor.c455A64),
+                              ),
+                              Obx(
+                                () => Text(
+                                  controller.currentAddress.value.isEmpty
+                                      ? StringConstant.kFetchingLocation.tr
+                                      : controller.currentAddress.value,
+                                  style: w500_14p(color: AppColor.c000000),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  Obx(() {
+                    final location = controller.selectedLocation.value;
+                    if (location == null) return SizedBox();
+                    return Positioned(
+                      left: 15,
+                      right: 15,
+                      bottom: 0,
+                      child: locationContainer(location, () {}),
+                    );
+                  }),
                 ],
               ),
     );
   }
-  Widget locationContainer(LocationData locationList) {
+  Widget locationContainer(LocationData locationList, VoidCallback? onTap) {
     return Container(
       margin: EdgeInsets.only(top: 200),
       padding: EdgeInsets.all(10),
@@ -439,7 +407,16 @@ class WashStatusScreen extends StatelessWidget {
 
                         Text(
                           "${locationList.distanceInKm?.toStringAsFixed(2) ?? "0.00"} ${StringConstant.kKm.tr}",
-                          style: w400_12a(color: AppColor.c455A64),
+                          style: w400_12a(color: AppColor.blue),
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: onTap,
+                          child: ImageView(
+                            path: Assets.iconsMyLocation,
+                            height: 20,
+                            width: 20,
+                          ),
                         ),
                       ],
                     ),
@@ -466,7 +443,6 @@ class WashStatusScreen extends StatelessWidget {
               ],
             ),
           ),
-
         ],
       ),
     );
@@ -502,7 +478,7 @@ class WashStatusScreen extends StatelessWidget {
                 imageUrl: washData?.locationImage ?? '',
                 placeholder:
                     (context, url) => Center(
-                      child: CircularProgressIndicator(strokeWidth: 2,),
+                      child: CircularProgressIndicator(strokeWidth: 2),
                     ),
                 errorWidget:
                     (context, url, error) => Image.asset(
@@ -571,7 +547,6 @@ class WashStatusScreen extends StatelessWidget {
                             style: w400_10a(color: AppColor.c455A64),
                           ),
                           13.heightSizeBox,
-
                         ],
                       ),
             ),
@@ -581,7 +556,7 @@ class WashStatusScreen extends StatelessWidget {
     );
   }
 
-   Widget successDialog(CompletedWash completedWashData) {
+  Widget successDialog(CompletedWash completedWashData) {
     dashboardController.apiResponse.value = null;
     // controller.washSummaryModel.value=null;
     return Column(
@@ -610,7 +585,10 @@ class WashStatusScreen extends StatelessWidget {
                 ),
               ),
               21.heightSizeBox,
-              Text(StringConstant.kWashComplete, style: w700_22a(color: AppColor.c2C2A2A)),
+              Text(
+                StringConstant.kWashComplete,
+                style: w700_22a(color: AppColor.c2C2A2A),
+              ),
               Text(
                 StringConstant.kShareYourFeedback.tr,
                 textAlign: TextAlign.center,
@@ -710,7 +688,10 @@ class WashStatusScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Text(StringConstant.kSubmit.tr, style: w500_14a(color: AppColor.white)),
+                  child: Text(
+                    StringConstant.kSubmit.tr,
+                    style: w500_14a(color: AppColor.white),
+                  ),
                 ),
               ),
 
@@ -774,6 +755,4 @@ class WashStatusScreen extends StatelessWidget {
       ],
     );
   }
-
-
 }

@@ -55,16 +55,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
    List<String> get _headings => ["", StringConstant.kOffersForYou.tr, StringConstant.kNotification.tr];
 
+
   void _onItemTapped(int index) {
     if (index == 3) {
       _openDrawer('first');
     } else {
       setState(() {
         _currentIndex = index;
-
+        if (index == 0) {
+          washStatusController.isWashSelected.value = true;
+          washStatusController.selectedLocation.value = null;
+          washStatusController.polylines.clear();
+          washStatusController.polylines.refresh();
+        }
       });
     }
   }
+
 
   void _openDrawer(String drawerType) {
     setState(() {
@@ -205,8 +212,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
-                                  washStatusController.isWashSelected.value =
-                                      true;
+                                  washStatusController.isWashSelected.value = true;
+                                /// here clear the select location
+                                  washStatusController.selectedLocation.value = null;
+                                  washStatusController.polylines.clear();
+                                  washStatusController.polylines.refresh();
                                 },
                                 child: Container(
                                   alignment: Alignment.center,

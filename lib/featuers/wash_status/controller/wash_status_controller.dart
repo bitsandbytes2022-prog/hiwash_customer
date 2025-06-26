@@ -14,7 +14,6 @@ import '../../dashboard/model/get_customer_data_model.dart';
 import '../model/wash_summry.dart';
 
 
-
 class WashStatusController extends GetxController {
   RxBool isWashSelected = true.obs;
   Rxn<WashSummaryModel> washSummaryModel = Rxn();
@@ -28,6 +27,7 @@ class WashStatusController extends GetxController {
   late GoogleMapController googleMapController;
 
   RxList<LocationData> locationList = <LocationData>[].obs;
+  Rx<LocationData?> selectedLocation = Rx<LocationData?>(null);
 
   @override
   void onInit() {
@@ -37,7 +37,11 @@ class WashStatusController extends GetxController {
       getCustomerDataById(int.parse(userIdStr));
     }
     getWashSummary();
-    fetchCurrentAddress();
+   // fetchCurrentAddress();
+    Future.delayed(Duration(milliseconds: 200), () {
+      fetchCurrentAddress();
+    });
+
   }
 
   Future<void> fetchCurrentAddress() async {
@@ -82,58 +86,22 @@ class WashStatusController extends GetxController {
         position.latitude.toString(),
         position.longitude.toString(),
       );
-
-      await drawRouteToNearest(position);
     } catch (e) {
       print("Error: $e");
       currentAddress.value = StringConstant.kLocationNotAvailable.tr;
     }
   }
 
-  Future<void> drawRouteToNearest(Position userPosition) async {
-    if (locationList.isEmpty) return;
+  Future<void> drawRouteFromCurrentTo(LatLng destination) async {
+    if (currentLatLng.value == null) return;
 
-    LocationData? nearest;
-    double minDistance = double.infinity;
+    final start = currentLatLng.value!;
+    final end = destination;
 
-    for (var loc in locationList) {
-      double dist = Geolocator.distanceBetween(
-        userPosition.latitude,
-        userPosition.longitude,
-        double.tryParse(loc.lattitude ?? '0') ?? 0,
-        double.tryParse(loc.longitude ?? '0') ?? 0,
-      );
-      if (dist < minDistance) {
-        minDistance = dist;
-        nearest = loc;
-      }
-    }
-
-    if (nearest == null) return;
-
-    LatLng start = LatLng(userPosition.latitude, userPosition.longitude);
-    LatLng end = LatLng(
-      double.parse(nearest.lattitude!),
-      double.parse(nearest.longitude!),
-    );
-
-    markers.clear();
     polylines.clear();
-
-    markers.add(Marker(
-      markerId: MarkerId("user"),
-      position: start,
-      infoWindow: InfoWindow(title: "You"),
-    ));
-
-    markers.add(Marker(
-      markerId: MarkerId("nearest"),
-      position: end,
-      infoWindow: InfoWindow(title: nearest.name ?? "Nearest"),
-    ));
+    polylines.refresh();
 
     PolylinePoints polylinePoints = PolylinePoints();
-
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleApiKey: 'AIzaSyBzNOVeplXlxtY2jYUug5dhCUYSg5MSCA0',
       request: PolylineRequest(
@@ -145,11 +113,15 @@ class WashStatusController extends GetxController {
 
     if (result.points.isNotEmpty) {
       polylines.add(Polyline(
-        polylineId: PolylineId("route"),
+        polylineId: PolylineId("selected_route"),
         color: Colors.blue,
         width: 4,
         points: result.points.map((p) => LatLng(p.latitude, p.longitude)).toList(),
       ));
+
+      polylines.refresh();
+    } else {
+      print("⚠️ No points returned by PolylinePoints");
     }
   }
 
@@ -162,6 +134,30 @@ class WashStatusController extends GetxController {
 
       if (result != null && result.locationData != null) {
         locationList.assignAll(result.locationData!);
+
+        markers.clear();
+
+        for (var loc in locationList) {
+          final lat = double.tryParse(loc.lattitude ?? '');
+          final lng = double.tryParse(loc.longitude ?? '');
+          if (lat != null && lng != null) {
+            final marker = Marker(
+              markerId: MarkerId(loc.id.toString()),
+              position: LatLng(lat, lng),
+              infoWindow: InfoWindow(title: loc.name),
+              onTap: () async {
+                selectedLocation.value = loc;
+                await drawRouteFromCurrentTo(LatLng(lat, lng));
+                selectedLocation.refresh();
+                polylines.refresh();
+              },
+            );
+
+            markers.removeWhere((m) => m.markerId == marker.markerId);
+            markers.add(marker);
+            markers.refresh();
+          }
+        }
       } else {
         locationList.clear();
       }
@@ -190,5 +186,6 @@ class WashStatusController extends GetxController {
     return null;
   }
 }
+
 
 
