@@ -12,6 +12,7 @@ import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/widgets/components/data_formet.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 import '../../../generated/assets.dart';
 import '../../../styling/app_font_poppins.dart';
@@ -342,7 +343,27 @@ class WashStatusScreen extends StatelessWidget {
                       left: 15,
                       right: 15,
                       bottom: 0,
-                      child: locationContainer(location, () {}),
+                      child: locationContainer(location, () {
+
+                        final selected = controller.selectedLocation.value;
+
+                        if (selected != null) {
+                          final lat = double.tryParse(selected.lattitude ?? '');
+                          final lng = double.tryParse(selected.longitude ?? '');
+
+                          if (lat != null && lng != null) {
+                            MapsLauncher.launchCoordinates(
+                              lat,
+                              lng,
+                              selected.name ?? "Selected Location",
+                            );
+                          } else {
+                            Get.snackbar("Error", "Invalid coordinates for selected location");
+                          }
+                        } else {
+                          Get.snackbar("Error", "No location selected");
+                        }
+                      }),
                     );
                   }),
                 ],
@@ -407,7 +428,7 @@ class WashStatusScreen extends StatelessWidget {
 
                         Text(
                           "${locationList.distanceInKm?.toStringAsFixed(2) ?? "0.00"} ${StringConstant.kKm.tr}",
-                          style: w400_12a(color: AppColor.blue),
+                          style: w400_12a(color: AppColor.c2C2A2A),
                         ),
                         Spacer(),
                         GestureDetector(
@@ -416,6 +437,7 @@ class WashStatusScreen extends StatelessWidget {
                             path: Assets.iconsMyLocation,
                             height: 20,
                             width: 20,
+                            color: Colors.blue,
                           ),
                         ),
                       ],
