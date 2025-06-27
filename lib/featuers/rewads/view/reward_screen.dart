@@ -68,7 +68,7 @@ class RewardScreen extends StatelessWidget {
                       final offer = data[index];
 
                       return AbsorbPointer(
-                        absorbing: offer.isUsed == 1, // Disable tap if used
+                        absorbing: offer.isUsed == 1,
                         child: GestureDetector(
                           onTap: () async {
                             await rewardController.getOffersById(offer.id!);
@@ -150,6 +150,46 @@ class RewardScreen extends StatelessWidget {
               13.heightSizeBox,
               GestureDetector(
                 onTap: () {
+                  showModalBottomSheet(
+                    context: Get.context!,
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                      ),
+                    ),
+                    builder: (BuildContext context) {
+                      return BottomSheetWidget(isVisible: true);
+                    },
+                  ).then((_) {
+                    final rewardController = Get.find<RewardController>();
+                    rewardController.sortByText.value = StringConstant.kSortByExpiry.tr;
+                    rewardController.isAscending.value = true;
+                    rewardController.applySortingToCurrentData();
+                    rewardController.clearCategoryFilter();
+                    rewardController.isVisible.value = false;
+                  });
+                },
+                child: Container(
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: AppColor.c142293,
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(
+                      color: AppColor.white.withOpacity(.50),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Text(
+                    StringConstant.kCheckNow.tr,
+                    style: w600_14a(color: AppColor.white),
+                  ),
+                ),
+              ),
+
+              /*  GestureDetector(
+                onTap: () {
                   // print("888888888888------>");
                   showModalBottomSheet(
                     context: Get.context!,
@@ -182,7 +222,7 @@ class RewardScreen extends StatelessWidget {
                     style: w600_14a(color: AppColor.white),
                   ),
                 ),
-              ),
+              ),*/
               24.heightSizeBox,
             ],
           ),

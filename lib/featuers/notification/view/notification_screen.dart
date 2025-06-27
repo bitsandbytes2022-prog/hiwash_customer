@@ -171,7 +171,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   Widget _buildNotificationHeader() {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Get.toNamed(RouteStrings.subscriptionPlanScreen);
       },
       child: Container(
@@ -232,7 +232,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           style: w600_12p(color: AppColor.white),
                         ),
                         TextSpan(
-                          text: "${StringConstant.kPackHasBeenOverdueSince.tr} ",
+                          text:
+                              "${StringConstant.kPackHasBeenOverdueSince.tr} ",
                           style: w500_12p(
                             color: AppColor.white.withOpacity(0.70),
                           ),
@@ -266,15 +267,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget _notificationContainer(NotificationData item, int index) {
     return GestureDetector(
       onTap: () {
-        controller.toggleSelection(index);
-        controller.updateNotificationReadStatus(item, index);
+        final notification = controller.notifications[index];
+
+        if (notification.isRead != true) {
+          controller.updateNotificationReadStatus(notification, index);
+        }
       },
+
       child: Container(
         width: Get.width,
-        color:
-            controller.selectedStates[index].value
-                ? AppColor.white
-                : AppColor.cF6F7FF,
+        color: controller.notifications[index].isRead == true
+            ? AppColor.white
+            : AppColor.white,
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

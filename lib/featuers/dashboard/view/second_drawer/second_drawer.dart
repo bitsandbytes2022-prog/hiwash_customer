@@ -91,6 +91,61 @@ class SecondDrawer extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
+                  child: GestureDetector(
+                    onTap: () async {
+                      final Uri phoneUri = Uri(
+                        scheme: 'tel',
+                        path: '+97470487070',
+                      );
+
+                      if (await canLaunchUrl(phoneUri)) {
+                        await launchUrl(phoneUri, mode: LaunchMode.externalApplication);
+                      } else {
+                        Get.snackbar("Error", "Could not launch phone app");
+                      }
+
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ImageView(height: 23, width: 23, path: Assets.iconsPhone),
+                        Text("+974 7048 7070", style: w500_12a()),
+                      ],
+                    ),
+                  ),
+                ),
+                DotedVerticalLine(),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () async {
+                      final Uri emailUri = Uri(
+                        scheme: 'mailto',
+                        path: 'info@hiwash.com',
+                        queryParameters: {
+                          'subject': 'Help Request',
+                          'body': 'Hi, I need support with...',
+                        },
+                      );
+                      if (await canLaunchUrl(emailUri)) {
+                        await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+                      } else {
+                        Get.snackbar("Error", "Could not launch email app");
+                      }
+
+
+
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ImageView(height: 23, width: 23, path: Assets.iconsIcAtSign),
+                        Text("info@hiwash.com", style: w500_12a()),
+                      ],
+                    ),
+                  ),
+                ),
+
+                /*  Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -112,7 +167,7 @@ class SecondDrawer extends StatelessWidget {
                       Text("info@hiwash.com", style: w500_12a()),
                     ],
                   ),
-                ),
+                ),*/
               ],
             ),
           ),

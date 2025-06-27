@@ -41,25 +41,22 @@ class DrawerScreen extends StatelessWidget {
           ? Get.find<SubscriptionController>()
           : Get.put(SubscriptionController());
   DashboardController dashboardController = Get.find();
-  AuthController authController = Get.isRegistered<AuthController>()?Get.find<AuthController>():Get.put(AuthController());
+  AuthController authController =
+      Get.isRegistered<AuthController>()
+          ? Get.find<AuthController>()
+          : Get.put(AuthController());
   WashStatusController washStatusController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-
     return Obx(() {
       return Drawer(
         child: Container(
           decoration: BoxDecoration(
             color: AppColor.white,
-            borderRadius: BorderRadius.horizontal(
-              right: Radius.circular(15),
-            ),
+            borderRadius: BorderRadius.horizontal(right: Radius.circular(15)),
           ),
-          child:
-               mainDrawerUI()
-
-
+          child: mainDrawerUI(),
         ),
       );
     });
@@ -115,17 +112,20 @@ class DrawerScreen extends StatelessWidget {
                       width: 100,
                       height: 100,
                       fit: BoxFit.cover,
-                      placeholder: (context, url) => SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: Center(
-                          child: SizedBox(
-                            height: 24,
-                            width: 24,
-                            child: CircularProgressIndicator(strokeWidth: 2),
+                      placeholder:
+                          (context, url) => SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Center(
+                              child: SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
                       errorWidget:
                           (context, url, error) => Image.asset(
                             Assets.imagesDemoProfile,
@@ -138,21 +138,28 @@ class DrawerScreen extends StatelessWidget {
                 }),
               ),
 
-          washStatusController.getCustomerData.value?.data?.subscriptionDetails?.subscriptionId==2?
-          Container(
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: AppColor.white,
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: AppColor.cE8E9F4),
-                ),
+              washStatusController
+                          .getCustomerData
+                          .value
+                          ?.data
+                          ?.subscriptionDetails
+                          ?.subscriptionId ==
+                      2
+                  ? Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: AppColor.white,
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: AppColor.cE8E9F4),
+                    ),
 
-                child: ImageView(
-                  path: Assets.iconsIcCrown,
-                  height: 17,
-                  width: 17,
-                ),
-              ):SizedBox(),
+                    child: ImageView(
+                      path: Assets.iconsIcCrown,
+                      height: 17,
+                      width: 17,
+                    ),
+                  )
+                  : SizedBox(),
             ],
           ),
           11.heightSizeBox,
@@ -167,29 +174,30 @@ class DrawerScreen extends StatelessWidget {
             style: w700_16a(color: AppColor.c2C2A2A),
           ),
           4.heightSizeBox,
-         if(userData!=null) RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: StringConstant.kYour.tr,
-                  style: w400_12p(color: AppColor.c455A64),
-                ),
-                TextSpan(
-                  text: userData?.subscriptionName ?? "",
-                  style: w600_14p(color: AppColor.cC31848),
-                ),
-                TextSpan(
-                  text: StringConstant.kPackExpiringIn.tr,
-                  style: w400_12p(color: AppColor.c455A64),
-                ),
-                TextSpan(
-                  text: formatDate(userData?.endDate),
-                  style: w600_12p(color: AppColor.c455A64),
-                ),
-              ],
+          if (userData != null)
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: StringConstant.kYour.tr,
+                    style: w400_12p(color: AppColor.c455A64),
+                  ),
+                  TextSpan(
+                    text: userData?.subscriptionName ?? "",
+                    style: w600_14p(color: AppColor.cC31848),
+                  ),
+                  TextSpan(
+                    text: StringConstant.kPackExpiringIn.tr,
+                    style: w400_12p(color: AppColor.c455A64),
+                  ),
+                  TextSpan(
+                    text: formatDate(userData?.endDate),
+                    style: w600_12p(color: AppColor.c455A64),
+                  ),
+                ],
+              ),
             ),
-          ),
           39.heightSizeBox,
 
           /// **Drawer Options**
@@ -210,18 +218,16 @@ class DrawerScreen extends StatelessWidget {
             image: Assets.iconsIcSubscriptionPlan,
           ),
 
-
-          Obx(() => drawerRowForTheme(
-            title: StringConstant.kTheme.tr,
-            image: Assets.iconsIcTheme,
-            switchValue: drawerController.isSwitchOn.value,
-            onSwitchChanged: (bool value) {
-              drawerController.isSwitchOn.value = value;
-
-
-            },
-          )),
-
+          Obx(
+            () => drawerRowForTheme(
+              title: StringConstant.kTheme.tr,
+              image: Assets.iconsIcTheme,
+              switchValue: drawerController.isSwitchOn.value,
+              onSwitchChanged: (bool value) {
+                drawerController.isSwitchOn.value = value;
+              },
+            ),
+          ),
 
           drawerRowWidget(
             onTap: () => Get.toNamed(RouteStrings.languageScreen),
@@ -258,7 +264,10 @@ class DrawerScreen extends StatelessWidget {
                 children: [
                   ImageView(path: Assets.iconsIcLogout, height: 20, width: 20),
                   5.widthSizeBox,
-                  Text(StringConstant.kLogout.tr, style: w500_14a(color: AppColor.c142293)),
+                  Text(
+                    StringConstant.kLogout.tr,
+                    style: w500_14a(color: AppColor.c142293),
+                  ),
                 ],
               ),
             ),
@@ -268,7 +277,6 @@ class DrawerScreen extends StatelessWidget {
       ),
     );
   }
-
 
   /// **Reusable Row Widget**
   Widget drawerRowWidget({
@@ -345,5 +353,4 @@ class DrawerScreen extends StatelessWidget {
       ],
     );
   }
-
 }

@@ -86,7 +86,7 @@ class NotificationController extends GetxController {
     }
   }
 
-  void updateNotificationReadStatus(NotificationData item, int index) {
+ /* void updateNotificationReadStatus(NotificationData item, int index) {
     if (item.isRead == true) return;
 
     item.isRead = true;
@@ -98,7 +98,18 @@ class NotificationController extends GetxController {
     if (index >= 0 && index < selectedStates.length) {
       selectedStates[index].value = true;
     }
+  }*/
+
+  void updateNotificationReadStatus(NotificationData item, int index) {
+    if (item.isRead == true) return;
+
+    item.isRead = true;
+
+    if (index >= 0 && index < notifications.length) {
+      notifications[index] = item;
+    }
   }
+
 }
 
 

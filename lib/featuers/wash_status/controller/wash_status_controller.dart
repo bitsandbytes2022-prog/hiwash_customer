@@ -121,7 +121,7 @@ class WashStatusController extends GetxController {
 
       polylines.refresh();
     } else {
-      print("⚠️ No points returned by PolylinePoints");
+      print("No points for line");
     }
   }
 

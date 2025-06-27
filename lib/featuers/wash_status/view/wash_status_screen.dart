@@ -9,6 +9,7 @@ import 'package:hiwash_customer/featuers/wash_status/model/get_location_model.da
 import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/components/data_formet.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
@@ -358,10 +359,10 @@ class WashStatusScreen extends StatelessWidget {
                               selected.name ?? "Selected Location",
                             );
                           } else {
-                            Get.snackbar("Error", "Invalid coordinates for selected location");
+                            appSnackBar(message: "Invalid coordinates for selected location");
                           }
                         } else {
-                          Get.snackbar("Error", "No location selected");
+                          appSnackBar(message:  "No location selected");
                         }
                       }),
                     );
