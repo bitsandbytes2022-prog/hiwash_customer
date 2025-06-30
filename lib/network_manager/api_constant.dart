@@ -9,6 +9,7 @@ class ApiConstant {
   static const refreshToken = "$baseUrl/authentication/refresh-token";
 
   static const signUp = "$baseUrl/customer";
+  static const googleSignUp = "$baseUrl/authentication/google";
 
   static getCustomerId(int id) => "$baseUrl/customer/$id";
   static const getSubscription = "$baseUrl/subscription";

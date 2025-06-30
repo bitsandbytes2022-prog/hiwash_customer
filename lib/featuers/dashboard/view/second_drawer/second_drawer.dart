@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/second_drawer_controller/second_drawer_controller.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../generated/assets.dart';
@@ -59,14 +60,13 @@ class SecondDrawer extends StatelessWidget {
             title: StringConstant.kChatWithSupport.tr,
             image: Assets.iconsIcChat,
           ),
-          drawerRowWidget(
+       /* drawerRowWidget(
             onTap: () => Get.toNamed(RouteStrings.helpDeskTicketScreen),
             title: StringConstant.kHelpDeskTicket.tr,
             image: Assets.iconsIcTicket,
-          ),
+          ),*/
           drawerRowWidget(
             onTap: () {
-              //await controller.getFaq();
               Get.toNamed(RouteStrings.faqScreen);
             },
             title: StringConstant.kFAQ.tr,
@@ -99,16 +99,24 @@ class SecondDrawer extends StatelessWidget {
                       );
 
                       if (await canLaunchUrl(phoneUri)) {
-                        await launchUrl(phoneUri, mode: LaunchMode.externalApplication);
+                        await launchUrl(
+                          phoneUri,
+                          mode: LaunchMode.externalApplication,
+                        );
                       } else {
-                        Get.snackbar("Error", "Could not launch phone app");
+                        appSnackBar(
+                          message: StringConstant.kSomethingWentWrong.tr,
+                        );
                       }
-
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ImageView(height: 23, width: 23, path: Assets.iconsPhone),
+                        ImageView(
+                          height: 23,
+                          width: 23,
+                          path: Assets.iconsPhone,
+                        ),
                         Text("+974 7048 7070", style: w500_12a()),
                       ],
                     ),
@@ -121,53 +129,29 @@ class SecondDrawer extends StatelessWidget {
                       final Uri emailUri = Uri(
                         scheme: 'mailto',
                         path: 'info@hiwash.com',
-                        queryParameters: {
-                          'subject': 'Help Request',
-                          'body': 'Hi, I need support with...',
-                        },
                       );
+
                       if (await canLaunchUrl(emailUri)) {
-                        await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+                        await launchUrl(emailUri);
                       } else {
-                        Get.snackbar("Error", "Could not launch email app");
+                        appSnackBar(
+                          message: StringConstant.kSomethingWentWrong.tr,
+                        );
                       }
-
-
-
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ImageView(height: 23, width: 23, path: Assets.iconsIcAtSign),
+                        ImageView(
+                          height: 23,
+                          width: 23,
+                          path: Assets.iconsIcAtSign,
+                        ),
                         Text("info@hiwash.com", style: w500_12a()),
                       ],
                     ),
                   ),
                 ),
-
-                /*  Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ImageView(height: 23, width: 23, path: Assets.iconsPhone),
-                      Text("+974 7048 7070", style: w500_12a()),
-                    ],
-                  ),
-                ),
-                DotedVerticalLine(),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ImageView(
-                        height: 23,
-                        width: 23,
-                        path: Assets.iconsIcAtSign,
-                      ),
-                      Text("info@hiwash.com", style: w500_12a()),
-                    ],
-                  ),
-                ),*/
               ],
             ),
           ),

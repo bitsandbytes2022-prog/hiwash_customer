@@ -119,6 +119,16 @@ print("------>c${response.data}");
     return SignUpModel.fromJson(response);
   }
 
+  Future<dynamic> googleSignUpRapo(Object requestBody) async {
+    var response = await dioHelper.post(
+      url: ApiConstant.googleSignUp,
+      requestBody: requestBody,
+    );
+    // print("Sign Response--->: $response");
+    return response;
+  }
+
+
   Future<GetCustomerData> getCustomerData(int id) async {
     print("url dss--->:${ApiConstant.getCustomerId(id)}");
     var response = await dioHelper.get(

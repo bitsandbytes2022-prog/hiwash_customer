@@ -22,6 +22,9 @@ import '../model/send_otp_model.dart';
 class AuthController extends GetxController {
   var isLoggedIn = false.obs;
 
+
+
+
   @override
   void onInit() {
     globalToken.value = LocalStorage().getToken() ?? '';
@@ -292,7 +295,6 @@ class AuthController extends GetxController {
   }
 
 
-
   Future<GetRefreshToken?> refreshToken() async {
     var storedRefreshToken = LocalStorage().getRefreshToken();
 
@@ -358,13 +360,40 @@ class AuthController extends GetxController {
   }
 
   /// Google Login
+  Future<dynamic> googleSignIn(String idToken) async {
+    Map<String, dynamic> requestBody = {
+      "idToken": idToken,
+      "fcmToken": LocalStorage().getFCMToken(),
+    };
+    isLoading.value = true;
+
+    try {
+      final value = await Repository().googleSignUpRapo(requestBody);
+      if (value.data?.token != null && value.data!.token!.isNotEmpty) {
+        LocalStorage tokenStorage = LocalStorage();
+        await tokenStorage.saveToken(value.data!.token!);
+        await tokenStorage.saveRefreshToken(value.data!.refreshToken!);
+        await tokenStorage.saveUserId(value.data!.id.toString());
+
+        isLoggedIn.value = true;
+      }
+
+      getTokenModel = value;
+      return value;
+    } catch (error) {
+      print(" Error in controller send otp get token: $error");
+      return null;
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
   signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
-          await GoogleSignIn().signIn();
+      await GoogleSignIn().signIn();
       final GoogleSignInAuthentication? googleAuth =
-          await googleSignInAccount?.authentication;
+      await googleSignInAccount?.authentication;
       final credentialUser = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,

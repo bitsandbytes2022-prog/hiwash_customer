@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hiwash_customer/widgets/components/app_bg.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
@@ -83,11 +84,45 @@ class LoginScreen extends StatelessWidget {
               OrDivider(),
               18.heightSizeBox,
               SocialMedia(
-                googleTap: (){
+                googleTap: () async {
+                  try {
 
-                //  controller.signInWithGoogle();
+                    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+                    if (googleUser == null) {
+                      print("Google sign-in cancelled by user.");
+                      return;
+                    }
+
+                    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+                    final String? idToken = googleAuth.idToken;
+                    print("Id_token------>${idToken}");
+
+                    if (idToken != null && idToken.isNotEmpty) {
+                      final result = await controller.googleSignIn(idToken);
+
+                      if (result != null) {
+                        Get.offAllNamed(RouteStrings.dashboardScreen);
+                      } else {
+                        Get.snackbar("Login Failed", "Something went wrong during login.");
+                      }
+                    } else {
+                      print("idToken is null");
+                      Get.snackbar("Google Sign-In", "Unable to get ID Token.");
+                    }
+                  } catch (e) {
+                    print("Google Sign-In Error: $e");
+                    Get.snackbar("Google Sign-In", "Login failed. Try again.");
+                  }
                 },
               ),
+
+              /*  SocialMedia(
+                googleTap: (){
+
+                 controller.signInWithGoogle();
+                },
+              ),*/
               30.heightSizeBox,
             ],
           ),
