@@ -310,7 +310,7 @@ class MyAccountScreen extends StatelessWidget {
                   ),
                   20.heightSizeBox,
                   HiWashTextField(
-                    readOnly: true,
+                   // readOnly: true,
                     keyboardType: TextInputType.phone,
                     controller: drawerProfileController.phoneController,
                     hintText: StringConstant.kPhone.tr,

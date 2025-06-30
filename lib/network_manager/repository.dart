@@ -14,6 +14,7 @@ import 'package:hiwash_customer/network_manager/utils/api_response.dart';
 
 import '../featuers/auth/model/get_refresh_token.dart';
 import '../featuers/auth/model/get_token_model.dart';
+import '../featuers/auth/model/google_sign_in_model.dart';
 import '../featuers/auth/model/send_otp_model.dart';
 import '../featuers/auth/model/sign_up_model.dart';
 import '../featuers/dashboard/view/second_drawer/model/guides_response_model.dart';
@@ -119,13 +120,13 @@ print("------>c${response.data}");
     return SignUpModel.fromJson(response);
   }
 
-  Future<dynamic> googleSignUpRapo(Object requestBody) async {
+  Future<GoogleSignInModel> googleSignUpRapo(Object requestBody) async {
     var response = await dioHelper.post(
       url: ApiConstant.googleSignUp,
       requestBody: requestBody,
     );
     // print("Sign Response--->: $response");
-    return response;
+    return GoogleSignInModel.fromJson(response);
   }
 
 

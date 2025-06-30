@@ -17,6 +17,7 @@ import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import '../../../network_manager/local_storage.dart';
 import '../../../network_manager/repository.dart';
 import '../model/get_token_model.dart';
+import '../model/google_sign_in_model.dart';
 import '../model/send_otp_model.dart';
 
 class AuthController extends GetxController {
@@ -40,6 +41,7 @@ class AuthController extends GetxController {
 
   GetTokenModel? getTokenModel;
   Rx<SendOtpModel> sendOtpModel = SendOtpModel().obs;
+  Rx<GoogleSignInModel> googleSignInModel = GoogleSignInModel().obs;
   SignUpModel? signUpModel;
 
   /// login controller
@@ -360,7 +362,7 @@ class AuthController extends GetxController {
   }
 
   /// Google Login
-  Future<dynamic> googleSignIn(String idToken) async {
+  Future<GoogleSignInModel?> googleSignIn(String idToken) async {
     Map<String, dynamic> requestBody = {
       "idToken": idToken,
       "fcmToken": LocalStorage().getFCMToken(),
@@ -378,11 +380,11 @@ class AuthController extends GetxController {
         isLoggedIn.value = true;
       }
 
-      getTokenModel = value;
+      googleSignInModel.value = value;
       return value;
     } catch (error) {
-      print(" Error in controller send otp get token: $error");
-      return null;
+      print(" Error in controller google sign in : $error");
+
     } finally {
       isLoading.value = false;
     }

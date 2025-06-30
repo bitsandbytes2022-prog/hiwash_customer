@@ -1,11 +1,11 @@
-class GetTokenModel {
+class GoogleSignInModel {
   bool? success;
   String? message;
   Data? data;
 
-  GetTokenModel({this.success, this.message, this.data});
+  GoogleSignInModel({this.success, this.message, this.data});
 
-  GetTokenModel.fromJson(Map<String, dynamic> json) {
+  GoogleSignInModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
@@ -40,9 +40,9 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    fullName = json['fullName'];
+    fullName = json['fullName']!=null?json['fullName']:"";
     email = json['email'];
-    mobileNumber = json['mobileNumber'];
+    mobileNumber = json['mobileNumber']!=null?json['mobileNumber']:"";
     token = json['token'];
     refreshToken = json['refreshToken'];
   }
@@ -58,6 +58,3 @@ class Data {
     return data;
   }
 }
-
-
-

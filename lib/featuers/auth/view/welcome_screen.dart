@@ -22,6 +22,9 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await  authController.getFCMTokenIn();
+    });
     return SafeArea(
       bottom: true,
       top: false,
