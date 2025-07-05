@@ -48,7 +48,7 @@ class OfferDetailBottomSheet extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: CachedNetworkImage(
-                          height: 187,
+                          height: 120,
                           width: Get.width,
                           fit: BoxFit.fitWidth,
                           imageUrl: (rewardController.getOffersByIdModel.value?.offerDetailList?.first.bannerImageUrl?.isNotEmpty ?? false)
@@ -58,7 +58,7 @@ class OfferDetailBottomSheet extends StatelessWidget {
                             child: SizedBox(
                               height: 30,
                               width: 30,
-                              child: CircularProgressIndicator(strokeWidth: 2),
+                              child: CircularProgressIndicator(strokeWidth: 2,color: Colors.blue,),
                             ),
                           ),
                           errorWidget: (context, url, error) => Image.asset(

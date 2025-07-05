@@ -14,6 +14,7 @@ import 'package:hiwash_customer/widgets/components/data_formet.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../generated/assets.dart';
 import '../../../network_manager/local_storage.dart';
@@ -123,6 +124,7 @@ class DrawerScreen extends StatelessWidget {
                                 width: 24,
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
+                                  color: Colors.blue,
                                 ),
                               ),
                             ),
@@ -236,12 +238,29 @@ class DrawerScreen extends StatelessWidget {
             image: Assets.iconsIcLanguage,
           ),
           drawerRowWidget(
-            onTap: () => Get.toNamed(RouteStrings.privacySettingScreen),
+            onTap: ()async{
+              String url="https://loyaltyapistaging.pipelinedns.com/api/content/privacypolicy.html";
+
+              if(! await launchUrl(Uri.parse(url))){
+
+                throw Exception('${StringConstant.kCouldNotLaunch.tr} $url');
+              };
+
+            },
             title: StringConstant.kPrivacySettings.tr,
             image: Assets.iconsIcPrivacy,
           ),
-          drawerRowWidget(
-            onTap: () => Get.to(TermsAndConditionScreen()),
+          drawerRowWidget (
+            onTap: ()async{
+              String url="https://loyaltyapistaging.pipelinedns.com/api/content/customerterms.html";
+
+           if(! await launchUrl(Uri.parse(url))){
+
+             throw Exception('${StringConstant.kCouldNotLaunch.tr} $url');
+           };
+
+            },
+            //onTap: () => Get.to(TermsAndConditionScreen()),
             title: StringConstant.kTermsAndCondition.tr,
             image: Assets.iconsIcTermscondition,
           ),

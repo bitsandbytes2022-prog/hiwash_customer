@@ -6,6 +6,7 @@ import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/get_start_button.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../network_manager/local_storage.dart' show LocalStorage;
 import '../../../route/route_strings.dart';
@@ -140,8 +141,12 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                           40.heightSizeBox,
                           GestureDetector(
-                            onTap: () {
-                              //Get.toNamed(StringConstant.kTermsAndConditions);
+                            onTap: () async {
+                           String url="https://loyaltyapistaging.pipelinedns.com/api/content/customerterms.html";
+                           if (!await launchUrl(Uri.parse(url))){
+                             throw Exception('${StringConstant.kCouldNotLaunch.tr} $url');
+
+                           }
                             },
                             child: Text(
                               StringConstant.kTermsAndConditions.tr,

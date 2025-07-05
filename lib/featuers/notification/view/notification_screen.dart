@@ -166,7 +166,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   Widget _buildPaginationLoader() {
-    return Center(child: CircularProgressIndicator());
+    return Center(child: CircularProgressIndicator(  strokeWidth: 2
+      ,color: Colors.blue,));
   }
 
   Widget _buildNotificationHeader() {

@@ -69,6 +69,7 @@ class GetStartButton extends StatelessWidget {
               child: FittedBox(
                 child: CircularProgressIndicator(
                   color: Colors.white,
+                  strokeWidth: 2,
                 ),
               ),
             ),

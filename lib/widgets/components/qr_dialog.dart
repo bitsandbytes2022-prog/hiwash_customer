@@ -103,7 +103,8 @@ class QrDialog extends StatelessWidget {
                             height: 24,
                             width: 24,
                             child: CircularProgressIndicator(
-                              strokeWidth: 2,
+                              strokeWidth: 2
+                              ,color: Colors.blue,
                             ),
                           ),
                         ),
@@ -184,8 +185,8 @@ class MultipleRoundedCurveClipper extends CustomClipper<Path> {
       path.arcToPoint(Offset(curXPos, curYPos), radius: Radius.circular(5));
     }
     path.lineTo(size.width, 0);
-    path.lineTo(0, 0); // Close the path
-    path.close(); // Close the path
+    path.lineTo(0, 0);
+    path.close();
     return path;
   }
 

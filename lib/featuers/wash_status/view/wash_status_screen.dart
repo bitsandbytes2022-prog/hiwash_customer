@@ -246,7 +246,8 @@ class WashStatusScreen extends StatelessWidget {
                   Obx(() {
                     final currentLatLng = controller.currentLatLng.value;
                     if (currentLatLng == null) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: CircularProgressIndicator(  strokeWidth: 2
+                        ,color: Colors.blue,));
                     }
 
                     return SizedBox(
@@ -501,7 +502,7 @@ class WashStatusScreen extends StatelessWidget {
                 imageUrl: washData?.locationImage ?? '',
                 placeholder:
                     (context, url) => Center(
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: CircularProgressIndicator(strokeWidth: 2,color: Colors.blue,),
                     ),
                 errorWidget:
                     (context, url, error) => Image.asset(
@@ -581,6 +582,9 @@ class WashStatusScreen extends StatelessWidget {
 
   Widget successDialog(CompletedWash completedWashData) {
     dashboardController.apiResponse.value = null;
+    dashboardController.userRating=0;
+
+
     // controller.washSummaryModel.value=null;
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -609,7 +613,7 @@ class WashStatusScreen extends StatelessWidget {
               ),
               21.heightSizeBox,
               Text(
-                StringConstant.kWashComplete,
+                StringConstant.kWashComplete.tr,
                 style: w700_22a(color: AppColor.c2C2A2A),
               ),
               Text(

@@ -81,7 +81,7 @@ class SubscribeMainScreen extends StatelessWidget {
                     child: SizedBox(
                       height: 20,
                       width: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: CircularProgressIndicator(strokeWidth: 2,color: Colors.blue,),
                     ),
                   ),
                   errorWidget: (context, url, error) => Image.asset(
@@ -112,7 +112,8 @@ class SubscribeMainScreen extends StatelessWidget {
               return SizedBox(
                 width: Get.width,
                 height: Get.height / 1.4,
-                child: Center(child: CircularProgressIndicator()),
+                child: Center(child: CircularProgressIndicator(  strokeWidth: 2
+                  ,color: Colors.blue,)),
               );
             }
             return SizedBox(

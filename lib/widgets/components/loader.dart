@@ -13,6 +13,7 @@ showLoader() {
           child: Center(
         child: CircularProgressIndicator(
           strokeWidth: 2,
+          color: Colors.blue,
 
         ),
       )));

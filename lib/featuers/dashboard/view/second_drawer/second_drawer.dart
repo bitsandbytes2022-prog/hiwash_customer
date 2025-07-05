@@ -159,7 +159,49 @@ class SecondDrawer extends StatelessWidget {
       ),
     );
   }
-
+  Widget drawerRowWidget({
+    required VoidCallback onTap,
+    required String title,
+    required String image,
+    bool dashedLineWidget = true,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            color: Colors.transparent,
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: 18,
+                right: 12,
+                top: 15,
+                bottom: 15,
+              ),
+              child: Row(
+                children: [
+                  ImageView(path: image, height: 20, width: 20),
+                  10.widthSizeBox,
+                  Text(title, style: w500_14a(color: AppColor.c2C2A2A)),
+                  Spacer(),
+                  ImageView(
+                    path: Assets.iconsBlackForwardArrow,
+                    height: 13,
+                    width: 13,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          dashedLineWidget ? DotedHorizontalLine() : SizedBox(),
+          /*   18.heightSizeBox,
+          dashedLineWidget ? DashedLineWidget() : SizedBox(),
+          18.heightSizeBox,*/
+        ],
+      ),
+    );
+  }
+/*
   Widget drawerRowWidget({
     required VoidCallback onTap,
     required String title,
@@ -192,5 +234,5 @@ class SecondDrawer extends StatelessWidget {
         ],
       ),
     );
-  }
+  }*/
 }

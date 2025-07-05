@@ -100,6 +100,7 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                                           width: 24,
                                           child: CircularProgressIndicator(
                                             strokeWidth: 2,
+                                            color: Colors.blue,
                                           ),
                                         ),
                                       ),
@@ -213,7 +214,8 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                             controller.getSubscriptionModel?.data ?? [];
 
                         if (controller.loading) {
-                          return Center(child: CircularProgressIndicator());
+                          return Center(child: CircularProgressIndicator(  strokeWidth: 2
+                            ,color: Colors.blue,));
                         }
 
                         if (list.isEmpty) {

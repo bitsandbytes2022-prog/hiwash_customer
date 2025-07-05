@@ -50,7 +50,10 @@ class RewardScreen extends StatelessWidget {
                 return data.isEmpty
                     ? Container(
                       padding: EdgeInsets.only(top: 150),
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2
+                        ,color: Colors.blue,
+                      ),
                     )
                     : data.isNotEmpty
                     ? GridView.builder(

@@ -103,7 +103,10 @@ class SubscriptionScreen extends StatelessWidget {
                         child: SizedBox(
                           height: 20,
                           width: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2
+                          ,color: Colors.blue,
+                          ),
                         ),
                       ),
                   errorWidget:
@@ -174,7 +177,10 @@ class SubscriptionScreen extends StatelessWidget {
                             controller.getSubscriptionModel?.data ?? [];
 
                         if (controller.loading) {
-                          return Center(child: CircularProgressIndicator());
+                          return Center(child: CircularProgressIndicator(
+                            strokeWidth: 2
+                            ,color: Colors.blue,
+                          ));
                         }
 
                         if (list.isEmpty) {
