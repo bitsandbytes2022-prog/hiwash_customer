@@ -7,7 +7,8 @@ import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 class SocialMedia extends StatelessWidget {
 
   final VoidCallback?googleTap;
-  const SocialMedia({super.key,  this.googleTap});
+  final VoidCallback?fbTap;
+  const SocialMedia({super.key,  this.googleTap, this.fbTap});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,9 @@ class SocialMedia extends StatelessWidget {
             ImageView(path: Assets.iconsIcApple, height: 30, width: 32),
           ],
           18.widthSizeBox,
-          ImageView(path: Assets.iconsIcMeta, height: 30, width: 32),
+          GestureDetector(
+              onTap: fbTap,
+              child: ImageView(path: Assets.iconsIcMeta, height: 30, width: 32)),
         ],
       ),
     );

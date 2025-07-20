@@ -269,7 +269,20 @@ class Languages extends Translations {
       "kYourPaymentIsComplete": "Your payment is complete, and your\n",
       "kPaymentSuccessfully": "Payment Successfully",
       "kYouHaveCompletedYourPayment":"You have completed your payment",
-      "kOk":"Ok"
+      "kOk":"Ok",
+
+
+      "kLoginFailed":"Login Failed",
+      "kSomethingWentWrongDuring":"Something went wrong during login."
+      ,
+      "kGoogleSignIn":"Google Sign-In",
+      "kUnableToGetIDToken":"Unable to get ID Token",
+      "kLoginSuccessful":"Login Successful",
+      "kWelcome":"Welcome",
+      "kLoginCancelled":"Login Cancelled",
+      "kUserCancelledLogin":"User cancelled the login.",
+      "kFacebookLogin":"Facebook Login"
+
     },
 
     'ar_SA': {
@@ -537,7 +550,17 @@ class Languages extends Translations {
       "kYourPaymentIsComplete": "اكتملت عمليتك، و\n",
       "kPaymentSuccessfully": "تم الدفع بنجاح",
       "kYouHaveCompletedYourPayment": "لقد أكملت عملية الدفع",
-      "kOk": "موافق"
+      "kOk": "موافق",
+
+  "kLoginFailed": "فشل تسجيل الدخول",
+  "kSomethingWentWrongDuring": "حدث خطأ أثناء تسجيل الدخول.",
+  "kGoogleSignIn": "تسجيل الدخول بجوجل",
+  "kUnableToGetIDToken": "غير قادر على الحصول على رمز الهوية",
+  "kLoginSuccessful": "تم تسجيل الدخول بنجاح",
+  "kWelcome": "مرحباً",
+  "kLoginCancelled": "تم إلغاء تسجيل الدخول",
+  "kUserCancelledLogin": "ألغى المستخدم تسجيل الدخول.",
+  "kFacebookLogin": "تسجيل الدخول بفيسبوك"
     },
   };
 }

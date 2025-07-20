@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -104,25 +105,51 @@ class LoginScreen extends StatelessWidget {
                       if (result != null) {
                         Get.offAllNamed(RouteStrings.dashboardScreen);
                       } else {
-                        Get.snackbar("Login Failed", "Something went wrong during login.");
+                        Get.snackbar(StringConstant.kLoginFailed.tr, StringConstant.kSomethingWentWrongDuring.tr);
                       }
                     } else {
                       print("idToken is null");
-                      Get.snackbar("Google Sign-In", "Unable to get ID Token.");
+                      Get.snackbar(StringConstant.kGoogleSignIn.tr, StringConstant.kUnableToGetIDToken.tr);
                     }
                   } catch (e) {
                     print("Google Sign-In Error: $e");
-                    Get.snackbar("Google Sign-In", "Login failed. Try again.");
+                    Get.snackbar(StringConstant.kGoogleSignIn.tr, StringConstant.kSomethingWentWrong.tr);
                   }
                 },
+
+                  fbTap: () async {
+                    try {
+                      final LoginResult result = await FacebookAuth.instance.login();
+
+                      if (result.status == LoginStatus.success) {
+                        final AccessToken accessToken = result.accessToken!;
+                        print("🟢 Facebook login successful!");
+                        print("Access Token: ${accessToken.tokenString}");
+
+                        final userData = await FacebookAuth.instance.getUserData(
+                          fields: "name,email,picture.width(200)",
+                        );
+                        print("User Data: $userData");
+
+                        Get.snackbar(StringConstant.kLoginSuccessful.tr, "${StringConstant.kWelcome} ${userData['name']}");
+
+                        Get.offAllNamed(RouteStrings.dashboardScreen);
+                      } else if (result.status == LoginStatus.cancelled) {
+                        print("Facebook login cancelled by user");
+                        Get.snackbar(StringConstant.kLoginCancelled.tr, StringConstant.kUserCancelledLogin.tr);
+                      } else {
+                        print("Facebook login failed: ${result.message}");
+                        Get.snackbar("Login Failed", result.message ?? "Unknown error");
+                      }
+                    } catch (e) {
+                      print("Facebook Login Error: $e");
+                      Get.snackbar(StringConstant.kFacebookLogin.tr, StringConstant.kSomethingWentWrong.tr);
+                    }
+                  }
+
               ),
 
-              /*  SocialMedia(
-                googleTap: (){
 
-                 controller.signInWithGoogle();
-                },
-              ),*/
               30.heightSizeBox,
             ],
           ),

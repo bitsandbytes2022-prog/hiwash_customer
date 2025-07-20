@@ -15,4 +15,9 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
+    <string name="app_name">hiwash_customer</string>
+    <string name="facebook_app_id">656524904068691</string>
+    <string name="facebook_client_token">85dfa4aebf60876a3c8ff61ab0a8c008</string>
+    <string name="fb_login_protocol_scheme">fb656524904068691</string>
+
 </resources>

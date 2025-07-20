@@ -53,5 +53,7 @@ dependencies {
     implementation("androidx.multidex:multidex:2.0.1")
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-messaging-ktx")
+    implementation("com.facebook.android:facebook-login:16.3.0")
+
 
 }

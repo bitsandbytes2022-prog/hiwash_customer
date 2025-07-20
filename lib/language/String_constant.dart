@@ -224,4 +224,16 @@ class StringConstant {
   static const kYouHaveCompletedYourPayment = "kYouHaveCompletedYourPayment";
   static const kOk = "kOk";
   static const kSwipeToConfirm = "kSwipeToConfirm";
+  static const kLoginFailed = "kLoginFailed";
+  static const kSomethingWentWrongDuring = "kSomethingWentWrongDuring";
+  static const kGoogleSignIn = "kGoogleSignIn";
+  static const kUnableToGetIDToken = "kUnableToGetIDToken";
+  static const kLoginSuccessful = "kLoginSuccessful";
+  static const kWelcome = "kWelcome";
+  static const kLoginCancelled = "kLoginCancelled";
+  static const kUserCancelledLogin = "kUserCancelledLogin";
+  static const kFacebookLogin = "kFacebookLogin";
+
+
+
 }
