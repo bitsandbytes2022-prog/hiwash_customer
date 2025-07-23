@@ -11,6 +11,7 @@ import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/route/routes.dart';
 import 'package:hiwash_customer/styling/app_theam.dart';
 import 'featuers/notification/services/notification_services.dart';
+import 'featuers/wash_status/controller/wash_status_controller.dart';
 import 'firebase_options.dart';
 import 'language/languages.dart';
 import 'network_manager/local_storage.dart';
@@ -32,6 +33,9 @@ void main() async {
 
   );
   runApp(const MyApp());
+
+  Get.put<AuthController>(AuthController(), permanent: true);
+  Get.put<WashStatusController>(WashStatusController(), permanent: true);
 }
 
 class MyApp extends StatelessWidget with WidgetsBindingObserver {

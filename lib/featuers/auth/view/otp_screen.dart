@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/auth/model/get_token_model.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../generated/assets.dart';
 import '../../../language/String_constant.dart';
+import '../../../network_manager/local_storage.dart';
 import '../../../route/route_strings.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
@@ -25,6 +27,7 @@ class OtpScreen extends StatelessWidget {
   AuthController controller = Get.find<AuthController>();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  WashStatusController  washStatusController=Get.isRegistered()?Get.find():Get.put(WashStatusController());
 
   @override
   Widget build(BuildContext context) {
@@ -140,13 +143,39 @@ class OtpScreen extends StatelessWidget {
 
                     final serverOtp = controller.sendOtpModel.value.data?.otp;
 
-                    if (enteredOtp == serverOtp) {
+                /*    if (enteredOtp == serverOtp) {
                       await controller.getToken(phoneNumber).then((value) {
                         if (value != null) {
-                          Get.offAllNamed(RouteStrings.dashboardScreen);
+                          //Get.offAllNamed(RouteStrings.dashboardScreen);
                         }
                       });
-                    } else {
+                    }*/
+                    if (enteredOtp == serverOtp) {
+                      await controller.getToken(phoneNumber).then((value) async {
+                        if (value != null) {
+                          final token = LocalStorage().getToken();
+                          if (token != null && token.isNotEmpty) {
+                            await washStatusController.getCustomerDataById(
+                              value.data?.id ?? 0,
+                            );
+
+                            final subscriptionId = washStatusController
+                                .getCustomerData.value?.data?.subscriptionDetails?.subscriptionId;
+
+                            if (subscriptionId == null || subscriptionId == 0) {
+                              Get.toNamed(RouteStrings.subscribeMainScreen);
+                            } else {
+                              Get.offAllNamed(RouteStrings.dashboardScreen);
+                            }
+                          } else {
+                            print("Token not found after login.");
+                            appSnackBar(title: "Login Failed", message: "Token not available.");
+                          }
+                        }
+                      });
+
+                    }
+                  else {
                       appSnackBar(
                         title: StringConstant.kInvalidOTP.tr,
                         message: StringConstant.kPleaseEnterTheCorrectOTP.tr,

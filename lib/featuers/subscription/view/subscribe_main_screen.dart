@@ -20,10 +20,10 @@ import '../../rewads/controller.dart';
 
 class SubscribeMainScreen extends StatelessWidget {
    SubscribeMainScreen({super.key});
-  DashboardController dashboardController = Get.find();
-  WashStatusController washStatusController = Get.find();
-    RewardController rewardController = Get.find<RewardController>();
-   final SubscriptionController subscriptionController =Get.find();
+  DashboardController dashboardController = Get.isRegistered<DashboardController>() ? Get.find<DashboardController>() : Get.put(DashboardController());
+  WashStatusController washStatusController = Get.isRegistered() ? Get.find<WashStatusController>() : Get.put(WashStatusController());
+    RewardController rewardController = Get.isRegistered()? Get.find()<RewardController>() : Get.put(RewardController());
+   final SubscriptionController subscriptionController =Get.isRegistered()? Get.find<SubscriptionController>() : Get.put(SubscriptionController());
 
    @override
   Widget build(BuildContext context) {

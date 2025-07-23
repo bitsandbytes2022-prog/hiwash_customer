@@ -28,11 +28,11 @@ import '../widgets/plan_container.dart';
 class SubscriptionScreen extends StatelessWidget {
   SubscriptionScreen({super.key});
 
-  DashboardController dashboardController = Get.find();
+  DashboardController dashboardController = Get.isRegistered<DashboardController>() ? Get.find<DashboardController>() : Get.put(DashboardController());
   SubscriptionController controller = Get.put(SubscriptionController());
-  RewardController rewardController = Get.find();
-  WashStatusController washStatusController = Get.find();
-  DrawerProfileController drawerProfileController = Get.find();
+  RewardController rewardController = Get.isRegistered<RewardController>() ? Get.find<RewardController>() : Get.put(RewardController());
+  WashStatusController washStatusController = Get.isRegistered<WashStatusController>() ? Get.find<WashStatusController>() : Get.put(WashStatusController());
+  DrawerProfileController drawerProfileController = Get.isRegistered<DrawerProfileController>() ? Get.find<DrawerProfileController>() : Get.put(DrawerProfileController());
 
 
   @override

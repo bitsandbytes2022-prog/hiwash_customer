@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
+import 'package:http/http.dart' as storage;
 import 'package:pinput/pinput.dart';
 
+import '../../../network_manager/local_storage.dart';
 import '../../../route/route_strings.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
@@ -18,12 +21,13 @@ class LoginOtpScreen extends StatelessWidget {
   LoginOtpScreen({super.key});
 
   final AuthController controller =
-  Get.isRegistered<AuthController>()
-      ? Get.find<AuthController>()
-      : Get.put(AuthController());
+  Get.put(AuthController(), permanent: true);
+
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  final WashStatusController washStatusController =
+  Get.put(WashStatusController(), permanent: true);
   @override
   Widget build(BuildContext context) {
     final String phoneNumber = Get.arguments as String;
@@ -130,17 +134,47 @@ class LoginOtpScreen extends StatelessWidget {
                       final enteredOtp = controller.enteredOtp.value.trim();
                       final serverOtp = controller.sendOtpModel.value.data?.otp?.toString();
 
-                      // Debug logs
+
                       print("Entered OTP: $enteredOtp (${enteredOtp.runtimeType})");
                       print("Server OTP: $serverOtp (${serverOtp.runtimeType})");
 
-                      if (enteredOtp == serverOtp) {
+                  /*    if (enteredOtp == serverOtp) {
                      await   controller.getToken(phoneNumber,).then((value) {
                           if (value != null) {
+
                             Get.offAllNamed(RouteStrings.dashboardScreen);
+
                           }
                         });
-                      } else {
+                      }*/
+                      if (enteredOtp == serverOtp) {
+                        await controller.getToken(phoneNumber).then((value) async {
+                          if (value != null) {
+                            final token = LocalStorage().getToken();
+                            if (token != null && token.isNotEmpty) {
+                              await washStatusController.getCustomerDataById(
+                                value.data?.id ?? 0,
+                              );
+
+                              final subscriptionId = washStatusController
+                                  .getCustomerData.value?.data?.subscriptionDetails?.subscriptionId;
+
+                              if (subscriptionId == null || subscriptionId == 0) {
+                                Get.toNamed(RouteStrings.subscribeMainScreen);
+                              } else {
+                                Get.offAllNamed(RouteStrings.dashboardScreen);
+                              }
+                            } else {
+                              print("Token not found after login.");
+                              appSnackBar(title: "Login Failed", message: "Token not available.");
+                            }
+                          }
+                        });
+
+                      }
+
+
+                      else {
                       appSnackBar(
                         title: StringConstant.kInvalidOTP.tr,
                         message: StringConstant.kPleaseEnterTheCorrectOTP.tr,

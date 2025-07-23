@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
+import '../../featuers/rewads/controller.dart';
 import '../../generated/assets.dart';
 import 'image_view.dart';
 
@@ -11,8 +12,8 @@ class CustomBottomSheet extends StatelessWidget {
   final Widget child;
  final EdgeInsets?padding;
 
-  const CustomBottomSheet({super.key, required this.child,this.padding});
-
+   CustomBottomSheet({super.key, required this.child,this.padding});
+RewardController rewardController = Get.isRegistered()?Get.find():Get.put(RewardController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,6 +47,7 @@ class CustomBottomSheet extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
+              rewardController.getAllOffers();
               Get.back();
             },
             child: Container(

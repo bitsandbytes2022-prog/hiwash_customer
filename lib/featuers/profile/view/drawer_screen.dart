@@ -221,7 +221,7 @@ class DrawerScreen extends StatelessWidget {
             image: Assets.iconsIcSubscriptionPlan,
           ),
 
-          Obx(
+      /*    Obx(
             () => drawerRowForTheme(
               title: StringConstant.kTheme.tr,
               image: Assets.iconsIcTheme,
@@ -230,7 +230,7 @@ class DrawerScreen extends StatelessWidget {
                 drawerController.isSwitchOn.value = value;
               },
             ),
-          ),
+          ),*/
 
           drawerRowWidget(
             onTap: () => Get.toNamed(RouteStrings.languageScreen),
