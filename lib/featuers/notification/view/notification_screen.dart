@@ -115,7 +115,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return Expanded(
       child: Column(
         children: [
-          15.heightSizeBox,
+       /*   15.heightSizeBox,
           washStatusController
                       .getCustomerData
                       .value
@@ -123,7 +123,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       ?.subscriptionDetails ==
                   null
               ? SizedBox()
-              : _buildNotificationHeader(),
+              : _buildNotificationHeader(),*/
           21.heightSizeBox,
           Expanded(
             child: Obx(() {

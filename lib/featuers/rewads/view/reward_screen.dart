@@ -75,7 +75,7 @@ class RewardScreen extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () async {
                             await rewardController.getOffersById(offer.id!);
-                            showModalBottomSheet(
+                            await  showModalBottomSheet(
                               context: Get.context!,
                               isScrollControlled: true,
                               shape: RoundedRectangleBorder(
@@ -90,6 +90,7 @@ class RewardScreen extends StatelessWidget {
                                 );
                               },
                             );
+                            await   rewardController.getAllOffers();
                           },
                           child: OffersGridContainer(offer: offer),
                         ),

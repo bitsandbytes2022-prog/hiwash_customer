@@ -27,7 +27,6 @@ class OtpScreen extends StatelessWidget {
   AuthController controller = Get.find<AuthController>();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  WashStatusController  washStatusController=Get.isRegistered()?Get.find():Get.put(WashStatusController());
 
   @override
   Widget build(BuildContext context) {
@@ -155,6 +154,8 @@ class OtpScreen extends StatelessWidget {
                         if (value != null) {
                           final token = LocalStorage().getToken();
                           if (token != null && token.isNotEmpty) {
+                            WashStatusController  washStatusController=Get.isRegistered()?Get.find():Get.put(WashStatusController());
+
                             await washStatusController.getCustomerDataById(
                               value.data?.id ?? 0,
                             );
@@ -169,7 +170,7 @@ class OtpScreen extends StatelessWidget {
                             }
                           } else {
                             print("Token not found after login.");
-                            appSnackBar(title: "Login Failed", message: "Token not available.");
+                            appSnackBar(title: StringConstant.kLoginFailed.tr, message: StringConstant.kSomethingWentWrong.tr);
                           }
                         }
                       });
