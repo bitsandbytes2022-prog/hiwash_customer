@@ -69,17 +69,17 @@ class OfferDetailBottomSheet extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Positioned(
-                        top: 35,
-                        left: 14,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            DateTimeWidget(title: rewardController.getOffersByIdModel.value!.offerDetailList!.first.businessName ?? ""),
-                            13.heightSizeBox,
-                          ],
-                        ),
-                      ),
+                      // Positioned(
+                      //   top: 35,
+                      //   left: 14,
+                      //   child: Column(
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //       DateTimeWidget(title: rewardController.getOffersByIdModel.value!.offerDetailList!.first.businessName ?? ""),
+                      //       13.heightSizeBox,
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
