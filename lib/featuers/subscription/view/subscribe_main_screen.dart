@@ -31,6 +31,7 @@ class SubscribeMainScreen extends StatelessWidget {
 
      final userData = washStatusController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
+      iconRight: SizedBox(),
       padding: EdgeInsets.zero,
 
       centerHeading: Container(

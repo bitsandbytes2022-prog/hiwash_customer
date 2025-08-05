@@ -5,6 +5,7 @@ import 'package:hiwash_customer/featuers/rewads/model/offer_response_model.dart'
 import '../../generated/assets.dart';
 import '../../styling/app_color.dart';
 
+import '../../styling/app_font_anybody.dart';
 import 'countdown_else_full_date.dart';
 class OffersGridContainer extends StatelessWidget {
   final Offers offer;
@@ -40,7 +41,7 @@ class OffersGridContainer extends StatelessWidget {
             ),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Align(
                 alignment: Alignment.topRight,
@@ -48,6 +49,16 @@ class OffersGridContainer extends StatelessWidget {
                   expiryDateStr: offer.expiryDate ?? '',
                 ),
               ),
+              Container(
+                margin: EdgeInsets.only(top: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: AppColor.cC7F6E5,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Text("${offer.qty.toString() ?? ''} Vouchers", style: w500_7a(color: AppColor.c1F9D70)),
+              ),
+
             ],
           ),
         ),

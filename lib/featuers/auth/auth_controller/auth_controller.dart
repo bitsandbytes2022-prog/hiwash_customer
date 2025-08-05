@@ -75,6 +75,7 @@ class AuthController extends GetxController {
     text: kDebugMode ? 'Abcd' : "",
   );
 
+  var selectedGender = ''.obs;
   /// forgot password controller
   TextEditingController phoneForgotController = TextEditingController();
 
@@ -336,6 +337,7 @@ class AuthController extends GetxController {
     String street,
     String building,
     String unit,
+      String gender,
   ) async {
     Map<String, dynamic> requestBody = {
       "fullName": fullName,
@@ -346,6 +348,7 @@ class AuthController extends GetxController {
       "building": building,
       "unit": unit,
       "userType": "0",
+      "gender":gender
     };
     isLoading.value = true;
 

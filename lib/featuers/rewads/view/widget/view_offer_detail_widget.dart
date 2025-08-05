@@ -11,7 +11,6 @@ import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/styling/app_font_poppins.dart';
 import 'package:hiwash_customer/widgets/components/countdown_or_date_timer.dart';
-import 'package:hiwash_customer/widgets/components/date_time_widget.dart';
 import 'package:hiwash_customer/widgets/components/doted_line.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/components/profile_image_container.dart';
@@ -36,6 +35,7 @@ class OfferDetailBottomSheet extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 13.heightSizeBox,
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -130,7 +130,9 @@ class OfferDetailBottomSheet extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 const DashedLineWidget(),
+
                 15.heightSizeBox,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -144,15 +146,15 @@ class OfferDetailBottomSheet extends StatelessWidget {
                         alignment: Alignment.bottomCenter,
                         children: [
                           Container(
-                            margin: const EdgeInsets.only(top: 80),
+                            margin: const EdgeInsets.only(top: 110),
                             child: ImageView(
                               path: Assets.imagesCloudBg,
-                              height: 96,
+                              height: 150,
                               width: Get.width,
                             ),
                           ),
                           Positioned(
-                            bottom: 10,
+                            bottom: 30,
                             child: GestureDetector(
                               onTap: () {},
                               child: Builder(
@@ -161,8 +163,8 @@ class OfferDetailBottomSheet extends StatelessWidget {
                                   print("QR BASE64 big image: $base64String");
                                   return Base64ImageWidget(
                                     base64String: base64String,
-                                    height: 157,
-                                    width: 157,
+                                    height: 230,
+                                    width: 230,
                                   );
                                 },
                               ),
@@ -173,7 +175,10 @@ class OfferDetailBottomSheet extends StatelessWidget {
                       CountdownOrDateTimer(
                         expiryDateStr: rewardController.getOffersByIdModel.value?.offerDetailList?.first.expiryDate ?? '',
                       ),
-                      28.heightSizeBox,
+                      10.heightSizeBox,
+                      Text("${rewardController.getOffersByIdModel.value?.offerDetailList?.first.qty.toString()??''} Vouchers available", style: w400_14a(color: AppColor.c2C2A2A)),
+                      Text("Redeemed ${rewardController.getOffersByIdModel.value?.offerDetailList?.first.redeemed.toString()??''} available", style: w400_12a(color: AppColor.c2C2A2A.withOpacity(0.7))),
+                      10.heightSizeBox,
                       Container(
                         decoration: BoxDecoration(
                           color: AppColor.white,

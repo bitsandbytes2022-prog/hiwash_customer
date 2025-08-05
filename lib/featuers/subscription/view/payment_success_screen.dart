@@ -30,7 +30,7 @@ class PaymentSuccessScreen extends StatelessWidget {
         washStatusController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
        iconLeft: SizedBox(),
-
+iconRight: SizedBox(),
       padding: EdgeInsets.zero,
       centerHeading: Container(
         margin: EdgeInsets.only(left: 90),

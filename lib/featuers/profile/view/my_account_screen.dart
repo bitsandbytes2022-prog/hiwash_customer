@@ -277,6 +277,8 @@ class MyAccountScreen extends StatelessWidget {
                   }),
                 31.heightSizeBox,
                   HiWashTextField(
+                  /*  fillColor: AppColor.c6B6B6B.withOpacity(0.2),
+                    readOnly: true,*/
                     controller: drawerProfileController.nameController,
                     keyboardType: TextInputType.name,
                     inputFormatters: [
@@ -294,9 +296,9 @@ class MyAccountScreen extends StatelessWidget {
                     },
                   ),
                   20.heightSizeBox,
-                  HiWashTextField(
-
-                    readOnly: true,
+                  HiWashTextField(/*
+                    fillColor: AppColor.c6B6B6B.withOpacity(0.2),
+                    readOnly: true,*/
                     controller: drawerProfileController.emailController,
                     keyboardType: TextInputType.emailAddress,
                     hintText: StringConstant.kEmail.tr,
@@ -310,6 +312,7 @@ class MyAccountScreen extends StatelessWidget {
                   ),
                   20.heightSizeBox,
                   HiWashTextField(
+                    fillColor: AppColor.c6B6B6B.withOpacity(0.2),
                     readOnly: true,
                     keyboardType: TextInputType.phone,
                     controller: drawerProfileController.phoneController,

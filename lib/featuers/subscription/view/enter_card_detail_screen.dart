@@ -38,6 +38,7 @@ class EnterCardDetailScreen extends StatelessWidget {
     final userData =
         washStatusController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
+      iconRight: SizedBox(),
       iconLeft: SizedBox(width: 50),
       centerHeading: Container(
         margin: EdgeInsets.only(left: 60),

@@ -175,7 +175,18 @@ class WashStatusScreen extends StatelessWidget {
                           ),
                         ),
                         24.heightSizeBox,
-                        Text(
+                        (controller
+                            .washSummaryModel
+                            .value
+                            ?.data
+                            ?.completedWash
+                            ?.isEmpty ??
+                            true)
+                            ?Container(
+                          padding: EdgeInsets.only(top: Get.height/4),
+                            alignment: Alignment.center,
+
+                            child: Text("No Completed wash found yet")):Text(
                           StringConstant.kCompleteWash.tr,
                           style: w500_14a(color: AppColor.c2C2A2A),
                         ),

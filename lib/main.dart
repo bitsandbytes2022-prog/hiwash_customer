@@ -34,8 +34,6 @@ void main() async {
   );
   runApp(const MyApp());
 
-/*  Get.put<AuthController>(AuthController(), permanent: true);
-  Get.put<WashStatusController>(WashStatusController(), permanent: true);*/
 }
 
 class MyApp extends StatelessWidget with WidgetsBindingObserver {

@@ -284,6 +284,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                       ),
                     )
+
                     : SizedBox(),
       
             iconRight: GestureDetector(

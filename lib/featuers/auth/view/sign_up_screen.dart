@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,6 +12,7 @@ import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import '../../../generated/assets.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
+import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/bottom_sheet_bg.dart';
 import '../../../widgets/components/hi_wash_button.dart';
 import '../../../widgets/components/hi_wash_text_field.dart';
@@ -79,8 +81,8 @@ class SignUpScreen extends StatelessWidget {
                   return authController.validateEmail(value);
                 },
               ),
-              20.heightSizeBox,
-              HiWashTextField(
+              //  20.heightSizeBox,
+              /* HiWashTextField(
                 readOnly: true,
                 controller: authController.phoneController,
                 keyboardType: TextInputType.phone,
@@ -89,7 +91,7 @@ class SignUpScreen extends StatelessWidget {
                 validator: (value) {
                   return authController.validatePhoneNumber(value);
                 },
-              ),
+              ),*/
               20.heightSizeBox,
               HiWashTextField(
                 inputFormatters: [
@@ -137,6 +139,47 @@ class SignUpScreen extends StatelessWidget {
                 hintText: StringConstant.kUnit.tr,
                 labelText: StringConstant.kUnit.tr,
               ),
+              20.heightSizeBox,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                    child: Text(
+                      "Gender",
+                      style: w400_14p(color: AppColor.c455A64),
+                    ),
+                  ),
+
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(28),
+                      border: Border.all(
+                        color: AppColor.c5C6B72.withOpacity(0.5),
+                      ),
+                    ),
+
+                    child: Obx(
+                       () {
+                        return Row(
+                          children: [
+                            gender(genderText: 'Female', isSelected:authController.selectedGender.value == 'F', onTap: () {
+                              authController.selectedGender.value = 'F';
+
+                            }),
+
+                            Spacer(),
+                            gender(genderText: 'Male', isSelected: authController.selectedGender.value == 'M', onTap: () {
+                              authController.selectedGender.value = 'M';
+
+                            }),
+                          ],
+                        );
+                      }
+                    ),
+                  ),
+                ],
+              ),
 
               35.heightSizeBox,
 
@@ -160,6 +203,7 @@ class SignUpScreen extends StatelessWidget {
                             authController.streetController.text.trim(),
                             authController.buildingController.text.trim(),
                             authController.unitController.text.trim(),
+                          authController.selectedGender.value.trim()
                           )
                           .then((value) async {
                             if (value != null) {
@@ -216,14 +260,15 @@ class SignUpScreen extends StatelessWidget {
               SocialMedia(
                 googleTap: () async {
                   try {
-
-                    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+                    final GoogleSignInAccount? googleUser =
+                        await GoogleSignIn().signIn();
                     if (googleUser == null) {
                       print("Google sign-in cancelled by user.");
                       return;
                     }
 
-                    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+                    final GoogleSignInAuthentication googleAuth =
+                        await googleUser.authentication;
 
                     final String? idToken = googleAuth.idToken;
                     print("Id_token------>${idToken}");
@@ -234,7 +279,10 @@ class SignUpScreen extends StatelessWidget {
                       if (result != null) {
                         Get.offAllNamed(RouteStrings.dashboardScreen);
                       } else {
-                        Get.snackbar("Login Failed", "Something went wrong during login.");
+                        Get.snackbar(
+                          "Login Failed",
+                          "Something went wrong during login.",
+                        );
                       }
                     } else {
                       print("idToken is null");
@@ -245,10 +293,81 @@ class SignUpScreen extends StatelessWidget {
                     Get.snackbar("Google Sign-In", "Login failed. Try again.");
                   }
                 },
+
+                  fbTap: () async {
+                    try {
+                      final LoginResult result = await FacebookAuth.instance.login();
+
+                      if (result.status == LoginStatus.success) {
+                        final AccessToken accessToken = result.accessToken!;
+                        print("🟢 Facebook login successful!");
+                        print("Access Token: ${accessToken.tokenString}");
+
+                        final userData = await FacebookAuth.instance.getUserData(
+                          fields: "name,email,picture.width(200)",
+                        );
+                        print("User Data: $userData");
+
+                        Get.snackbar(StringConstant.kLoginSuccessful.tr, "${StringConstant.kWelcome} ${userData['name']}");
+
+                        Get.offAllNamed(RouteStrings.dashboardScreen);
+                      } else if (result.status == LoginStatus.cancelled) {
+                        print("Facebook login cancelled by user");
+                        Get.snackbar(StringConstant.kLoginCancelled.tr, StringConstant.kUserCancelledLogin.tr);
+                      } else {
+                        print("Facebook login failed: ${result.message}");
+                        Get.snackbar("Login Failed", result.message ?? "Unknown error");
+                      }
+                    } catch (e) {
+                      print("Facebook Login Error: $e");
+                      Get.snackbar(StringConstant.kFacebookLogin.tr, StringConstant.kSomethingWentWrong.tr);
+                    }
+                  }
               ),
               30.heightSizeBox,
             ],
           ),
+        ),
+      ),
+    );
+
+  }
+  Widget gender({required String genderText, required bool isSelected,required VoidCallback onTap}){
+    return        GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 12,
+        ),
+
+        color: Colors.transparent,
+        child: Row(
+          children: [
+            Text(
+              genderText,
+              style: w400_14p(color: AppColor.c2C2A2A),
+            ),
+            5.widthSizeBox,
+            Container(
+              alignment: Alignment.center,
+              height: 15,
+              width: 15,
+              decoration: BoxDecoration(
+                color: isSelected?AppColor.c2C2A2A:Colors.transparent,
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(
+                  color: AppColor.c2C2A2A.withOpacity(0.5),
+                  width: 1,
+                ),
+              ),
+              child: Icon(
+                Icons.check,
+                color: isSelected?AppColor.white:AppColor.c2C2A2A,
+                size: 10,
+              ),
+            ),
+          ],
         ),
       ),
     );

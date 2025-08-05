@@ -50,6 +50,7 @@ class SubscriptionScreen extends StatelessWidget {
     rewardController.getOfferCategoriesMethod();
 
     return AppHomeBg(
+      iconRight: SizedBox(),
       centerHeading: Container(
         margin: EdgeInsets.only(left: 60),
         child: Column(
