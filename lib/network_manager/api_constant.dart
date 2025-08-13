@@ -34,4 +34,5 @@ class ApiConstant {
   static const notificationUrl = "$baseUrl/notification";
 
   static const getLocation = "$baseUrl/location/get-locations";
+  static const payment = "$baseUrl//subscription/payment";
 }

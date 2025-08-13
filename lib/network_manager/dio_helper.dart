@@ -167,4 +167,28 @@ class DioHelper {
       return null;
     }
   }
+
+
+  Future<dynamic> postForPayment({
+    required String url,
+    bool isAuthRequired = false,
+    Object? requestBody,
+    ResponseType responseType = ResponseType.json, // default to JSON
+  }) async {
+    final dio = getDio();
+
+    final options = Options(
+      responseType: responseType,
+      headers: isAuthRequired
+          ? {
+        "Authorization": "Bearer ${await LocalStorage().getToken()}",
+      }
+          : {},
+    );
+
+    final response = await dio.post(url, data: requestBody, options: options);
+    return response.data;
+  }
+
+
 }

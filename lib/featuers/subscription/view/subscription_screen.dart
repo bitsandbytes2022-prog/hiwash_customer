@@ -291,6 +291,39 @@ class SubscriptionScreen extends StatelessWidget {
                         return HiWashButton(
                           isLoading: controller.isLoading.value,
                           onTap: () async {
+                            final selectedIndex = controller.selectedIndex.value.toString();
+                            final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
+                            final profileCarNumber = customerDetails?.carNumber?.trim() ?? '';
+                            final enteredCarNumber = controller.carNumberController.text.trim();
+
+                            String carNumberToUse = '';
+
+                            if (selectedIndex == 2) {
+                              if (profileCarNumber.isNotEmpty) {
+                                carNumberToUse = profileCarNumber;
+                              } else {
+                                if (enteredCarNumber.isEmpty) {
+                                  appSnackBar(message: StringConstant.kPleaseEnterYourCarNumber.tr);
+                                  return;
+                                }
+                                carNumberToUse = enteredCarNumber;
+                              }
+                            } else {
+                              carNumberToUse = profileCarNumber.isNotEmpty ? profileCarNumber : '';
+                            }
+
+                            if (selectedIndex != 0) {
+                              await controller.paymentMethod(
+                                carNumberToUse.isNotEmpty ? carNumberToUse : "",
+                                selectedIndex,
+                              );
+                            } else {
+                              print("No subscriptionId found — API not called");
+                            }
+                          },
+
+
+                          /* onTap: () async {
                             final selectedIndex = controller.selectedIndex.value;
                             final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
                             final profileCarNumber = customerDetails?.carNumber?.trim() ?? '';
@@ -323,7 +356,7 @@ class SubscriptionScreen extends StatelessWidget {
                               },
                             );
 
-                          },
+                          },*/
                           text: "kSubscribe".tr,
                           margin: EdgeInsets.symmetric(horizontal: 30),
                         );

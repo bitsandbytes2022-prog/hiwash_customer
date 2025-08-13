@@ -13,6 +13,7 @@ import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/components/data_formet.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
+import 'package:intl/intl.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 import '../../../generated/assets.dart';
@@ -470,7 +471,7 @@ class WashStatusScreen extends StatelessWidget {
                     ),
                     5.widthSizeBox,
                     Text(
-                      "Open 9:00 AM to 8:00 PM Static",
+                        getTodayHours(locationList),
                       style: w400_10p(color: AppColor.c455A64),
                     ),
                   ],
@@ -482,6 +483,47 @@ class WashStatusScreen extends StatelessWidget {
       ),
     );
   }
+
+
+  String getTodayHours(LocationData locationData) {
+    final today = DateTime.now();
+    final weekdayIndex = today.weekday % 7;
+    final todayName = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday'
+    ][weekdayIndex];
+
+    final todayHours = locationData.locationHours?.firstWhere(
+          (element) => element.dayName?.toLowerCase() == todayName.toLowerCase(),
+      orElse: () => LocationHours(isClosed: true),
+    );
+
+    if (todayHours == null || todayHours.isClosed == true) {
+      return "Closed";
+    } else {
+      final openTime = _formatTime(todayHours.openingTime);
+      final closeTime = _formatTime(todayHours.closingTime);
+      return "$openTime - $closeTime";
+    }
+  }
+
+  String _formatTime(String? timeStr) {
+    if (timeStr == null || timeStr.isEmpty) return '';
+    try {
+      final inputFormat = DateFormat("HH:mm"); // 24-hour format
+      final outputFormat = DateFormat("hh:mm a"); // AM/PM format
+      final dateTime = inputFormat.parse(timeStr);
+      return outputFormat.format(dateTime);
+    } catch (e) {
+      return timeStr;
+    }
+  }
+
 
   Widget servicesContainer(int index, VoidCallback? onTap) {
     var washData =

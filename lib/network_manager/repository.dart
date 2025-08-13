@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/multipart/form_data.dart' as dio;
@@ -310,6 +312,34 @@ print("------>c${response.data}");
 
     return GetLocationModel.fromJson(response);
   }
+  Future<dynamic> paymentRepo(Object requestBody) async {
+    final response = await dioHelper.postForPayment(
+      url: ApiConstant.payment,
+      isAuthRequired: true,
+      requestBody: requestBody,
+      responseType: ResponseType.plain,
+    );
+
+    if (response.trim().startsWith("{")) {
+      return jsonDecode(response);
+    } else {
+
+      return response;
+    }
+  }
+
+/*
+  Future<dynamic> paymentRepo(Object requestBody) async {
+    Map<String, dynamic> response = await dioHelper.post(
+      url: ApiConstant.payment,
+      isAuthRequired: true,
+      requestBody: requestBody,
+    );
+    print("p------->${requestBody.toString()}");
+
+    return response;
+  }
+*/
 
 
 

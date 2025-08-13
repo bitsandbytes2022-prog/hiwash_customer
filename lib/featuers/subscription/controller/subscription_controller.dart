@@ -130,6 +130,26 @@ import '../../wash_status/controller/wash_status_controller.dart';
       Position pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       currentLatLng.value = LatLng(pos.latitude, pos.longitude);
     }
+
+
+    Future<void> paymentMethod(String carNumber, String subscriptionId) async {
+      Map<String, dynamic> params = {
+        "carNumber": carNumber,
+        "subscriptionId": subscriptionId,
+      };
+
+      try {
+        isLoading.value = true;
+        final response =  await Repository().paymentRepo(params);
+
+     return response;
+      } catch (error) {
+        print("Error --> ${error.toString()}");
+      } finally {
+        isLoading.value = false;
+      }
+    }
+
   }
 
 
