@@ -21,7 +21,8 @@ RewardController rewardController = Get.isRegistered()?Get.find():Get.put(Reward
       height: Get.height / 1.2,
       width: Get.width,
       decoration: BoxDecoration(
-        color:AppColor.cF6F7FF,
+        //color:AppColor.cF6F7FF,
+
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
@@ -33,7 +34,7 @@ RewardController rewardController = Get.isRegistered()?Get.find():Get.put(Reward
           Column(
             //  mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              20.heightSizeBox,
+              30.heightSizeBox,
               Container(
                 height: 4,
                 width: 45,
@@ -51,7 +52,7 @@ RewardController rewardController = Get.isRegistered()?Get.find():Get.put(Reward
               Get.back();
             },
             child: Container(
-              padding: EdgeInsets.only(right: 10, top: 6),
+              padding: EdgeInsets.only(right: 10, top: 6,bottom: 20),
               child: ImageView(
                 path: Assets.iconsIcClose,
                 height: 28,

@@ -74,12 +74,14 @@ class WelcomeScreen extends StatelessWidget {
                         CarouselSlider(
                           options: CarouselOptions(
                             height: 200,
+                            autoPlayInterval: Duration(seconds: 5),
+
                             viewportFraction: 1.0,
                             enableInfiniteScroll: false,
                             enlargeCenterPage: false,
                             autoPlay: true,
-                            autoPlayInterval: Duration(seconds: 1),
-                            autoPlayCurve: Curves.fastOutSlowIn,
+                          //  autoPlayInterval: Duration(seconds: 1),
+                            autoPlayCurve: Curves.easeInOut,
                             pauseAutoPlayOnTouch: true,
                             onPageChanged: (index, reason) {
                               controller.onPageChanged(index);

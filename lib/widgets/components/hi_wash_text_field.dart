@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_poppins.dart';
 
-class HiWashTextField extends StatelessWidget {
+class HiWashTextField extends StatefulWidget {
   final String? labelText;
   final String? subText;
   final String hintText;
@@ -30,7 +30,7 @@ class HiWashTextField extends StatelessWidget {
   final bool? isVisible;
   final String obscuringCharacter;
   final Color? fillColor;
-    final String?  initialValue;
+  final String? initialValue;
 
   const HiWashTextField({
     super.key,
@@ -57,50 +57,115 @@ class HiWashTextField extends StatelessWidget {
     this.maxLength,
     this.textCapitalization,
     this.isVisible = true,
-    this.obscuringCharacter = '*', this.fillColor,  this.initialValue  });
+    this.obscuringCharacter = '*',
+    this.fillColor,
+    this.initialValue,
+  });
+
+  @override
+  State<HiWashTextField> createState() => _HiWashTextFieldState();
+}
+
+class _HiWashTextFieldState extends State<HiWashTextField> {
+  late FocusNode _focusNode;
+  bool _isFocused = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _focusNode = widget.focusNode ?? FocusNode();
+
+    _focusNode.addListener(() {
+      setState(() {
+        _isFocused = _focusNode.hasFocus;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    if (widget.focusNode == null) {
+      _focusNode.dispose();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final bool isReadOnly = widget.readOnly;
     return TextFormField(
-      initialValue: controller == null ? initialValue : null,
-      style: w400_14p(color: AppColor.c2C2A2A),
-      focusNode: focusNode,
+      initialValue: widget.controller == null ? widget.initialValue : null,
+      style: w400_14p(
+        color:
+            isReadOnly ? AppColor.c2C2A2A.withOpacity(0.6) : AppColor.c2C2A2A,
+      ),
+      focusNode: _focusNode,
       textInputAction: TextInputAction.next,
-      readOnly: readOnly,
-      obscureText: obscure,
-      obscuringCharacter: obscuringCharacter,
-      textCapitalization: textCapitalization ?? TextCapitalization.none,
-      onTap: onTap,
-      enableInteractiveSelection: onTap == null,
-      maxLines: maxLines ?? 1,
-      minLines: minLines,
-      maxLength: maxLength,
-      keyboardType: keyboardType,
-      validator: validator,
-      controller: controller,
-      onFieldSubmitted: onFieldSubmitted,
+      readOnly: widget.readOnly,
+      obscureText: widget.obscure,
+      obscuringCharacter: widget.obscuringCharacter,
+      textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
+      onTap: widget.onTap,
+      enableInteractiveSelection: widget.onTap == null,
+      maxLines: widget.maxLines ?? 1,
+      minLines: widget.minLines,
+      maxLength: widget.maxLength,
+      keyboardType: widget.keyboardType,
+      validator: widget.validator,
+      controller: widget.controller,
+      onFieldSubmitted: widget.onFieldSubmitted,
       inputFormatters:
-          inputFormatters ??
-          inputFormatters ??
+          widget.inputFormatters ??
           [FilteringTextInputFormatter.deny(RegExp(r'\s'))],
       autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
-
         errorMaxLines: 3,
         errorStyle: w400_11p(color: AppColor.cC41948),
-        hintText: hintText.tr,
-        labelText: labelText?.tr,
-
+        hintText: widget.hintText.tr,
+        labelText: widget.labelText?.tr,
         labelStyle: w400_14p(color: AppColor.c455A64),
         hintMaxLines: 2,
-        fillColor: fillColor??AppColor.cF6F7FF,
-       // hintStyle: w400_14p(color: AppColor.c455A64),
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
+        fillColor: widget.fillColor ?? AppColor.cF6F7FF,
+        prefixIcon: widget.prefixIcon,
+        suffixIcon: widget.suffixIcon,
         floatingLabelBehavior: FloatingLabelBehavior.always,
+        contentPadding: widget.padding,
 
-        // Always show the label
-        contentPadding: padding,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color:
+                isReadOnly
+                    ? AppColor.c2C2A2A.withOpacity(0.2)
+                    : AppColor.c5C6B72.withOpacity(0.5),
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(28),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color:
+                isReadOnly ? AppColor.c2C2A2A.withOpacity(0.2) : AppColor.blue,
+          ),
+          borderRadius: BorderRadius.circular(28),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color:
+                isReadOnly
+                    ? AppColor.c2C2A2A.withOpacity(0.2)
+                    : AppColor.cC41948,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(28),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: isReadOnly ? AppColor.c2C2A2A.withOpacity(0.2) : Colors.blue,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(28),
+        ),
       ),
     );
   }

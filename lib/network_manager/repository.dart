@@ -320,12 +320,7 @@ print("------>c${response.data}");
       responseType: ResponseType.plain,
     );
 
-    if (response.trim().startsWith("{")) {
-      return jsonDecode(response);
-    } else {
-
-      return response;
-    }
+   return response;
   }
 
 /*

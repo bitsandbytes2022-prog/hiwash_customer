@@ -165,13 +165,17 @@ class WashStatusController extends GetxController {
       print("Location fetch error: $e");
     }
   }
-
+  var isLoading = true.obs;
   Future<WashSummaryModel?> getWashSummary() async {
+    isLoading.value = true;
     try {
       washSummaryModel.value = await Repository().washSummary();
       return washSummaryModel.value;
     } catch (e) {
       print("Summary error: $e");
+    }finally
+    {
+      isLoading.value = false;
     }
     return null;
   }

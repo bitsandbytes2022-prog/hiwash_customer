@@ -35,7 +35,7 @@ class WashStatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.getWashSummary();
+
     return Obx(
       () =>
           controller.isWashSelected.value
@@ -187,12 +187,52 @@ class WashStatusScreen extends StatelessWidget {
                           padding: EdgeInsets.only(top: Get.height/4),
                             alignment: Alignment.center,
 
-                            child: Text("No Completed wash found yet")):Text(
+                            child: Text(""))
+                            :Text(
                           StringConstant.kCompleteWash.tr,
                           style: w500_14a(color: AppColor.c2C2A2A),
                         ),
                         18.heightSizeBox,
-                        (controller
+                        Obx(() {
+                          if (controller.isLoading.value) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+
+                          if (controller.washSummaryModel.value?.data?.completedWash?.isEmpty ?? true) {
+                            return Center(
+                              child: Text("No Completed wash found yet"),
+                            );
+                          }
+
+                          // 3. Data available
+                          return ListView.separated(
+                            padding: EdgeInsets.only(top: 0, bottom: 150),
+                            physics: NeverScrollableScrollPhysics(),
+                            separatorBuilder: (context, index) => 14.heightSizeBox,
+                            shrinkWrap: true,
+                            itemCount: controller.washSummaryModel.value!.data!.completedWash!.length,
+                            itemBuilder: (context, index) {
+                              return servicesContainer(index, () {
+                                showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AppDialog(
+                                      padding: EdgeInsets.zero,
+                                      bottomVisible: true,
+                                      remainingTextBottom: controller.washSummaryModel.value?.data?.summary?.remainingWashes ?? '',
+                                      child: successDialog(
+                                        controller.washSummaryModel.value!.data!.completedWash![index],
+                                      ),
+                                    );
+                                  },
+                                );
+                              });
+                            },
+                          );
+                        })
+
+                        /*  (controller
                                     .washSummaryModel
                                     .value
                                     ?.data
@@ -247,7 +287,7 @@ class WashStatusScreen extends StatelessWidget {
                                   );
                                 });
                               },
-                            ),
+                            ),*/
                       ],
                     ),
                   ),
@@ -546,7 +586,10 @@ class WashStatusScreen extends StatelessWidget {
           ],
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: (washData?.address != null &&
+              washData!.address!.trim().isNotEmpty)
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.center,
           children: [
             ClipRRect(
               clipBehavior: Clip.hardEdge,
@@ -579,14 +622,35 @@ class WashStatusScreen extends StatelessWidget {
                         washData?.locationName ?? '',
                         style: w600_14a(color: AppColor.c2C2A2A),
                       ),
+                      (washData?.address?.trim().isNotEmpty ?? false)
+                          ? SizedBox(height: 1)
+                          : SizedBox(height: 15),
                       Text(
                         formatDate(washData?.redeemedAt ?? ''),
                         style: w400_12a(color: AppColor.c455A64),
                       ),
-                      13.heightSizeBox,
+                      if (washData?.address != null && washData!.address!.trim().isNotEmpty) 13.heightSizeBox,
                     ],
                   ),
-                  Row(
+                  if (washData?.address != null && washData!.address!.trim().isNotEmpty)
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ImageView(
+                          path: Assets.iconsIcPlaceMarker,
+                          height: 18,
+                          width: 18,
+                        ),
+
+                        Text(
+                          washData.address!,
+                          style: w400_10p(color: AppColor.c455A64),
+                        ),
+                      ],
+                    ),
+
+                  /*      Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -601,7 +665,7 @@ class WashStatusScreen extends StatelessWidget {
                         style: w400_10p(color: AppColor.c455A64),
                       ),
                     ],
-                  ),
+                  ),*/
                 ],
               ),
             ),

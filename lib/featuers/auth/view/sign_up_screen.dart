@@ -82,16 +82,6 @@ class SignUpScreen extends StatelessWidget {
                 },
               ),
               //  20.heightSizeBox,
-              /* HiWashTextField(
-                readOnly: true,
-                controller: authController.phoneController,
-                keyboardType: TextInputType.phone,
-                labelText: StringConstant.kPhone.tr,
-                hintText: StringConstant.kEnterPhoneNumber.tr,
-                validator: (value) {
-                  return authController.validatePhoneNumber(value);
-                },
-              ),*/
               20.heightSizeBox,
               HiWashTextField(
                 inputFormatters: [
@@ -152,25 +142,32 @@ class SignUpScreen extends StatelessWidget {
                   ),
 
                   Container(
+                    padding: EdgeInsets.only(left: 20,right: 20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(28),
-                      border: Border.all(
+                    /*  border: Border.all(
                         color: AppColor.c5C6B72.withOpacity(0.5),
-                      ),
+                      ),*/
                     ),
 
                     child: Obx(
                        () {
                         return Row(
+mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             gender(genderText: 'Female', isSelected:authController.selectedGender.value == 'F', onTap: () {
                               authController.selectedGender.value = 'F';
 
                             }),
 
-                            Spacer(),
+
+
                             gender(genderText: 'Male', isSelected: authController.selectedGender.value == 'M', onTap: () {
                               authController.selectedGender.value = 'M';
+
+                            }),
+                            gender(genderText: 'Other', isSelected: authController.selectedGender.value == 'O', onTap: () {
+                              authController.selectedGender.value = 'O';
 
                             }),
                           ],
@@ -300,7 +297,7 @@ class SignUpScreen extends StatelessWidget {
 
                       if (result.status == LoginStatus.success) {
                         final AccessToken accessToken = result.accessToken!;
-                        print("🟢 Facebook login successful!");
+                        print("Facebook login successful!");
                         print("Access Token: ${accessToken.tokenString}");
 
                         final userData = await FacebookAuth.instance.getUserData(
@@ -336,8 +333,9 @@ class SignUpScreen extends StatelessWidget {
     return        GestureDetector(
       onTap: onTap,
       child: Container(
+
         padding: EdgeInsets.symmetric(
-          horizontal: 20,
+        //  horizontal: 12,
           vertical: 12,
         ),
 

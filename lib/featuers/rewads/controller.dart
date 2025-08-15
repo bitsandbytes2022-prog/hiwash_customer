@@ -12,6 +12,8 @@ import 'model/get_offers_by_id_model.dart';
 class RewardController extends GetxController {
   final RxBool isVisible = false.obs;
   RxString selectedCategory = ''.obs;
+  final RxBool isLoading = false.obs;
+
 
   Rxn<GetOfferResponseModel> offerResponseModel = Rxn();
   Rxn<GetOffersByIdModel> getOffersByIdModel = Rxn();
@@ -187,13 +189,13 @@ class RewardController extends GetxController {
   Future<GetOfferResponseModel?> getAllOffers() async {
     try {
       loading.value = true;
-      update();
       offerResponseModel.value = await Repository().getAllOffer();
       return offerResponseModel.value;
     } catch (error) {
-      loading.value = false;
-      update();
+      //loading.value = false;
       print("Error fetching Offers Get All: $error");
+    }finally{
+      loading.value = false;
     }
     return null;
   }

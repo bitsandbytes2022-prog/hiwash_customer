@@ -312,7 +312,7 @@ class MyAccountScreen extends StatelessWidget {
                   ),
                   20.heightSizeBox,
                   HiWashTextField(
-                    fillColor: AppColor.c6B6B6B.withOpacity(0.2),
+                   // fillColor: AppColor.c6B6B6B.withOpacity(0.2),
                     readOnly: true,
                     keyboardType: TextInputType.phone,
                     controller: drawerProfileController.phoneController,

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
   import 'package:hiwash_customer/featuers/subscription/model/get_subscription_model.dart';
+import 'package:hiwash_customer/widgets/components/payment_screen.dart';
   import '../../../network_manager/repository.dart';
   import '../../../network_manager/utils/api_response.dart';
 import '../../wash_status/controller/wash_status_controller.dart';
@@ -132,6 +133,27 @@ import '../../wash_status/controller/wash_status_controller.dart';
     }
 
 
+
+    Future<void> paymentMethod(String carNumber, String subscriptionId) async {
+      Map<String, dynamic> params = {
+        "carNumber": carNumber,
+        "subscriptionId": subscriptionId,
+      };
+
+      try {
+        isLoading.value = true;
+        final htmlResponse = await Repository().paymentRepo(params);
+
+        Get.to(() => PaymentWebViewScreen(htmlData: htmlResponse));
+      } catch (error) {
+        print("Error payment--> ${error.toString()}");
+      } finally {
+        isLoading.value = false;
+      }
+    }
+
+
+/*
     Future<void> paymentMethod(String carNumber, String subscriptionId) async {
       Map<String, dynamic> params = {
         "carNumber": carNumber,
@@ -144,11 +166,12 @@ import '../../wash_status/controller/wash_status_controller.dart';
 
      return response;
       } catch (error) {
-        print("Error --> ${error.toString()}");
+        print("Error payment--> ${error.toString()}");
       } finally {
         isLoading.value = false;
       }
     }
+*/
 
   }
 

@@ -1,29 +1,18 @@
-import 'package:cached_network_image/cached_network_image.dart'
-    show CachedNetworkImage;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
-import 'package:hiwash_customer/widgets/components/profile_image_container.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
-
 import '../../featuers/rewads/controller.dart';
 import '../../featuers/rewads/model/offer_response_model.dart';
-import '../../featuers/rewads/view/widget/view_offer_detail_widget.dart'
-    show OfferDetailBottomSheet;
-import '../../featuers/rewads/view/widget/widgets.dart';
+import '../../featuers/rewads/view/widget/view_offer_detail_widget.dart' show OfferDetailBottomSheet;
 import '../../featuers/subscription/widgets/offer_card.dart';
 import '../../generated/assets.dart';
 import '../../styling/app_color.dart';
 import '../../styling/app_font_anybody.dart';
 import '../../styling/app_font_poppins.dart';
-import 'app_dialog.dart';
-import 'countdown_or_date_timer.dart';
 import 'custom_bottomsheet.dart';
-import 'date_time_widget.dart';
-import 'doted_line.dart';
 import 'image_view.dart';
 import 'offers_grid_container.dart';
 
@@ -40,7 +29,6 @@ class BottomSheetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding:padding,
       height: Get.height / 1.1,
       width: Get.width,
       decoration: BoxDecoration(
@@ -102,14 +90,82 @@ class BottomSheetWidget extends StatelessWidget {
                         width: 9,
                         color: AppColor.c2C2A2A,
                       ),
-                      //Icon(Icons.arrow_drop_down, size: 20),
                     ],
                   ),
                 ),
               ),
               25.heightSizeBox,
-
               Expanded(
+                child: Obx(() {
+                  if (rewardController.isLoading.value) {
+                    // API chal rahi hai to loader dikhao
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  final List<Offers> data =
+                  rewardController.filteredOffers.isNotEmpty
+                      ? rewardController.filteredOffers
+                      : rewardController.offerResponseModel.value?.data?.offers ?? [];
+
+                  if (data.isEmpty) {
+                    // API ka response aa gaya but data empty hai
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: Text(
+                        StringConstant.kDateIsNotFound.tr,
+                        style: TextStyle(fontSize: 18, color: Colors.black),
+                      ),
+                    );
+                  }
+
+                  // Yaha normal grid show hoga jab data available hai
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(left: 16, right: 15, bottom: 60),
+                    clipBehavior: Clip.hardEdge,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                    ),
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () async {
+                          if (isVisible) {
+                            Get.back();
+                            await rewardController.getOffersById(data[index].id!);
+                            showModalBottomSheet(
+                              context: Get.context!,
+                              isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
+                                ),
+                              ),
+                              builder: (BuildContext context) {
+                                return CustomBottomSheet(
+                                  child: OfferDetailBottomSheet(),
+                                );
+                              },
+                            );
+                          }
+                        },
+                        child: OffersGridContainer(
+                          key: ValueKey(data[index].expiryDate),
+                          offer: data[index],
+                        ),
+                      );
+                    },
+                  );
+                }),
+              ),
+
+
+              /* Expanded(
                 child: Obx(() {
                   final List<Offers> data =
                       rewardController.filteredOffers.isNotEmpty
@@ -177,7 +233,7 @@ class BottomSheetWidget extends StatelessWidget {
                         ),
                       );
                 }),
-              ),
+              ),*/
             ],
           ),
           Obx(

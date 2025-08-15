@@ -73,16 +73,16 @@ class _CountdownOrDateTimerState extends State<CountdownOrDateTimer> {
   @override
   Widget build(BuildContext context) {
     if (expiryDate == null) {
-      return Text(StringConstant.kInvalidDate.tr, style: w400_12a(color: AppColor.white));
+      return Text(StringConstant.kInvalidDate.tr, style: w400_12a(color: AppColor.c2C2A2A));
     }
 
     if (remaining.inHours >= 24) {
       final formatted = DateFormat('dd MMM yyyy').format(expiryDate!);
-      return Text(formatted, style: w400_12a(color: AppColor.white));
+      return Text(formatted, style: w400_12a(color: AppColor.c2C2A2A));
     }
 
     if (remaining.isNegative) {
-      return Text(StringConstant.kExpired.tr, style: w400_12a(color: AppColor.white));
+      return Text(StringConstant.kExpired.tr, style: w400_12a(color: AppColor.c2C2A2A));
     }
 
     final h = remaining.inHours;

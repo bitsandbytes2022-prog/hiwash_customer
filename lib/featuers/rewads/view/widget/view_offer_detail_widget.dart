@@ -69,17 +69,7 @@ class OfferDetailBottomSheet extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Positioned(
-                      //   top: 35,
-                      //   left: 14,
-                      //   child: Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //       DateTimeWidget(title: rewardController.getOffersByIdModel.value!.offerDetailList!.first.businessName ?? ""),
-                      //       13.heightSizeBox,
-                      //     ],
-                      //   ),
-                      // ),
+
                     ],
                   ),
                 ),
@@ -176,8 +166,22 @@ class OfferDetailBottomSheet extends StatelessWidget {
                         expiryDateStr: rewardController.getOffersByIdModel.value?.offerDetailList?.first.expiryDate ?? '',
                       ),
                       10.heightSizeBox,
+/*
                       Text("${rewardController.getOffersByIdModel.value?.offerDetailList?.first.qty.toString()??''} Vouchers available", style: w400_14a(color: AppColor.c2C2A2A)),
-                      Text("Redeemed ${rewardController.getOffersByIdModel.value?.offerDetailList?.first.redeemed.toString()??''} available", style: w400_12a(color: AppColor.c2C2A2A.withOpacity(0.7))),
+*/
+                      if ((rewardController.getOffersByIdModel.value?.offerDetailList?.first.qty ?? 0) > 0)
+                        Text(
+                          "${rewardController.getOffersByIdModel.value?.offerDetailList?.first.qty} Vouchers available",
+                          style: w400_14a(color: AppColor.c2C2A2A),
+                        ),
+                      if ((rewardController.getOffersByIdModel.value?.offerDetailList?.first.redeemed ?? 0) != 0)
+                        Text(
+                          "Redeemed ${rewardController.getOffersByIdModel.value?.offerDetailList?.first.redeemed} available",
+                          style: w400_12a(
+                            color: AppColor.c2C2A2A.withOpacity(0.7),
+                          ),
+                        ),
+
                       10.heightSizeBox,
                       Container(
                         decoration: BoxDecoration(

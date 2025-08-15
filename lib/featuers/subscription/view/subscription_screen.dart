@@ -291,6 +291,41 @@ class SubscriptionScreen extends StatelessWidget {
                         return HiWashButton(
                           isLoading: controller.isLoading.value,
                           onTap: () async {
+                            final selectedIndex = controller.selectedIndex.value;
+                            final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
+                            final profileCarNumber = customerDetails?.carNumber?.trim() ?? '';
+                            final enteredCarNumber = controller.carNumberController.text.trim();
+
+                            String carNumberToUse = '';
+
+                            if (selectedIndex == 1) {
+                              // Plan 1 → Car number empty bhejna
+                              carNumberToUse = '';
+                            }
+                            else if (selectedIndex == 2) {
+                              // Plan 2 → Car number required
+                              if (profileCarNumber.isNotEmpty) {
+                                carNumberToUse = profileCarNumber;
+                              } else if (enteredCarNumber.isNotEmpty) {
+                                carNumberToUse = enteredCarNumber;
+                              } else {
+                                appSnackBar(message: StringConstant.kPleaseEnterYourCarNumber.tr);
+                                return; // Stop here — No API call
+                              }
+                            }
+                            else {
+                              print("No subscription selected — API not called");
+                              return;
+                            }
+
+                            // Call API only when valid selection
+                            await controller.paymentMethod(
+                              carNumberToUse,
+                              selectedIndex.toString(),
+                            );
+                          },
+
+                          /*  onTap: () async {
                             final selectedIndex = controller.selectedIndex.value.toString();
                             final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
                             final profileCarNumber = customerDetails?.carNumber?.trim() ?? '';
@@ -320,43 +355,10 @@ class SubscriptionScreen extends StatelessWidget {
                             } else {
                               print("No subscriptionId found — API not called");
                             }
-                          },
-
-
-                          /* onTap: () async {
-                            final selectedIndex = controller.selectedIndex.value;
-                            final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
-                            final profileCarNumber = customerDetails?.carNumber?.trim() ?? '';
-                            final enteredCarNumber = controller.carNumberController.text.trim();
-
-                            String carNumberToUse = '';
-
-                            if (selectedIndex == 2) {
-                              if (profileCarNumber.isNotEmpty) {
-                                carNumberToUse = profileCarNumber;
-                              } else {
-                                if (enteredCarNumber.isEmpty) {
-                                appSnackBar(message: StringConstant.kPleaseEnterYourCarNumber.tr);
-                                  return;
-                                }
-                                carNumberToUse = enteredCarNumber;
-                              }
-                            } else {
-                              carNumberToUse = controller.carNumberController.text.trim();
-                            }
-                            ;
-
-                            Get.offNamed(
-                              RouteStrings.enterCardDetailScreen,
-                              arguments: {
-                                'subscriptionIndex': controller.selectedIndex.toString(),
-                                'carNumber': carNumberToUse,
-                                'source': 'SubscriptionScreen',
-                                'customerId': customerDetails?.id ?? 0,
-                              },
-                            );
-
                           },*/
+
+
+
                           text: "kSubscribe".tr,
                           margin: EdgeInsets.symmetric(horizontal: 30),
                         );
@@ -398,3 +400,39 @@ class SubscriptionScreen extends StatelessWidget {
   }
 
 }
+
+
+/* onTap: () async {
+                            final selectedIndex = controller.selectedIndex.value;
+                            final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
+                            final profileCarNumber = customerDetails?.carNumber?.trim() ?? '';
+                            final enteredCarNumber = controller.carNumberController.text.trim();
+
+                            String carNumberToUse = '';
+
+                            if (selectedIndex == 2) {
+                              if (profileCarNumber.isNotEmpty) {
+                                carNumberToUse = profileCarNumber;
+                              } else {
+                                if (enteredCarNumber.isEmpty) {
+                                appSnackBar(message: StringConstant.kPleaseEnterYourCarNumber.tr);
+                                  return;
+                                }
+                                carNumberToUse = enteredCarNumber;
+                              }
+                            } else {
+                              carNumberToUse = controller.carNumberController.text.trim();
+                            }
+                            ;
+
+                            Get.offNamed(
+                              RouteStrings.enterCardDetailScreen,
+                              arguments: {
+                                'subscriptionIndex': controller.selectedIndex.toString(),
+                                'carNumber': carNumberToUse,
+                                'source': 'SubscriptionScreen',
+                                'customerId': customerDetails?.id ?? 0,
+                              },
+                            );
+
+                          },*/

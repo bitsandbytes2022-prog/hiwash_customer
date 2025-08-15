@@ -49,7 +49,21 @@ class OffersGridContainer extends StatelessWidget {
                   expiryDateStr: offer.expiryDate ?? '',
                 ),
               ),
-              Container(
+              if (offer.qty != null && offer.qty! > 1)
+                Container(
+                  margin: EdgeInsets.only(top: 3),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColor.cC7F6E5,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Text(
+                    "${offer.qty} Vouchers",
+                    style: w500_7a(color: AppColor.c1F9D70),
+                  ),
+                )
+
+              /*   Container(
                 margin: EdgeInsets.only(top: 3),
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
@@ -57,7 +71,7 @@ class OffersGridContainer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Text("${offer.qty.toString() ?? ''} Vouchers", style: w500_7a(color: AppColor.c1F9D70)),
-              ),
+              ),*/
 
             ],
           ),
