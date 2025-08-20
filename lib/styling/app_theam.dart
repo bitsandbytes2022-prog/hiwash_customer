@@ -3,17 +3,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app_color.dart';
 import 'app_font_anybody.dart';
 import 'app_font_poppins.dart';
+import 'app_theme_color.dart';
 
 class LightTheme {
   static theme() => ThemeData(
     scaffoldBackgroundColor: AppColor.cF6F7FF,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColor.cEAE8E8),
     useMaterial3: true,
+    primarySwatch: AppThemeColor.blueSwatch,
+    primaryColor: AppThemeColor.blue,
     fontFamily: GoogleFonts.anybody().fontFamily,
     inputDecorationTheme: InputDecorationTheme(
       fillColor: AppColor.cF6F7FF,
       filled: true,
-      // labelStyle: w400_13a(color: AppColor.c455A64),
       hintStyle: w400_14p(color: AppColor.c2C2A2A.withOpacity(0.40)),
       contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
 

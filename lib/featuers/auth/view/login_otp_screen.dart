@@ -29,7 +29,7 @@ class LoginOtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String phoneNumber = Get.arguments as String;
+    final String phoneNumber = Get.arguments is String ? Get.arguments as String : "";
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       controller.startTimer();
     await  controller.getFCMTokenIn();

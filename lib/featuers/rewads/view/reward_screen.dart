@@ -154,6 +154,7 @@ class RewardScreen extends StatelessWidget {
               13.heightSizeBox,
               GestureDetector(
                 onTap: () {
+                  rewardController.resetFiltersAndLoad();
                   showModalBottomSheet(
                     context: Get.context!,
                     isScrollControlled: true,
@@ -172,7 +173,9 @@ class RewardScreen extends StatelessWidget {
                     rewardController.isAscending.value = true;
                     rewardController.applySortingToCurrentData();
                     rewardController.clearCategoryFilter();
+
                     rewardController.isVisible.value = false;
+
                   });
                 },
                 child: Container(

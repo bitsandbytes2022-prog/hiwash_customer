@@ -38,6 +38,43 @@ class RewardController extends GetxController {
     Assets.demoOffer3,
   ];
 
+  RxInt selectedFilterIndex = 0.obs;
+
+  final List<String> offerFilterList = [
+    "Limited time",
+    "Limited quantity",
+    "Redeemed",
+    "Free",
+    "Discounted",
+  ];
+
+  Future<void> applyFilter(int index) async {
+    try {
+      isLoading.value = true;
+      selectedFilterIndex.value = index;
+      await getAllOffersByFilter(index);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+/*
+
+  Future<void> applyFilter(int index) async {
+    selectedFilterIndex.value = index;
+    await getAllOffersByFilter(index);
+  }
+*/
+
+  Future<GetOfferResponseModel?> getAllOffersByFilter(int id) async {
+    try {
+      offerResponseModel.value = await Repository().getAllOfferFilterRepo(id);
+      return offerResponseModel.value;
+    } catch (error) {
+      print("Error fetching Offers Get All: $error");
+    }
+    return null;
+  }
   RxBool isAscending = true.obs;
  // RxString sortByText = StringConstant.kSortByExpiry.tr.obs;
   RxString sortByText = StringConstant.kSortByExpiry.obs;
@@ -224,4 +261,27 @@ class RewardController extends GetxController {
     }
     return null;
   }
+
+  void resetFiltersAndLoad() async {
+
+    selectedFilterIndex.value = 0;
+    sortByText.value = StringConstant.kSortByExpiry.tr;
+    isAscending.value = true;
+    clearCategoryFilter();
+
+    isLoading.value = true;
+    try {
+      await getAllOffers();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+/*  void resetFilters() {
+    Get.back();
+    selectedFilterIndex.value = 0;
+    sortByText.value = StringConstant.kSortByExpiry.tr;
+    isAscending.value = true;
+    clearCategoryFilter();
+    isVisible.value = false;
+  }*/
 }

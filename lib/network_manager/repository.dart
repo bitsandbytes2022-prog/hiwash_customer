@@ -347,6 +347,13 @@ print("------>c${response.data}");
 
     return NotificationModel.fromJson( response);
   }
+  Future<GetOfferResponseModel> getAllOfferFilterRepo(int id) async {
+    Map<String, dynamic> response = await dioHelper.get(
+      url: ApiConstant.getOffersByFilter(id),
+      isAuthRequired: true,
+    );
+    return GetOfferResponseModel.fromJson(response);
+  }
 
 
 }

@@ -37,7 +37,7 @@ class WashStatusController extends GetxController {
       getCustomerDataById(int.parse(userIdStr));
     }
     getWashSummary();
-   // fetchCurrentAddress();
+
     Future.delayed(Duration(milliseconds: 200), () {
       fetchCurrentAddress();
     });
@@ -189,6 +189,7 @@ class WashStatusController extends GetxController {
     }
     return null;
   }
+
 }
 
 

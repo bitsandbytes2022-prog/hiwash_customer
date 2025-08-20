@@ -31,6 +31,23 @@ class SubscribeMainScreen extends StatelessWidget {
 
      final userData = washStatusController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
+      iconLeft:
+      GestureDetector(
+        onTap: () {
+         Get.offAllNamed(RouteStrings.loginScreen);
+        },
+        child: Container(
+          margin: EdgeInsets.only(left: 15),
+          padding: EdgeInsets.only(right: 5,bottom: 10,top: 10),
+          color: Colors.transparent,
+          child: ImageView(
+            path: Assets.iconsIcArrow,
+
+            height: 15,
+            width: 15,
+          ),
+        ),
+      ),
       iconRight: SizedBox(),
       padding: EdgeInsets.zero,
 
