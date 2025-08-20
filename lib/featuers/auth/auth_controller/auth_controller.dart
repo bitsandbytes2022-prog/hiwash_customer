@@ -23,7 +23,8 @@ import '../model/send_otp_model.dart';
 class AuthController extends GetxController {
   var isLoggedIn = false.obs;
 
-
+  var selectedGender = "".obs;
+  var showGenderError = false.obs;
 
 
   @override
@@ -75,7 +76,6 @@ class AuthController extends GetxController {
     text: kDebugMode ? 'Abcd' : "",
   );
 
-  var selectedGender = ''.obs;
   /// forgot password controller
   TextEditingController phoneForgotController = TextEditingController();
 
