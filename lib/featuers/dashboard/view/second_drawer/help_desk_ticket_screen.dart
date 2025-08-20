@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -120,12 +121,14 @@ class HelpDeskTicketScreen extends StatelessWidget {
               );
             }),
 
-            /* ImageView(
+            */
+/* ImageView(
               path: Assets.imagesCameraImage,
               height: 144,
               width: Get.width,
              // fit: BoxFit.fitWidth,
-            ),*/
+            ),*//*
+
             20.heightSizeBox,
             Text(
               "Preferred Contact Method",
@@ -283,3 +286,4 @@ class CustomCheckbox extends StatelessWidget {
     );
   }
 }
+*/

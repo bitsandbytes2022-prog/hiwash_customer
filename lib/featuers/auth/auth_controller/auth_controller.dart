@@ -355,6 +355,7 @@ class AuthController extends GetxController {
     try {
       signUpModel = await Repository().signUp(requestBody);
 
+
       return signUpModel;
     } catch (error) {
       print(" Error in controller send signUp: $error");

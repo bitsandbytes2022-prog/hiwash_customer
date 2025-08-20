@@ -64,12 +64,16 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
 
   void _showResultDialog(bool isSuccess) {
     Get.defaultDialog(
+      titlePadding: EdgeInsets.only(top: 20),
+      contentPadding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 20),
       title: isSuccess ? "Payment Success" : "Payment Failed",
       middleText: isSuccess
           ? "Your subscription has been activated."
           : "Payment was not successful.",
-      textConfirm: "OK",
+      textConfirm: "Okay",
       confirmTextColor: Colors.white,
+      buttonColor: AppColor.blue,
+      backgroundColor: AppColor.white,
       onConfirm: () {
         Get.back();
         if (isSuccess) {
@@ -105,7 +109,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
             style: w700_22a(color: AppColor.c2C2A2A),
           ),
           content: Text(
-            StringConstant.kDoYouReally.tr,
+            StringConstant.kDoYouWantToCancelThePayment.tr,
             style: w400_16p(),
           ),
           actions: <Widget>[

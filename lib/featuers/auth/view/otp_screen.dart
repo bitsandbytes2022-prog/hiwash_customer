@@ -160,14 +160,22 @@ class OtpScreen extends StatelessWidget {
                               value.data?.id ?? 0,
                             );
 
-                            final subscriptionId = washStatusController
-                                .getCustomerData.value?.data?.subscriptionDetails?.subscriptionId;
-
-                            if (subscriptionId == null || subscriptionId == 0) {
+                            final customerData = washStatusController.getCustomerData.value?.data;
+                            final subscriptionId = customerData?.subscriptionDetails?.subscriptionId;
+                            final price = customerData?.subscriptionDetails?.price;
+                            if (subscriptionId != null && subscriptionId != 0 && price != null && price != 0) {
+                              Get.offAllNamed(RouteStrings.dashboardScreen);
+                            } else {
+                              Get.toNamed(RouteStrings.subscribeMainScreen);
+                            }
+                        /*    if (subscriptionId == null ||
+                                subscriptionId == 0 ||
+                                price == null ||
+                                price == 0) {
                               Get.toNamed(RouteStrings.subscribeMainScreen);
                             } else {
                               Get.offAllNamed(RouteStrings.dashboardScreen);
-                            }
+                            }*/
                           } else {
                             print("Token not found after login.");
                             appSnackBar(title: StringConstant.kLoginFailed.tr, message: StringConstant.kSomethingWentWrong.tr);

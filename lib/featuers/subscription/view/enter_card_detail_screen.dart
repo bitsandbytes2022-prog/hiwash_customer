@@ -182,7 +182,7 @@ class EnterCardDetailScreen extends StatelessWidget {
               Obx(() {
                 return subscriptionController.isLoading.value
                     ? Center(child: CircularProgressIndicator(  strokeWidth: 2
-                  ,color: Colors.blue,))
+                  ,))
                     : Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hiwash_customer/widgets/components/app_bg.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
@@ -105,15 +106,15 @@ class LoginScreen extends StatelessWidget {
                       if (result != null) {
                         Get.offAllNamed(RouteStrings.dashboardScreen);
                       } else {
-                        Get.snackbar(StringConstant.kLoginFailed.tr, StringConstant.kSomethingWentWrongDuring.tr);
+                        appSnackBar(title:  StringConstant.kLoginFailed.tr,message:  StringConstant.kSomethingWentWrongDuring.tr);
                       }
                     } else {
                       print("idToken is null");
-                      Get.snackbar(StringConstant.kGoogleSignIn.tr, StringConstant.kUnableToGetIDToken.tr);
+                      appSnackBar(title:  StringConstant.kGoogleSignIn.tr,message:  StringConstant.kUnableToGetIDToken.tr);
                     }
                   } catch (e) {
                     print("Google Sign-In Error: $e");
-                    Get.snackbar(StringConstant.kGoogleSignIn.tr, StringConstant.kSomethingWentWrong.tr);
+                    appSnackBar(title:  StringConstant.kGoogleSignIn.tr,message:  StringConstant.kSomethingWentWrong.tr);
                   }
                 },
 
@@ -123,7 +124,7 @@ class LoginScreen extends StatelessWidget {
 
                       if (result.status == LoginStatus.success) {
                         final AccessToken accessToken = result.accessToken!;
-                        print("🟢 Facebook login successful!");
+                        print("Facebook login successful!");
                         print("Access Token: ${accessToken.tokenString}");
 
                         final userData = await FacebookAuth.instance.getUserData(
@@ -139,7 +140,8 @@ class LoginScreen extends StatelessWidget {
                         Get.snackbar(StringConstant.kLoginCancelled.tr, StringConstant.kUserCancelledLogin.tr);
                       } else {
                         print("Facebook login failed: ${result.message}");
-                        Get.snackbar("Login Failed", result.message ?? "Unknown error");
+                        Get.snackbar(StringConstant.kLoginFailed.tr, result.message ?? StringConstant.kSomethingWentWrong.tr);
+                        Get.snackbar(StringConstant.kLoginFailed.tr, result.message ?? StringConstant.kSomethingWentWrong.tr);
                       }
                     } catch (e) {
                       print("Facebook Login Error: $e");

@@ -299,7 +299,7 @@ class WashStatusScreen extends StatelessWidget {
                     final currentLatLng = controller.currentLatLng.value;
                     if (currentLatLng == null) {
                       return Center(child: CircularProgressIndicator(  strokeWidth: 2
-                        ,color: Colors.blue,));
+                        ,));
                     }
 
                     return SizedBox(
@@ -409,13 +409,13 @@ class WashStatusScreen extends StatelessWidget {
                             MapsLauncher.launchCoordinates(
                               lat,
                               lng,
-                              selected.name ?? "Selected Location",
+                              selected.name ?? StringConstant.kSelectedLocation.tr,
                             );
                           } else {
-                            appSnackBar(message: "Invalid coordinates for selected location");
+                            appSnackBar(message: StringConstant.kInvalidSelectedLocation.tr);
                           }
                         } else {
-                          appSnackBar(message:  "No location selected");
+                          appSnackBar(message:  StringConstant.kNoLocationSelected.tr);
                         }
                       }),
                     );
@@ -491,7 +491,7 @@ class WashStatusScreen extends StatelessWidget {
                             path: Assets.iconsMyLocation,
                             height: 20,
                             width: 20,
-                            color: Colors.blue,
+                            color: AppColor.blue,
                           ),
                         ),
                       ],
@@ -598,7 +598,7 @@ class WashStatusScreen extends StatelessWidget {
                 imageUrl: washData?.locationImage ?? '',
                 placeholder:
                     (context, url) => Center(
-                      child: CircularProgressIndicator(strokeWidth: 2,color: Colors.blue,),
+                      child: CircularProgressIndicator(strokeWidth: 2,),
                     ),
                 errorWidget:
                     (context, url, error) => Image.asset(

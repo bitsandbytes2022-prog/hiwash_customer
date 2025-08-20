@@ -8,7 +8,7 @@ import 'app_theme_color.dart';
 class LightTheme {
   static theme() => ThemeData(
     scaffoldBackgroundColor: AppColor.cF6F7FF,
-    colorScheme: ColorScheme.fromSeed(seedColor: AppColor.cEAE8E8),
+    colorScheme: ColorScheme.fromSeed(seedColor: AppColor.blue),
     useMaterial3: true,
     primarySwatch: AppThemeColor.blueSwatch,
     primaryColor: AppThemeColor.blue,

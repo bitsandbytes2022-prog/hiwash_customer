@@ -34,7 +34,11 @@
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="hiwash_customer">
+        android:label="hiwash_customer"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+
+        >
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBzNOVeplXlxtY2jYUug5dhCUYSg5MSCA0" />

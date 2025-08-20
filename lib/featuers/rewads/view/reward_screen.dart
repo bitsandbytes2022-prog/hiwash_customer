@@ -52,7 +52,7 @@ class RewardScreen extends StatelessWidget {
                       padding: EdgeInsets.only(top: 150),
                       child: CircularProgressIndicator(
                         strokeWidth: 2
-                        ,color: Colors.blue,
+
                       ),
                     )
                     : data.isNotEmpty

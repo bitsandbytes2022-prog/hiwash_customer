@@ -233,6 +233,10 @@ class StringConstant {
   static const kLoginCancelled = "kLoginCancelled";
   static const kUserCancelledLogin = "kUserCancelledLogin";
   static const kFacebookLogin = "kFacebookLogin";
+  static const kInvalidSelectedLocation = "kInvalidSelectedLocation";
+  static const kSelectedLocation = "kSelectedLocation";
+  static const kNoLocationSelected = "kNoLocationSelected";
+  static const kDoYouWantToCancelThePayment = "kDoYouWantToCancelThePayment";
 
 
 

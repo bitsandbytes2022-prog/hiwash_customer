@@ -91,10 +91,10 @@ class Routes {
       name: RouteStrings.stepByStepGuideDetailScreen,
       page: () => StepByStepGuideDetailScreen(),
     ),
-    GetPage(
+  /*  GetPage(
       name: RouteStrings.helpDeskTicketScreen,
       page: () => HelpDeskTicketScreen(),
-    ),
+    ),*/
 
     GetPage(
       name: RouteStrings.privacySettingScreen,

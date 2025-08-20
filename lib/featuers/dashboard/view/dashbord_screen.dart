@@ -162,7 +162,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Center(
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                color: Colors.blue,
               ),
             ),
           ),
@@ -424,7 +423,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: SizedBox(
                         height: 24,
                         width: 24,
-                        child: CircularProgressIndicator(strokeWidth: 2,color: Colors.blue,),
+                        child: CircularProgressIndicator(strokeWidth: 2,),
                       ),
                     ),
                   ),

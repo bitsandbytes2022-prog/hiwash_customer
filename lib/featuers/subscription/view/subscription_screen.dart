@@ -115,7 +115,7 @@ class SubscriptionScreen extends StatelessWidget {
                           width: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            color: Colors.blue,
+
                           ),
                         ),
                       ),
@@ -189,7 +189,7 @@ class SubscriptionScreen extends StatelessWidget {
                           return Center(
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              color: Colors.blue,
+
                             ),
                           );
                         }

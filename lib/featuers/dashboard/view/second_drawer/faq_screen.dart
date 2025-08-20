@@ -85,7 +85,7 @@ class FaqScreen extends StatelessWidget {
             Obx(() {
               if (secondDrawerController.isLoading.value) {
                 return const Center(child: CircularProgressIndicator(  strokeWidth: 2
-                  ,color: Colors.blue,));
+                  ,));
               }
 
               final allFaqs = secondDrawerController.faqResponse.value?.data ?? [];

@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:hiwash_customer/featuers/wash_status/model/get_location_model.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
+import 'package:hiwash_customer/styling/app_color.dart';
 import '../../../network_manager/local_storage.dart';
 import '../../../network_manager/repository.dart';
 import '../../dashboard/model/get_customer_data_model.dart';
@@ -30,11 +31,11 @@ class WashStatusController extends GetxController {
   Rx<LocationData?> selectedLocation = Rx<LocationData?>(null);
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     final userIdStr = LocalStorage().getUserId();
     if (userIdStr != null && int.tryParse(userIdStr) != null) {
-      getCustomerDataById(int.parse(userIdStr));
+   await   getCustomerDataById(int.parse(userIdStr));
     }
     getWashSummary();
 
@@ -114,7 +115,7 @@ class WashStatusController extends GetxController {
     if (result.points.isNotEmpty) {
       polylines.add(Polyline(
         polylineId: PolylineId("selected_route"),
-        color: Colors.blue,
+        color: AppColor.blue,
         width: 4,
         points: result.points.map((p) => LatLng(p.latitude, p.longitude)).toList(),
       ));
@@ -183,6 +184,7 @@ class WashStatusController extends GetxController {
   Future<GetCustomerData?> getCustomerDataById(int id) async {
     try {
       getCustomerData.value = await Repository().getCustomerData(id);
+      getCustomerData.value;
       getCustomerData.refresh();
     } catch (e) {
       print("Customer fetch error: $e");

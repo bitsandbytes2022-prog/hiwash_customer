@@ -16,23 +16,20 @@ import '../../../widgets/components/app_bg.dart';
 import '../../../widgets/components/hi_wash_button.dart';
 import '../auth_controller/auth_controller.dart';
 
-
 class LoginOtpScreen extends StatelessWidget {
   LoginOtpScreen({super.key});
 
-  final AuthController controller =
-  Get.put(AuthController(), permanent: true);
-
+  final AuthController controller = Get.put(AuthController(), permanent: true);
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
-    final String phoneNumber = Get.arguments is String ? Get.arguments as String : "";
+    final String phoneNumber =
+        Get.arguments is String ? Get.arguments as String : "";
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       controller.startTimer();
-    await  controller.getFCMTokenIn();
+      await controller.getFCMTokenIn();
     });
 
     final defaultPinTheme = PinTheme(
@@ -56,7 +53,10 @@ class LoginOtpScreen extends StatelessWidget {
         child: Column(
           children: [
             110.heightSizeBox,
-            Text(StringConstant.kVerifyPhone.tr, style: w700_22a(color: AppColor.c2C2A2A)),
+            Text(
+              StringConstant.kVerifyPhone.tr,
+              style: w700_22a(color: AppColor.c2C2A2A),
+            ),
             14.heightSizeBox,
             RichText(
               text: TextSpan(
@@ -101,7 +101,10 @@ class LoginOtpScreen extends StatelessWidget {
               return Text(formatted, style: w400_12p(color: AppColor.red));
             }),
             52.heightSizeBox,
-            Text(StringConstant.kDidGetOTPCode.tr, style: w400_12p(color: AppColor.c455A64)),
+            Text(
+              StringConstant.kDidGetOTPCode.tr,
+              style: w400_12p(color: AppColor.c455A64),
+            ),
             5.heightSizeBox,
 
             Obx(() {
@@ -109,12 +112,13 @@ class LoginOtpScreen extends StatelessWidget {
               final isActive = seconds == 0;
 
               return GestureDetector(
-                onTap: isActive
-                    ? () {
-                  controller.sendOtp(phoneNumber);
-                  controller.resetTimer();
-                }
-                    : null,
+                onTap:
+                    isActive
+                        ? () {
+                          controller.sendOtp(phoneNumber);
+                          controller.resetTimer();
+                        }
+                        : null,
                 child: Text(
                   StringConstant.kResendCode.tr,
                   style: w400_12p(
@@ -125,19 +129,21 @@ class LoginOtpScreen extends StatelessWidget {
             }),
             26.heightSizeBox,
             Obx(
-                    () => HiWashButton(
-                  isLoading: controller.isLoading.value,
-                  text: StringConstant.kVerify.tr,
-                  onTap: () async {
-                    if (formKey.currentState!.validate()) {
-                      final enteredOtp = controller.enteredOtp.value.trim();
-                      final serverOtp = controller.sendOtpModel.value.data?.otp?.toString();
+              () => HiWashButton(
+                isLoading: controller.isLoading.value,
+                text: StringConstant.kVerify.tr,
+                onTap: () async {
+                  if (formKey.currentState!.validate()) {
+                    final enteredOtp = controller.enteredOtp.value.trim();
+                    final serverOtp =
+                        controller.sendOtpModel.value.data?.otp?.toString();
 
+                    print(
+                      "Entered OTP: $enteredOtp (${enteredOtp.runtimeType})",
+                    );
+                    print("Server OTP: $serverOtp (${serverOtp.runtimeType})");
 
-                      print("Entered OTP: $enteredOtp (${enteredOtp.runtimeType})");
-                      print("Server OTP: $serverOtp (${serverOtp.runtimeType})");
-
-                  /*    if (enteredOtp == serverOtp) {
+                    /*    if (enteredOtp == serverOtp) {
                      await   controller.getToken(phoneNumber,).then((value) {
                           if (value != null) {
 
@@ -146,48 +152,48 @@ class LoginOtpScreen extends StatelessWidget {
                           }
                         });
                       }*/
-                      if (enteredOtp == serverOtp) {
-                        await controller.getToken(phoneNumber).then((value) async {
-                          if (value != null) {
-                            final token = LocalStorage().getToken();
-                            if (token != null && token.isNotEmpty) {
-                              WashStatusController  washStatusController=Get.isRegistered()?Get.find():Get.put(WashStatusController());
-                              await washStatusController.getCustomerDataById(
-                                value.data?.id ?? 0,
-                              );
-
-                              final subscriptionId = washStatusController
-                                  .getCustomerData.value?.data?.subscriptionDetails?.subscriptionId;
-
-                              if (subscriptionId == null || subscriptionId == 0) {
-                                Get.toNamed(RouteStrings.subscribeMainScreen);
-                              } else {
-                                Get.offAllNamed(RouteStrings.dashboardScreen);
-                              }
+                    if (enteredOtp == serverOtp) {
+                      await controller.getToken(phoneNumber).then((
+                        value,
+                      ) async {
+                        if (value != null) {
+                          final token = LocalStorage().getToken();
+                          if (token != null && token.isNotEmpty) {
+                            WashStatusController washStatusController =
+                                Get.isRegistered()
+                                    ? Get.find()
+                                    : Get.put(WashStatusController());
+                            await washStatusController.getCustomerDataById(
+                              value.data?.id ?? 0,
+                            );
+                            final customerData = washStatusController.getCustomerData.value?.data;
+                            final subscriptionId = customerData?.subscriptionDetails?.subscriptionId;
+                            final price = customerData?.subscriptionDetails?.price;
+                            if (subscriptionId != null && subscriptionId != 0 && price != null && price != 0) {
+                              Get.offAllNamed(RouteStrings.dashboardScreen);
                             } else {
-                              print("Token not found after login.");
-                              appSnackBar(title: StringConstant.kLoginFailed.tr, message: StringConstant.kSomethingWentWrong.tr);
+                              Get.toNamed(RouteStrings.subscribeMainScreen);
                             }
+
+                          } else {
+                            print("Token not found after login.");
+                            appSnackBar(
+                              title: StringConstant.kLoginFailed.tr,
+                              message: StringConstant.kSomethingWentWrong.tr,
+                            );
                           }
-                        });
-
-                      }
-
-
-                      else {
+                        }
+                      });
+                    } else {
                       appSnackBar(
                         title: StringConstant.kInvalidOTP.tr,
                         message: StringConstant.kPleaseEnterTheCorrectOTP.tr,
-
                       );
-                      }
                     }
-                  },
-                )
-
+                  }
+                },
+              ),
             ),
-
-
 
             30.heightSizeBox,
           ],
@@ -196,5 +202,3 @@ class LoginOtpScreen extends StatelessWidget {
     );
   }
 }
-
-

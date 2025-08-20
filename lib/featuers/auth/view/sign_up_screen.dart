@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/widgets/components/app_bg.dart';
+import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import '../../../styling/app_color.dart';
 import '../../../styling/app_font_anybody.dart';
@@ -266,12 +267,14 @@ class SignUpScreen extends StatelessWidget {
                       if (result != null) {
                         Get.offAllNamed(RouteStrings.dashboardScreen);
                       } else {
-                        Get.snackbar("Login Failed",
-                            "Something went wrong during login.");
+                        appSnackBar(title:  StringConstant.kLoginFailed.tr,
+                          message:   StringConstant.kSomethingWentWrongDuring.tr);
                       }
                     }
                   } catch (e) {
-                    Get.snackbar("Google Sign-In", "Login failed. Try again.");
+                    appSnackBar(title:  StringConstant.kLoginFailed.tr,
+                        message:   StringConstant.kSomethingWentWrongDuring.tr);
+                  //  Get.snackbar("Google Sign-In", "Login failed. Try again.");
                   }
                 },
                 fbTap: () async {
@@ -289,12 +292,12 @@ class SignUpScreen extends StatelessWidget {
                       Get.snackbar(StringConstant.kLoginCancelled.tr,
                           StringConstant.kUserCancelledLogin.tr);
                     } else {
-                      Get.snackbar("Login Failed",
-                          result.message ?? "Unknown error");
+                      appSnackBar(title:  StringConstant.kLoginFailed.tr,
+                        message:   result.message ?? "");
                     }
                   } catch (e) {
-                    Get.snackbar(StringConstant.kFacebookLogin.tr,
-                        StringConstant.kSomethingWentWrong.tr);
+                    appSnackBar(title:  StringConstant.kFacebookLogin.tr,
+                        message:   StringConstant.kSomethingWentWrong.tr);
                   }
                 },
               ),

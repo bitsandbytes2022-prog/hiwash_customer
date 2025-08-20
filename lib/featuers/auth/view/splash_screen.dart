@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/auth/auth_controller/auth_controller.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
@@ -29,22 +30,45 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
 AuthController authController=Get.put(AuthController());
-
   void _checkLoginStatus() async {
     final LocalStorage localStorage = LocalStorage();
     await Future.delayed(Duration(seconds: 1));
-
     final token = localStorage.getToken();
-
     if (token != null && token.isNotEmpty) {
-      //localStorage.getToken();
-     await authController.refreshToken();
+      await authController.refreshToken();
+      WashStatusController washStatusController =
+      Get.isRegistered<WashStatusController>()
+          ? Get.find<WashStatusController>()
+          : Get.put(WashStatusController());
 
-      Get.offNamed(RouteStrings.dashboardScreen);
+      await washStatusController
+          .getCustomerDataById(int.parse(localStorage.getUserId().toString()));
+      print("User ID: ${washStatusController.getCustomerData.value?.data?.customerDetails?.id??''}");
+
+      final subscriptionId =
+          washStatusController.getCustomerData.value?.data?.subscriptionDetails?.subscriptionId;
+      final price =
+          washStatusController.getCustomerData.value?.data?.subscriptionDetails?.price;
+
+      if (subscriptionId == null ||
+          subscriptionId == 0 ||
+          price == null ||
+          price == 0) {
+        await washStatusController
+            .getCustomerDataById(int.parse(localStorage.getUserId().toString()));
+
+        Get.offNamed(RouteStrings.subscribeMainScreen);
+      } else {
+        Get.offNamed(RouteStrings.dashboardScreen);
+      }
     } else {
       Get.offNamed(RouteStrings.welcomeScreen);
     }
+
+
   }
+
+
   @override
   Widget build(BuildContext context) {  
     return Scaffold(

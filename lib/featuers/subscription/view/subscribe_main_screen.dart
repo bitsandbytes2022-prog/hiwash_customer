@@ -7,6 +7,7 @@ import 'package:hiwash_customer/featuers/subscription/controller/subscription_co
 import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
+import 'package:hiwash_customer/network_manager/local_storage.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
@@ -19,33 +20,51 @@ import '../../dashboard/controller/dashboard_controller.dart';
 import '../../rewads/controller.dart';
 
 class SubscribeMainScreen extends StatelessWidget {
-   SubscribeMainScreen({super.key});
-  DashboardController dashboardController = Get.isRegistered<DashboardController>() ? Get.find<DashboardController>() : Get.put(DashboardController());
-  WashStatusController washStatusController = Get.isRegistered() ? Get.find<WashStatusController>() : Get.put(WashStatusController());
-    RewardController rewardController = Get.isRegistered()? Get.find()<RewardController>() : Get.put(RewardController());
-   final SubscriptionController subscriptionController =Get.isRegistered()? Get.find<SubscriptionController>() : Get.put(SubscriptionController());
+  SubscribeMainScreen({super.key});
 
-   @override
+  DashboardController dashboardController =
+      Get.isRegistered<DashboardController>()
+          ? Get.find<DashboardController>()
+          : Get.put(DashboardController());
+  WashStatusController washStatusController =
+      Get.isRegistered()
+          ? Get.find<WashStatusController>()
+          : Get.put(WashStatusController());
+  RewardController rewardController =
+      Get.isRegistered()
+          ? Get.find()<RewardController>()
+          : Get.put(RewardController());
+  final SubscriptionController subscriptionController =
+      Get.isRegistered()
+          ? Get.find<SubscriptionController>()
+          : Get.put(SubscriptionController());
+
+  @override
   Widget build(BuildContext context) {
-     rewardController.getOfferCategoriesMethod();
+    rewardController.getOfferCategoriesMethod();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final userIdStr = LocalStorage().getUserId();
+      if (userIdStr != null && int.tryParse(userIdStr) != null) {
+        print(" UserId is ${userIdStr.toString()}");
 
-     final userData = washStatusController.getCustomerData.value?.data?.customerDetails;
+        washStatusController.getCustomerDataById(int.parse(userIdStr));
+      } else {
+        print(" UserId is null or invalid,");
+      }
+    });
+    final userData =
+        washStatusController.getCustomerData.value?.data?.customerDetails;
     return AppHomeBg(
-      iconLeft:
-      GestureDetector(
+      iconLeft: GestureDetector(
         onTap: () {
-         Get.offAllNamed(RouteStrings.loginScreen);
+          LocalStorage().removeToken();
+          Get.offAllNamed(RouteStrings.loginScreen);
         },
         child: Container(
           margin: EdgeInsets.only(left: 15),
-          padding: EdgeInsets.only(right: 5,bottom: 10,top: 10),
+          padding: EdgeInsets.only(right: 5, bottom: 10, top: 10),
           color: Colors.transparent,
-          child: ImageView(
-            path: Assets.iconsIcArrow,
-
-            height: 15,
-            width: 15,
-          ),
+          child: ImageView(path: Assets.iconsIcArrow, height: 15, width: 15),
         ),
       ),
       iconRight: SizedBox(),
@@ -57,7 +76,13 @@ class SubscribeMainScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text( userData?.fullName ?? '', style: w400_16a(color: AppColor.white)),
+            Obx(() {
+              final userData =
+                  washStatusController.getCustomerData.value?.data?.customerDetails;
+              print(" Customer Name ---> ${userData?.fullName}");
+              return Text(userData?.fullName ?? "...",style: w400_16a(color: AppColor.white,));
+            }),
+            // Text( "${washStatusController.getCustomerData.value?.data?.customerDetails?.fullName?? ''}", style: w400_16a(color: AppColor.white)),
             Text(
               StringConstant.kFullAccessSubscription.tr,
               style: w400_12a(color: AppColor.white.withOpacity(0.5)),
@@ -76,12 +101,13 @@ class SubscribeMainScreen extends StatelessWidget {
             border: Border.all(color: AppColor.cF6F7FF, width: 10),
           ),
           child: Obx(() {
-            final profilePicUrl = washStatusController
-                .getCustomerData
-                .value
-                ?.data
-                ?.customerDetails
-                ?.profilePicUrl;
+            final profilePicUrl =
+                washStatusController
+                    .getCustomerData
+                    .value
+                    ?.data
+                    ?.customerDetails
+                    ?.profilePicUrl;
 
             final hasValidUrl = profilePicUrl?.isNotEmpty ?? false;
 
@@ -91,34 +117,37 @@ class SubscribeMainScreen extends StatelessWidget {
               child: ClipOval(
                 child: CachedNetworkImage(
                   imageUrl: hasValidUrl ? profilePicUrl! : '',
-                  cacheKey: "uniqueKey-${DateTime.now().millisecondsSinceEpoch}",
+                  cacheKey:
+                      "uniqueKey-${DateTime.now().millisecondsSinceEpoch}",
                   fit: BoxFit.cover,
-                  height: 56, // radius * 2
+                  height: 56,
+                  // radius * 2
                   width: 56,
-                  placeholder: (context, url) => Center(
-                    child: SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2,color: Colors.blue,),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Image.asset(
-                    Assets.imagesDemoProfile,
-                    fit: BoxFit.cover,
-                    height: 56,
-                    width: 56,
-                  ),
+                  placeholder:
+                      (context, url) => Center(
+                        child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
+                      ),
+                  errorWidget:
+                      (context, url, error) => Image.asset(
+                        Assets.imagesDemoProfile,
+                        fit: BoxFit.cover,
+                        height: 56,
+                        width: 56,
+                      ),
                 ),
               ),
             );
           }),
-
         ),
       ),
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-        /*  ImageView(
+          /*  ImageView(
             path: Assets.imagesImMap,
             width: Get.width,
             height:Get.height/1.4,
@@ -130,8 +159,7 @@ class SubscribeMainScreen extends StatelessWidget {
               return SizedBox(
                 width: Get.width,
                 height: Get.height / 1.4,
-                child: Center(child: CircularProgressIndicator(  strokeWidth: 2
-                  ,color: Colors.blue,)),
+                child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
               );
             }
             return SizedBox(
@@ -144,13 +172,10 @@ class SubscribeMainScreen extends StatelessWidget {
                 },
                 myLocationEnabled: true,
                 myLocationButtonEnabled: true,
-                markers: {
-                  Marker(markerId: MarkerId('me'), position: latLng),
-                },
+                markers: {Marker(markerId: MarkerId('me'), position: latLng)},
               ),
             );
           }),
-
 
           Stack(
             alignment: Alignment.bottomCenter,
@@ -164,8 +189,11 @@ class SubscribeMainScreen extends StatelessWidget {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(StringConstant.kWashWin.tr,style: w700_22a(color: AppColor.c2C2A2A),),
-                 15.heightSizeBox,
+                  Text(
+                    StringConstant.kWashWin.tr,
+                    style: w700_22a(color: AppColor.c2C2A2A),
+                  ),
+                  15.heightSizeBox,
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
@@ -193,7 +221,7 @@ class SubscribeMainScreen extends StatelessWidget {
                   HiWashButton(
                     margin: EdgeInsets.symmetric(horizontal: 30),
                     text: StringConstant.kSubscribeNow,
-                    onTap: (){
+                    onTap: () {
                       Get.toNamed(RouteStrings.subscriptionScreen);
                     },
                   ),

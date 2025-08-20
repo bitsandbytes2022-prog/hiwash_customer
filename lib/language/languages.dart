@@ -281,7 +281,13 @@ class Languages extends Translations {
       "kWelcome":"Welcome",
       "kLoginCancelled":"Login Cancelled",
       "kUserCancelledLogin":"User cancelled the login.",
-      "kFacebookLogin":"Facebook Login"
+      "kFacebookLogin":"Facebook Login",
+
+      ///New
+      "kInvalidSelectedLocation":"Invalid selected location",
+      "kSelectedLocation":"Selected Location",
+      "kNoLocationSelected":"No location selected",
+      "kDoYouWantToCancelThePayment":"Do you want to cancel the payment?",
 
     },
 

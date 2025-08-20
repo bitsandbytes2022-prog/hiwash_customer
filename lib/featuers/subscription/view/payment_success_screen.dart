@@ -82,7 +82,7 @@ iconRight: SizedBox(),
                     child: SizedBox(
                       height: 20,
                       width: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2,color: Colors.blue,),
+                      child: CircularProgressIndicator(strokeWidth: 2,),
                     ),
                   ),
                   errorWidget: (context, url, error) => Image.asset(
