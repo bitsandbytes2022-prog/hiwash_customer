@@ -80,7 +80,7 @@ class SubscribeMainScreen extends StatelessWidget {
               final userData =
                   washStatusController.getCustomerData.value?.data?.customerDetails;
               print(" Customer Name ---> ${userData?.fullName}");
-              return Text(userData?.fullName ?? "...",style: w400_16a(color: AppColor.white,));
+              return Text(userData?.fullName ?? "",style: w400_16a(color: AppColor.white,));
             }),
             // Text( "${washStatusController.getCustomerData.value?.data?.customerDetails?.fullName?? ''}", style: w400_16a(color: AppColor.white)),
             Text(

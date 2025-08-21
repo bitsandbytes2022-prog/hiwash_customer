@@ -166,12 +166,10 @@ class OfferDetailBottomSheet extends StatelessWidget {
                         expiryDateStr: rewardController.getOffersByIdModel.value?.offerDetailList?.first.expiryDate ?? '',
                       ),
                       10.heightSizeBox,
-/*
-                      Text("${rewardController.getOffersByIdModel.value?.offerDetailList?.first.qty.toString()??''} Vouchers available", style: w400_14a(color: AppColor.c2C2A2A)),
-*/
+
                       if ((rewardController.getOffersByIdModel.value?.offerDetailList?.first.qty ?? 0) > 0)
-                        Text(
-                          "${rewardController.getOffersByIdModel.value?.offerDetailList?.first.qty} Vouchers available",
+                        Text("hhh",
+                          //"${(rewardController.getOffersByIdModel.value?.offerDetailList?.first.qty)!-(rewardController.getOffersByIdModel.value?.offerDetailList?.first.)} Vouchers available",
                           style: w400_14a(color: AppColor.c2C2A2A),
                         ),
                       if ((rewardController.getOffersByIdModel.value?.offerDetailList?.first.redeemed ?? 0) != 0)

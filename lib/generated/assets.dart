@@ -78,6 +78,7 @@ class Assets {
   static const String imagesImMap = 'assets/images/im_map.png';
   static const String imagesImOffer = 'assets/images/im_offer.png';
   static const String imagesImQr = 'assets/images/im_qr.png';
+  static const String imagesImSuccess = 'assets/images/im_success.png';
   static const String imagesImSussess = 'assets/images/im_sussess.png';
   static const String imagesImg = 'assets/images/img.png';
   static const String imagesJackpot = 'assets/images/jackpot.png';

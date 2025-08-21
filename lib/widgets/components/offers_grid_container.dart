@@ -49,7 +49,7 @@ class OffersGridContainer extends StatelessWidget {
                   expiryDateStr: offer.expiryDate ?? '',
                 ),
               ),
-              if (offer.qty != null && offer.qty! > 1)
+              if (offer.totalQty != null && offer.totalQty! > 1)
                 Container(
                   margin: EdgeInsets.only(top: 3),
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -58,7 +58,7 @@ class OffersGridContainer extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Text(
-                    "${offer.qty} Vouchers",
+                    "${(offer.totalQty)!-(offer.totalRedeemed??0)} Vouchers",
                     style: w500_7a(color: AppColor.c1F9D70),
                   ),
                 )

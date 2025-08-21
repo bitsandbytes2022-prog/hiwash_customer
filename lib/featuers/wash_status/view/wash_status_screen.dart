@@ -719,7 +719,7 @@ class WashStatusScreen extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: ImageView(
-                        path: Assets.imagesImSussess,
+                        path: Assets.imagesImSuccess,
                         width: Get.width,
                         fit: BoxFit.cover,
                         height: 180,
