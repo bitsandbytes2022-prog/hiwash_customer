@@ -58,7 +58,7 @@ class _CountdownElseFullDateState extends State<CountdownElseFullDate> {
     if (remaining.inHours >= 24) {
       if (remaining.inDays < 30) {
         final dayText =
-            remaining.inDays == 1 ? "${StringConstant.kDays}" : "${remaining.inDays} ${StringConstant.kDays}";
+            remaining.inDays == 1 ? "${StringConstant.kDays.tr}" : "${remaining.inDays} ${StringConstant.kDays.tr}";
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(

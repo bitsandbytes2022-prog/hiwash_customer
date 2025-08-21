@@ -237,6 +237,15 @@ class StringConstant {
   static const kSelectedLocation = "kSelectedLocation";
   static const kNoLocationSelected = "kNoLocationSelected";
   static const kDoYouWantToCancelThePayment = "kDoYouWantToCancelThePayment";
+  static const kTotalVouchersAvailable = "kTotalVouchersAvailable";
+  static const kRedeemedVouchers = "kRedeemedVouchers";
+  static const kExpiringSoon = "kExpiringSoon";
+  static const kLimitedQuantity = "kLimitedQuantity";
+  static const kRedeemed = "kRedeemed";
+  static const kFree = "kFree";
+  static const kDiscounted = "kDiscounted";
+  static const kAscending = "kAscending";
+  static const kDescending = "kDescending";
 
 
 

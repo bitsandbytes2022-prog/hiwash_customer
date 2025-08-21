@@ -58,7 +58,7 @@ class OffersGridContainer extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Text(
-                    "${(offer.totalQty)!-(offer.totalRedeemed??0)} Vouchers",
+                    "${(offer.maxQtyPerCustomer)!-(offer.redeemedByCustomer??0)} Available",
                     style: w500_7a(color: AppColor.c1F9D70),
                   ),
                 )

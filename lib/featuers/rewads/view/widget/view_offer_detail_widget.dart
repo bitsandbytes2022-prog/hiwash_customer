@@ -1,4 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart' show CachedNetworkImage;
+import 'package:cached_network_image/cached_network_image.dart'
+    show CachedNetworkImage;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,6 @@ import 'package:hiwash_customer/widgets/components/profile_image_container.dart'
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-
 class OfferDetailBottomSheet extends StatelessWidget {
   final RewardController rewardController = Get.find();
 
@@ -25,7 +25,12 @@ class OfferDetailBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rewardDetail = rewardController.getOffersByIdModel.value?.offerDetailList?.first;
+    final rewardDetail =
+        rewardController.getOffersByIdModel.value?.offerDetailList?.first;
+    final offer =
+        rewardController.getOffersByIdModel.value?.offerDetailList?.first;
+    final totalVouchers =
+        (offer?.maxQtyPerCustomer ?? 0) - (offer?.redeemedByCustomer ?? 0);
 
     return GetBuilder(
       init: RewardController(),
@@ -35,13 +40,14 @@ class OfferDetailBottomSheet extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 13.heightSizeBox,
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    border: Border.all(color: AppColor.c2C2A2A.withOpacity(0.2)),
+                    border: Border.all(
+                      color: AppColor.c2C2A2A.withOpacity(0.2),
+                    ),
                   ),
                   child: Stack(
                     children: [
@@ -51,25 +57,41 @@ class OfferDetailBottomSheet extends StatelessWidget {
                           height: 120,
                           width: Get.width,
                           fit: BoxFit.fitWidth,
-                          imageUrl: (rewardController.getOffersByIdModel.value?.offerDetailList?.first.bannerImageUrl?.isNotEmpty ?? false)
-                              ? rewardController.getOffersByIdModel.value!.offerDetailList!.first.bannerImageUrl!
-                              : Assets.imagesImOffer,
-                          placeholder: (context, url) => const Center(
-                            child: SizedBox(
-                              height: 30,
-                              width: 30,
-                              child: CircularProgressIndicator(strokeWidth: 2,),
-                            ),
-                          ),
-                          errorWidget: (context, url, error) => Image.asset(
-                            Assets.imagesImOffer,
-                            height: 187,
-                            width: Get.width,
-                            fit: BoxFit.fitWidth,
-                          ),
+                          imageUrl:
+                              (rewardController
+                                          .getOffersByIdModel
+                                          .value
+                                          ?.offerDetailList
+                                          ?.first
+                                          .bannerImageUrl
+                                          ?.isNotEmpty ??
+                                      false)
+                                  ? rewardController
+                                      .getOffersByIdModel
+                                      .value!
+                                      .offerDetailList!
+                                      .first
+                                      .bannerImageUrl!
+                                  : Assets.imagesImOffer,
+                          placeholder:
+                              (context, url) => const Center(
+                                child: SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                              ),
+                          errorWidget:
+                              (context, url, error) => Image.asset(
+                                Assets.imagesImOffer,
+                                height: 187,
+                                width: Get.width,
+                                fit: BoxFit.fitWidth,
+                              ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -80,7 +102,14 @@ class OfferDetailBottomSheet extends StatelessWidget {
                     children: [
                       ProfileImageView(
                         radius: 20,
-                        imagePath: rewardController.getOffersByIdModel.value?.offerDetailList?.first.businessImageUrl ?? "",
+                        imagePath:
+                            rewardController
+                                .getOffersByIdModel
+                                .value
+                                ?.offerDetailList
+                                ?.first
+                                .businessImageUrl ??
+                            "",
                         isVisibleStack: false,
                       ),
                       5.widthSizeBox,
@@ -93,7 +122,13 @@ class OfferDetailBottomSheet extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              rewardController.getOffersByIdModel.value?.offerDetailList?.first.businessName ?? "",
+                              rewardController
+                                      .getOffersByIdModel
+                                      .value
+                                      ?.offerDetailList
+                                      ?.first
+                                      .businessName ??
+                                  "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: w600_14a(color: AppColor.c2C2A2A),
@@ -108,7 +143,13 @@ class OfferDetailBottomSheet extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    rewardController.getOffersByIdModel.value?.offerDetailList?.first.businessAddress ?? "",
+                                    rewardController
+                                            .getOffersByIdModel
+                                            .value
+                                            ?.offerDetailList
+                                            ?.first
+                                            .businessAddress ??
+                                        "",
                                     style: w400_10p(color: AppColor.c455A64),
                                   ),
                                 ),
@@ -129,7 +170,10 @@ class OfferDetailBottomSheet extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(rewardDetail?.title ?? '', style: w700_16a(color: AppColor.c2C2A2A)),
+                      Text(
+                        rewardDetail?.title ?? '',
+                        style: w700_16a(color: AppColor.c2C2A2A),
+                      ),
                       Text(rewardDetail?.description ?? '', style: w400_12p()),
                       29.heightSizeBox,
                       Stack(
@@ -149,7 +193,13 @@ class OfferDetailBottomSheet extends StatelessWidget {
                               onTap: () {},
                               child: Builder(
                                 builder: (_) {
-                                  final base64String = rewardController.getOffersByIdModel.value?.offerDetailList?.first.qRCodeUrl;
+                                  final base64String =
+                                      rewardController
+                                          .getOffersByIdModel
+                                          .value
+                                          ?.offerDetailList
+                                          ?.first
+                                          .qRCodeUrl;
                                   print("QR BASE64 big image: $base64String");
                                   return Base64ImageWidget(
                                     base64String: base64String,
@@ -163,18 +213,25 @@ class OfferDetailBottomSheet extends StatelessWidget {
                         ],
                       ),
                       CountdownOrDateTimer(
-                        expiryDateStr: rewardController.getOffersByIdModel.value?.offerDetailList?.first.expiryDate ?? '',
+                        expiryDateStr:
+                            rewardController
+                                .getOffersByIdModel
+                                .value
+                                ?.offerDetailList
+                                ?.first
+                                .expiryDate ??
+                            '',
                       ),
                       10.heightSizeBox,
 
-                      if ((rewardController.getOffersByIdModel.value?.offerDetailList?.first.qty ?? 0) > 0)
-                        Text("hhh",
-                          //"${(rewardController.getOffersByIdModel.value?.offerDetailList?.first.qty)!-(rewardController.getOffersByIdModel.value?.offerDetailList?.first.)} Vouchers available",
+                      if (totalVouchers > 0)
+                        Text(
+                          "${StringConstant.kTotalVouchersAvailable.tr} $totalVouchers",
                           style: w400_14a(color: AppColor.c2C2A2A),
                         ),
-                      if ((rewardController.getOffersByIdModel.value?.offerDetailList?.first.redeemed ?? 0) != 0)
+                      if ((offer?.redeemedByCustomer ?? 0) > 0)
                         Text(
-                          "Redeemed ${rewardController.getOffersByIdModel.value?.offerDetailList?.first.redeemed} available",
+                          "${StringConstant.kRedeemedVouchers.tr} ${offer?.redeemedByCustomer}",
                           style: w400_12a(
                             color: AppColor.c2C2A2A.withOpacity(0.7),
                           ),
@@ -185,7 +242,9 @@ class OfferDetailBottomSheet extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: AppColor.white,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: AppColor.c142293.withOpacity(0.20)),
+                          border: Border.all(
+                            color: AppColor.c142293.withOpacity(0.20),
+                          ),
                         ),
                         child: Column(
                           children: [
@@ -215,9 +274,16 @@ class OfferDetailBottomSheet extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ImageView(height: 18, width: 18, path: Assets.imagesIcInfo),
+                          ImageView(
+                            height: 18,
+                            width: 18,
+                            path: Assets.imagesIcInfo,
+                          ),
                           3.widthSizeBox,
-                          Text(StringConstant.kReportAnIssue.tr, style: w600_12a(color: AppColor.c142293)),
+                          Text(
+                            StringConstant.kReportAnIssue.tr,
+                            style: w600_12a(color: AppColor.c142293),
+                          ),
                         ],
                       ),
                       50.heightSizeBox,
@@ -232,13 +298,18 @@ class OfferDetailBottomSheet extends StatelessWidget {
     );
   }
 
-  Widget dropDownRow({required int index, required String? title, required String content}) {
+  Widget dropDownRow({
+    required int index,
+    required String? title,
+    required String content,
+  }) {
     return Obx(() {
       final isExpanded = rewardController.selectedDropDownIndex.value == index;
 
       return GestureDetector(
         onTap: () {
-          rewardController.selectedDropDownIndex.value = isExpanded ? -1 : index;
+          rewardController.selectedDropDownIndex.value =
+              isExpanded ? -1 : index;
         },
         child: Container(
           color: Colors.transparent,
@@ -253,7 +324,10 @@ class OfferDetailBottomSheet extends StatelessWidget {
                   children: [
                     Text(title ?? "", style: w600_12a(color: AppColor.c2C2A2A)),
                     ImageView(
-                      path: isExpanded ? Assets.iconsIcUpWardArrow : Assets.iconsIcDropDown,
+                      path:
+                          isExpanded
+                              ? Assets.iconsIcUpWardArrow
+                              : Assets.iconsIcDropDown,
                       height: 6,
                       width: 10,
                     ),
@@ -273,5 +347,3 @@ class OfferDetailBottomSheet extends StatelessWidget {
     });
   }
 }
-
-

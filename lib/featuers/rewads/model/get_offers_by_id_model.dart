@@ -45,9 +45,10 @@ class OfferDetailList {
   String? image;
   String? bannerImageUrl;
   String? qRCodeUrl;
-  int? qty;
-  int? redeemed;
-  int? remaining;
+  int? totalQty;
+  int? maxQtyPerCustomer;
+  int? redeemedByCustomer;
+  int? totalRedeemed;
 
   OfferDetailList(
       {this.id,
@@ -65,18 +66,19 @@ class OfferDetailList {
         this.image,
         this.bannerImageUrl,
         this.qRCodeUrl,
-        this.qty,
-        this.redeemed,
-        this.remaining});
+        this.totalQty,
+        this.maxQtyPerCustomer,
+        this.redeemedByCustomer,
+        this.totalRedeemed});
 
   OfferDetailList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     businessName = json['businessName'];
-   // businessImageUrl = json['businessImageUrl'];
     businessImageUrl =
     json['businessImageUrl'] != null
         ? "${ApiConstant.baseImageUrl}${json['businessImageUrl']}?timestamp=${DateTime.now().millisecondsSinceEpoch}"
         : null;
+   // businessImageUrl = json['businessImageUrl'];
     businessAddress = json['businessAddress'];
     categoryName = json['categoryName'];
     title = json['title'];
@@ -86,10 +88,6 @@ class OfferDetailList {
     termsAndConditions = json['termsAndConditions'];
     discountValue = json['discountValue'];
     expiryDate = json['expiryDate'];
- /*   image = json['image'];
-    bannerImageUrl = json['bannerImageUrl'];
-    qRCodeUrl = json['qRCodeUrl'];*/
-
     image =
     json['image'] != null
         ? "${ApiConstant.baseImageUrl}${json['image']}"
@@ -102,9 +100,13 @@ class OfferDetailList {
     json['qRCodeUrl'] != null
         ? "${ApiConstant.baseImageUrl}${json['qRCodeUrl']}"
         : null;
-    qty = json['qty'];
-    redeemed = json['redeemed'];
-    remaining = json['remaining'];
+   // image = json['image'];
+   // bannerImageUrl = json['bannerImageUrl'];
+   // qRCodeUrl = json['qRCodeUrl'];
+    totalQty = json['totalQty'];
+    maxQtyPerCustomer = json['maxQtyPerCustomer'];
+    redeemedByCustomer = json['redeemedByCustomer'];
+    totalRedeemed = json['totalRedeemed'];
   }
 
   Map<String, dynamic> toJson() {
@@ -124,13 +126,13 @@ class OfferDetailList {
     data['image'] = this.image;
     data['bannerImageUrl'] = this.bannerImageUrl;
     data['qRCodeUrl'] = this.qRCodeUrl;
-    data['qty'] = this.qty;
-    data['redeemed'] = this.redeemed;
-    data['remaining'] = this.remaining;
+    data['totalQty'] = this.totalQty;
+    data['maxQtyPerCustomer'] = this.maxQtyPerCustomer;
+    data['redeemedByCustomer'] = this.redeemedByCustomer;
+    data['totalRedeemed'] = this.totalRedeemed;
     return data;
   }
 }
-
 
 /*
 class GetOffersByIdModel {
@@ -178,33 +180,38 @@ class OfferDetailList {
   String? image;
   String? bannerImageUrl;
   String? qRCodeUrl;
+  int? qty;
+  int? redeemed;
+  int? remaining;
 
-  OfferDetailList({
-    this.id,
-    this.businessName,
-    this.businessImageUrl,
-    this.businessAddress,
-    this.categoryName,
-    this.title,
-    this.description,
-    this.offerDetails,
-    this.howToRedeem,
-    this.termsAndConditions,
-    this.discountValue,
-    this.expiryDate,
-    this.image,
-    this.bannerImageUrl,
-    this.qRCodeUrl,
-  });
+  OfferDetailList(
+      {this.id,
+        this.businessName,
+        this.businessImageUrl,
+        this.businessAddress,
+        this.categoryName,
+        this.title,
+        this.description,
+        this.offerDetails,
+        this.howToRedeem,
+        this.termsAndConditions,
+        this.discountValue,
+        this.expiryDate,
+        this.image,
+        this.bannerImageUrl,
+        this.qRCodeUrl,
+        this.qty,
+        this.redeemed,
+        this.remaining});
 
   OfferDetailList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     businessName = json['businessName'];
+   // businessImageUrl = json['businessImageUrl'];
     businessImageUrl =
     json['businessImageUrl'] != null
         ? "${ApiConstant.baseImageUrl}${json['businessImageUrl']}?timestamp=${DateTime.now().millisecondsSinceEpoch}"
         : null;
-
     businessAddress = json['businessAddress'];
     categoryName = json['categoryName'];
     title = json['title'];
@@ -214,6 +221,12 @@ class OfferDetailList {
     termsAndConditions = json['termsAndConditions'];
     discountValue = json['discountValue'];
     expiryDate = json['expiryDate'];
+ */
+/*   image = json['image'];
+    bannerImageUrl = json['bannerImageUrl'];
+    qRCodeUrl = json['qRCodeUrl'];*//*
+
+
     image =
     json['image'] != null
         ? "${ApiConstant.baseImageUrl}${json['image']}"
@@ -226,6 +239,9 @@ class OfferDetailList {
     json['qRCodeUrl'] != null
         ? "${ApiConstant.baseImageUrl}${json['qRCodeUrl']}"
         : null;
+    qty = json['qty'];
+    redeemed = json['redeemed'];
+    remaining = json['remaining'];
   }
 
   Map<String, dynamic> toJson() {
@@ -245,9 +261,14 @@ class OfferDetailList {
     data['image'] = this.image;
     data['bannerImageUrl'] = this.bannerImageUrl;
     data['qRCodeUrl'] = this.qRCodeUrl;
+    data['qty'] = this.qty;
+    data['redeemed'] = this.redeemed;
+    data['remaining'] = this.remaining;
     return data;
   }
 }
+
 */
+
 
 

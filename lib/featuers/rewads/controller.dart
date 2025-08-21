@@ -13,12 +13,17 @@ class RewardController extends GetxController {
   final RxBool isVisible = false.obs;
   RxString selectedCategory = ''.obs;
   final RxBool isLoading = false.obs;
+  final List<String> sortingList = [
+    StringConstant.kAscending.tr,
+    StringConstant.kDescending.tr,
+  ];
 
+  RxInt selectedSortingIndex = 0.obs;
 
   Rxn<GetOfferResponseModel> offerResponseModel = Rxn();
   Rxn<GetOffersByIdModel> getOffersByIdModel = Rxn();
   Rxn<GetOfferCategoriesModel> getOfferCategoriesModel = Rxn();
-  RxInt selectedDropDownIndex = (-1).obs;
+  RxInt selectedDropDownIndex = (1).obs;
 
   // In RewardController
   RxString selectedCategoryName = ''.obs;
@@ -28,9 +33,11 @@ class RewardController extends GetxController {
   var selectedCategoryIndex = 0.obs;
 
   void clearCategoryFilter() {
-    selectedCategoryIndex.value = 0;
+    selectedCategoryIndex.value = 1;
     filteredOffers.clear();
   }
+
+
 
   final List<String> images = [
     Assets.demoOffer1,
@@ -38,33 +45,35 @@ class RewardController extends GetxController {
     Assets.demoOffer3,
   ];
 
-  RxInt selectedFilterIndex = 0.obs;
+ // RxInt selectedFilterIndex = 1.obs;
+  RxInt selectedFilterIndex = 1.obs;
+
 
   final List<String> offerFilterList = [
-    "Limited time",
-    "Limited quantity",
-    "Redeemed",
-    "Free",
-    "Discounted",
-  ];
 
+    StringConstant.kExpiringSoon.tr,
+    StringConstant.kLimitedQuantity.tr,
+    StringConstant.kRedeemed.tr,
+    StringConstant.kFree.tr,
+    StringConstant.kDiscounted.tr,
+  ];
   Future<void> applyFilter(int index) async {
     try {
       isLoading.value = true;
       selectedFilterIndex.value = index;
       await getAllOffersByFilter(index);
+
+      applySortingIfNeeded();
     } finally {
       isLoading.value = false;
     }
   }
-
-/*
-
-  Future<void> applyFilter(int index) async {
-    selectedFilterIndex.value = index;
-    await getAllOffersByFilter(index);
+  void applySortingIfNeeded() {
+    if (selectedFilterIndex.value == 1 || selectedFilterIndex.value == 2) {
+      toggleSortOrder();
+    }
   }
-*/
+
 
   Future<GetOfferResponseModel?> getAllOffersByFilter(int id) async {
     try {
@@ -159,17 +168,17 @@ class RewardController extends GetxController {
       if (difference.isNegative) {
         return StringConstant.kExpired;
       } else if (difference.inDays > 365) {
-        return "${(difference.inDays / 365).floor()} ${StringConstant.kYears}";
+        return "${(difference.inDays / 365).floor()} ${StringConstant.kYears.tr}";
       } else if (difference.inDays > 30) {
-        return "${(difference.inDays / 30).floor()} ${StringConstant.kMonths}";
+        return "${(difference.inDays / 30).floor()} ${StringConstant.kMonths.tr}";
       } else if (difference.inDays > 0) {
-        return "${difference.inDays} ${StringConstant.kDays}";
+        return "${difference.inDays} ${StringConstant.kDays.tr}";
       } else if (difference.inHours > 0) {
-        return "${difference.inHours} ${StringConstant.kHours}";
+        return "${difference.inHours} ${StringConstant.kHours.tr}";
       } else if (difference.inMinutes > 0) {
-        return "${difference.inMinutes} ${StringConstant.kMinutes}";
+        return "${difference.inMinutes} ${StringConstant.kMinutes.tr}";
       } else {
-        return "${difference.inSeconds} ${StringConstant.kSeconds}";
+        return "${difference.inSeconds} ${StringConstant.kSeconds.tr}";
       }
     } catch (e) {
       return StringConstant.kInvalidDate;
@@ -264,10 +273,11 @@ class RewardController extends GetxController {
 
   void resetFiltersAndLoad() async {
 
-    selectedFilterIndex.value = 0;
+    selectedFilterIndex.value = 1;
     sortByText.value = StringConstant.kSortByExpiry.tr;
     isAscending.value = true;
     clearCategoryFilter();
+    filteredOffers.clear();
 
     isLoading.value = true;
     try {
@@ -276,12 +286,4 @@ class RewardController extends GetxController {
       isLoading.value = false;
     }
   }
-/*  void resetFilters() {
-    Get.back();
-    selectedFilterIndex.value = 0;
-    sortByText.value = StringConstant.kSortByExpiry.tr;
-    isAscending.value = true;
-    clearCategoryFilter();
-    isVisible.value = false;
-  }*/
 }

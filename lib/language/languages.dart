@@ -288,7 +288,16 @@ class Languages extends Translations {
       "kSelectedLocation":"Selected Location",
       "kNoLocationSelected":"No location selected",
       "kDoYouWantToCancelThePayment":"Do you want to cancel the payment?",
+"kTotalVouchersAvailable":"Total vouchers available",
+      "kRedeemedVouchers":"Redeemed vouchers",
 
+         "kExpiringSoon": "Expiring soon",
+      "kLimitedQuantity":"Limited quantity",
+      "kRedeemed":"Redeemed",
+      "kFree":"Free",
+      "kDiscounted":"Discounted",
+      "kAscending":"Ascending",
+      "kDescending":"Descending",
     },
 
     'ar_SA': {
@@ -566,7 +575,22 @@ class Languages extends Translations {
   "kWelcome": "مرحباً",
   "kLoginCancelled": "تم إلغاء تسجيل الدخول",
   "kUserCancelledLogin": "ألغى المستخدم تسجيل الدخول.",
-  "kFacebookLogin": "تسجيل الدخول بفيسبوك"
+  "kFacebookLogin": "تسجيل الدخول بفيسبوك",
+  // New
+  "kInvalidSelectedLocation": "الموقع المحدد غير صالح",
+  "kSelectedLocation": "الموقع المحدد",
+  "kNoLocationSelected": "لم يتم تحديد موقع",
+  "kDoYouWantToCancelThePayment": "هل تريد إلغاء الدفع؟",
+  "kTotalVouchersAvailable": "إجمالي القسائم المتاحة",
+  "kRedeemedVouchers": "القسائم المستردة",
+
+  "kExpiringSoon": "تنتهي قريباً",
+  "kLimitedQuantity": "كمية محدودة",
+  "kRedeemed": "تم الاسترداد",
+  "kFree": "مجاني",
+  "kDiscounted": "مخفض",
+  "kAscending": "تصاعدي",
+  "kDescending": "تنازلي"
     },
   };
 }

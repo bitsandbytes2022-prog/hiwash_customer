@@ -154,7 +154,9 @@ class RewardScreen extends StatelessWidget {
               13.heightSizeBox,
               GestureDetector(
                 onTap: () {
-                  rewardController.resetFiltersAndLoad();
+                 // rewardController.resetFiltersAndLoad();
+                  rewardController.selectedDropDownIndex.value = 1;
+                  rewardController.applyFilter(1);
                   showModalBottomSheet(
                     context: Get.context!,
                     isScrollControlled: true,
@@ -167,12 +169,15 @@ class RewardScreen extends StatelessWidget {
                     builder: (BuildContext context) {
                       return BottomSheetWidget(isVisible: true);
                     },
-                  ).then((_) {
+                  ).whenComplete(() {
                     final rewardController = Get.find<RewardController>();
                     rewardController.sortByText.value = StringConstant.kSortByExpiry.tr;
                     rewardController.isAscending.value = true;
                     rewardController.applySortingToCurrentData();
                     rewardController.clearCategoryFilter();
+                    rewardController.selectedDropDownIndex.value = -1;
+                    rewardController.resetFiltersAndLoad();
+
 
                     rewardController.isVisible.value = false;
 
@@ -195,41 +200,6 @@ class RewardScreen extends StatelessWidget {
                 ),
               ),
 
-              /*  GestureDetector(
-                onTap: () {
-                  // print("888888888888------>");
-                  showModalBottomSheet(
-                    context: Get.context!,
-                    isScrollControlled: true,
-
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                    builder: (BuildContext context) {
-                      return BottomSheetWidget(isVisible: true);
-                    },
-                  );
-                  // Get.back();
-                },
-                child: Container(
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: AppColor.c142293,
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(
-                      color: AppColor.white.withOpacity(.50),
-                      width: 1.5,
-                    ),
-                  ),
-                  child: Text(
-                    StringConstant.kCheckNow.tr,
-                    style: w600_14a(color: AppColor.white),
-                  ),
-                ),
-              ),*/
               24.heightSizeBox,
             ],
           ),
