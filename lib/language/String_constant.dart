@@ -248,5 +248,9 @@ class StringConstant {
   static const kDescending = "kDescending";
 
 
+  static const kSharePartnerFeedback = "kSharePartnerFeedback";
+  static const kOfferRedeemed = "kOfferRedeemed";
+
+
 
 }

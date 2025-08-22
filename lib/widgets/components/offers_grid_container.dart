@@ -76,7 +76,7 @@ class OffersGridContainer extends StatelessWidget {
             ],
           ),
         ),
-        if (offer.isUsed == 1)
+        if ((offer.maxQtyPerCustomer)!-(offer.redeemedByCustomer??0)==0)
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(

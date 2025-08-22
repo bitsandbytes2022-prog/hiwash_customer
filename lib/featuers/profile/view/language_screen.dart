@@ -8,6 +8,8 @@ import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
 import 'package:hiwash_customer/widgets/components/doted_horizontal_line.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
 
+import '../../rate_partner/view/rate_partner_screen.dart';
+
 class LanguageScreen extends StatelessWidget {
   const LanguageScreen({super.key});
 
@@ -41,7 +43,7 @@ class LanguageScreen extends StatelessWidget {
   }) {
     return GestureDetector(
       onTap: () async {
-        Locale selectedLocale = Locale(languageCode, countryCode);
+         Locale selectedLocale = Locale(languageCode, countryCode);
         await LocalStorage().saveLocale(languageCode);
         Get.updateLocale(selectedLocale);
       },

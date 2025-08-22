@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/rate_partner_controller.dart';
 import 'package:hiwash_customer/generated/assets.dart';
 import 'package:hiwash_customer/network_manager/ticket_service.dart';
 import 'package:hiwash_customer/styling/app_color.dart';

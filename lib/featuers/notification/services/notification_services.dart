@@ -1,19 +1,19 @@
+import 'dart:convert';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
-
-import 'dart:convert';
-
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 
+import '../../rate_partner/view/rate_partner_screen.dart';
+
 class NotificationServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   /// Initialize everything related to Firebase Messaging
   Future<void> firebaseInit() async {
@@ -24,6 +24,11 @@ class NotificationServices {
     FirebaseMessaging.onMessage.listen((message) {
       RemoteNotification? notification = message.notification;
       print("Foreground Notification: ${notification?.title}");
+      if (message.data['offerRedemptionId'] != null) {
+        //   show rating dialog for partner
+        showRatingDialog(message.data['offerRedemptionId']);
+      }
+
       if (notification != null) {
         showNotification(message);
       }
@@ -71,13 +76,11 @@ class NotificationServices {
         appSnackBar(
           title: StringConstant.kProvisionalPermissionGranted.tr,
           message: StringConstant.kYouWillReceive.tr,
-
         );
       } else {
         appSnackBar(
           title: StringConstant.kNotificationPermissionDenied.tr,
           message: StringConstant.kPleaseAllow.tr,
-
         );
         Future.delayed(Duration(seconds: 2), () {
           AppSettings.openAppSettings(type: AppSettingsType.notification);
@@ -85,13 +88,9 @@ class NotificationServices {
       }
     } catch (e) {
       print("Error requesting notification permission: $e");
-      appSnackBar(
-        message: StringConstant.kFailedToRequest.tr,
-
-      );
+      appSnackBar(message: StringConstant.kFailedToRequest.tr);
     }
   }
-
 
   /// Show local notification (when app is in foreground)
   /// Show local notification (when app is in foreground)
@@ -99,16 +98,18 @@ class NotificationServices {
     RemoteNotification? notification = message.notification;
     AndroidNotification? android = message.notification?.android;
 
-    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
-      'high_importance_channel',
-      'High Importance Notifications',
-      importance: Importance.max,
-      priority: Priority.high,
-      icon: '@mipmap/ic_launcher',
-    );
+    const AndroidNotificationDetails androidDetails =
+        AndroidNotificationDetails(
+          'high_importance_channel',
+          'High Importance Notifications',
+          importance: Importance.max,
+          priority: Priority.high,
+          icon: '@mipmap/ic_launcher',
+        );
 
     const NotificationDetails platformDetails = NotificationDetails(
-        android: androidDetails);
+      android: androidDetails,
+    );
 
     if (notification != null && android != null) {
       // Show local notification
@@ -122,9 +123,8 @@ class NotificationServices {
 
       appSnackBar(
         title: notification.title ?? StringConstant.kNotification.tr,
-        message:  notification.body ?? "",
-        backgroundColor:AppColor.blue,
-
+        message: notification.body ?? "",
+        backgroundColor: AppColor.blue,
       );
     }
   }
@@ -162,14 +162,14 @@ class NotificationServices {
       String route = message.data['route'];
       Get.toNamed(route);
     } else {
-appSnackBar(
-  title: StringConstant.kNotificationClicked.tr,
-  message: StringConstant.kNoRouteFound.tr,
-);
+      appSnackBar(
+        title: StringConstant.kNotificationClicked.tr,
+        message: StringConstant.kNoRouteFound.tr,
+      );
     }
   }
 
-/*  /// Local notification initialization
+  /*  /// Local notification initialization
   void initLocalNotification() {
     const AndroidInitializationSettings androidInit =
     AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -194,4 +194,3 @@ appSnackBar(
 Future<void> myBackgroundMessageHandler(RemoteMessage message) async {
   print("Background Message Handler: ${message.messageId}");
 }
-

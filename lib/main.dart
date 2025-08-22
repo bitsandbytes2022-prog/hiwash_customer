@@ -3,19 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hiwash_customer/featuers/auth/auth_controller/auth_controller.dart';
 import 'package:hiwash_customer/route/route_strings.dart';
 import 'package:hiwash_customer/route/routes.dart';
 import 'package:hiwash_customer/styling/app_theam.dart';
+
 import 'featuers/notification/services/notification_services.dart';
-import 'featuers/wash_status/controller/wash_status_controller.dart';
 import 'firebase_options.dart';
 import 'language/languages.dart';
 import 'network_manager/local_storage.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,11 +26,8 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  await GetStorage.init(
-
-  );
+  await GetStorage.init();
   runApp(const MyApp());
-
 }
 
 class MyApp extends StatelessWidget with WidgetsBindingObserver {
@@ -43,13 +37,12 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final String? localeCode = LocalStorage().getSavedLocale();
 
-
-    Locale initialLocale = localeCode == 'ar'
-        ? const Locale('ar', 'SA')
-        : localeCode == 'en'
-        ? const Locale('en', 'US')
-        : Get.deviceLocale ?? const Locale('en', 'US');
-
+    Locale initialLocale =
+        localeCode == 'ar'
+            ? const Locale('ar', 'SA')
+            : localeCode == 'en'
+            ? const Locale('en', 'US')
+            : Get.deviceLocale ?? const Locale('en', 'US');
 
     return ScreenUtilInit(
       minTextAdapt: true,
@@ -80,14 +73,17 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver {
     super.didChangeAppLifecycleState(state);
     switch (state) {
       case AppLifecycleState.resumed:
-        String? uid=LocalStorage().getUserId();
-         if(LocalStorage().getUserId()!=null && uid!.isNotEmpty){
-            AuthController authController=Get.isRegistered<AuthController>()?Get.find():Get.put(AuthController());
-            authController.refreshToken();
-         }
+        String? uid = LocalStorage().getUserId();
+        if (LocalStorage().getUserId() != null && uid!.isNotEmpty) {
+          AuthController authController =
+              Get.isRegistered<AuthController>()
+                  ? Get.find()
+                  : Get.put(AuthController());
+          authController.refreshToken();
+        }
         break;
       case AppLifecycleState.inactive:
-      //save time
+        //save time
         break;
       case AppLifecycleState.paused:
         break;
@@ -97,8 +93,4 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver {
         break;
     }
   }
-
-
 }
-
-

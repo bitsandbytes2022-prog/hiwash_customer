@@ -24,7 +24,7 @@ import '../auth_controller/auth_controller.dart';
 class OtpScreen extends StatelessWidget {
   OtpScreen({super.key});
 
-  AuthController controller = Get.find<AuthController>();
+  AuthController controller = Get.isRegistered<AuthController>()?Get.find<AuthController>():Get.put(AuthController());
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 

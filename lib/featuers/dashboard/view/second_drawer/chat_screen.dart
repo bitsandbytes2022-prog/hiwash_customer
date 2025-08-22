@@ -13,7 +13,7 @@ import '../../../../styling/app_font_anybody.dart';
 import '../../../../styling/app_font_poppins.dart';
 import '../../../../widgets/components/image_view.dart';
 import '../../controller/dashboard_controller.dart';
-import '../../../wash_status/controller/wash_status_controller.dart';
+import '../../../wash_status/controller/rate_partner_controller.dart';
 
 class ChatScreen extends StatelessWidget {
    ChatScreen({super.key});

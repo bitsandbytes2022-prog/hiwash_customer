@@ -42,8 +42,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String _currentDrawer = 'first';
+
+
   final WashStatusController washStatusController =
-      Get.isRegistered<WashStatusController>()
+      Get.isRegistered<WashStatusController>(tag: "WASH_SCREEN")
           ? Get.find()
           : Get.put(WashStatusController());
 
@@ -86,6 +88,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   DashboardController dashboardController = Get.put(DashboardController());
   AuthController authController = Get.put(AuthController());
+
+
+  @override
+  void initState() {
+     Future.delayed(Duration(seconds: 3)).then((data){
+
+       if(Get.arguments!=null){
+         void _showResultDialog(bool isSuccess) {
+           Get.defaultDialog(
+             titlePadding: EdgeInsets.only(top: 20),
+             contentPadding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 20),
+             title: isSuccess ? "Payment Success" : "Payment Failed",
+             middleText: isSuccess
+                 ? "Your subscription has been activated."
+                 : "Payment was not successful.",
+             textConfirm: "Okay",
+             confirmTextColor: Colors.white,
+             buttonColor: AppColor.blue,
+             backgroundColor: AppColor.white,
+             onConfirm: () {
+               Get.back();
+               if (isSuccess) {
+                 Get.back();
+                }
+             },
+             barrierDismissible: false,
+           );
+         }
+       }
+
+     });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -319,8 +354,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           floatingActionButton: GestureDetector(
-            onTap: () {
-              showDialog(
+            onTap: () async {
+             await showDialog(
                 barrierDismissible: false,
                 context: context,
                 builder: (BuildContext context) {
@@ -338,6 +373,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   );
                 },
               );
+
+
+             WashStatusController c=Get.find(tag:'WASH_SCREEN');
+
+             c.getWashSummary();
             },
             child: Container(
               width: 56,

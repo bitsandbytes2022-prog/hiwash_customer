@@ -71,7 +71,8 @@ class RewardScreen extends StatelessWidget {
                       final offer = data[index];
 
                       return AbsorbPointer(
-                        absorbing: offer.isUsed == 1,
+                        absorbing:(offer.maxQtyPerCustomer!-offer.redeemedByCustomer!)==0,
+                            // || offer.isUsed == 1,
                         child: GestureDetector(
                           onTap: () async {
                             await rewardController.getOffersById(offer.id!);

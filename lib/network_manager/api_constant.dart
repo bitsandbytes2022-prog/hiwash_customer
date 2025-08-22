@@ -37,4 +37,8 @@ class ApiConstant {
   static const payment = "$baseUrl//subscription/payment";
   static getOffersByFilter(int id) => "$baseUrl/offer?filterType=$id";
 
+  static const rateOffer = "$baseUrl/offer/rating";
+
+
+
 }

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart'
     show CachedNetworkImage;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:hiwash_customer/featuers/rewads/controller.dart';
@@ -337,7 +338,13 @@ class OfferDetailBottomSheet extends StatelessWidget {
               if (isExpanded)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(content, style: w400_12p()),
+                  child: Html(
+                    data: content,
+                    extensions: [
+
+                    ],
+
+                  ),
                 ),
               10.heightSizeBox,
             ],

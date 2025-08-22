@@ -8,7 +8,7 @@ class Languages extends Translations {
       'kHellos': 'Hello hello',
       "kWelcomeToThe": "Welcome to the",
       "kHiWASH": "HI WASH",
-      "kSkip":"Skip",
+      "kSkip": "Skip",
       "kWeComeToYouTo": "We come to you to\nwash your car...!!",
 
       ///  welcome screen
@@ -268,20 +268,18 @@ class Languages extends Translations {
           "Scan to unlock weekly washes,\nexclusive offers, and amazing deals!",
       "kYourPaymentIsComplete": "Your payment is complete, and your\n",
       "kPaymentSuccessfully": "Payment Successfully",
-      "kYouHaveCompletedYourPayment":"You have completed your payment",
-      "kOk":"Ok",
+      "kYouHaveCompletedYourPayment": "You have completed your payment",
+      "kOk": "Ok",
 
-
-      "kLoginFailed":"Login Failed",
-      "kSomethingWentWrongDuring":"Something went wrong during login."
-      ,
-      "kGoogleSignIn":"Google Sign-In",
-      "kUnableToGetIDToken":"Unable to get ID Token",
-      "kLoginSuccessful":"Login Successful",
-      "kWelcome":"Welcome",
-      "kLoginCancelled":"Login Cancelled",
-      "kUserCancelledLogin":"User cancelled the login.",
-      "kFacebookLogin":"Facebook Login",
+      "kLoginFailed": "Login Failed",
+      "kSomethingWentWrongDuring": "Something went wrong during login.",
+      "kGoogleSignIn": "Google Sign-In",
+      "kUnableToGetIDToken": "Unable to get ID Token",
+      "kLoginSuccessful": "Login Successful",
+      "kWelcome": "Welcome",
+      "kLoginCancelled": "Login Cancelled",
+      "kUserCancelledLogin": "User cancelled the login.",
+      "kFacebookLogin": "Facebook Login",
 
       ///New
       "kInvalidSelectedLocation":"Invalid selected location",
@@ -298,6 +296,12 @@ class Languages extends Translations {
       "kDiscounted":"Discounted",
       "kAscending":"Ascending",
       "kDescending":"Descending",
+      "kInvalidSelectedLocation": "Invalid selected location",
+      "kSelectedLocation": "Selected Location",
+      "kNoLocationSelected": "No location selected",
+      "kDoYouWantToCancelThePayment": "Do you want to cancel the payment?",
+      "kOfferRedeemed": "Offer redeemed!",
+      "kSharePartnerFeedback": "Share your feedback and\nrate the offer.",
     },
 
     'ar_SA': {
@@ -310,12 +314,12 @@ class Languages extends Translations {
       ///  welcome screen
       "kEcoCleanWalletGreen": "نظافة بيئية، محفظة خضراء!",
       "kExclusiveDealsWithEvery":
-      "عروض حصرية مع كل لمعة\nكوبونات مجانية، عروض اشتر واحد واحصل على آخر، خصومات\nومزايا خاصة!",
+          "عروض حصرية مع كل لمعة\nكوبونات مجانية، عروض اشتر واحد واحصل على آخر، خصومات\nومزايا خاصة!",
       "kGetStarted": "ابدأ الآن",
       "kTermsAndConditions": "الشروط والأحكام",
       "kWashWin": "اغسل واربح!",
       "kGetYourCarWashed":
-      "احصل على غسيل سيارتك أسبوعياً في أكثر من 100 موقع مع عروض حصرية.",
+          "احصل على غسيل سيارتك أسبوعياً في أكثر من 100 موقع مع عروض حصرية.",
       "kMissedWashesStillDeducted": "الغسلات الفائتة ما زالت تُخصم.",
 
       ///  Login screen
@@ -335,17 +339,17 @@ class Languages extends Translations {
       'kPasswordIsRequired': 'كلمة المرور مطلوبة',
       "kPasswordMustBeAtLeast": 'كلمة المرور يجب أن تكون 8 أحرف على الأقل',
       "kPasswordMustContainAtLeastOneUpperCaseLetter":
-      'كلمة المرور يجب أن تحتوي على حرف كبير واحد على الأقل',
+          'كلمة المرور يجب أن تحتوي على حرف كبير واحد على الأقل',
       "kPasswordMustContainAtLeastOneLowerCaseLetter":
-      'كلمة المرور يجب أن تحتوي على حرف صغير واحد على الأقل',
+          'كلمة المرور يجب أن تحتوي على حرف صغير واحد على الأقل',
       "kPasswordMustContainAtLeastOneDigit":
-      'كلمة المرور يجب أن تحتوي على رقم واحد على الأقل',
+          'كلمة المرور يجب أن تحتوي على رقم واحد على الأقل',
       "PasswordMustContainAtLeastOneSpecialCharacter":
-      'كلمة المرور يجب أن تحتوي على رمز خاص واحد على الأقل',
+          'كلمة المرور يجب أن تحتوي على رمز خاص واحد على الأقل',
       "kNameIsRequired": "الاسم مطلوب",
       "kNameMustBeAtLeast": "الاسم يجب أن يكون 3 أحرف على الأقل",
       "kNameMustOnlyContainAlphabetsAndSpaces":
-      "الاسم يجب أن يحتوي على أحرف ومسافات فقط",
+          "الاسم يجب أن يحتوي على أحرف ومسافات فقط",
       "kPleaseEnterYourPhoneNumber": "يرجى إدخال رقم هاتف صحيح",
       "kPhoneNumberCannotBeEmpty": "رقم الهاتف لا يمكن أن يكون فارغاً",
       "kConfirmPassword": "تأكيد كلمة المرور مطلوب",
@@ -368,8 +372,7 @@ class Languages extends Translations {
       /// forgot password screen
       "kForgot": "نسيت",
       "kEnterRegisteredPhone": "أدخل الهاتف المسجل",
-      "kEnterThePhoneNumber":
-      "أدخل رقم الهاتف المرتبط\nبحسابك",
+      "kEnterThePhoneNumber": "أدخل رقم الهاتف المرتبط\nبحسابك",
       "kEnterYourPhoneNumber": "أدخل رقم هاتفك",
       "kRecoverPassword": "استرداد كلمة المرور",
 
@@ -391,7 +394,7 @@ class Languages extends Translations {
       "kReset": "إعادة تعيين",
       "kCreateNewPassword": "إنشاء كلمة مرور جديدة",
       "kYourNewPasswordMust":
-      "كلمة المرور الجديدة يجب أن تكون مختلفة\nعن كلمة المرور المستخدمة سابقاً",
+          "كلمة المرور الجديدة يجب أن تكون مختلفة\nعن كلمة المرور المستخدمة سابقاً",
       "kSave": "حفظ",
 
       /// subscription screen
@@ -403,7 +406,7 @@ class Languages extends Translations {
       "kUnlimitedWashesPlan": "خطة الغسلات غير المحدودة",
       "kEnterCarNumber": "أدخل رقم السيارة",
       "WashYourCarOnce":
-      "اغسل سيارتك مرة واحدة في الأسبوع. إذا لم يتم غسل السيارة خلال الأسبوع، فلن يتم تعويضها وسيتم خصمها.",
+          "اغسل سيارتك مرة واحدة في الأسبوع. إذا لم يتم غسل السيارة خلال الأسبوع، فلن يتم تعويضها وسيتم خصمها.",
 
       /// Enter Card Detail Screen
       "kEnterYourPaymentDetails": "أدخل\nتفاصيل الدفع",
@@ -433,8 +436,7 @@ class Languages extends Translations {
       "kSubmit": "إرسال",
       "kLocationServicesAreDisabled": "خدمات الموقع معطلة",
       "kLocationPermissionDenied": "تم رفض إذن الموقع",
-      "kLocationPermissionPermanentlyDenied":
-      "تم رفض إذن الموقع نهائياً",
+      "kLocationPermissionPermanentlyDenied": "تم رفض إذن الموقع نهائياً",
       "kCouldNotRetrieveAddressDetails": "لا يمكن استرداد تفاصيل العنوان",
       "kLocationNotAvailable": "الموقع غير متاح",
       "kImageNotAvailable": "الصورة غير متاحة",
@@ -442,8 +444,7 @@ class Languages extends Translations {
       "kExploreAllExclusiveOffers": "استكشف جميع العروض الحصرية",
       "kCheckNow": "تحقق الآن",
       "kCongratulations": "تهانينا!",
-      "kYourRewardHasBeenSuccessfullyRedeemed":
-      "تم استرداد مكافأتك\nبنجاح!",
+      "kYourRewardHasBeenSuccessfullyRedeemed": "تم استرداد مكافأتك\nبنجاح!",
 
       ///Reward screen
       "kSortByExpiry": "ترتيب حسب الانتهاء",
@@ -492,8 +493,7 @@ class Languages extends Translations {
 
       /// Notification screen
       "kProvisionalPermissionGranted": "تم منح إذن مؤقت",
-      "kYouWillReceive":
-      "ستحصل على إشعارات، لكنها قد تكون محدودة.",
+      "kYouWillReceive": "ستحصل على إشعارات، لكنها قد تكون محدودة.",
       "kNotificationPermissionDenied": "تم رفض إذن الإشعارات",
       "kPleaseAllow": "يرجى السماح بالإشعارات لتلقي التحديثات.",
       "kFailedToRequest": "فشل في طلب إذن الإشعارات.",
@@ -529,15 +529,14 @@ class Languages extends Translations {
       "kUpgradeYourPlanNow": "قم بترقية خطتك الآن",
       "kNoPlansAvailable": "لا توجد خطط متاحة",
       "kYouCanRenewYourSubscriptionOnlyWithin7DaysOfExpiry":
-      "يمكنك تجديد اشتراكك فقط خلال 7 أيام من انتهاء الصلاحية.",
+          "يمكنك تجديد اشتراكك فقط خلال 7 أيام من انتهاء الصلاحية.",
       "kRenewNow": "جدد الآن",
       "kYear": "/ سنة",
       "kRenewalNotAvailable": "التجديد غير متاح",
       "kNoPlanSelected.": "لم يتم اختيار خطة.",
 
       ///subscription Screen
-      "kMissingSubscription":
-      "تفاصيل الاشتراك مفقودة (شاشة الاشتراك)",
+      "kMissingSubscription": "تفاصيل الاشتراك مفقودة (شاشة الاشتراك)",
       'k100locations': 'أكثر من 100\nموقع ',
       'kUnlock': 'وافتح',
       'kExclusiveOffers': ' العروض الحصرية.',
@@ -561,12 +560,23 @@ class Languages extends Translations {
       "kSuccesss": "نجح!",
       "kPlanIsNowActivated": " تم تفعيل الخطة.",
       "kScanToUnlockWeekly":
-      "امسح لفتح الغسلات الأسبوعية،\nالعروض الحصرية، والصفقات المذهلة!",
+          "امسح لفتح الغسلات الأسبوعية،\nالعروض الحصرية، والصفقات المذهلة!",
       "kYourPaymentIsComplete": "اكتملت عمليتك، و\n",
       "kPaymentSuccessfully": "تم الدفع بنجاح",
       "kYouHaveCompletedYourPayment": "لقد أكملت عملية الدفع",
       "kOk": "موافق",
 
+      "kLoginFailed": "فشل تسجيل الدخول",
+      "kSomethingWentWrongDuring": "حدث خطأ أثناء تسجيل الدخول.",
+      "kGoogleSignIn": "تسجيل الدخول بجوجل",
+      "kUnableToGetIDToken": "غير قادر على الحصول على رمز الهوية",
+      "kLoginSuccessful": "تم تسجيل الدخول بنجاح",
+      "kWelcome": "مرحباً",
+      "kLoginCancelled": "تم إلغاء تسجيل الدخول",
+      "kUserCancelledLogin": "ألغى المستخدم تسجيل الدخول.",
+      "kFacebookLogin": "تسجيل الدخول بفيسبوك",
+      "kOfferRedeemed": "تم استرداد العرض!",
+      "kSharePartnerFeedback": "شارك بتعليقاتك وقيم العرض",
   "kLoginFailed": "فشل تسجيل الدخول",
   "kSomethingWentWrongDuring": "حدث خطأ أثناء تسجيل الدخول.",
   "kGoogleSignIn": "تسجيل الدخول بجوجل",

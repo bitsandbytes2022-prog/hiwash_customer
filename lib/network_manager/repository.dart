@@ -1,16 +1,11 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/multipart/form_data.dart' as dio;
-import 'package:get/get_core/src/get_main.dart';
+import 'package:hiwash_customer/featuers/dashboard/model/get_customer_data_model.dart';
 import 'package:hiwash_customer/featuers/dashboard/view/second_drawer/model/faq_response_model.dart';
 import 'package:hiwash_customer/featuers/profile/model/terms_and_conditions_response_model.dart';
+import 'package:hiwash_customer/featuers/rate_partner/model/rate_offer_model.dart';
 import 'package:hiwash_customer/featuers/rewads/model/get_offers_by_id_model.dart';
 import 'package:hiwash_customer/featuers/rewads/model/offer_response_model.dart';
-import 'package:hiwash_customer/featuers/subscription/model/get_subscription_membership_model.dart';
 import 'package:hiwash_customer/featuers/subscription/model/get_subscription_model.dart';
-import 'package:hiwash_customer/featuers/dashboard/model/get_customer_data_model.dart';
 import 'package:hiwash_customer/featuers/wash_status/model/wash_summry.dart';
 import 'package:hiwash_customer/network_manager/utils/api_response.dart';
 
@@ -23,24 +18,22 @@ import '../featuers/dashboard/view/second_drawer/model/guides_response_model.dar
 import '../featuers/notification/model/notification.dart';
 import '../featuers/rewads/model/get_offer_categories.dart';
 import '../featuers/wash_status/model/get_location_model.dart';
-import '../route/route_strings.dart';
 import 'api_constant.dart';
 import 'dio_helper.dart';
 import 'local_storage.dart';
 
 class Repository {
   final DioHelper dioHelper = DioHelper();
-   LocalStorage localStorage = LocalStorage();
+  LocalStorage localStorage = LocalStorage();
 
   Future<SendOtpModel?> sendOtpRepo(Map<String, dynamic> requestBody) async {
     final dio = Dio();
 
     try {
       final response = await dio.post(ApiConstant.sendOtp, data: requestBody);
-print("------>c${response.data}");
+      print("------>c${response.data}");
       if (response.statusCode == 200) {
         return SendOtpModel.fromJson(response.data);
-
       } else {
         throw Exception('Failed to send OTP: ${response.statusCode}');
       }
@@ -72,7 +65,6 @@ print("------>c${response.data}");
     }
   }
 
-
   Future<SendOtpModel?> sendOtp(Object requestBody) async {
     var response = await dioHelper.post(
       url: ApiConstant.sendOtp,
@@ -81,9 +73,6 @@ print("------>c${response.data}");
     print("Response from API: $response"); // Debug print
     return SendOtpModel.fromJson(response);
   }
-
-
-
 
   Future<GetTokenModel> getTokens(Object requestBody) async {
     // print("body--->: $requestBody");
@@ -99,14 +88,14 @@ print("------>c${response.data}");
   }
 
   Future<GetRefreshToken> refreshToken(Object requestBody) async {
-     print("body--->: $requestBody");
+    print("body--->: $requestBody");
     //  print("url--->: ${ApiConstant.getToken}");
 
     var response = await dioHelper.post(
       url: ApiConstant.refreshToken,
       requestBody: requestBody,
 
-      isAuthRequired: true
+      isAuthRequired: true,
     );
     //   print("Response--->: $response");
 
@@ -130,7 +119,6 @@ print("------>c${response.data}");
     // print("Sign Response--->: $response");
     return GoogleSignInModel.fromJson(response);
   }
-
 
   Future<GetCustomerData> getCustomerData(int id) async {
     print("url dss--->:${ApiConstant.getCustomerId(id)}");
@@ -246,7 +234,7 @@ print("------>c${response.data}");
     return WashSummaryModel.fromJson(response);
   }
 
-/*
+  /*
 
   Future<dynamic> uploadProfilePictureRepo(requestBody) async {
     print("Request Body Type: ${requestBody.runtimeType}");
@@ -278,7 +266,6 @@ print("------>c${response.data}");
     }
   }
 
-
   Future<dynamic> uploadProfile(Object requestBody) async {
     try {
       final response = await dioHelper.put(
@@ -293,14 +280,14 @@ print("------>c${response.data}");
     }
   }
 
-  Future<NotificationModel> notificationRepo() async {
+  Future<RateOfferModel> notificationRepo() async {
     print("{Notification------>${ApiConstant.notification}}");
     Map<String, dynamic> response = await dioHelper.get(
       url: ApiConstant.notification,
       isAuthRequired: true,
     );
     print("{Notification------>${response}}");
-    return NotificationModel.fromJson(response);
+    return RateOfferModel.fromJson(response);
   }
 
   Future<GetLocationModel> getLocationRepo(Object requestBody) async {
@@ -312,6 +299,7 @@ print("------>c${response.data}");
 
     return GetLocationModel.fromJson(response);
   }
+
   Future<dynamic> paymentRepo(Object requestBody) async {
     final response = await dioHelper.postForPayment(
       url: ApiConstant.payment,
@@ -320,10 +308,10 @@ print("------>c${response.data}");
       responseType: ResponseType.plain,
     );
 
-   return response;
+    return response;
   }
 
-/*
+  /*
   Future<dynamic> paymentRepo(Object requestBody) async {
     Map<String, dynamic> response = await dioHelper.post(
       url: ApiConstant.payment,
@@ -336,8 +324,6 @@ print("------>c${response.data}");
   }
 */
 
-
-
   Future<NotificationModel> getNotificationRepo(Object requestBody) async {
     Map<String, dynamic> response = await dioHelper.post(
       url: ApiConstant.notificationUrl,
@@ -345,8 +331,9 @@ print("------>c${response.data}");
       requestBody: requestBody,
     );
 
-    return NotificationModel.fromJson( response);
+    return NotificationModel.fromJson(response);
   }
+
   Future<GetOfferResponseModel> getAllOfferFilterRepo(int id) async {
     Map<String, dynamic> response = await dioHelper.get(
       url: ApiConstant.getOffersByFilter(id),
@@ -355,5 +342,12 @@ print("------>c${response.data}");
     return GetOfferResponseModel.fromJson(response);
   }
 
-
+  Future<RateOfferModel> rateOffer(Map<String, dynamic> data) async {
+    Map<String, dynamic> response = await dioHelper.post(
+      url: ApiConstant.rateOffer,
+      requestBody: data,
+      isAuthRequired: true,
+    );
+    return RateOfferModel.fromJson(response);
+  }
 }

@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hiwash_customer/featuers/dashboard/controller/dashboard_controller.dart';
 import 'package:hiwash_customer/featuers/profile/controller/drawer_profile_controller.dart';
 import 'package:hiwash_customer/featuers/rewads/controller.dart';
@@ -14,12 +12,11 @@ import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/styling/app_font_anybody.dart';
 import 'package:hiwash_customer/widgets/components/app_home_bg.dart';
 import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
-import 'package:hiwash_customer/widgets/components/custom_bottomsheet.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_button.dart';
 import 'package:hiwash_customer/widgets/components/hi_wash_text_field.dart';
 import 'package:hiwash_customer/widgets/components/image_view.dart';
 import 'package:hiwash_customer/widgets/sized_box_extension.dart';
-import '../../../route/route_strings.dart';
+
 import '../../../styling/app_font_poppins.dart';
 import '../../../widgets/components/common_offer_bottom_sheet.dart';
 import '../widgets/offer_card.dart';
@@ -59,7 +56,6 @@ class SubscriptionScreen extends StatelessWidget {
     rewardController.getOfferCategoriesMethod();
 
     return AppHomeBg(
-
       iconRight: SizedBox(),
       centerHeading: Container(
         margin: EdgeInsets.only(left: 60),
@@ -85,6 +81,7 @@ class SubscriptionScreen extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: AppColor.cF6F7FF,
+            // border: Border.symmetric(horizontal: BorderSide.none),
             border: Border.all(color: AppColor.cF6F7FF, width: 10),
           ),
           child: Obx(() {
@@ -158,11 +155,10 @@ class SubscriptionScreen extends StatelessWidget {
                     ),
                     30.heightSizeBox,
                     OfferCardWidget(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                     ),
                     25.heightSizeBox,
                     viewOfferButton(() {
-                      rewardController.resetFiltersAndLoad();
                       rewardController.getAllOffers();
                       showModalBottomSheet(
                         context: context,
@@ -209,28 +205,23 @@ class SubscriptionScreen extends StatelessWidget {
                               (context, index) => 15.heightSizeBox,
                           itemBuilder: (context, index) {
                             final subscription = list[index];
-                            return IgnorePointer(
-                              ignoring: !controller.isPlanSelectionEnabled.value,
-                              child: Opacity(
-                                opacity: controller.isPlanSelectionEnabled.value ? 1 : 0.5,
-                                child: PlansContainer(
-                                  index: index + 1,
-                                  heading: subscription.name ?? "",
-                                  subHeading: subscription.description ?? "",
-                                  qarText: subscription.currency?.trim() ?? "",
-                                  numberText: subscription.price?.toString() ?? '',
-                                  yearText: StringConstant.kYear.tr,
-                                  imageShow: subscription.isPremium ?? false,
-                                  subscriptionId: subscription.id?.toString(),
-                                  onTap: () {
-                                    print("index Print---->${index + 1}");
-                                    controller.setPremiumStatus(
-                                      subscription.isPremium ?? false,
-                                    );
-                                    controller.selectedIndex.value = index + 1;
-                                  },
-                                ),
-                              ),
+                            return PlansContainer(
+                              index: index + 1,
+                              heading: subscription.name ?? "",
+                              subHeading: subscription.description ?? "",
+                              qarText: subscription.currency?.trim() ?? "",
+                              numberText: subscription.price?.toString() ?? '',
+                              yearText: StringConstant.kYear.tr,
+
+                              imageShow: subscription.isPremium ?? false,
+                              subscriptionId: subscription.id?.toString(),
+                              onTap: () {
+                                print("index Print---->${index + 1}");
+                                controller.setPremiumStatus(
+                                  subscription.isPremium ?? false,
+                                );
+                                controller.selectedIndex.value = index + 1;
+                              },
                             );
                           },
                         );
@@ -324,8 +315,10 @@ class SubscriptionScreen extends StatelessWidget {
                           String carNumberToUse = '';
 
                           if (selectedIndex == 1) {
+                            // Plan 1 → Car number empty bhejna
                             carNumberToUse = '';
                           } else if (selectedIndex == 2) {
+                            // Plan 2 → Car number required
                             if (profileCarNumber.isNotEmpty) {
                               carNumberToUse = profileCarNumber;
                             } else if (enteredCarNumber.isNotEmpty) {
@@ -335,19 +328,50 @@ class SubscriptionScreen extends StatelessWidget {
                                 message:
                                     StringConstant.kPleaseEnterYourCarNumber.tr,
                               );
-                              return;
+                              return; // Stop here — No API call
                             }
                           } else {
                             print("No subscription selected — API not called");
                             return;
                           }
-
-                          await controller.paymentMethod(
+                          // Call API only when valid selection
+                          var result = await controller.paymentMethod(
                             carNumberToUse,
                             selectedIndex.toString(),
                           );
                         },
 
+                        /*  onTap: () async {
+                            final selectedIndex = controller.selectedIndex.value.toString();
+                            final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
+                            final profileCarNumber = customerDetails?.carNumber?.trim() ?? '';
+                            final enteredCarNumber = controller.carNumberController.text.trim();
+
+                            String carNumberToUse = '';
+
+                            if (selectedIndex == 2) {
+                              if (profileCarNumber.isNotEmpty) {
+                                carNumberToUse = profileCarNumber;
+                              } else {
+                                if (enteredCarNumber.isEmpty) {
+                                  appSnackBar(message: StringConstant.kPleaseEnterYourCarNumber.tr);
+                                  return;
+                                }
+                                carNumberToUse = enteredCarNumber;
+                              }
+                            } else {
+                              carNumberToUse = profileCarNumber.isNotEmpty ? profileCarNumber : '';
+                            }
+
+                            if (selectedIndex != 0) {
+                              await controller.paymentMethod(
+                                carNumberToUse.isNotEmpty ? carNumberToUse : "",
+                                selectedIndex,
+                              );
+                            } else {
+                              print("No subscriptionId found — API not called");
+                            }
+                          },*/
                         text: "kSubscribe".tr,
                         margin: EdgeInsets.symmetric(horizontal: 30),
                       );
@@ -389,38 +413,6 @@ class SubscriptionScreen extends StatelessWidget {
     );
   }
 }
-
-/*  onTap: () async {
-                            final selectedIndex = controller.selectedIndex.value.toString();
-                            final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
-                            final profileCarNumber = customerDetails?.carNumber?.trim() ?? '';
-                            final enteredCarNumber = controller.carNumberController.text.trim();
-
-                            String carNumberToUse = '';
-
-                            if (selectedIndex == 2) {
-                              if (profileCarNumber.isNotEmpty) {
-                                carNumberToUse = profileCarNumber;
-                              } else {
-                                if (enteredCarNumber.isEmpty) {
-                                  appSnackBar(message: StringConstant.kPleaseEnterYourCarNumber.tr);
-                                  return;
-                                }
-                                carNumberToUse = enteredCarNumber;
-                              }
-                            } else {
-                              carNumberToUse = profileCarNumber.isNotEmpty ? profileCarNumber : '';
-                            }
-
-                            if (selectedIndex != 0) {
-                              await controller.paymentMethod(
-                                carNumberToUse.isNotEmpty ? carNumberToUse : "",
-                                selectedIndex,
-                              );
-                            } else {
-                              print("No subscriptionId found — API not called");
-                            }
-                          },*/
 
 /* onTap: () async {
                             final selectedIndex = controller.selectedIndex.value;

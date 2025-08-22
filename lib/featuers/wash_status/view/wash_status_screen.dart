@@ -27,7 +27,9 @@ import '../model/wash_summry.dart';
 class WashStatusScreen extends StatelessWidget {
   WashStatusScreen({super.key});
 
-  final WashStatusController controller = Get.put(WashStatusController());
+  final WashStatusController controller = Get.put(WashStatusController(), tag: 'WASH_SCREEN');
+
+
   DashboardController dashboardController =
       Get.isRegistered<DashboardController>()
           ? Get.find<DashboardController>()
@@ -424,6 +426,7 @@ class WashStatusScreen extends StatelessWidget {
               ),
     );
   }
+
   Widget locationContainer(LocationData locationList, VoidCallback? onTap) {
     return Container(
       margin: EdgeInsets.only(top: 200),
@@ -721,7 +724,7 @@ class WashStatusScreen extends StatelessWidget {
                       child: ImageView(
                         path: Assets.imagesImSuccess,
                         width: Get.width,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                         height: 180,
                       ),
                     ),
