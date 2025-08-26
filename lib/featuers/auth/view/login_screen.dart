@@ -47,6 +47,8 @@ class LoginScreen extends StatelessWidget {
               HiWashTextField(
                 controller: controller.loginPhoneController,
                 keyboardType: TextInputType.phone,
+                maxLength: 8,
+
 
                 hintText: StringConstant.kPhone.tr,
                 labelText: StringConstant.kPhone.tr,

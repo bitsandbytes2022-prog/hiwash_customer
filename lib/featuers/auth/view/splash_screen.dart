@@ -57,7 +57,7 @@ AuthController authController=Get.put(AuthController());
         await washStatusController
             .getCustomerDataById(int.parse(localStorage.getUserId().toString()));
 
-        Get.offNamed(RouteStrings.subscribeMainScreen);
+        Get.offNamed(RouteStrings.subscriptionScreen);
       } else {
         Get.offNamed(RouteStrings.dashboardScreen);
       }

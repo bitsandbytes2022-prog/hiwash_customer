@@ -44,11 +44,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String _currentDrawer = 'first';
 
 
-  final WashStatusController washStatusController =
-      Get.isRegistered<WashStatusController>(tag: "WASH_SCREEN")
-          ? Get.find()
-          : Get.put(WashStatusController());
-
+  final washStatusController = Get.isRegistered<WashStatusController>()
+      ? Get.find<WashStatusController>()
+      : Get.put(WashStatusController());
   final List<Widget>  _pages = [
     WashStatusScreen(),
     RewardScreen(),
@@ -92,33 +90,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   void initState() {
-     Future.delayed(Duration(seconds: 3)).then((data){
-
-       if(Get.arguments!=null){
-         void _showResultDialog(bool isSuccess) {
-           Get.defaultDialog(
-             titlePadding: EdgeInsets.only(top: 20),
-             contentPadding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 20),
-             title: isSuccess ? "Payment Success" : "Payment Failed",
-             middleText: isSuccess
-                 ? "Your subscription has been activated."
-                 : "Payment was not successful.",
-             textConfirm: "Okay",
-             confirmTextColor: Colors.white,
-             buttonColor: AppColor.blue,
-             backgroundColor: AppColor.white,
-             onConfirm: () {
-               Get.back();
-               if (isSuccess) {
-                 Get.back();
-                }
-             },
-             barrierDismissible: false,
-           );
-         }
-       }
-
-     });
     super.initState();
   }
 
@@ -355,11 +326,69 @@ class _DashboardScreenState extends State<DashboardScreen> {
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           floatingActionButton: GestureDetector(
             onTap: () async {
+              final response = await dashboardController.validateWashQr(
+                washStatusController.getCustomerData.value?.data?.customerDetails?.id.toString() ?? '',
+              );
+
+              print("API Final Response: $response");
+
+              if (response == null) {
+
+    qRConfirmationDialog(
+    color: Colors.red,
+    heading: "Oops!",
+    subHeeding:
+    response?['error']?['message'] ??
+    "It looks like you're out of washes. Visit us again in next week",
+    );
+
+                return;
+              }
+
+              if (response['data']?['washId'] == 0) {
+                await showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AppDialog(
+                      bottomVisible: true,
+                      child: scanDialog(),
+                      remainingTextBottom:
+                      washStatusController
+                          .washSummaryModel
+                          .value
+                          ?.data
+                          ?.summary
+                          ?.remainingWashes ??
+                          '',
+                    );
+                  },
+                );
+                return;
+              }
+
+              if (response['statusCode'] == 400 || response['success'] == false) {
+                final errorMsg = response['error']?['message'] ?? "Invalid request!";
+                qRConfirmationDialog(
+                  color: Colors.red,
+                  heading: "Oops!",
+                  subHeeding:
+                  errorMsg ??
+                      "It looks like you're out of washes. Visit us again in next week",
+                );
+                return;
+              }
+
+              print("No action required for this response.");
+            }
+            ,
+            /*  onTap: () async {
              await showDialog(
                 barrierDismissible: false,
                 context: context,
                 builder: (BuildContext context) {
                   return AppDialog(
+
                     bottomVisible: true,
                     child: scanDialog(),
                     remainingTextBottom:
@@ -374,11 +403,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 },
               );
 
-
-             WashStatusController c=Get.find(tag:'WASH_SCREEN');
-
-             c.getWashSummary();
-            },
+            },*/
             child: Container(
               width: 56,
               height: 56,
@@ -507,6 +532,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
         );
       },
     ).then((value) => value ?? false); 
+  }
+
+  qRConfirmationDialog({
+    String? heading,
+    String? subHeeding,
+    Color? color,
+  }) async {
+    return showDialog(
+      barrierDismissible: false,
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: color ?? Colors.green,
+          title: Text(heading ?? "", style: w500_18p(color: AppColor.white)),
+          content: Text(subHeeding ?? '', style: w400_16p(color: Colors.white)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Get.back();
+                Get.back();
+
+                //Get.offNamed(RouteStrings.dashboardScreen);
+              },
+              child: Text(
+                StringConstant.kOk.tr,
+                style: w700_16p(color: Colors.white),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
 }

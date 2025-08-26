@@ -164,15 +164,19 @@ final daysLeft = controller.getDaysRemaining(expiryDateStr);
                           style: w400_12p(color: AppColor.c455A64),
                         ),
                         userDataSub?.subscriptionId == 1
-                            ? Text(
-                              washStatusController
-                                      .washSummaryModel
-                                      .value
-                                      ?.data
-                                      ?.summary
-                                      ?.remainingWashes ??
-                                  ''.tr,
-                              style: w500_12p(color: AppColor.c2C2A2A),
+                            ? Obx(
+                               () {
+                                return Text(
+                                  washStatusController
+                                          .washSummaryModel
+                                          .value
+                                          ?.data
+                                          ?.summary
+                                          ?.remainingWashes ??
+                                      ''.tr,
+                                  style: w500_12p(color: AppColor.c2C2A2A),
+                                );
+                              }
                             )
                             : Icon(
                               CupertinoIcons.infinite,

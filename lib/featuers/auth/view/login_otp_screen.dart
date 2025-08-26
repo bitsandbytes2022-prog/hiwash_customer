@@ -142,17 +142,53 @@ class LoginOtpScreen extends StatelessWidget {
                       "Entered OTP: $enteredOtp (${enteredOtp.runtimeType})",
                     );
                     print("Server OTP: $serverOtp (${serverOtp.runtimeType})");
-
-                    /*    if (enteredOtp == serverOtp) {
-                     await   controller.getToken(phoneNumber,).then((value) {
-                          if (value != null) {
-
-                            Get.offAllNamed(RouteStrings.dashboardScreen);
-
-                          }
-                        });
-                      }*/
                     if (enteredOtp == serverOtp) {
+                      await controller.getToken(phoneNumber).then((value) async {
+                        if (value != null) {
+                          final token = LocalStorage().getToken();
+                          if (token != null && token.isNotEmpty) {
+
+                            WashStatusController washStatusController;
+                            if (!Get.isRegistered<WashStatusController>()) {
+                              washStatusController = Get.put(WashStatusController(), permanent: true);
+                            } else {
+                              washStatusController = Get.find<WashStatusController>();
+                            }
+
+                            await washStatusController.getCustomerDataById(
+                              value.data?.id ?? 0,
+                            );
+
+                            final customerData = washStatusController.getCustomerData.value?.data;
+                            final subscriptionId = customerData?.subscriptionDetails?.subscriptionId;
+                            final price = customerData?.subscriptionDetails?.price;
+
+                            if (subscriptionId != null && subscriptionId != 0 && price != null && price != 0) {
+                              Get.offAllNamed(RouteStrings.dashboardScreen);
+                            } else {
+                              Get.toNamed(RouteStrings.subscriptionScreen);
+                            }
+
+                          } else {
+                            print("Token not found after login.");
+                            appSnackBar(
+                              title: StringConstant.kLoginFailed.tr,
+                              message: StringConstant.kSomethingWentWrong.tr,
+                            );
+                          }
+                        }
+                      });
+                    }
+
+
+
+                    else {
+                      appSnackBar(
+                        title: StringConstant.kInvalidOTP.tr,
+                        message: StringConstant.kPleaseEnterTheCorrectOTP.tr,
+                      );
+                    }
+                    /*  if (enteredOtp == serverOtp) {
                       await controller.getToken(phoneNumber).then((
                         value,
                       ) async {
@@ -172,7 +208,7 @@ class LoginOtpScreen extends StatelessWidget {
                             if (subscriptionId != null && subscriptionId != 0 && price != null && price != 0) {
                               Get.offAllNamed(RouteStrings.dashboardScreen);
                             } else {
-                              Get.toNamed(RouteStrings.subscribeMainScreen);
+                              Get.toNamed(RouteStrings.subscriptionScreen);
                             }
 
                           } else {
@@ -184,12 +220,7 @@ class LoginOtpScreen extends StatelessWidget {
                           }
                         }
                       });
-                    } else {
-                      appSnackBar(
-                        title: StringConstant.kInvalidOTP.tr,
-                        message: StringConstant.kPleaseEnterTheCorrectOTP.tr,
-                      );
-                    }
+                    }*/
                   }
                 },
               ),

@@ -39,7 +39,7 @@ class PlansContainer extends StatelessWidget {
   });
 
   final SubscriptionController controller = Get.find();
-  final WashStatusController washStatusController = Get.find();
+  final WashStatusController washStatusController = Get.isRegistered<WashStatusController>()?Get.find<WashStatusController>():Get.put(WashStatusController());
 
   @override
   Widget build(BuildContext context) {

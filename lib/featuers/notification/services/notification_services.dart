@@ -4,6 +4,8 @@ import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:hiwash_customer/featuers/rewads/controller.dart';
+import 'package:hiwash_customer/featuers/wash_status/controller/wash_status_controller.dart';
 import 'package:hiwash_customer/language/String_constant.dart';
 import 'package:hiwash_customer/styling/app_color.dart';
 import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
@@ -21,18 +23,38 @@ class NotificationServices {
     FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
 
     // Foreground notifications
-    FirebaseMessaging.onMessage.listen((message) {
+    FirebaseMessaging.onMessage.listen((message) async {
       RemoteNotification? notification = message.notification;
       print("Foreground Notification: ${notification?.title}");
-      if (message.data['offerRedemptionId'] != null) {
-        //   show rating dialog for partner
-        showRatingDialog(message.data['offerRedemptionId']);
+
+      RewardController rewardController =
+      Get.isRegistered<RewardController>()
+          ? Get.find<RewardController>()
+          : Get.put(RewardController());
+      WashStatusController washStatusController =
+      Get.isRegistered<WashStatusController>()
+          ? Get.find<WashStatusController>()
+          : Get.put(WashStatusController());
+
+      if (rewardController.currentOfferId.value != 0) {
+        final id = rewardController.currentOfferId.value;
+        await rewardController.getOffersById(id);
+
+      } else if (message.data['id'] != null) {
+        final id = int.tryParse(message.data['id'].toString()) ?? 0;
+        await rewardController.getOffersById(id);
       }
+
+      await rewardController.getAllOffers();
+      await   washStatusController.getCustomerDataById(washStatusController.getCustomerData.value?.data?.customerDetails?.id??0);
+      await  washStatusController.getWashSummary();
 
       if (notification != null) {
         showNotification(message);
       }
+
     });
+
 
     // When app is in background and user taps notification
     FirebaseMessaging.onMessageOpenedApp.listen((bgMessage) {

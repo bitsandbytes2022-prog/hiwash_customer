@@ -47,8 +47,9 @@ class DrawerScreen extends StatelessWidget {
       Get.isRegistered<AuthController>()
           ? Get.find<AuthController>()
           : Get.put(AuthController());
-  WashStatusController washStatusController = Get.find();
-
+  final washStatusController = Get.isRegistered<WashStatusController>()
+      ? Get.find<WashStatusController>()
+      : Get.put(WashStatusController(), permanent: true);
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -267,10 +268,16 @@ class DrawerScreen extends StatelessWidget {
           80.heightSizeBox,
           GestureDetector(
             onTap: () async {
+              Get.delete<WashStatusController>(force: true);
               await LocalStorage().removeToken();
+
               var deviceLocale = Get.deviceLocale ?? const Locale('en', 'US');
               Get.updateLocale(deviceLocale);
               await GoogleSignIn().signOut();
+
+
+
+
               Get.offAllNamed(RouteStrings.welcomeScreen);
             },
             child: Container(

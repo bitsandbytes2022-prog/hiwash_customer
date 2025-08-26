@@ -189,6 +189,27 @@ class DioHelper {
     final response = await dio.post(url, data: requestBody, options: options);
     return response.data;
   }
+  Future<dynamic> postVerify({
+    required String url,
+    Object? requestBody,
+    bool isAuthRequired = false,
+    bool skipErrorSnackbar = false,
+  }) async {
+    try {
+      final opt = await options(isAuthRequired);
+      opt.extra ??= {};
+      opt.extra!.addAll({'skipErrorSnackbar': skipErrorSnackbar});
 
+      Response response;
+      if (requestBody == null) {
+        response = await dio.post(url, options: opt);
+      } else {
+        response = await dio.post(url, data: requestBody, options: opt);
+      }
+      return response.data;
+    } catch (error) {
+      return null;
+    }
+  }
 
 }

@@ -72,8 +72,10 @@ class BottomSheetWidget extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          rewardController.isVisible.value =
-                          !rewardController.isVisible.value;
+                          rewardController.isVisible.value = !rewardController.isVisible.value;
+
+                          rewardController.isFilterDropdownOpen.value =
+                          !rewardController.isFilterDropdownOpen.value;
                         },
                         child: Container(
                           width: 158,
@@ -86,7 +88,6 @@ class BottomSheetWidget extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-
                               Obx(() {
                                 final index = rewardController.selectedFilterIndex.value;
                                 if (index <= 0 || index > rewardController.offerFilterList.length) {
@@ -98,21 +99,27 @@ class BottomSheetWidget extends StatelessWidget {
                                 );
                               }),
                               Spacer(),
-                              ImageView(
-                                path: Assets.iconsIcDropDown,
-                                height: 5,
-                                width: 9,
-                                color: AppColor.c2C2A2A,
-                              ),
+                              Obx(() {
+                                return ImageView(
+                                  path: rewardController.isFilterDropdownOpen.value
+                                      ? Assets.iconsIcUpWardArrow
+                                      : Assets.iconsIcDropDown,
+                                  height: 5,
+                                  width: 9,
+                                  color: AppColor.c2C2A2A,
+                                );
+                              }),
                             ],
                           ),
                         ),
                       ),
-
                       if (showSecondDropdown)
                         GestureDetector(
                           onTap: () {
                             rewardController.toggleSortOrder();
+
+                            rewardController.isSortDropdownOpen.value =
+                            !rewardController.isSortDropdownOpen.value;
                           },
                           child: Container(
                             width: 158,
@@ -132,16 +139,22 @@ class BottomSheetWidget extends StatelessWidget {
                                   );
                                 }),
                                 Spacer(),
-                                ImageView(
-                                  path: Assets.iconsIcDropDown,
-                                  height: 5,
-                                  width: 9,
-                                  color: AppColor.c2C2A2A,
-                                ),
+                                Obx(() {
+                                  return ImageView(
+                                    path: rewardController.isSortDropdownOpen.value
+                                        ? Assets.iconsIcUpWardArrow
+                                        : Assets.iconsIcDropDown,
+                                    height: 5,
+                                    width: 9,
+                                    color: AppColor.c2C2A2A,
+                                  );
+                                }),
                               ],
                             ),
                           ),
                         ),
+
+
                     ],
                   );
                 }),

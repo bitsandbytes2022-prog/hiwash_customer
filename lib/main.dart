@@ -10,6 +10,7 @@ import 'package:hiwash_customer/route/routes.dart';
 import 'package:hiwash_customer/styling/app_theam.dart';
 
 import 'featuers/notification/services/notification_services.dart';
+import 'featuers/wash_status/controller/wash_status_controller.dart';
 import 'firebase_options.dart';
 import 'language/languages.dart';
 import 'network_manager/local_storage.dart';
@@ -20,6 +21,8 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   NotificationServices notificationServices = NotificationServices();
   await notificationServices.firebaseInit();
+
+  //Get.lazyPut<WashStatusController>(() => WashStatusController(), fenix: true);
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -15,7 +15,6 @@ class DashboardController extends GetxController {
 
   final String? userId = LocalStorage().getUserId();
 
-
   Future<ApiResponse?> getRating(
     String rating,
     String washId,
@@ -23,7 +22,6 @@ class DashboardController extends GetxController {
   ) async {
     Map params = {"rating": rating, "washId": washId, "comment": comment};
     try {
-
       final response = await Repository().rating(params);
       if (response != null) {
         apiResponse.value = response;
@@ -38,6 +36,23 @@ class DashboardController extends GetxController {
       return null;
     } finally {
       // loading.value = false;
+    }
+  }
+  var isLoading = false.obs;
+
+  Future<dynamic> validateWashQr(String customerId) async {
+    Map<String, dynamic> requestBody = {"customerId": customerId};
+
+    try {
+      isLoading.value = true;
+      var response = await Repository().validateWashQrRepo(requestBody);
+      print("validateWashQr response: $response");
+      return response;
+    } catch (e) {
+      print("Error in validateWashQr: $e");
+      return null;
+    } finally {
+      isLoading.value = false;
     }
   }
 }

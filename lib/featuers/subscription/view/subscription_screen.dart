@@ -34,10 +34,10 @@ class SubscriptionScreen extends StatelessWidget {
       Get.isRegistered<RewardController>()
           ? Get.find<RewardController>()
           : Get.put(RewardController());
-  WashStatusController washStatusController =
-      Get.isRegistered<WashStatusController>()
+  WashStatusController washStatusController =Get.find<WashStatusController>();
+    /*  Get.isRegistered<WashStatusController>()
           ? Get.find<WashStatusController>()
-          : Get.put(WashStatusController());
+          : Get.put(WashStatusController());*/
   DrawerProfileController drawerProfileController =
       Get.isRegistered<DrawerProfileController>()
           ? Get.find<DrawerProfileController>()
@@ -159,7 +159,9 @@ class SubscriptionScreen extends StatelessWidget {
                     ),
                     25.heightSizeBox,
                     viewOfferButton(() {
-                      rewardController.getAllOffers();
+                      rewardController.selectedDropDownIndex.value = 1;
+                      rewardController.applyFilter(1);
+                    //rewardController.getAllOffers();
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
@@ -232,6 +234,7 @@ class SubscriptionScreen extends StatelessWidget {
                     Obx(() {
                       if (controller.selectedIndex.value == 1) {
                         return Container(
+                          alignment: Alignment.center,
                           margin: EdgeInsets.symmetric(horizontal: 16),
                           padding: EdgeInsets.all(12),
                           decoration: BoxDecoration(
@@ -242,7 +245,8 @@ class SubscriptionScreen extends StatelessWidget {
                             ),
                           ),
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
                                 Assets.iconsIcTAndC,
@@ -254,9 +258,9 @@ class SubscriptionScreen extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   "WashYourCarOnce".tr,
-                                  style: w400_12p(
+                                  style: w400_6p(
                                     color: AppColor.c455A64,
-                                  ).copyWith(height: 2),
+                                  ).copyWith(height: 1),
                                 ),
                               ),
                             ],
@@ -315,10 +319,8 @@ class SubscriptionScreen extends StatelessWidget {
                           String carNumberToUse = '';
 
                           if (selectedIndex == 1) {
-                            // Plan 1 → Car number empty bhejna
                             carNumberToUse = '';
                           } else if (selectedIndex == 2) {
-                            // Plan 2 → Car number required
                             if (profileCarNumber.isNotEmpty) {
                               carNumberToUse = profileCarNumber;
                             } else if (enteredCarNumber.isNotEmpty) {
@@ -328,50 +330,19 @@ class SubscriptionScreen extends StatelessWidget {
                                 message:
                                     StringConstant.kPleaseEnterYourCarNumber.tr,
                               );
-                              return; // Stop here — No API call
+                              return;
                             }
                           } else {
                             print("No subscription selected — API not called");
                             return;
                           }
-                          // Call API only when valid selection
                           var result = await controller.paymentMethod(
                             carNumberToUse,
                             selectedIndex.toString(),
                           );
                         },
 
-                        /*  onTap: () async {
-                            final selectedIndex = controller.selectedIndex.value.toString();
-                            final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
-                            final profileCarNumber = customerDetails?.carNumber?.trim() ?? '';
-                            final enteredCarNumber = controller.carNumberController.text.trim();
 
-                            String carNumberToUse = '';
-
-                            if (selectedIndex == 2) {
-                              if (profileCarNumber.isNotEmpty) {
-                                carNumberToUse = profileCarNumber;
-                              } else {
-                                if (enteredCarNumber.isEmpty) {
-                                  appSnackBar(message: StringConstant.kPleaseEnterYourCarNumber.tr);
-                                  return;
-                                }
-                                carNumberToUse = enteredCarNumber;
-                              }
-                            } else {
-                              carNumberToUse = profileCarNumber.isNotEmpty ? profileCarNumber : '';
-                            }
-
-                            if (selectedIndex != 0) {
-                              await controller.paymentMethod(
-                                carNumberToUse.isNotEmpty ? carNumberToUse : "",
-                                selectedIndex,
-                              );
-                            } else {
-                              print("No subscriptionId found — API not called");
-                            }
-                          },*/
                         text: "kSubscribe".tr,
                         margin: EdgeInsets.symmetric(horizontal: 30),
                       );
@@ -414,37 +385,3 @@ class SubscriptionScreen extends StatelessWidget {
   }
 }
 
-/* onTap: () async {
-                            final selectedIndex = controller.selectedIndex.value;
-                            final customerDetails = washStatusController.getCustomerData.value?.data?.customerDetails;
-                            final profileCarNumber = customerDetails?.carNumber?.trim() ?? '';
-                            final enteredCarNumber = controller.carNumberController.text.trim();
-
-                            String carNumberToUse = '';
-
-                            if (selectedIndex == 2) {
-                              if (profileCarNumber.isNotEmpty) {
-                                carNumberToUse = profileCarNumber;
-                              } else {
-                                if (enteredCarNumber.isEmpty) {
-                                appSnackBar(message: StringConstant.kPleaseEnterYourCarNumber.tr);
-                                  return;
-                                }
-                                carNumberToUse = enteredCarNumber;
-                              }
-                            } else {
-                              carNumberToUse = controller.carNumberController.text.trim();
-                            }
-                            ;
-
-                            Get.offNamed(
-                              RouteStrings.enterCardDetailScreen,
-                              arguments: {
-                                'subscriptionIndex': controller.selectedIndex.toString(),
-                                'carNumber': carNumberToUse,
-                                'source': 'SubscriptionScreen',
-                                'customerId': customerDetails?.id ?? 0,
-                              },
-                            );
-
-                          },*/

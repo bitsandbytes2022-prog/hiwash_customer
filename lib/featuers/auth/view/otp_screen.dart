@@ -142,14 +142,45 @@ class OtpScreen extends StatelessWidget {
 
                     final serverOtp = controller.sendOtpModel.value.data?.otp;
 
-                /*    if (enteredOtp == serverOtp) {
-                      await controller.getToken(phoneNumber).then((value) {
+                    if (enteredOtp == serverOtp) {
+                      await controller.getToken(phoneNumber).then((value) async {
                         if (value != null) {
-                          //Get.offAllNamed(RouteStrings.dashboardScreen);
+                          final token = LocalStorage().getToken();
+                          if (token != null && token.isNotEmpty) {
+
+                            WashStatusController washStatusController;
+                            if (!Get.isRegistered<WashStatusController>()) {
+                              washStatusController = Get.put(WashStatusController(), permanent: true);
+                            } else {
+                              washStatusController = Get.find<WashStatusController>();
+                            }
+
+                            await washStatusController.getCustomerDataById(
+                              value.data?.id ?? 0,
+                            );
+
+                            final customerData = washStatusController.getCustomerData.value?.data;
+                            final subscriptionId = customerData?.subscriptionDetails?.subscriptionId;
+                            final price = customerData?.subscriptionDetails?.price;
+
+                            if (subscriptionId != null && subscriptionId != 0 && price != null && price != 0) {
+                              Get.offAllNamed(RouteStrings.dashboardScreen);
+                            } else {
+                              Get.toNamed(RouteStrings.subscriptionScreen);
+                            }
+
+                          } else {
+                            print("Token not found after login.");
+                            appSnackBar(
+                              title: StringConstant.kLoginFailed.tr,
+                              message: StringConstant.kSomethingWentWrong.tr,
+                            );
+                          }
                         }
                       });
-                    }*/
-                    if (enteredOtp == serverOtp) {
+                    }
+
+                    /*  if (enteredOtp == serverOtp) {
                       await controller.getToken(phoneNumber).then((value) async {
                         if (value != null) {
                           final token = LocalStorage().getToken();
@@ -166,16 +197,16 @@ class OtpScreen extends StatelessWidget {
                             if (subscriptionId != null && subscriptionId != 0 && price != null && price != 0) {
                               Get.offAllNamed(RouteStrings.dashboardScreen);
                             } else {
-                              Get.toNamed(RouteStrings.subscribeMainScreen);
+                              Get.toNamed(RouteStrings.subscriptionScreen);
                             }
-                        /*    if (subscriptionId == null ||
+                        *//*    if (subscriptionId == null ||
                                 subscriptionId == 0 ||
                                 price == null ||
                                 price == 0) {
                               Get.toNamed(RouteStrings.subscribeMainScreen);
                             } else {
                               Get.offAllNamed(RouteStrings.dashboardScreen);
-                            }*/
+                            }*//*
                           } else {
                             print("Token not found after login.");
                             appSnackBar(title: StringConstant.kLoginFailed.tr, message: StringConstant.kSomethingWentWrong.tr);
@@ -183,7 +214,7 @@ class OtpScreen extends StatelessWidget {
                         }
                       });
 
-                    }
+                    }*/
                   else {
                       appSnackBar(
                         title: StringConstant.kInvalidOTP.tr,

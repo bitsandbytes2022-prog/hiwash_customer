@@ -78,8 +78,10 @@ class SubscriptionController extends GetxController {
   }
 
   getSubscription() {
-    WashStatusController washStatusController = Get.find();
-
+    WashStatusController washStatusController =
+    Get.isRegistered<WashStatusController>()
+        ? Get.find<WashStatusController>()
+        : Get.put(WashStatusController());
     loading = true;
     Repository()
         .getSubscription()
@@ -146,7 +148,7 @@ class SubscriptionController extends GetxController {
     currentLatLng.value = LatLng(pos.latitude, pos.longitude);
   }
 
-  Future<void> paymentMethod(String carNumber, String subscriptionId) async {
+  Future<void> paymentMethod(String carNumber, String   subscriptionId) async {
     Map<String, dynamic> params = {
       "carNumber": carNumber,
       "subscriptionId": subscriptionId,

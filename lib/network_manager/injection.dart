@@ -67,12 +67,23 @@ Dio getDio() {
           e.response?.data ?? "",
         );
         print("999----->${e.message}");
-        if (e.response?.statusCode == 400) {
+      /*  if (e.response?.statusCode == 400) {
           appSnackBar(
             message:
             e.response?.data["error"]["message"] ??
                 StringConstant.kSomethingWentWrong.tr.toString(),
           );
+        }*/
+        final skipSnackbar = e.requestOptions.extra['skipErrorSnackbar'] == true;
+        if (e.response?.statusCode == 400) {
+          if(!skipSnackbar){
+            appSnackBar(
+              message:
+              e.response?.data["error"]["message"] ??
+                  StringConstant.kSomethingWentWrong.tr.toString(),
+            );
+          }
+
         }
          else if (e.response?.statusCode == 401) {
         /*  appSnackBar(

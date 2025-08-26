@@ -350,4 +350,40 @@ class Repository {
     );
     return RateOfferModel.fromJson(response);
   }
+
+  Future<dynamic> validateWashQrRepo(Object requestBody) async {
+    try {
+      final response = await dioHelper.postVerify(
+        url: ApiConstant.validateWashQr,
+        requestBody: requestBody,
+        isAuthRequired: true,
+        skipErrorSnackbar: true,
+      );
+      print("validateWashQr success: $response");
+      return response;
+    } catch (e) {
+      print("validateWashQr failed: $e");
+
+      return {
+        "success": false,
+        "error": {"code": 500, "message": e.toString()}
+      };
+    }
+  }
+
+/*  Future<dynamic> validateWashQrRepo(Object requestBody) async {
+    try {
+      final response = await dioHelper.postVerify(
+          url: ApiConstant.validateWashQr,
+          requestBody: requestBody,
+          isAuthRequired: true,
+          skipErrorSnackbar: true
+      );
+      print("validateWashQr success: $response");
+      return response;
+    } catch (e) {
+      print("validateWashQr failed: $e");
+    }
+  }*/
+
 }

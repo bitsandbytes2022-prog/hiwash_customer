@@ -17,6 +17,152 @@ import '../controller/subscription_controller.dart';
 
 class OfferCardWidget extends StatelessWidget {
   EdgeInsets? padding;
+  VoidCallback? onTapOne;
+  VoidCallback? onTapTwo;
+  VoidCallback? onTapThree;
+
+  OfferCardWidget({
+    super.key,
+    this.padding,
+    this.onTapOne,
+    this.onTapTwo,
+    this.onTapThree,
+  });
+
+  RewardController rewardController = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: padding,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: onTapOne,
+              child: Container(
+                height: 128,
+                child: Transform.rotate(
+                  angle: -10 * 3.14 / 180,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColor.c000000.withOpacity(0.15),
+                          blurRadius: 15,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        rewardController.getOfferCategoriesModel.value?.data?[0].image ?? '',
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            rewardController.images[0],
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          15.widthSizeBox,
+
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: onTapTwo,
+              child: Transform.translate(
+                offset: Offset(0, -14),
+                child: Container(
+                  height: 180,
+                  margin: EdgeInsets.only(bottom: 30),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColor.c000000.withOpacity(0.15),
+                        blurRadius: 15,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      rewardController.getOfferCategoriesModel.value?.data?[1].image ?? '',
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          rewardController.images[1],
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          15.widthSizeBox,
+
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: onTapThree,
+              child: Container(
+                height: 128,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColor.c000000.withOpacity(0.15),
+                      blurRadius: 15,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Transform.rotate(
+                  angle: 10 * 3.14 / 180,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      rewardController.getOfferCategoriesModel.value?.data?[2].image ?? '',
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          rewardController.images[2],
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+/*
+class OfferCardWidget extends StatelessWidget {
+  EdgeInsets? padding;
   VoidCallback?onTapOne;
   VoidCallback?onTapTwo;
   VoidCallback?onTapThree;
@@ -92,38 +238,40 @@ class OfferCardWidget extends StatelessWidget {
 
               offset: Offset(0, -14),
 
-              child: Container(
-                padding: EdgeInsets.only(bottom: 10),
-                height: 150,
-                width: 105,
-
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.c000000.withOpacity(0.15),
-                      spreadRadius: 0,
-                      blurRadius: 15,
-                      offset: Offset(0, 5),
+              child: Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(bottom: 10),
+                  height: 150,
+                 // width: 105,
+                
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColor.c000000.withOpacity(0.15),
+                        spreadRadius: 0,
+                        blurRadius: 15,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      rewardController
+                          .getOfferCategoriesModel
+                          .value
+                          ?.data?[1]
+                          .image ??
+                          '',
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          rewardController.images[1],
+                          fit: BoxFit.cover,
+                        );
+                      },
                     ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    rewardController
-                        .getOfferCategoriesModel
-                        .value
-                        ?.data?[1]
-                        .image ??
-                        '',
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Image.asset(
-                        rewardController.images[1],
-                        fit: BoxFit.cover,
-                      );
-                    },
                   ),
                 ),
               ),
@@ -177,164 +325,5 @@ class OfferCardWidget extends StatelessWidget {
     );
   }
 }
-/*
-class OfferCardWidget extends StatelessWidget {
-  EdgeInsets? padding;
-  VoidCallback?onTapOne;
-  VoidCallback?onTapTwo;
-  VoidCallback?onTapThree;
-
-  OfferCardWidget({super.key, this.padding,this.onTapOne,this.onTapTwo,this.onTapThree});
-
-  RewardController rewardController = Get.find();
-
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Container(
-      padding: padding,
-
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: onTapOne,
-            child: Column(
-              children: [
-                Container(
-                  height: 128,
-                  width: 100,
-                  child: Transform.rotate(
-                    angle: -10 * 3.14 / 180,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColor.c000000.withOpacity(0.15),
-                            spreadRadius: 0,
-                            blurRadius: 15,
-                            offset: Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          rewardController
-                                  .getOfferCategoriesModel
-                                  .value
-                                  ?.data?[0]
-                                  .image ??
-                              '',
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Image.asset(
-                              rewardController.images[0],
-                              fit: BoxFit.cover,
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-              ],
-            ),
-          ),
-          10.widthSizeBox,
-          GestureDetector(
-            onTap: onTapTwo,
-            child: Transform.rotate(
-              angle: 10 * 3.14 / 180,
-
-              child: Container(
-                height: 128,
-                width: 100,
-                margin: EdgeInsets.only(left: 20),
-
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.c000000.withOpacity(0.15),
-                      spreadRadius: 0,
-                      blurRadius: 15,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    rewardController
-                            .getOfferCategoriesModel
-                            .value
-                            ?.data?[1]
-                            .image ??
-                        '',
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Image.asset(
-                        rewardController.images[1],
-                        fit: BoxFit.cover,
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
-          20.widthSizeBox,
-          Expanded(
-            child: GestureDetector(
-              onTap: onTapThree,
-              child: Container(
-                height: 128,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.c000000.withOpacity(0.15),
-                      spreadRadius: 0,
-                      blurRadius: 15,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Transform.rotate(
-                  angle: 10 * 3.14 / 180,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      rewardController
-                              .getOfferCategoriesModel
-                              .value
-                              ?.data?[2]
-                              .image ??
-                          '',
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          rewardController.images[2],
-                          fit: BoxFit.cover,
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-
-        ],
-      ),
-    );
-  }
-}
 */
+

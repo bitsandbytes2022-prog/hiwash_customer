@@ -32,6 +32,8 @@ class HiWashTextField extends StatefulWidget {
   final Color? fillColor;
   final String? initialValue;
 
+
+
   const HiWashTextField({
     super.key,
     this.labelText,
@@ -131,6 +133,7 @@ class _HiWashTextFieldState extends State<HiWashTextField> {
         suffixIcon: widget.suffixIcon,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         contentPadding: widget.padding,
+        counterText: "",
 
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
@@ -161,7 +164,7 @@ class _HiWashTextFieldState extends State<HiWashTextField> {
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: isReadOnly ? AppColor.c2C2A2A.withOpacity(0.2) : Colors.blue,
+            color: isReadOnly ? AppColor.c2C2A2A.withOpacity(0.2) : AppColor.blue,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(28),

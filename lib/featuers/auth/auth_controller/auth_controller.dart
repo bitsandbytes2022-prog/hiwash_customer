@@ -16,6 +16,7 @@ import 'package:hiwash_customer/widgets/components/app_snack_bar.dart';
 
 import '../../../network_manager/local_storage.dart';
 import '../../../network_manager/repository.dart';
+import '../../wash_status/controller/wash_status_controller.dart';
 import '../model/get_token_model.dart';
 import '../model/google_sign_in_model.dart';
 import '../model/send_otp_model.dart';
@@ -167,7 +168,7 @@ class AuthController extends GetxController {
   String? validatePhoneNumberLogin(String? value) {
     if (value != null && value.isNotEmpty) {
       value = value.trim();
-      if (!RegExp(r'^\d{8,15}$').hasMatch(value)) {
+      if (!RegExp(r'^\d{8}$').hasMatch(value)) {
         return StringConstant.kPleaseEnterYourPhoneNumber.tr;
       }
     } else {
@@ -418,6 +419,9 @@ class AuthController extends GetxController {
     isLoggedIn.value = false;
     Get.offAllNamed(RouteStrings.welcomeScreen);
     // await FirebaseAuth.instance.signOut();
+    if (Get.isRegistered<WashStatusController>()) {
+      Get.delete<WashStatusController>();
+    }
     await GoogleSignIn().signOut();
   }
 }

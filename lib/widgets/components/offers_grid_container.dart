@@ -49,7 +49,9 @@ class OffersGridContainer extends StatelessWidget {
                   expiryDateStr: offer.expiryDate ?? '',
                 ),
               ),
-              if (offer.totalQty != null && offer.totalQty! > 1)
+              if (offer.maxQtyPerCustomer != null &&
+                  offer.maxQtyPerCustomer! > 0 &&
+                  (offer.maxQtyPerCustomer! - (offer.redeemedByCustomer ?? 0)) > 0)
                 Container(
                   margin: EdgeInsets.only(top: 3),
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),

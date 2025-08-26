@@ -75,6 +75,8 @@ class RewardScreen extends StatelessWidget {
                             // || offer.isUsed == 1,
                         child: GestureDetector(
                           onTap: () async {
+                            final id = offer.id!;
+                            rewardController.setCurrentOfferId(id);
                             await rewardController.getOffersById(offer.id!);
                             await  showModalBottomSheet(
                               context: Get.context!,
@@ -90,7 +92,10 @@ class RewardScreen extends StatelessWidget {
                                   child: OfferDetailBottomSheet(),
                                 );
                               },
-                            );
+                            ).whenComplete((){
+                              rewardController.clearCurrentOfferId();
+
+                            });
                             await   rewardController.getAllOffers();
                           },
                           child: OffersGridContainer(offer: offer),
@@ -172,7 +177,7 @@ class RewardScreen extends StatelessWidget {
                     },
                   ).whenComplete(() {
                     final rewardController = Get.find<RewardController>();
-                    rewardController.sortByText.value = StringConstant.kSortByExpiry.tr;
+                    rewardController.sortByText.value = StringConstant.kSortByExpiry;
                     rewardController.isAscending.value = true;
                     rewardController.applySortingToCurrentData();
                     rewardController.clearCategoryFilter();

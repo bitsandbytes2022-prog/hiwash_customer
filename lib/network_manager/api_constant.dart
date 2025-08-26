@@ -38,6 +38,8 @@ class ApiConstant {
   static getOffersByFilter(int id) => "$baseUrl/offer?filterType=$id";
 
   static const rateOffer = "$baseUrl/offer/rating";
+  static const validateWashQr="$baseUrl/worker/validate-wash-qr";
+
 
 
 

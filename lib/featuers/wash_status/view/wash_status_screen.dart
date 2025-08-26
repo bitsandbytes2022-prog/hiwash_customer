@@ -27,7 +27,7 @@ import '../model/wash_summry.dart';
 class WashStatusScreen extends StatelessWidget {
   WashStatusScreen({super.key});
 
-  final WashStatusController controller = Get.put(WashStatusController(), tag: 'WASH_SCREEN');
+  final WashStatusController controller =Get.find();
 
 
   DashboardController dashboardController =
@@ -82,11 +82,8 @@ class WashStatusScreen extends StatelessWidget {
                                                     ?.subscriptionId ==
                                                 1
                                             ? Text(
-                                              "${controller.washSummaryModel.value?.data?.summary?.totalWashes ?? ""}",
-                                              style: w700_27a(
-                                                color: AppColor.white,
-                                              ),
-                                            )
+                                          "${controller.washSummaryModel.value?.data?.summary?.totalWashes ?? ""}",
+                                          style: w700_27a(color: AppColor.white,),)
                                             : (controller
                                                     .getCustomerData
                                                     .value
@@ -151,8 +148,7 @@ class WashStatusScreen extends StatelessWidget {
                                                       .value
                                                       ?.data
                                                       ?.subscriptionDetails
-                                                      ?.subscriptionId ==
-                                                  2)
+                                                      ?.subscriptionId == 2)
                                               ? Icon(
                                                 CupertinoIcons.infinite,
                                                 color: Colors.white,
@@ -233,63 +229,6 @@ class WashStatusScreen extends StatelessWidget {
                             },
                           );
                         })
-
-                        /*  (controller
-                                    .washSummaryModel
-                                    .value
-                                    ?.data
-                                    ?.completedWash
-                                    ?.isEmpty ??
-                                true)
-                            ? Container(
-                              alignment: Alignment.center,
-                              child: Text(""),
-                            )
-                            : ListView.separated(
-                              padding: EdgeInsets.only(top: 0, bottom: 150),
-                              physics: NeverScrollableScrollPhysics(),
-                              separatorBuilder:
-                                  (context, index) => 14.heightSizeBox,
-                              shrinkWrap: true,
-                              itemCount:
-                                  controller
-                                      .washSummaryModel
-                                      .value!
-                                      .data!
-                                      .completedWash!
-                                      .length,
-                              itemBuilder: (context, index) {
-                                return servicesContainer(index, () {
-                                  print("index complete wash====${index}");
-                                  showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AppDialog(
-                                        padding: EdgeInsets.zero,
-                                        bottomVisible: true,
-
-                                        remainingTextBottom:
-                                            controller
-                                                .washSummaryModel
-                                                .value
-                                                ?.data
-                                                ?.summary
-                                                ?.remainingWashes ??
-                                            '',
-                                        child: successDialog(
-                                          controller
-                                              .washSummaryModel
-                                              .value!
-                                              .data!
-                                              .completedWash![index],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                });
-                              },
-                            ),*/
                       ],
                     ),
                   ),
@@ -558,8 +497,8 @@ class WashStatusScreen extends StatelessWidget {
   String _formatTime(String? timeStr) {
     if (timeStr == null || timeStr.isEmpty) return '';
     try {
-      final inputFormat = DateFormat("HH:mm"); // 24-hour format
-      final outputFormat = DateFormat("hh:mm a"); // AM/PM format
+      final inputFormat = DateFormat("HH:mm");
+      final outputFormat = DateFormat("hh:mm a");
       final dateTime = inputFormat.parse(timeStr);
       return outputFormat.format(dateTime);
     } catch (e) {
@@ -653,22 +592,6 @@ class WashStatusScreen extends StatelessWidget {
                       ],
                     ),
 
-                  /*      Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ImageView(
-                        path: Assets.iconsIcPlaceMarker,
-                        height: 18,
-                        width: 18,
-                      ),
-
-                      Text(
-                        washData?.address ?? '',
-                        style: w400_10p(color: AppColor.c455A64),
-                      ),
-                    ],
-                  ),*/
                 ],
               ),
             ),
@@ -802,10 +725,8 @@ class WashStatusScreen extends StatelessWidget {
 
               GestureDetector(
                 onTap: () {
-                  final comment =
-                      dashboardController.commentController.text.trim();
-                  final ratingString =
-                      dashboardController.userRating.toString();
+                  final comment = dashboardController.commentController.text.trim();
+                  final ratingString = dashboardController.userRating.toString();
 
                   dashboardController
                       .getRating(
@@ -847,7 +768,6 @@ class WashStatusScreen extends StatelessWidget {
           ),
         ),
 
-        // Bottom profile section stays same
         Container(
           decoration: BoxDecoration(
             color: AppColor.cF6F7FF,

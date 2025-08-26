@@ -33,6 +33,14 @@ TextStyle w400_10p({Color? color = AppColor.c455A64}) {
   );
 }
 
+TextStyle w400_6p({Color? color = AppColor.c455A64}) {
+  return TextStyle(
+    fontSize: 6,
+    fontWeight: FontWeight.w400,
+    color: color,
+    fontFamily: fontName,
+  );
+}
 TextStyle w400_8p({Color? color = AppColor.c455A64}) {
   return TextStyle(
     fontSize: 8,

@@ -13,10 +13,9 @@ class RewardController extends GetxController {
   final RxBool isVisible = false.obs;
   RxString selectedCategory = ''.obs;
   final RxBool isLoading = false.obs;
-  final List<String> sortingList = [
-    StringConstant.kAscending.tr,
-    StringConstant.kDescending.tr,
-  ];
+  var isFilterDropdownOpen = false.obs;
+  var isSortDropdownOpen = false.obs;
+  RxInt currentOfferId = 0.obs;
 
   RxInt selectedSortingIndex = 0.obs;
 
@@ -86,7 +85,7 @@ class RewardController extends GetxController {
   }
   RxBool isAscending = true.obs;
  // RxString sortByText = StringConstant.kSortByExpiry.tr.obs;
-  RxString sortByText = StringConstant.kSortByExpiry.obs;
+  RxString sortByText = StringConstant.kSortByExpiry.tr.obs;
 
 
   void applySortingToCurrentData() {
@@ -238,7 +237,6 @@ class RewardController extends GetxController {
       offerResponseModel.value = await Repository().getAllOffer();
       return offerResponseModel.value;
     } catch (error) {
-      //loading.value = false;
       print("Error fetching Offers Get All: $error");
     }finally{
       loading.value = false;
@@ -247,19 +245,31 @@ class RewardController extends GetxController {
   }
 
   Future<GetOffersByIdModel?> getOffersById(int id) async {
+    currentOfferId.value = id;
     try {
       showLoader();
       getOffersByIdModel.value = await Repository().getOfferById(id);
 
-      getOffersByIdModel.value;
-      hideLoader();
+    return  getOffersByIdModel.value;
+
     } catch (error) {
       hideLoader();
       print("Error fetching Offers by Di: $error");
+    }finally{
+      hideLoader();
     }
     return null;
   }
 
+  void setCurrentOfferId(int id) {
+    currentOfferId.value = id;
+    print("Saved Offer ID: $id");
+  }
+
+  void clearCurrentOfferId() {
+    print("Clearing Offer ID: ${currentOfferId.value}");
+    currentOfferId.value = 0;
+  }
   Future<GetOfferCategoriesModel?> getOfferCategoriesMethod() async {
     try {
       getOfferCategoriesModel.value = await Repository().getOfferCategories();

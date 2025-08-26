@@ -143,20 +143,22 @@ class SignUpScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           gender(
-                            genderText: 'Female',
-                            isSelected: authController.selectedGender.value == 'F',
-                            onTap: () => authController.selectedGender.value = 'F',
-                          ),
-                          gender(
                             genderText: 'Male',
                             isSelected: authController.selectedGender.value == 'M',
                             onTap: () => authController.selectedGender.value = 'M',
                           ),
                           gender(
+
+                            genderText: 'Female',
+                            isSelected: authController.selectedGender.value == 'F',
+                            onTap: () => authController.selectedGender.value = 'F',
+                          ),
+
+                      /*    gender(
                             genderText: 'Other',
                             isSelected: authController.selectedGender.value == 'O',
                             onTap: () => authController.selectedGender.value = 'O',
-                          ),
+                          ),*/
                         ],
                       );
                     }),
